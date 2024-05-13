@@ -135,37 +135,40 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\model\admin.cs">
+    <Compile Include="Models\entities\admin.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\model\category.cs">
+    <Compile Include="Models\entities\category.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\model\contact.cs">
+    <Compile Include="Models\entities\contact.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\model\GiveAID.Context.cs">
+    <Compile Include="Models\entities\GiveAID.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GiveAID.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\model\GiveAID.cs">
+    <Compile Include="Models\entities\GiveAID.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\model\GiveAID.Designer.cs">
+    <Compile Include="Models\entities\GiveAID.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GiveAID.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\model\payment.cs">
+    <Compile Include="Models\entities\payment.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\model\post.cs">
+    <Compile Include="Models\entities\post.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\model\user.cs">
+    <Compile Include="Models\entities\sysdiagram.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\entities\user.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2112,12 +2115,12 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\model\GiveAID.Context.tt">
+    <Content Include="Models\entities\GiveAID.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GiveAID.Context.cs</LastGenOutput>
       <DependentUpon>GiveAID.edmx</DependentUpon>
+      <LastGenOutput>GiveAID.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\model\GiveAID.tt">
+    <Content Include="Models\entities\GiveAID.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>GiveAID.edmx</DependentUpon>
       <LastGenOutput>GiveAID.cs</LastGenOutput>
@@ -2128,6 +2131,13 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\entities\GiveAID.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GiveAID.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\entities\GiveAID.edmx.diagram">
+      <DependentUpon>GiveAID.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
