@@ -47,5 +47,11 @@ namespace GiveAID.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
+        public ActionResult LogOut()
+        {
+           
+            return RedirectToAction("Index", "Login");
+        }
+
     }
 }
