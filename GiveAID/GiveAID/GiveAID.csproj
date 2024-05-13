@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -120,9 +128,44 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\admin.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\category.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\contact.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\GiveAID.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GiveAID.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\GiveAID.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\GiveAID.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GiveAID.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\payment.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\post.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\user.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -146,12 +189,29 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\model\GiveAID.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GiveAID.Context.cs</LastGenOutput>
+      <DependentUpon>GiveAID.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\model\GiveAID.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GiveAID.edmx</DependentUpon>
+      <LastGenOutput>GiveAID.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\model\GiveAID.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GiveAID.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\model\GiveAID.edmx.diagram">
+      <DependentUpon>GiveAID.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -180,7 +240,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Models\repositories\" />
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -208,6 +270,9 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
