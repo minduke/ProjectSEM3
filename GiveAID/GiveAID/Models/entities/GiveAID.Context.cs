@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GiveAID.Models.model
+namespace GiveAID.Models.entities
 {
     using System;
     using System.Data.Entity;
@@ -30,6 +30,7 @@ namespace GiveAID.Models.model
         public virtual DbSet<contact> contacts { get; set; }
         public virtual DbSet<payment> payments { get; set; }
         public virtual DbSet<post> posts { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<user> users { get; set; }
     }
 }

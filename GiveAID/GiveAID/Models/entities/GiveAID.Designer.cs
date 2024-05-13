@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\github\ProjectSEM3\GiveAID\GiveAID\Models\model\GiveAID.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\github\minduke\ProjectSEM3\GiveAID\GiveAID\Models\entities\GiveAID.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
