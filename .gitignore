@@ -2,6 +2,9 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/GiveAID/.vs/GiveAID
+
 /GiveAID/GiveAID/bin
-/GiveAID/GiveAID/obj/Debug
+/GiveAID/GiveAID/obj
+
+/.vs
+/GiveAID/.vs/GiveAID
