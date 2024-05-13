@@ -14,7 +14,7 @@
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Tạo Tài Khoản</p>
 
-                <form action="javascript:doRegister();" method="post" id="formRegister">
+                <form action="@Url.Action("Register", "Login")" method="post" id="formRegister">
                     @* nhập tên người dùng  *@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="HoVaTen" id="HoVaTen" placeholder="Họ và tên">
@@ -26,7 +26,7 @@
                     </div>
                     @* nhập tài khoản *@
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="TenDangNhap" id="TenDangNhap" placeholder="Tài khoản">
+                        <input type="text" class="form-control" name="username" id="TenDangNhap" placeholder="Tài khoản">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -44,7 +44,7 @@
                     </div>
                     @* Nhập mật khẩu *@
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="MatKhau" id="MatKhau" placeholder="Mật khẩu">
+                        <input type="password" class="form-control" name="password" id="MatKhau" placeholder="Mật khẩu">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -60,7 +60,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-4">
                             <div class="icheck-primary">

@@ -25,10 +25,11 @@ namespace GiveAID.Models.entities
         public string password { get; set; }
         public string fullname { get; set; }
         public string image { get; set; }
-        public string job { get; set; }
         public string phone { get; set; }
         public string email { get; set; }
         public string permission { get; set; }
+        public string gender { get; set; }
+        public string address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<payment> payments { get; set; }
