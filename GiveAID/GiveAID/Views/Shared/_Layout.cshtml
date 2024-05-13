@@ -1,39 +1,71 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Dashboard</title>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="@Url.Content("~/content/plugins/fontawesome-free/css/all.min.css")">
+
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="" @Url.Content("~/content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") ">
+    <!-- iCheck -->
+    <link rel="stylesheet" href=" " @Url.Content("~/content/plugins/icheck-bootstrap/icheck-bootstrap.min.css") ">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href=" @Url.Content("~/content/plugins/jqvmap/jqvmap.min.css")">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="  @Url.Content("~/content/dist/css/adminlte.min.css")">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="@Url.Content("~/content/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="@Url.Content("~/content/plugins/daterangepicker/daterangepicker.css")">
+    <!-- summernote -->
+    <link rel="stylesheet" href="@Url.Content("~/content/plugins/summernote/summernote-bs4.min.css")">
+
+    <!-- jQuery -->
+    <script src="  @Url.Content("~/content/plugins/jquery/jquery.min.js")"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src=" @Url.Content("~/content/plugins/jquery-ui/jquery-ui.min.js")"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src=" @Url.Content("~/content/plugins/bootstrap/js/bootstrap.bundle.min.js")"></script>
+    <!-- ChartJS -->
+    <script src=" @Url.Content("~/content/plugins/chart.js/Chart.min.js")"></script>
+    <!-- Sparkline -->
+    <script src="@Url.Content("~/content/plugins/sparklines/sparkline.js")"></script>
+    <!-- JQVMap -->
+    <script src=" @Url.Content("~/content/plugins/jqvmap/jquery.vmap.min.js")"></script>
+    <script src="@Url.Content("~/content/plugins/jqvmap/maps/jquery.vmap.usa.js")"></script>
+    <!-- jQuery Knob Chart -->
+    <script src=" @Url.Content("~/content/plugins/jquery-knob/jquery.knob.min.js")"></script>
+    <!-- daterangepicker -->
+  
+    <script src=" @Url.Content("~/content/plugins/moment/moment.min.js")"></script>
+    <script src="@Url.Content("~/content/plugins/daterangepicker/daterangepicker.js")"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src=" @Url.Content("~/content/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js")"></script>
+    <!-- Summernote -->
+    <script src="@Url.Content("~/content/plugins/summernote/summernote-bs4.min.js")"></script>
+    <!-- overlayScrollbars -->
+    <script src=" @Url.Content("~/content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")"></script>
+    <!-- AdminLTE App -->
+    <script src=" @Url.Content("~/content/dist/js/adminlte.js")"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/content/dist/js/demo.js")"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="@Url.Content("~/content/dist/js/pages/dashboard.js")"></script>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <h1>Giao diện</h1>
+ @RenderBody()
+
 </body>
 </html>
