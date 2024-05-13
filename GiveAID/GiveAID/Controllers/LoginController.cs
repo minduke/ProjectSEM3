@@ -18,6 +18,7 @@ namespace GiveAID.Controllers
         }
         public ActionResult CreateAcc() { return View(); }
 
+
         [HttpPost]
         public ActionResult Login(string username, string password)
         {
@@ -45,5 +46,6 @@ namespace GiveAID.Controllers
             }
             return RedirectToAction("Index", "Admin");
         }
+
     }
 }

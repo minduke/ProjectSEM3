@@ -13,5 +13,12 @@ namespace GiveAID.Controllers
         {
             return View();
         }
+
+        public ActionResult CreateNews()
+        { 
+            return View();
+        }
+
     }
+
 }

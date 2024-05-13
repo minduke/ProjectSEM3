@@ -2168,6 +2168,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\CreateAcc.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\CreateNews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
