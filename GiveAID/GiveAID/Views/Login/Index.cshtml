@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="login-box">
+    <div class="login-logo">
+        <a href="#"><b>Give</b>-AID</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Đăng Nhập</p>
+
+            <!--Load GIF-->
+            <div class="modalLoading"></div>
+
+
+            <form action="javascript:doLogin();" method="post" id="formLogin">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="TenDangNhap" id="username" placeholder="Tài khoản">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" name="MatKhau" id="pass" placeholder="Mật khẩu">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <p class="mb-1">
+                            <a href="@Url.Action("ForgotPass","Login")">
+                                Tự nhiên quên ngang
+                            </a>
+                        </p>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <!-- /.social-auth-links -->
+
+
+
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
