@@ -6,89 +6,91 @@
 
 
 <div class="content-wrapper">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper kanban">
 
-
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0"> Top Navigation <small>Example 3.0</small></h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                     
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <div class="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h1>Kanban Board</h1>
+                            </div>
+                            <div class="col-sm-6 d-none d-sm-block">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active">Kanban Board</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
+                </section>
 
-                    <div class="card card-primary card-outline">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
+                <section class="content pb-3">
+                    <div class="container-fluid h-100">
+                        <div class="card card-row card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    To Do
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Create first milestone</h5>
+                                        <div class="card-tools">
+                                            <button onclick="showSuccessMessage('Nhấn em nè')">Hiển thị thông báo thành công</button>
+                                            <button onclick="showErrorMessage('Chạm em eiii!!!')">Hiển thị thông báo lỗi</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
+                        <div class="card card-row card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    To Do
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Create first milestone</h5>
+                                        <div class="card-tools">
+                                            <a href="#" class="btn btn-tool btn-link">#5</a>
+                                            <a href="#" class="btn btn-tool">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div><!-- /.card -->
-                </div>
-                <!-- /.col-md-6 -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title m-0">Featured</h5>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-title">Special title treatment</h6>
 
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div class="card card-row card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    To Do
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Create first milestone</h5>
+                                        <div class="card-tools">
+                                            <a href="#" class="btn btn-tool btn-link">#5</a>
+                                            <a href="#" class="btn btn-tool">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h5 class="card-title m-0">Featured</h5>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-title">Special title treatment</h6>
-
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-md-6 -->
+                       
+                </section>
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
-
+       
+        <!-- ./wrapper -->
+   
 </div>
-<!-- ./wrapper -->
