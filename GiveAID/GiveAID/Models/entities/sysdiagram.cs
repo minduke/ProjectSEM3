@@ -7,20 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GiveAID.Models.model
+namespace GiveAID.Models.entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class contact
+    public partial class sysdiagram
     {
-        public int id { get; set; }
-        public string phone { get; set; }
-        public string email { get; set; }
-        public string address { get; set; }
-        public string mission { get; set; }
-        public string content { get; set; }
-        public string achievement { get; set; }
-        public string image { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -7,23 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GiveAID.Models.model
+namespace GiveAID.Models.entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class category
+    public partial class user
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public category()
+        public user()
         {
-            this.posts = new HashSet<post>();
+            this.payments = new HashSet<payment>();
         }
     
-        public int cate_id { get; set; }
-        public string name { get; set; }
+        public int id { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string fullname { get; set; }
+        public string image { get; set; }
+        public string job { get; set; }
+        public string phone { get; set; }
+        public string email { get; set; }
+        public string permission { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<post> posts { get; set; }
+        public virtual ICollection<payment> payments { get; set; }
     }
 }

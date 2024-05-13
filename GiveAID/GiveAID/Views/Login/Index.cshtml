@@ -17,9 +17,9 @@
             <div class="modalLoading"></div>
 
 
-            <form action="javascript:doLogin();" method="post" id="formLogin">
+            <form action="@Url.Action("Login", "Login")" method="post" id="formLogin">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="TenDangNhap" id="username" placeholder="Tài khoản">
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Tài khoản">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" name="MatKhau" id="pass" placeholder="Mật khẩu">
+                    <input type="password" class="form-control" name="password" id="pass" placeholder="Mật khẩu">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>

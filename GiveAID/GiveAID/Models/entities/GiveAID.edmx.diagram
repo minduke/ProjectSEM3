@@ -4,12 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9f419d29b75349b289a31e62e5d66786" Name="Diagram1">
+      <Diagram DiagramId="45a991b3a3ed41c3a01fc367055fb4a5" Name="Diagram1">
         <EntityTypeShape EntityType="GiveAIDModel.admin" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GiveAIDModel.category" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GiveAIDModel.contact" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GiveAIDModel.payment" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="GiveAIDModel.post" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDModel.sysdiagram" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GiveAIDModel.user" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <AssociationConnector Association="GiveAIDModel.FK_cate_id" ManuallyRouted="false" />
         <AssociationConnector Association="GiveAIDModel.FK_post_id" ManuallyRouted="false" />

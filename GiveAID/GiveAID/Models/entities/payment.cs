@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GiveAID.Models.model
+namespace GiveAID.Models.entities
 {
     using System;
     using System.Collections.Generic;
