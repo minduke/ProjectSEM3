@@ -34,6 +34,7 @@ namespace GiveAID.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+        [HttpPost]
         public ActionResult Register(user user)
         {
             var s = en.users.FirstOrDefault(x => x.username == user.username || x.phone == user.username || x.email == user.username);
@@ -41,10 +42,11 @@ namespace GiveAID.Controllers
             {
                 string pass = EncryptDES(user.username, SecretKey);
                 user.password = pass;
+                user.permission = "user";
                 en.users.Add(user);
                 en.SaveChanges();
             }
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index", "Login");
         }
 
         public ActionResult LogOut()
