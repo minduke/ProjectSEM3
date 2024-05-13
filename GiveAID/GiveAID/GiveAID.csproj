@@ -190,6 +190,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\custom\customeCSS.css" />
+    <Content Include="Content\custom\customJS.js" />
     <Content Include="Content\dist\css\adminlte.css" />
     <Content Include="Content\dist\css\adminlte.min.css" />
     <Content Include="Content\dist\css\alt\adminlte.components.css" />
@@ -243,6 +245,9 @@
     <Content Include="Content\dist\js\pages\dashboard.js" />
     <Content Include="Content\dist\js\pages\dashboard2.js" />
     <Content Include="Content\dist\js\pages\dashboard3.js" />
+    <Content Include="Content\Images\2DV.gif" />
+    <Content Include="Content\Images\Xqg8.gif" />
+    <Content Include="Content\Images\YhSO.gif" />
     <Content Include="Content\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="Content\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
     <Content Include="Content\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
