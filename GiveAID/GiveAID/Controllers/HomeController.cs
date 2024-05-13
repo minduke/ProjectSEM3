@@ -9,7 +9,7 @@ namespace GiveAID.Controllers
 {
     public class HomeController : BaseController
     {
-        private static string SecretKey = "WuDuke2@";
+       
 
         GiveAIDEntities en = new GiveAIDEntities();
 

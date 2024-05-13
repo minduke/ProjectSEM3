@@ -11,6 +11,7 @@ namespace GiveAID.Controllers
 {
     public class BaseController : Controller
     {
+        public static string SecretKey = "WuDuke2@";
         public string EncryptDES(string originalString, string key)
         {
             if (String.IsNullOrEmpty(originalString))
