@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -120,10 +128,45 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\admin.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\category.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\contact.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\GiveAID.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GiveAID.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\GiveAID.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\GiveAID.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GiveAID.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\payment.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\post.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\model\user.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -2069,144 +2112,24 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\model\GiveAID.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GiveAID.Context.cs</LastGenOutput>
+      <DependentUpon>GiveAID.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\model\GiveAID.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GiveAID.edmx</DependentUpon>
+      <LastGenOutput>GiveAID.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\dist\css\adminlte.css.map" />
-    <Content Include="Content\dist\css\adminlte.min.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.components.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.components.min.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.core.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.core.min.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.extra-components.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.extra-components.min.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.light.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.light.min.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.pages.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.pages.min.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.plugins.css.map" />
-    <Content Include="Content\dist\css\alt\adminlte.plugins.min.css.map" />
-    <Content Include="Content\dist\js\.eslintrc.json" />
-    <Content Include="Content\dist\js\adminlte.js.map" />
-    <Content Include="Content\dist\js\adminlte.min.js.map" />
-    <Content Include="Content\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css.map" />
-    <Content Include="Content\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css.map" />
-    <Content Include="Content\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js.map" />
-    <Content Include="Content\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.min.js.map" />
-    <Content Include="Content\plugins\bootstrap\js\bootstrap.bundle.js.map" />
-    <Content Include="Content\plugins\bootstrap\js\bootstrap.bundle.min.js.map" />
-    <Content Include="Content\plugins\bootstrap\js\bootstrap.js.map" />
-    <Content Include="Content\plugins\bootstrap\js\bootstrap.min.js.map" />
-    <Content Include="Content\plugins\bs-custom-file-input\bs-custom-file-input.js.map" />
-    <Content Include="Content\plugins\bs-custom-file-input\bs-custom-file-input.min.js.map" />
-    <Content Include="Content\plugins\bs-stepper\css\bs-stepper.css.map" />
-    <Content Include="Content\plugins\bs-stepper\css\bs-stepper.min.css.map" />
-    <Content Include="Content\plugins\bs-stepper\js\bs-stepper.js.map" />
-    <Content Include="Content\plugins\bs-stepper\js\bs-stepper.min.js.map" />
-    <Content Include="Content\plugins\dropzone\dropzone.js.map" />
-    <Content Include="Content\plugins\ekko-lightbox\ekko-lightbox.js.map" />
-    <Content Include="Content\plugins\ekko-lightbox\ekko-lightbox.min.js.map" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-brands-400.eot" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-brands-400.ttf" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-brands-400.woff" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-brands-400.woff2" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-regular-400.eot" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-regular-400.ttf" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-regular-400.woff" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-regular-400.woff2" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-solid-900.eot" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-solid-900.ttf" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-solid-900.woff" />
-    <Content Include="Content\plugins\fontawesome-free\webfonts\fa-solid-900.woff2" />
-    <Content Include="Content\plugins\icheck-bootstrap\LICENSE" />
-    <Content Include="Content\plugins\ion-rangeslider\License.md" />
-    <Content Include="Content\plugins\jquery\jquery.min.map" />
-    <Content Include="Content\plugins\jquery\jquery.slim.min.map" />
-    <Content Include="Content\plugins\moment\locales.min.js.map" />
-    <Content Include="Content\plugins\moment\moment-with-locales.min.js.map" />
-    <Content Include="Content\plugins\moment\moment.min.js.map" />
-    <Content Include="Content\plugins\pdfmake\pdfmake.js.map" />
-    <Content Include="Content\plugins\pdfmake\pdfmake.min.js.map" />
-    <Content Include="Content\plugins\popper\esm\popper-utils.js.map" />
-    <Content Include="Content\plugins\popper\esm\popper-utils.min.js.map" />
-    <Content Include="Content\plugins\popper\esm\popper.js.map" />
-    <Content Include="Content\plugins\popper\esm\popper.min.js.map" />
-    <Content Include="Content\plugins\popper\popper-utils.js.map" />
-    <Content Include="Content\plugins\popper\popper-utils.min.js.map" />
-    <Content Include="Content\plugins\popper\popper.js.map" />
-    <Content Include="Content\plugins\popper\popper.min.js.map" />
-    <Content Include="Content\plugins\popper\umd\popper-utils.js.map" />
-    <Content Include="Content\plugins\popper\umd\popper-utils.min.js.map" />
-    <Content Include="Content\plugins\popper\umd\popper.js.flow" />
-    <Content Include="Content\plugins\popper\umd\popper.js.map" />
-    <Content Include="Content\plugins\popper\umd\popper.min.js.map" />
-    <Content Include="Content\plugins\summernote\font\summernote.eot" />
-    <Content Include="Content\plugins\summernote\font\summernote.hash" />
-    <Content Include="Content\plugins\summernote\font\summernote.ttf" />
-    <Content Include="Content\plugins\summernote\font\summernote.woff" />
-    <Content Include="Content\plugins\summernote\font\summernote.woff2" />
-    <Content Include="Content\plugins\summernote\lang\summernote-ar-AR.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-az-AZ.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-bg-BG.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-bn-BD.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-ca-ES.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-cs-CZ.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-da-DK.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-de-CH.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-de-DE.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-el-GR.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-en-US.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-es-ES.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-es-EU.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-fa-IR.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-fi-FI.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-fr-FR.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-gl-ES.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-he-IL.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-hr-HR.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-hu-HU.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-id-ID.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-it-IT.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-ja-JP.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-ko-KR.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-lt-LT.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-lt-LV.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-mn-MN.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-nb-NO.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-nl-NL.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-pl-PL.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-pt-BR.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-pt-PT.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-ro-RO.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-ru-RU.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-sk-SK.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-sl-SI.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-sr-RS-Latin.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-sr-RS.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-sv-SE.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-ta-IN.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-th-TH.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-tr-TR.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-uk-UA.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-uz-UZ.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-vi-VN.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-zh-CN.js.map" />
-    <Content Include="Content\plugins\summernote\lang\summernote-zh-TW.js.map" />
-    <Content Include="Content\plugins\summernote\summernote-bs4.css.map" />
-    <Content Include="Content\plugins\summernote\summernote-bs4.js.map" />
-    <Content Include="Content\plugins\summernote\summernote-bs4.min.js.map" />
-    <Content Include="Content\plugins\summernote\summernote-bs5.css.map" />
-    <Content Include="Content\plugins\summernote\summernote-bs5.js.map" />
-    <Content Include="Content\plugins\summernote\summernote-lite.css.map" />
-    <Content Include="Content\plugins\summernote\summernote-lite.js.map" />
-    <Content Include="Content\plugins\summernote\summernote-lite.min.js.map" />
-    <Content Include="Content\plugins\summernote\summernote.css.map" />
-    <Content Include="Content\plugins\summernote\summernote.js.map" />
-    <Content Include="Content\plugins\summernote\summernote.min.js.map" />
-    <Content Include="Content\plugins\toastr\toastr.js.map" />
+
+
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2239,7 +2162,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Models\repositories\" />
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -2267,6 +2192,9 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
