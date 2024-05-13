@@ -14,5 +14,11 @@ namespace GiveAID.Controllers
             return View();
         }
         public ActionResult CreateAcc() { return View(); }
+
+        public ActionResult LogOut()
+        {
+            
+            return RedirectToAction("Index", "Login");
+        }
     }
 }
