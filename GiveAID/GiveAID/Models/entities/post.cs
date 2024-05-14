@@ -24,7 +24,7 @@ namespace GiveAID.Models.entities
         public string title { get; set; }
         public string description { get; set; }
         public string content { get; set; }
-        public string image { get; set; }
+        public string image { get; set; } = "";
         public Nullable<System.DateTime> time_start { get; set; }
         public Nullable<System.DateTime> time_end { get; set; }
         public Nullable<decimal> target { get; set; }
