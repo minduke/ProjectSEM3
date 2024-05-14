@@ -4,6 +4,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    function doRegister() {
+        var json = getFormObj("formRegister");
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Register", "Login")',
+            data: json,
+            dataType: "json",
+            success: function (response) {
+                if (response.result == true) {
+                    var url = '@Url.Action("Index", "Login")';
+                    open(url, "_self");
+                }
+                else {
+                    showErrorMessage(response.error);
+                }
+            },
+            error: handleException
+        });
+    }
+</script>
+
 <div class="content-wrapper">
     <div class="register-box mx-auto">
         <div class="register-logo">
@@ -14,10 +37,10 @@
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Tạo Tài Khoản</p>
 
-                <form action="@Url.Action("Register", "Login")" method="post" id="formRegister">
+                <form action="javascript:doRegister();" method="post" id="formRegister">
                     @* nhập tên người dùng  *@
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="HoVaTen" id="HoVaTen" placeholder="Họ và tên">
+                        <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Họ và tên">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-file-signature"></span>
@@ -26,7 +49,7 @@
                     </div>
                     @* nhập tài khoản *@
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="username" id="TenDangNhap" placeholder="Tài khoản">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Tài khoản">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -35,7 +58,7 @@
                     </div>
                     @* nhập mail *@
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" name="Email" id="Email" placeholder="Email">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -44,7 +67,7 @@
                     </div>
                     @* Nhập mật khẩu *@
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="password" id="MatKhau" placeholder="Mật khẩu">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -53,7 +76,7 @@
                     </div>
                     @* nhập lại mật khẩu  *@
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Nhập lại mật khẩu">
+                        <input type="password" class="form-control" name="password2" placeholder="Nhập lại mật khẩu">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

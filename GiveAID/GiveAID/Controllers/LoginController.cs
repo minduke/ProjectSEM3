@@ -18,40 +18,62 @@ namespace GiveAID.Controllers
         }
         public ActionResult CreateAcc() { return View(); }
 
-
-        [HttpPost]
-        public ActionResult Login(string username, string password)
+        public class LoginModel
         {
-            var s = en.users.FirstOrDefault(x => x.username == username || x.phone == username || x.email == username);
-            if (s != null)
-            {
-                string a = DecryptDES(s.password, SecretKey);
-                if (password == a)
-                {
-                    return RedirectToAction("Index", "Admin");
-                }
-            }
-            return RedirectToAction("Index", "Login");
+            public string username {  get; set; }
+            public string password { get; set; }
         }
 
-        [HttpPost]
-        public ActionResult Register(user user)
+        public JsonResult Login(LoginModel model)
         {
-            var s = en.users.FirstOrDefault(x => x.username == user.username || x.phone == user.username || x.email == user.username);
-            if (s == null)
+            string username = model.username;
+            string password = model.password;
+
+            var user = en.users.FirstOrDefault(x => x.username == username || x.phone == username || x.email == username);
+
+            if (user == null)
+                return Json(new { result = false, error = "Tài khoản không tồn tại" });
+
+            string a = DecryptDES(user.password, SecretKey);
+
+            if (password != a)
+                return Json(new { result = false, error = "Sai mật khẩu" });
+
+            Session["USER"] = user;
+            return Json(new { result = true });
+        }
+
+        public JsonResult Register(user user)
+        {
+            try
             {
-                string pass = EncryptDES(user.username, SecretKey);
-                user.password = pass;
-                user.permission = "user";
-                en.users.Add(user);
-                en.SaveChanges();
+                string pass2 = Request.Form["password2"];
+                var CheckExists = en.users.FirstOrDefault(x => x.username == user.username || x.email == user.email);
+
+                if (CheckExists == null)
+                {
+                    if (pass2 != user.password)
+                        return Json(new { result = false, error = "Vui lòng kiểm tra lại mật khẩu" });
+                    string pass = EncryptDES(user.password, SecretKey);
+                    user.password = pass;
+                    en.users.Add(user);
+                    en.SaveChanges();
+                    return Json(new { result = true });
+                }
+                else
+                {
+                    return Json(new { result = false, error = "Tài khoản hoặc Email đã tồn tại" });
+                }
             }
-            return RedirectToAction("Index", "Login");
+            catch
+            {
+                return Json(new { result = false, error = "Lỗi không xác định" });
+            }
         }
 
         public ActionResult LogOut()
         {
-           
+            Session.Remove("USER");
             return RedirectToAction("Index", "Login");
         }
 

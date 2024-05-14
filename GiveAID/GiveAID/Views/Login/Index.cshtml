@@ -4,6 +4,29 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
+<script>
+    function doLogin() {
+        var json = getFormObj("formLogin");
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Login", "Login")',
+            data: json,
+            dataType: 'json',
+            success: function (response) {
+                if (response.result == true) {
+                    var url = '@Url.Action("Index", "Home")';
+                    open(url, "_self");
+                }
+                else {
+                    showErrorMessage(response.error);
+                }
+            },
+            error: handleException
+        });
+    }
+</script>
+
 <div class="login-box">
     <div class="login-logo">
         <a href="#"><b>Give</b>-AID</a>
@@ -17,7 +40,7 @@
             <div class="modalLoading"></div>
 
 
-            <form action="@Url.Action("Login", "Login")" method="post" id="formLogin">
+            <form action="javascript:doLogin();" method="post" id="formLogin">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" name="username" id="username" placeholder="Tài khoản">
                     <div class="input-group-append">
@@ -27,7 +50,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" name="password" id="pass" placeholder="Mật khẩu">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
