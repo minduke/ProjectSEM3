@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "CreateNews";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<GiveAID.Models.entities.category> categories = new List<GiveAID.Models.entities.category>();
+    if (ViewBag.category != null)
+    {
+        categories = ViewBag.category;
+    }
 }
 
 @section scripts{
@@ -18,6 +23,38 @@
                 $('#formTinTuc').submit();
             })
         })
+        var currentDate = new Date();
+        var day = currentDate.getDate();
+        var month = currentDate.getMonth() + 1; // Tháng bắt đầu từ 0, nên cần +1
+        var year = currentDate.getFullYear();
+
+        // Định dạng ngày tháng
+        var formattedDate = year + "-" + month + "-" + day;
+
+        document.getElementById("time_start").value = formattedDate;
+
+        function doSubmitNews() {
+            var form = document.getElementById("formTinTuc");
+            var formData = new FormData(form);
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SubmitNews", "Admin")',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.result == true) {
+                        var url = "@Url.Action("CreateNews", "Admin")";
+                        open(url, "_self");
+                        showSuccessMessage("Tạo mới thành công");
+                    } else {
+                        showErrorMessage(response.error);
+                    }
+                },
+                error: handleException
+            })
+        }
     </script>
 }
 
@@ -28,7 +65,7 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form id="formTinTuc" action="" method="post">
+    <form id="formTinTuc" action="javascript:doSubmitNews();" method="post" enctype="multipart/form-data">
         <div class="card-body mx-auto">
             <div class="form-group">
                 <label for="Tiêu Đề">Tiêu Đề</label>
@@ -37,15 +74,15 @@
 
             <div class="form-group">
                 <label for="description">Mô tả ngắn gọn</label>
-                <input type="number" class="form-control" id="description" name="description" placeholder="phần mô tả này được hiển thị bên dưới tiêu đề trên trang chính" required>
+                <input type="text" class="form-control" id="description" name="description" placeholder="phần mô tả này được hiển thị bên dưới tiêu đề trên trang chính" required>
             </div>
 
             <div class="form-group">
-                <label for="image">Hình ảnh liên quan</label>
-                <input type="text" class="form-control" id="image" name="image" required>
+                <label for="fileBase">Hình ảnh liên quan</label>
+                <input type="file" class="form-control" id="fileBase" name="fileBase" required>
             </div>
 
-            <input type="hidden" id="time_start" name="time_start" value="" />
+            <input type="text" id="time_start" name="time_start" value="" />
 
             @*<input type="hidden" name="TrangThai" value="Mở" />*@
 
@@ -60,13 +97,24 @@
             </div>
 
             <div>
-                <input type="hidden" name="MoTa" id="MoTa" />
+                <input type="hidden" name="content" id="MoTa" />
+            </div>
+
+            <div class="form-group">
+                <label>Lĩnh vực</label>
+                <select class="form-control" name="cate_id">
+                    @foreach (var item in categories)
+                    {
+                        <option value="@item.cate_id">@item.name</option>
+                    }
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="time_end">Ngày kết thúc quyên góp</label>
                 <input type="date" class="form-control" id="time_end" name="time_end" required>
             </div>
+
 
         </div>
         <!-- /.card-body -->
