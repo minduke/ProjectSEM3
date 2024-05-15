@@ -46,6 +46,28 @@
     .bottom-section {
         margin-top: 30px;
     }
+
+    /*Anh~ duoi card*/
+    .container {
+        position: relative;
+        text-align: center;
+    }
+
+    .Image-bot {
+        width: 1519px;
+        height: 300px;
+        filter: blur(20px); /* Độ mờ */
+    }
+
+    .text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: orangered;
+        font-size: 24px;
+        font-weight: bold;
+    }
 </style>
 
 <div class="content-wrapper kanban">
@@ -233,7 +255,7 @@
     <!--Day la anh tieu chi-->
 
     <div class="container">
-        <img src="@Url.Content("~/content/Images/YhSO.gif")" alt="Ảnh" class="image">
+        <img src="@Url.Content("~/content/Images/YhSO.gif")" alt="Ảnh" class="Image-bot">
         <div class="text">Nội dung chữ</div>
     </div>
 
