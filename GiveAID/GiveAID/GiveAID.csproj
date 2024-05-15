@@ -135,6 +135,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ErrorLog.cs" />
+    <Compile Include="Helpers\ExceptionHandlingAttributeMVC.cs" />
     <Compile Include="Models\entities\admin.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
