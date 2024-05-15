@@ -161,6 +161,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GiveAID.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\entities\image_post.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\entities\payment.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>

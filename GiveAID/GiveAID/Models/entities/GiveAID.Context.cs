@@ -32,5 +32,6 @@ namespace GiveAID.Models.entities
         public virtual DbSet<post> posts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<image_post> image_post { get; set; }
     }
 }

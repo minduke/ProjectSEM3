@@ -18,13 +18,14 @@ namespace GiveAID.Models.entities
         public post()
         {
             this.payments = new HashSet<payment>();
+            this.image_post = new HashSet<image_post>();
         }
     
         public int id { get; set; }
         public string title { get; set; }
         public string description { get; set; }
         public string content { get; set; }
-        public string image { get; set; } = "";
+        public string image { get; set; }
         public Nullable<System.DateTime> time_start { get; set; }
         public Nullable<System.DateTime> time_end { get; set; }
         public Nullable<decimal> target { get; set; }
@@ -33,5 +34,7 @@ namespace GiveAID.Models.entities
         public virtual category category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<payment> payments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<image_post> image_post { get; set; }
     }
 }
