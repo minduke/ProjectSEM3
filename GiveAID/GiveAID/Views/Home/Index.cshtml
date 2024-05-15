@@ -5,6 +5,8 @@
 }
 
 <style>
+
+    /*logo card*/
     .logo-overlay {
         position: absolute;
         bottom: -15px;
@@ -19,58 +21,12 @@
     }
 
 
-    .footer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        background-color: #147c7a;
-        color: #fff;
-        padding: 20px;
-    }
+  
 
-    .top-section {
-        margin-bottom: 30px;
-    }
-
-    .logo {
-        max-width: 100px;
-        height: auto;
-    }
-
-    .slogan {
-        margin-top: 10px;
-    }
-
-    .bottom-section {
-        margin-top: 30px;
-    }
-
-    /*Anh~ duoi card*/
-    .container {
-        position: relative;
-        text-align: center;
-    }
-
-    .Image-bot {
-        width: 1519px;
-        height: 300px;
-        filter: blur(20px); /* Độ mờ */
-    }
-
-    .text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: orangered;
-        font-size: 24px;
-        font-weight: bold;
-    }
+  
 </style>
-
-<div class="content-wrapper kanban">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
 
     <div id="demo" class="carousel slide" data-ride="carousel" data-interval="3000">
 
@@ -111,199 +67,200 @@
     </div>
 
 
-
-
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Home</h1>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="content ml-5 pb-3">
-
-        <div class="card card-row card-primary">
-            <div class="card-header">
-                <div class="card-img-top position-relative">
-                    <img src="@Url.Content("~/content/dist/img/avatar4.png")" class="img-fluid" alt="Card Image" style="width: 400px; height: 250px;">
-                    <div class="logo-overlay">
-                        <img src="@Url.Content("~/content/dist/img/AdminLTELogo.png")" alt="Logo" class="logo" style="width: 43px; height: 43px;">
-                    </div>
-                    <button type="button" class="btn btn-danger small-text">Y Tế</button>
-                </div>
-            </div>
-            <div class="card-body">
-                <h3 class="card-title">
-                    Quỹ từ thiện giấc mơ xưa</h2>
-                    <br />
-                    <p class="card-text">
-                        Lorem ipsum dolor sit
-                        amet consectetur adipisicing elit. Id accusamus,
-                        recusandae fugiat quisquam ex natus ab,
-                    </p>
-
-                    <h4>
-                        Số tiền quyên góp
-                        <p>7.000.000đ</p>
-                        <div class="progress">
-                            <div class="progress-bar" style="width:70%">70%</div>
-                        </div>
-                        <h5>Mục tiêu: 10.000.000đ</h5>
-
-            </div>
-        </div>
-
-        <div class="card card-row card-primary">
-            <div class="card-header">
-                <div class="card-img-top position-relative">
-                    <img src="@Url.Content("~/content/dist/img/avatar4.png")" class="img-fluid" alt="Card Image" style="width: 400px; height: 250px;">
-                    <div class="logo-overlay">
-                        <img src="@Url.Content("~/content/dist/img/AdminLTELogo.png")" alt="Logo" class="logo" style="width: 43px; height: 43px;">
-                    </div>
-                    <button type="button" class="btn btn-danger small-text">Y Tế</button>
-                </div>
-            </div>
-            <div class="card-body">
-                <h3 class="card-title">
-                    Quỹ từ thiện giấc mơ xưa</h2>
-                    <br />
-                    <p class="card-text">
-                        Lorem ipsum dolor sit
-                        amet consectetur adipisicing elit. Id accusamus,
-                        recusandae fugiat quisquam ex natus ab,
-                    </p>
-
-                    <h4>
-                        Số tiền quyên góp
-                        <p>7.000.000đ</p>
-                        <div class="progress">
-                            <div class="progress-bar" style="width:70%">70%</div>
-                        </div>
-                        <h5>Mục tiêu: 10.000.000đ</h5>
-
-            </div>
-        </div>
-
-        <div class="card card-row card-primary">
-            <div class="card-header">
-                <div class="card-img-top position-relative">
-                    <img src="@Url.Content("~/content/dist/img/avatar4.png")" class="img-fluid" alt="Card Image" style="width: 400px; height: 250px;">
-                    <div class="logo-overlay">
-                        <img src="@Url.Content("~/content/dist/img/AdminLTELogo.png")" alt="Logo" class="logo" style="width: 43px; height: 43px;">
-                    </div>
-                    <button type="button" class="btn btn-danger small-text">Y Tế</button>
-                </div>
-            </div>
-            <div class="card-body">
-                <h3 class="card-title">
-                    Quỹ từ thiện giấc mơ xưa</h2>
-                    <br />
-                    <p class="card-text">
-                        Lorem ipsum dolor sit
-                        amet consectetur adipisicing elit. Id accusamus,
-                        recusandae fugiat quisquam ex natus ab,
-                    </p>
-
-                    <h4>
-                        Số tiền quyên góp
-                        <p>7.000.000đ</p>
-                        <div class="progress">
-                            <div class="progress-bar" style="width:70%">70%</div>
-                        </div>
-                        <h5>Mục tiêu: 10.000.000đ</h5>
-
-            </div>
-        </div>
-
-        <div class="card card-row card-primary">
-            <div class="card-header">
-                <div class="card-img-top position-relative">
-                    <img src="@Url.Content("~/content/dist/img/avatar4.png")" class="img-fluid" alt="Card Image" style="width: 400px; height: 250px;">
-                    <div class="logo-overlay">
-                        <img src="@Url.Content("~/content/dist/img/AdminLTELogo.png")" alt="Logo" class="logo" style="width: 43px; height: 43px;">
-                    </div>
-                    <button type="button" class="btn btn-danger small-text">Y Tế</button>
-                </div>
-            </div>
-            <div class="card-body">
-                <h3 class="card-title">
-                    Quỹ từ thiện giấc mơ xưa</h2>
-                    <br />
-                    <p class="card-text">
-                        Lorem ipsum dolor sit
-                        amet consectetur adipisicing elit. Id accusamus,
-                        recusandae fugiat quisquam ex natus ab,
-                    </p>
-
-                    <h4>
-                        Số tiền quyên góp
-                        <p>7.000.000đ</p>
-                        <div class="progress">
-                            <div class="progress-bar" style="width:70%">70%</div>
-                        </div>
-                        <h5>Mục tiêu: 10.000.000đ</h5>
-
-            </div>
-        </div>
-
-    </section>
-
-    <!--Day la anh tieu chi-->
-
-    <div class="container">
-        <img src="@Url.Content("~/content/Images/YhSO.gif")" alt="Ảnh" class="Image-bot">
-        <div class="text">Nội dung chữ</div>
+                    <h1 class="m-0"> Home <small>Version 3.0</small></h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#"></a></li>
+                        <li class="breadcrumb-item"><a href="#"></a></li>
+                        <li class="breadcrumb-item active"></li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
 
-    <!--Day la anh doi tac-->
-    <div class="partners">
-        <h3>Các đối tác của chúng tôi</h3>
-        <div class="logo-container">
-            <img src="@Url.Content("~/content/Images/apple.png")" alt="Logo 1" class="logo">
-            <img src="@Url.Content("~/content/Images/facebook.png")" alt="Logo 2" class="logo">
-            <img src="@Url.Content("~/content/Images/tiktok.png")" alt="Logo 3" class="logo">
-            <img src="@Url.Content("~/content/Images/youtube.png")" alt="Logo 4" class="logo">
-
-        </div>
-    </div>
+    <!-- Main content -->
+    <div class="content">
+        <div class="container">
+            <div class="row mb-2">
 
 
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="card card-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header text-white "
+                             style="background: url('@Url.Content("~/content/dist/img/photo1.png")') center center;">
 
+                            <h3 class="widget-user-username text-right">Y Tế</h3>
+                            <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
+                        </div>
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">100.000.000đ</h5>
+                                        <span class="description-text">Mục Tiêu</span>
+                                    </div>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">50.000.000đ</h5>
+                                        <span class="description-text">Đã Góp</span>
+                                    </div>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-4">
+                                    <div class="description-block">
+                                        <h5 class="description-header">
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width:70%">70%</div>
+                                            </div>
+                                        </h5>
+                                        <span class="description-text">Tiến Độ</span>
 
-    <div class="footer">
-        <div class="">
-            <div class="">
-                <div class="top-section">
-                    <img src=" @Url.Content("~/content/dist/img/AdminLTELogo.png")" alt="Logo" class="logoF">
-                    <p class="slogan">Không ai bị bỏ lại phía sau</p>
-                </div>
-                <div class="bottom-section">
-                    <h4 class="mt-5 text-info">Thông tin về chúng tôi</h4>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#" class="btn-link "><i class="fas fa-building"></i> Address: 123 Đường haha hoho Tp.HCM</a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn-link"><i class="fas fa-envelope"></i> Gmail: WuDuke@@gmail.com</a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn-link"><i class="fas fa-clock"></i> Thời gian làm việc: Từ 9:00 sáng đến 5:00 chiều</a>
-                        </li>
-                    </ul>
-                    <div class="text-center mt-5 mb-3">
-                        <!-- Nội dung bổ sung ở đây -->
+                                    </div>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
                     </div>
+                    <!-- /.widget-user -->
                 </div>
+                <!-- /.col -->
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="card card-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header text-white "
+                             style="background: url('@Url.Content("~/content/dist/img/photo1.png")') center center;">
+
+                            <h3 class="widget-user-username text-right">Y Tế</h3>
+                            <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
+                        </div>
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">100.000.000đ</h5>
+                                        <span class="description-text">Mục Tiêu</span>
+                                    </div>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">50.000.000đ</h5>
+                                        <span class="description-text">Đã Góp</span>
+                                    </div>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-4">
+                                    <div class="description-block">
+                                        <h5 class="description-header">
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width:70%">70%</div>
+                                            </div>
+                                        </h5>
+                                        <span class="description-text">Tiến Độ</span>
+
+                                    </div>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </div>
+                <!-- /.col -->
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="card card-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header text-white "
+                             style="background: url('@Url.Content("~/content/dist/img/photo1.png")') center center;">
+
+                            <h3 class="widget-user-username text-right">Y Tế</h3>
+                            <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
+                        </div>
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">100.000.000đ</h5>
+                                        <span class="description-text">Mục Tiêu</span>
+                                    </div>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">50.000.000đ</h5>
+                                        <span class="description-text">Đã Góp</span>
+                                    </div>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-4">
+                                    <div class="description-block">
+                                        <h5 class="description-header">
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width:70%">70%</div>
+                                            </div>
+                                        </h5>
+                                        <span class="description-text">Tiến Độ</span>
+
+                                    </div>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </div>
+                <!-- /.col -->
+
+
+
+
+
+
+
+
             </div>
-        </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content -->
 
 
 
 </div>
-
-

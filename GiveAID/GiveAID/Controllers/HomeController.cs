@@ -30,6 +30,10 @@ namespace GiveAID.Controllers
             return View();
         }
 
+        public ActionResult CardDetails()
+        {
+            return View();
+        }
         
     }
 }

@@ -4666,6 +4666,7 @@
     <Content Include="Views\Login\CreateAcc.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\CreateNews.cshtml" />
+    <Content Include="Views\Home\CardDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
