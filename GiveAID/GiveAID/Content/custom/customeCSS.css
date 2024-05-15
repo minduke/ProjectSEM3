@@ -33,27 +33,6 @@
         margin-bottom: 0;
     }
 
-/*Anh~ duoi card*/
-.container {
-    position: relative;
-    text-align: center;
-}
-
-.image {
-    width: 1519px;
-    height: 300px;
-    filter: blur(20px); /* Độ mờ */
-}
-
-.text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: orangered;
-    font-size: 24px;
-    font-weight: bold;
-}
 
 
 /*cac nha dau tu*/
