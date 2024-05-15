@@ -32,12 +32,12 @@ namespace GiveAID.Controllers
             var user = en.users.FirstOrDefault(x => x.username == username || x.phone == username || x.email == username);
 
             if (user == null)
-                return Json(new { result = false, error = "Tài khoản không tồn tại" });
+                throw new Exception("Tài khoản không tồn tại");
 
             string a = DecryptDES(user.password, SecretKey);
 
             if (password != a)
-                return Json(new { result = false, error = "Sai mật khẩu" });
+                throw new Exception("Sai mật khẩu");
 
             Session["USER"] = user;
             return Json(new { result = true });
@@ -53,7 +53,7 @@ namespace GiveAID.Controllers
                 if (CheckExists == null)
                 {
                     if (pass2 != user.password)
-                        return Json(new { result = false, error = "Vui lòng kiểm tra lại mật khẩu" });
+                        throw new Exception("Vui lòng kiểm tra lại mật khẩu");
                     string pass = EncryptDES(user.password, SecretKey);
                     user.password = pass;
                     en.users.Add(user);
@@ -62,12 +62,12 @@ namespace GiveAID.Controllers
                 }
                 else
                 {
-                    return Json(new { result = false, error = "Tài khoản hoặc Email đã tồn tại" });
+                    throw new Exception("Tài khoản hoặc email đã tồn tại");
                 }
             }
             catch
             {
-                return Json(new { result = false, error = "Lỗi không xác định" });
+                throw new Exception("Lỗi không xác định");
             }
         }
 

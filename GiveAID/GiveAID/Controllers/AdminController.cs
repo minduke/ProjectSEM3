@@ -44,7 +44,7 @@ namespace GiveAID.Controllers
                 en.SaveChanges();
                 return Json(new {result = true});
             }
-            return Json(new { result = false, error = "Sai định dạng ảnh" });
+            throw new Exception("Sai định dạng ảnh");
         }
 
     }
