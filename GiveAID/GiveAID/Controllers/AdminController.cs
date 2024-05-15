@@ -25,7 +25,7 @@ namespace GiveAID.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult SubmitNews(post post, HttpPostedFileBase fileBase)
+        public JsonResult SubmitNews(post post, HttpPostedFileBase[] fileBase)
         {
             var PathUpload = Server.MapPath("/Content/Images");
             if(!Directory.Exists(PathUpload))
@@ -33,18 +33,41 @@ namespace GiveAID.Controllers
                 Directory.CreateDirectory(PathUpload);
             }
 
-            string fileExtension = Path.GetExtension(fileBase.FileName).ToLower();
-            if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
+            var imageFiles = new List<string>();
+            foreach (var file in fileBase)
             {
-                var fileName = DateTime.Now.Ticks + fileBase.FileName;
-                PathUpload += "\\" + fileName;
-                fileBase.SaveAs(PathUpload);
-                post.image = fileName;
-                en.posts.Add(post);
-                en.SaveChanges();
-                return Json(new {result = true});
+                string fileExtension = Path.GetExtension(file.FileName).ToLower();
+                if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
+                {
+                    var fileName = DateTime.Now.Ticks +"_"+ file.FileName;
+                    var filePath = Path.Combine(PathUpload, fileName);
+                    file.SaveAs(filePath);
+                    imageFiles.Add(fileName);
+                }
+                else
+                {
+                    throw new Exception("Sai định dạng ảnh");
+                }
             }
-            throw new Exception("Sai định dạng ảnh");
+
+            post.image = imageFiles[0];
+            en.posts.Add(post);
+            en.SaveChanges();
+
+            var postId = post.id;
+            foreach(var imageFile in imageFiles)
+            {
+                var imagePost = new image_post
+                {
+                    image = imageFile,
+                    post_id = postId
+                };
+                en.image_post.Add(imagePost);
+            }
+
+            en.SaveChanges();
+            return Json(new {result = true});
+            
         }
 
     }
