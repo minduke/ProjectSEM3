@@ -13,6 +13,8 @@ namespace GiveAID.Controllers
 
         public ActionResult Index()
         {
+            var posts = en.posts.ToList();
+            ViewBag.posts = posts;
             return View();
         }
 
@@ -30,10 +32,12 @@ namespace GiveAID.Controllers
             return View();
         }
 
-        public ActionResult CardDetails()
+        public ActionResult CardDetails(int id)
         {
+            var detail = en.posts.FirstOrDefault(x => x.id == id);
+            ViewBag.cardDetails = detail;
             return View();
         }
-        
+
     }
 }

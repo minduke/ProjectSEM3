@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "CardDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    GiveAID.Models.entities.post posts = new GiveAID.Models.entities.post();
+    if(ViewBag.cardDetails != null)
+    {
+        posts = ViewBag.cardDetails;
+    }
 }
 
 <script>
@@ -141,20 +146,21 @@
                     <div class="col-12 col-sm-6">
                         <h3 class="d-inline-block d-sm-none">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
                         <div class="col-12">
-                            <img src="@Url.Content("~/content/dist/img/prod-1.jpg")" class="product-image" alt="Product Image">
+                            <img src="@Url.Content("~/content/images/" + posts.image)" class="product-image" alt="Product Image">
                         </div>
                         <div class="col-12 product-image-thumbs">
-                            <div class="product-image-thumb active"><img src="@Url.Content("~/content/dist/img/prod-1.jpg")" alt="Product Image"></div>
-                            <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-2.jpg")" alt="Product Image"></div>
+                            @foreach (var item in posts.image_post)
+                            {
+                            <div class="product-image-thumb active"><img src="@Url.Content("~/content/images/" + item.image)" alt="Product Image"></div>
+                            }
+                            @*<div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-2.jpg")" alt="Product Image"></div>
                             <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-3.jpg")" alt="Product Image"></div>
                             <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-4.jpg")" alt="Product Image"></div>
-                            <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-3.jpg")" alt="Product Image"></div>
+                            <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-3.jpg")" alt="Product Image"></div>*@
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
-                        <h3 class="my-3"> Cho hạt nảy mầm: Gây quỹ trao 20 suất học bổng
-                                            TÀI CHÍNH – KIẾN THỨC – KỸ NĂNG cho
-                                            các em học sinh khó khăn, hiếu học tại Bến Tre
+                        <h3 class="my-3"> @posts.title
                         </h3>
 
                         <hr>
@@ -164,12 +170,12 @@
                                 <label class="btn btn-default text-center active " style="width: 30vw; ">
                                     <div class="logoDetail">
                                         <img src="@Url.Content("~/content/Images/youtube.png")" alt="Logo">
-                                        <h5>Nhất quỷ nhì ma thứ ba nghỉ học</h3>
+                                        <h5>Nhất quỷ nhì ma thứ ba nghỉ học</h5>
                                     </div>
 
                                     <div class="project-target">
                                         <span>Mục tiêu</span>
-                                        <h5>$1,000,000</h5>
+                                        <h5>@posts.target</h5>
                                     </div>
 
 
@@ -246,9 +252,7 @@
                                             <div class="infoNGO">
 
                                                 <p>
-                                                    Bé Lê Minh Đức sinh ngày 29/2/2007 bé năm nay vừa tròn 17 tuổi, em đang mắc căn bệnh rất ghê gớm, và em cần tiền để chữa lành
-                                                    . Mong quý bà con cô chú gần xa ủng hộ em nó một tí để em nó đi chữa lành,
-                                                    vì em nó bị Phương 2 Trứng cắm sừng hihi đồ ngu!!!
+                                                    @Html.Raw(posts.content)
                                                 </p>
 
                                             </div>

@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "Trang Chu";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<GiveAID.Models.entities.post> posts = new List<GiveAID.Models.entities.post>();
+    if (ViewBag.posts != null)
+    {
+        posts = ViewBag.posts;
+    }
 }
 
 <style>
@@ -19,11 +24,6 @@
         right: 10px;
         background-color: crimson;
     }
-
-
-  
-
-  
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -77,8 +77,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         @*<li class="breadcrumb-item"><a href="#"></a></li>
-                        <li class="breadcrumb-item"><a href="#"></a></li>
-                        <li class="breadcrumb-item active"></li>*@
+                            <li class="breadcrumb-item"><a href="#"></a></li>
+                            <li class="breadcrumb-item active"></li>*@
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -92,67 +92,68 @@
 
                 <!--mot card-->
                 <!-- /.col -->
-                <div class="col-md-4">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="card card-widget widget-user">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header text-white "
-                             style="background: url('@Url.Content("~/content/dist/img/photo1.png")') center center;">
+                @foreach (var item in posts)
+                {
+                    <div class="col-md-4">
+                        <!-- Widget: user widget style 1 -->
+                        <div class="card card-widget widget-user">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header text-white "
+                                 style="background: url('@Url.Content("~/Content/Images/" + item.image)') center center;">
 
-                            <h3 class="widget-user-username text-right">Y Tế</h3>
-                            <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
-                        </div>
-                        <div class="widget-user-image">
-                            <img class="img-circle" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
-                        </div>
-                        <div class="card-footer">
-                            <div class="row">
-                                <a href="@Url.Action("CardDetails","Home")"> <h4>Cho hạt nảy mầm: Gây quỹ trao 20 suất học bổng 
-                                    TÀI CHÍNH – KIẾN THỨC – KỸ NĂNG cho 
-                                    các em học sinh khó khăn, hiếu học tại Bến Tre</h4></a>
-                                <div class="col-sm-4 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header">100.000.000đ</h5>
-                                        <span class="description-text">Mục Tiêu</span>
-                                    </div>
-                                    <!-- /.description-block -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-sm-4 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header">50.000.000đ</h5>
-                                        <span class="description-text">Đã Góp</span>
-                                    </div>
-                                    <!-- /.description-block -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-sm-4">
-                                    <div class="description-block">
-                                        <h5 class="description-header">
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width:70%">70%</div>
-                                            </div>
-                                        </h5>
-                                        <span class="description-text">Tiến Độ</span>
-
-                                    </div>
-                                    <!-- /.description-block -->
-                                </div>
-                                <!-- /.col -->
+                                <h3 class="widget-user-username text-right">@item.category.name</h3>
+                                <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
                             </div>
-                            <!-- /.row -->
+                            <div class="widget-user-image">
+                                <img class="img-circle" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <a href="@Url.Action("CardDetails","Home")/@item.id"> <h4>@item.title</h4></a>
+                                    <div class="col-sm-4 border-right">
+                                        <div class="description-block">
+                                            <h5 class="description-header">@(item.target)đ</h5>
+                                            <span class="description-text">Mục Tiêu</span>
+                                        </div>
+                                        <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-4 border-right">
+                                        <div class="description-block">
+                                            <h5 class="description-header">50.000.000đ</h5>
+                                            <span class="description-text">Đã Góp</span>
+                                        </div>
+                                        <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-4">
+                                        <div class="description-block">
+                                            <h5 class="description-header">
+                                                <div class="progress">
+                                                    <div class="progress-bar" style="width:70%">70%</div>
+                                                </div>
+                                            </h5>
+                                            <span class="description-text">Tiến Độ</span>
+
+                                        </div>
+                                        <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
                         </div>
+                        <!-- /.widget-user -->
                     </div>
-                    <!-- /.widget-user -->
-                </div>
+                }
                 <!-- /.col -->
                 <!--Mot card-->
                 <!-- /.col -->
-                <div class="col-md-4">
+                <!--<div class="col-md-4">-->
                     <!-- Widget: user widget style 1 -->
-                    <div class="card card-widget widget-user">
+                    <!--<div class="card card-widget widget-user">-->
                         <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header text-white "
+                        <!--<div class="widget-user-header text-white "
                              style="background: url('@Url.Content("~/content/dist/img/photo1.png")') center center;">
 
                             <h3 class="widget-user-username text-right">Y Tế</h3>
@@ -168,19 +169,19 @@
                                     <div class="description-block">
                                         <h5 class="description-header">100.000.000đ</h5>
                                         <span class="description-text">Mục Tiêu</span>
-                                    </div>
+                                    </div>-->
                                     <!-- /.description-block -->
-                                </div>
+                                <!--</div>-->
                                 <!-- /.col -->
-                                <div class="col-sm-4 border-right">
+                                <!--<div class="col-sm-4 border-right">
                                     <div class="description-block">
                                         <h5 class="description-header">50.000.000đ</h5>
                                         <span class="description-text">Đã Góp</span>
-                                    </div>
+                                    </div>-->
                                     <!-- /.description-block -->
-                                </div>
+                                <!--</div>-->
                                 <!-- /.col -->
-                                <div class="col-sm-4">
+                                <!--<div class="col-sm-4">
                                     <div class="description-block">
                                         <h5 class="description-header">
                                             <div class="progress">
@@ -189,24 +190,24 @@
                                         </h5>
                                         <span class="description-text">Tiến Độ</span>
 
-                                    </div>
+                                    </div>-->
                                     <!-- /.description-block -->
-                                </div>
+                                <!--</div>-->
                                 <!-- /.col -->
-                            </div>
+                            <!--</div>-->
                             <!-- /.row -->
-                        </div>
-                    </div>
+                        <!--</div>
+                    </div>-->
                     <!-- /.widget-user -->
-                </div>
+                <!--</div>-->
                 <!-- /.col -->
                 <!--Mot card-->
                 <!-- /.col -->
-                <div class="col-md-4">
+                <!--<div class="col-md-4">-->
                     <!-- Widget: user widget style 1 -->
-                    <div class="card card-widget widget-user">
+                    <!--<div class="card card-widget widget-user">-->
                         <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header text-white "
+                        <!--<div class="widget-user-header text-white "
                              style="background: url('@Url.Content("~/content/dist/img/photo1.png")') center center;">
 
                             <h3 class="widget-user-username text-right">Y Tế</h3>
@@ -222,19 +223,19 @@
                                     <div class="description-block">
                                         <h5 class="description-header">100.000.000đ</h5>
                                         <span class="description-text">Mục Tiêu</span>
-                                    </div>
+                                    </div>-->
                                     <!-- /.description-block -->
-                                </div>
+                                <!--</div>-->
                                 <!-- /.col -->
-                                <div class="col-sm-4 border-right">
+                                <!--<div class="col-sm-4 border-right">
                                     <div class="description-block">
                                         <h5 class="description-header">50.000.000đ</h5>
                                         <span class="description-text">Đã Góp</span>
-                                    </div>
+                                    </div>-->
                                     <!-- /.description-block -->
-                                </div>
+                                <!--</div>-->
                                 <!-- /.col -->
-                                <div class="col-sm-4">
+                                <!--<div class="col-sm-4">
                                     <div class="description-block">
                                         <h5 class="description-header">
                                             <div class="progress">
@@ -243,21 +244,21 @@
                                         </h5>
                                         <span class="description-text">Tiến Độ</span>
 
-                                    </div>
+                                    </div>-->
                                     <!-- /.description-block -->
-                                </div>
+                                <!--</div>-->
                                 <!-- /.col -->
-                            </div>
+                            <!--</div>-->
                             <!-- /.row -->
-                        </div>
-                    </div>
+                        <!--</div>
+                    </div>-->
                     <!-- /.widget-user -->
-                </div>
+                <!--</div>-->
                 <!-- /.col -->
-            </div>
+            <!--</div>-->
             <!-- /.row -->
 
-       
+
 
             <div class="carousel-inner">
                 <div class="carousel-item active ">
@@ -267,11 +268,11 @@
                         <p>Some text for slide 1</p>
                     </div>
                 </div>
-                </div>
-            </div><!-- /.container-fluid -->
+            </div>
+        </div><!-- /.container-fluid -->
 
 
-        </div>
+    </div>
     <!-- /.content -->
 
 
