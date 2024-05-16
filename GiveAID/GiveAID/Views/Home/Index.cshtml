@@ -11,64 +11,92 @@
 
 <style>
 
-    /*logo card*/
-    .logo-overlay {
-        position: absolute;
-        bottom: -15px;
-        left: 20px;
+    .carousel-caption {
+        /* CSS cho thẻ <h5> */
+        
+        bottom: 90px;
+     
     }
 
-    .small-text {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background-color: crimson;
+        .carousel-caption.d-none.d-md-block h5 {
+            /* CSS cho thẻ <h5> */
+            color: red;
+            font-weight: bold;
+            font-size: 22px;
+            text-transform: uppercase;
+           
+        }
+
+        .carousel-caption.d-none.d-md-block p {
+            /* CSS cho thẻ <p> */
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+
+    .w-100 {
+        /* kích thước thẻ slide index home */
+        width: 100vw;
+        height: 40vh;
+        filter: blur(3px);
+        background-color: rgba(0, 0, 0, 0.5); /* Màu nền làm mờ */
     }
+
+    .widget-user .widget-user-image > img {
+        /* kích thước logo card index home */
+        width: 60px;
+        height: 60px;
+        position: relative;
+        bottom: -300px;
+        left: -100px;
+    }
+
+    .widget-user .widget-user-header {
+        /* kích thước img background card index home */
+        height: 400px;
+    }
+ 
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
-    <div id="demo" class="carousel slide" data-ride="carousel" data-interval="3000">
-
-        <!-- Indicators -->
-        <ul class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active"></li>
-            <li data-target="#demo" data-slide-to="1"></li>
-            <li data-target="#demo" data-slide-to="2"></li>
-        </ul>
-
-        <!-- The slideshow -->
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="1000">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="@Url.Content("~/content/Images/2DV.gif")" alt="Los Angeles">
-                <div class="carousel-caption center-caption">
-                    <h3>Chữ bự</h3>
-                    <p>Some text for slide 1</p>
+                <img src="@Url.Content("~/content/Images/2DV.gif")" class="d-block w-100" alt="anh test 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Châm ngôn sống</h5>
+                    <p>Hãy thở khi còn sống.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="@Url.Content("~/content/Images/Xqg8.gif")" alt="Chicago">
-                <div class="carousel-caption center-caption">
-                    <h3>Chữ nè bay</h3>
-                    <p>Some text for slide 1</p>
+                <img src="@Url.Content("~/content/Images/Xqg8.gif")" class="d-block w-100" alt="anh 2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Second slide label</h5>
+                    <p>Some representative placeholder content for the second slide.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="@Url.Content("~/content/Images/YhSO.gif")" alt="New York">
-                <div class="carousel-caption center-caption">
-                    <h3>Chữ nữa nè</h3>
-                    <p>Some text for slide 1</p>
+                <img src="@Url.Content("~/content/Images/YhSO.gif")" class="d-block w-100" alt="anh 3">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Third slide label</h5>
+                    <p>Some representative placeholder content for the third slide.</p>
                 </div>
             </div>
         </div>
-
-
-
+      
     </div>
 
 
     <!-- Content Header (Page header) -->
     <div class="content-header">
+
         <div class="container">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -105,11 +133,20 @@
                                 <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
                             </div>
                             <div class="widget-user-image">
-                                <img class="img-circle" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
+                                <img class="img-circle logoBrandCard" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
                             </div>
                             <div class="card-footer">
                                 <div class="row">
-                                    <a href="@Url.Action("CardDetails","Home")/@item.id"> <h4>@item.title</h4></a>
+                                    <div class="container">
+                                        <a href="@Url.Action("CardDetails","Home")/@item.id">
+                                            <h4>
+                                                @item.title
+
+                                            </h4>
+                                        </a>
+
+                                    </div>
+
                                     <div class="col-sm-4 border-right">
                                         <div class="description-block">
                                             <h5 class="description-header">@(item.target)đ</h5>
@@ -117,20 +154,13 @@
                                         </div>
                                         <!-- /.description-block -->
                                     </div>
-                                    <!-- /.col -->
-                                    <div class="col-sm-4 border-right">
-                                        <div class="description-block">
-                                            <h5 class="description-header">50.000.000đ</h5>
-                                            <span class="description-text">Đã Góp</span>
-                                        </div>
-                                        <!-- /.description-block -->
-                                    </div>
+
                                     <!-- /.col -->
                                     <div class="col-sm-4">
                                         <div class="description-block">
                                             <h5 class="description-header">
                                                 <div class="progress">
-                                                    <div class="progress-bar" style="width:70%">70%</div>
+                                                    <div class="progress-bar" style="width:100%">100%</div>
                                                 </div>
                                             </h5>
                                             <span class="description-text">Tiến Độ</span>
@@ -138,6 +168,15 @@
                                         </div>
                                         <!-- /.description-block -->
                                     </div>
+
+                                    <div class="col-sm-4 border-right">
+                                        <div class="description-block">
+                                            <h5 class="description-header">500.000.000đ</h5>
+                                            <span class="description-text">Đã Góp</span>
+                                        </div>
+                                        <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
                                     <!-- /.col -->
                                 </div>
                                 <!-- /.row -->
@@ -145,136 +184,140 @@
                         </div>
                         <!-- /.widget-user -->
                     </div>
+
                 }
                 <!-- /.col -->
+
                 <!--Mot card-->
                 <!-- /.col -->
                 <!--<div class="col-md-4">-->
-                    <!-- Widget: user widget style 1 -->
-                    <!--<div class="card card-widget widget-user">-->
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <!--<div class="widget-user-header text-white "
-                             style="background: url('@Url.Content("~/content/dist/img/photo1.png")') center center;">
+                <!-- Widget: user widget style 1 -->
+                <!--<div class="card card-widget widget-user">-->
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <!--<div class="widget-user-header text-white "
+                     style="background: url('@Url.Content("~/content/dist/img/photo1.png")') center center;">
 
-                            <h3 class="widget-user-username text-right">Y Tế</h3>
-                            <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
-                        </div>
-                        <div class="widget-user-image">
-                            <img class="img-circle" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
-                        </div>
-                        <div class="card-footer">
-                            <div class="row">
-                                <h4>Cho hạt nảy mầm: Gây quỹ trao 20 suất học bổng TÀI CHÍNH – KIẾN THỨC – KỸ NĂNG cho các em học sinh khó khăn, hiếu học tại Bến Tre</h4>
-                                <div class="col-sm-4 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header">100.000.000đ</h5>
-                                        <span class="description-text">Mục Tiêu</span>
-                                    </div>-->
-                                    <!-- /.description-block -->
-                                <!--</div>-->
-                                <!-- /.col -->
-                                <!--<div class="col-sm-4 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header">50.000.000đ</h5>
-                                        <span class="description-text">Đã Góp</span>
-                                    </div>-->
-                                    <!-- /.description-block -->
-                                <!--</div>-->
-                                <!-- /.col -->
-                                <!--<div class="col-sm-4">
-                                    <div class="description-block">
-                                        <h5 class="description-header">
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width:70%">70%</div>
-                                            </div>
-                                        </h5>
-                                        <span class="description-text">Tiến Độ</span>
-
-                                    </div>-->
-                                    <!-- /.description-block -->
-                                <!--</div>-->
-                                <!-- /.col -->
-                            <!--</div>-->
-                            <!-- /.row -->
-                        <!--</div>
-                    </div>-->
-                    <!-- /.widget-user -->
-                <!--</div>-->
-                <!-- /.col -->
-                <!--Mot card-->
-                <!-- /.col -->
-                <!--<div class="col-md-4">-->
-                    <!-- Widget: user widget style 1 -->
-                    <!--<div class="card card-widget widget-user">-->
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <!--<div class="widget-user-header text-white "
-                             style="background: url('@Url.Content("~/content/dist/img/photo1.png")') center center;">
-
-                            <h3 class="widget-user-username text-right">Y Tế</h3>
-                            <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
-                        </div>
-                        <div class="widget-user-image">
-                            <img class="img-circle" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
-                        </div>
-                        <div class="card-footer">
-                            <div class="row">
-                                <h4>Cho hạt nảy mầm: Gây quỹ trao 20 suất học bổng TÀI CHÍNH – KIẾN THỨC – KỸ NĂNG cho các em học sinh khó khăn, hiếu học tại Bến Tre</h4>
-                                <div class="col-sm-4 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header">100.000.000đ</h5>
-                                        <span class="description-text">Mục Tiêu</span>
-                                    </div>-->
-                                    <!-- /.description-block -->
-                                <!--</div>-->
-                                <!-- /.col -->
-                                <!--<div class="col-sm-4 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header">50.000.000đ</h5>
-                                        <span class="description-text">Đã Góp</span>
-                                    </div>-->
-                                    <!-- /.description-block -->
-                                <!--</div>-->
-                                <!-- /.col -->
-                                <!--<div class="col-sm-4">
-                                    <div class="description-block">
-                                        <h5 class="description-header">
-                                            <div class="progress">
-                                                <div class="progress-bar" style="width:70%">70%</div>
-                                            </div>
-                                        </h5>
-                                        <span class="description-text">Tiến Độ</span>
-
-                                    </div>-->
-                                    <!-- /.description-block -->
-                                <!--</div>-->
-                                <!-- /.col -->
-                            <!--</div>-->
-                            <!-- /.row -->
-                        <!--</div>
-                    </div>-->
-                    <!-- /.widget-user -->
-                <!--</div>-->
-                <!-- /.col -->
-            <!--</div>-->
-            <!-- /.row -->
-
-
-
-            <div class="carousel-inner">
-                <div class="carousel-item active ">
-                    <img src="@Url.Content("~/content/Images/2DV.gif")" alt="Los Angeles">
-                    <div class="carousel-caption center-caption">
-                        <h3>Chữ bự</h3>
-                        <p>Some text for slide 1</p>
-                    </div>
+                    <h3 class="widget-user-username text-right">Y Tế</h3>
+                    <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
                 </div>
+                <div class="widget-user-image">
+                    <img class="img-circle" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <h4>Cho hạt nảy mầm: Gây quỹ trao 20 suất học bổng TÀI CHÍNH – KIẾN THỨC – KỸ NĂNG cho các em học sinh khó khăn,
+                        hiếu học tại Bến Tre</h4>
+                        <div class="col-sm-4 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">100.000.000đ</h5>
+                                <span class="description-text">Mục Tiêu</span>
+                            </div>-->
+                <!-- /.description-block -->
+                <!--</div>-->
+                <!-- /.col -->
+                <!--<div class="col-sm-4 border-right">
+                    <div class="description-block">
+                        <h5 class="description-header">50.000.000đ</h5>
+                        <span class="description-text">Đã Góp</span>
+                    </div>-->
+                <!-- /.description-block -->
+                <!--</div>-->
+                <!-- /.col -->
+                <!--<div class="col-sm-4">
+                    <div class="description-block">
+                        <h5 class="description-header">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:70%">70%</div>
+                            </div>
+                        </h5>
+                        <span class="description-text">Tiến Độ</span>
+
+                    </div>-->
+                <!-- /.description-block -->
+                <!--</div>-->
+                <!-- /.col -->
+                <!--</div>-->
+                <!-- /.row -->
+                <!--</div>
+                </div>-->
+                <!-- /.widget-user -->
+                <!--</div>-->
+                <!-- /.col -->
+
+                <!--Mot card-->
+                <!-- /.col -->
+                <!--<div class="col-md-4">-->
+                <!-- Widget: user widget style 1 -->
+                <!--<div class="card card-widget widget-user">-->
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <!--<div class="widget-user-header text-white "
+                     style="background: url('@Url.Content("~/content/dist/img/photo1.png")') center center;">
+
+                    <h3 class="widget-user-username text-right">Y Tế</h3>
+                    <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
+                </div>
+                <div class="widget-user-image">
+                    <img class="img-circle" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <h4>Cho hạt nảy mầm: Gây quỹ trao 20 suất học bổng TÀI CHÍNH – KIẾN THỨC – KỸ NĂNG cho các em học sinh khó khăn, hiếu học tại Bến Tre</h4>
+                        <div class="col-sm-4 border-right">
+                            <div class="description-block">
+                                <h5 class="description-header">100.000.000đ</h5>
+                                <span class="description-text">Mục Tiêu</span>
+                            </div>-->
+                <!-- /.description-block -->
+                <!--</div>-->
+                <!-- /.col -->
+                <!--<div class="col-sm-4 border-right">
+                    <div class="description-block">
+                        <h5 class="description-header">50.000.000đ</h5>
+                        <span class="description-text">Đã Góp</span>
+                    </div>-->
+                <!-- /.description-block -->
+                <!--</div>-->
+                <!-- /.col -->
+                <!--<div class="col-sm-4">
+                    <div class="description-block">
+                        <h5 class="description-header">
+                            <div class="progress">
+                                <div class="progress-bar" style="width:70%">70%</div>
+                            </div>
+                        </h5>
+                        <span class="description-text">Tiến Độ</span>
+
+                    </div>-->
+                <!-- /.description-block -->
+                <!--</div>-->
+                <!-- /.col -->
+                <!--</div>-->
+                <!-- /.row -->
+                <!--</div>
+                </div>-->
+                <!-- /.widget-user -->
+                <!--</div>-->
+                <!-- /.col -->
+                <!--</div>-->
+                <!-- /.row -->
+
+
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="@Url.Content("~/content/Images/Xqg8.gif")" class="d-block w-100" alt="anh 2">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Second slide label</h5>
+                                <p>Some representative placeholder content for the second slide.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+
+
             </div>
-        </div><!-- /.container-fluid -->
-
-
-    </div>
-    <!-- /.content -->
+            <!-- /.content -->
 
 
 
-</div>
+        </div>
