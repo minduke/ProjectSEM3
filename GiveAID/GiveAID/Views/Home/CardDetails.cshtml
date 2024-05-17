@@ -3,7 +3,7 @@
     ViewBag.Title = "CardDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
     GiveAID.Models.entities.post posts = new GiveAID.Models.entities.post();
-    if(ViewBag.cardDetails != null)
+    if (ViewBag.cardDetails != null)
     {
         posts = ViewBag.cardDetails;
     }
@@ -151,16 +151,17 @@
                         <div class="col-12 product-image-thumbs">
                             @foreach (var item in posts.image_post)
                             {
-                            <div class="product-image-thumb active"><img src="@Url.Content("~/content/images/" + item.image)" alt="Product Image"></div>
+                                <div class="product-image-thumb active"><img src="@Url.Content("~/content/images/" + item.image)" alt="Product Image"></div>
                             }
                             @*<div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-2.jpg")" alt="Product Image"></div>
-                            <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-3.jpg")" alt="Product Image"></div>
-                            <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-4.jpg")" alt="Product Image"></div>
-                            <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-3.jpg")" alt="Product Image"></div>*@
+                                <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-3.jpg")" alt="Product Image"></div>
+                                <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-4.jpg")" alt="Product Image"></div>
+                                <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-3.jpg")" alt="Product Image"></div>*@
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
-                        <h3 class="my-3"> @posts.title
+                        <h3 class="my-3">
+                            @posts.title
                         </h3>
 
                         <hr>
@@ -202,15 +203,16 @@
                         <div class="mt-2 cusDONATE">
 
 
+                            <form action="@Url.Action("Donate", "Home")" method="post">
+                                <input type="number" class="moneyHoney" placeholder="10.000đ" name="transaction_amout">
+                                <input type="hidden" name="id" value="@posts.id" />
 
-                            <input type="tel" class="moneyHoney" placeholder="10.000đ">
 
-
-                            <div class="btn btn-primary btn-lg btn-flat">
-                                <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                                Donate
-                            </div>
-
+                                <button type="submit" class="btn btn-primary btn-lg btn-flat">
+                                    <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                                    Donate
+                                </button>
+                            </form>
 
                         </div>
 
@@ -237,7 +239,7 @@
                         <div class="nav nav-tabs" id="product-tab" role="tablist">
                             <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Nội dung</a>
                             <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">Danh sách ủng hộ</a>
-
+                        </div>
                     </nav>
                     <!--noi dung chi tiet-->
                     <div class="tab-content p-3 " id="nav-tabContent">
