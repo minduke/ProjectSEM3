@@ -137,6 +137,7 @@
     </Compile>
     <Compile Include="Helpers\ErrorLog.cs" />
     <Compile Include="Helpers\ExceptionHandlingAttributeMVC.cs" />
+    <Compile Include="Helpers\VnPayLibrary.cs" />
     <Compile Include="Models\entities\admin.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
@@ -4670,6 +4671,7 @@
     <Content Include="Views\Admin\CreateNews.cshtml" />
     <Content Include="Views\Home\CardDetails.cshtml" />
     <Content Include="Views\Home\sendMail.cshtml" />
+    <Content Include="Views\Home\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

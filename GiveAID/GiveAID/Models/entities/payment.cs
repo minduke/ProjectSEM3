@@ -18,8 +18,8 @@ namespace GiveAID.Models.entities
         public Nullable<int> post_id { get; set; }
         public Nullable<int> user_id { get; set; }
         public Nullable<decimal> transaction_amout { get; set; }
-        public string transaction_no { get; set; }
-        public Nullable<System.DateTime> transaction_date { get; set; }
+        public string transaction_no { get; set; } = "";
+        public System.DateTime transaction_date { get; set; }
     
         public virtual post post { get; set; }
         public virtual user user { get; set; }
