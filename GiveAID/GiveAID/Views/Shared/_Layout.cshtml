@@ -23,7 +23,7 @@
     <!--CSS custome cua em-->
     <link rel="stylesheet" href="@Url.Content("~/Content/custom/customeCSS.css")">
     <!-- summernote -->
-    <link rel="stylesheet" href="@Url.Content("~/content/plugins/summernote/summernote-bs4.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/summernote/summernote-bs4.min.css")">
     <!-- Toastr -->
     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/toastr/toastr.min.css") ">
 
@@ -44,12 +44,20 @@
     <!--custom new-->
     <script src="@Url.Content("~/Content/custom/customJS.js")"></script>
     <!-- Summernote -->
-    <script src="@Url.Content("~/content/plugins/summernote/summernote-bs4.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/summernote/summernote-bs4.min.js")"></script>
     <!--custom new-->
     @*<script src="@Url.Content("~/Content/custom/addClassJS.js")"></script>*@
     <!-- AdminLTE for demo purposes -->
     @*<script src="@Url.Content("~/content/dist/js/demo.js")"></script>*@
 
+
+<style>
+    .img-size-50 {
+        position: relative;
+        bottom: 15px;
+    }
+
+</style>
 
 </head>
 <body class="hold-transition layout-top-nav">
@@ -98,6 +106,7 @@
 
                     <!-- Right navbar links -->
                     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+
                         @if (user == null)
                         {
                             <li class="nav-item ">
@@ -111,26 +120,26 @@
                             <li class="nav-item dropdown">
 
                                 <a class="nav-link" data-toggle="dropdown" href="#">
-                                    <img src="@Url.Content("~/content/dist/img/user8-128x128.jpg") " alt="User Avatar" class="img-size-32 img-circle mr-3">
-                                    <span class="badge badge-warning navbar-badge">Hot</span>
+                                    <img src="@Url.Content("~/content/dist/img/user8-128x128.jpg") " alt="User Avatar" class="img-size-50 img-circle mr-3">
+
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right mx-auto">
-                                    <span class="dropdown-item dropdown-header">Hệ thống</span>
+                                    <h3><span class="dropdown-item dropdown-header">Hệ Thống</span></h3>
                                     <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">
-                                        <i class="fas fa-envelope mr-2"></i> Thông tin tài khoản
+                                    <a href="@Url.Action("InforUser", "Home")" class="dropdown-item">
+                                        <i class="fa-solid fa-circle-info mr-2"></i> Thông tin tài khoản
 
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">
-                                        <i class="fas fa-users mr-2"></i> Đổi mật khẩu
+                                    <a href="@Url.Action("ChangePass", "Login")" class="dropdown-item">
+                                        <i class="fa-solid fa-key mr-2"></i> Đổi mật khẩu
 
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     @if (user.permission == "admin")
                                     {
                                         <a href="@Url.Action("Index", "Admin")" class="dropdown-item">
-                                            <i class="fa-solid fa-arrow-right mr-2"></i> Vào ADMIN
+                                            <i class="fa-solid fa-users-gear mr-2"></i> Vào ADMIN
                                         </a>
                                     }
                                     <div class="dropdown-divider"></div>
@@ -140,9 +149,12 @@
                                 </div>
                             </li>
                         }
+
                     </ul>
 
                 </div>
+
+              
             </div>
         </nav>
         <!-- /.navbar -->
@@ -160,13 +172,92 @@
 
 
         <!-- Main Footer -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2024 <a href="https://tinyurl.com/WuDuke">WuDuke</a>.</strong>
-            A startup company.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 0.0.1
+    <footer class="main-footer">
+        <!-- Section: Social media -->
+        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+            <!-- Left -->
+            <div class="me-5 d-none d-lg-block">
+                <img src=" @Url.Content("~/content/dist/img/AdminLTELogo.png")" alt="AdminLTE Logo" class="brand-image img-size-64 img-circle elevation-3" style="opacity: .8">
+               
             </div>
-        </footer>
+            <!-- Left -->
+            <!-- Right -->
+            <div>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <!-- Right -->
+        </section>
+        <!-- Section: Social media -->
+        <!-- Section: Links  -->
+        <section class="">
+            <div class="container text-center text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <!-- Content -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <i class="fas fa-gem me-3"></i>Give-AID
+                        </h6>
+                        <p>
+                            Here you can use rows and columns to organize your footer content. Lorem ipsum
+                            dolor sit amet, consectetur adipisicing elit.
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                       
+                    </div>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+            
+                    </div>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                        <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                        <p>
+                            <i class="fas fa-envelope me-3"></i>
+                            info@example.com
+                        </p>
+                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+                        <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+        </section>
+        <!-- Section: Links  -->
+        <strong>Copyright &copy; 2024 <a href="https://tinyurl.com/WuDuke">WuDuke</a>.</strong>
+        A startup company.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 0.0.1
+        </div>
+    </footer>
 
 
     </div>

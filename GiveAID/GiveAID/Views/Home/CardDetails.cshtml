@@ -65,9 +65,14 @@
     }
 
         .cusDONATE input {
-            margin-right: 10px;
+            margin-right: 30px;
         }
 
+    .cusDONATE {
+        position: relative;
+        left: 50px;
+        top: 10px;
+    }
 
 
     /* cho nay la cho nhap so dnt*/
@@ -116,6 +121,30 @@
     }
 
     /*end*/
+
+    /* anh detail  */
+    .product-image {
+        max-width: 100%;
+        height: 500px;
+        width: 500px;
+    }
+
+    .product-image {
+        position: relative;
+        left: 100px;
+       
+    }
+    /* anh detail  */
+
+    /* o thong tin detail  */
+    .containercus {
+        position: relative;
+        left: 50px;
+        top: 10px;
+        margin-bottom:10px;
+    }
+    /* o thong tin detail  */
+
 </style>
 
 <div class="content-wrapper">
@@ -124,7 +153,7 @@
         <div class="container-fluid">
             <div class="ro  w mb-2">
                 <div class="col-sm-6">
-                    <h1>E-commerce</h1>
+                    <h1>Thông tin chi tiết</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -170,7 +199,7 @@
                             <div class="containercus" style="width: 40vw">
                                 <label class="btn btn-default text-center active " style="width: 30vw; ">
                                     <div class="logoDetail">
-                                        <img src="@Url.Content("~/content/Images/youtube.png")" alt="Logo">
+                                        <img src="@Url.Content("~/Content/Images/youtube.png")" alt="Logo">
                                         <h5>Nhất quỷ nhì ma thứ ba nghỉ học</h5>
                                     </div>
 
@@ -198,7 +227,7 @@
 
                         </div>
 
-
+                        <hr>
 
                         <div class="mt-2 cusDONATE">
 
@@ -215,6 +244,8 @@
                             </form>
 
                         </div>
+
+                        <hr class="mt-5">
 
                         <div class="mt-4 product-share">
                             <a href="#" class="text-gray">
@@ -273,7 +304,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2 infoALL">
-                                    <h3 class="text-primary"><img src="@Url.Content("~/content/Images/youtube.png")" alt="Logo">Quỹ Từ tâm Đắk Lắk</h3>
+                                    <h3 class="text-primary"><img src="@Url.Content("~/Content/Images/youtube.png")" alt="Logo">Quỹ Từ tâm Đắk Lắk</h3>
                                     <p class="text-muted">
                                         “Quỹ Từ tâm Đắk Lắk hoạt động theo các quy định của Nghị định 93/2019/NĐ-CP,
                                         với mục đích hỗ trợ nạn nhân bị ảnh hưởng nghiêm trọng bởi thiên tai, hỏa hoạn, dịch bệnh,
@@ -286,13 +317,16 @@
                                     <h5 class="mt-5 text-muted">Thông tin liên hệ</h5>
                                     <ul class="list-unstyled">
                                         <li>
-                                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> Functional-requirements.docx</a>
+                                            <a href="" class="btn-link text-secondary"><i class="fas fa-home me-3"></i> New York, NY 10012, US<a>
+</li>
+                                        <li>
+                                            <a href="" class="btn-link text-secondary">
+                                                <i class="fas fa-envelope me-3"></i>
+                                                info@example.com
+                                            </a>
                                         </li>
                                         <li>
-                                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> UAT.pdf</a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i> Email-from-flatbal.mln</a>
+                                            <a href="" class="btn-link text-secondary"><i class="fas fa-phone me-3"></i> + 01 234 567 88</a>
                                         </li>
 
                                     </ul>

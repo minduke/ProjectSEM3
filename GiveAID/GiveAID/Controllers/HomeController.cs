@@ -178,6 +178,14 @@ namespace GiveAID.Controllers
             return View();
         }
 
+        public ActionResult InforUser() { 
+            
+            
+            return View();
+        
+        }
+
+
 
 
 

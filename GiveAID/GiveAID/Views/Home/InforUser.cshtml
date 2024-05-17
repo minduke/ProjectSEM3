@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "InfoUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .rowInfo {
+        position: relative;
+        left:550px;
+    }
+
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Profile</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                     
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row rowInfo">
+                <div class="col-md-3">
+
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle"
+                                     src="@Url.Content("~/Content/Images/BinCute.jpg")"
+                                     alt="User profile picture">
+                            </div>
+
+                            <h3 class="profile-username text-center">Đinh Nhật Trường</h3>
+
+                            <p class="text-muted text-center">BinYangHo2k2</p>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Số điện thoại</b> <a class="float-right">0123456789</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Email</b> <a class="float-right">binyangho2k2@gmail.com</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Địa chỉ</b> <a class="float-right">Trạm cứu thương, Đất Thánh P6 Tân Bình HCM</a>
+                                </li>
+                            </ul>
+
+                            <a href="#" class="btn btn-primary btn-block"><b>Sửa Thông Tin</b></a>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
