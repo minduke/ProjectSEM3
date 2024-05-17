@@ -20,7 +20,7 @@ namespace GiveAID.Controllers
 
         public class LoginModel
         {
-            public string username {  get; set; }
+            public string username { get; set; }
             public string password { get; set; }
         }
 
@@ -75,6 +75,11 @@ namespace GiveAID.Controllers
         {
             Session.Remove("USER");
             return RedirectToAction("Index", "Login");
+        }
+
+        public ActionResult ChangePass()
+        {
+            return View();
         }
 
     }
