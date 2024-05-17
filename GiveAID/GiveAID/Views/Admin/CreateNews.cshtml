@@ -32,11 +32,11 @@
         var formattedDate = year + "-" + month + "-" + day;
 
         document.getElementById("time_start").value = formattedDate;
-
+        
         function doSubmitNews() {
             var form = document.getElementById("formTinTuc");
             var formData = new FormData(form);
-
+            VipaddClass("loading");
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("SubmitNews", "Admin")',
@@ -45,10 +45,10 @@
                 processData: false,
                 success: function (response) {
                     if (response.result == true) {
-                        var url = "@Url.Action("CreateNews", "Admin")";
-                        open(url, "_self");
+                        VipremoveClass("loading");
                         showSuccessMessage("Tạo mới thành công");
                     } else {
+                        VipremoveClass("loading");
                         showErrorMessage(response.error);
                     }
                 },
@@ -64,6 +64,12 @@
         <h4 class="card-title">Create News</h4>
     </div>
     <!-- /.card-header -->
+
+    <!--Load GIF-->
+    <div class="modalLoading"></div>
+
+
+
     <!-- form start -->
     <form id="formTinTuc" action="javascript:doSubmitNews();" method="post" enctype="multipart/form-data">
         <div class="card-body mx-auto">
@@ -80,7 +86,7 @@
             <div class="form-group">
                 <label for="fileBase">Hình ảnh liên quan</label>
 
-              
+
                 <input type="file" class="form-control" id="fileBase" name="fileBase" required multiple>
             </div>
 

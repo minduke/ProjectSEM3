@@ -195,6 +195,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\custom\addClassCSS.css" />
+    <Content Include="Content\custom\addClassJS.js" />
     <Content Include="Content\custom\customeCSS.css" />
     <Content Include="Content\custom\customJS.js" />
     <Content Include="Content\dist\css\adminlte.css" />

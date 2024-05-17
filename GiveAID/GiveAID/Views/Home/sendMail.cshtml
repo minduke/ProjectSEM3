@@ -6,11 +6,18 @@
 
 
 <script>
-   
+
+    $(function () {
+        //Add text editor
+        $('#compose-textarea').summernote()
+    })
+
+
     $(document).ready(function () {
         $('#emailForm').submit(function (e) {
             e.preventDefault();
-            hayAddClass("loading");  
+           
+            VipaddClass("loading");  
             var formData = $(this).serialize();
             
 
@@ -19,12 +26,11 @@
                 type: 'POST',
                 data: formData,
                 success: function (response) {
-                    VipremoveClass('loading');
+                    VipremoveClass("loading");
                     showSuccessMessage(response);
                 },
                 error: function (xhr, status, error) {
-                    VipremoveClass('loading');
-                    console.log(xhr.responseText);
+                    VipremoveClass("loading");
                     showErrorMessage(xhr.responseText)
                 }
             });
