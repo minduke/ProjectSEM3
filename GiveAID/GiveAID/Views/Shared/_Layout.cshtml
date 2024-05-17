@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var user = Session["USER"] as GiveAID.Models.entities.user;
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -93,41 +98,48 @@
 
                     <!-- Right navbar links -->
                     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                        @if (user == null)
+                        {
+                            <li class="nav-item ">
+                                <a href="@Url.Action("Index", "Login")" class="nav-link">Sign In</a>
+                            </li>
+                        }
+                        else
+                        {
 
-                        <li class="nav-item ">
-                            <a href="@Url.Action("Index", "Login")" class="nav-link">Sign In</a>
-                        </li>
+                            <!-- Notifications Dropdown Menu -->
+                            <li class="nav-item dropdown">
 
-
-                        <!-- Notifications Dropdown Menu -->
-                        <li class="nav-item dropdown">
-
-                            <a class="nav-link" data-toggle="dropdown" href="#">
-                                <img src="@Url.Content("~/content/dist/img/user8-128x128.jpg") " alt="User Avatar" class="img-size-32 img-circle mr-3">
-                                <span class="badge badge-warning navbar-badge">Hot</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right mx-auto">
-                                <span class="dropdown-item dropdown-header">Hệ thống</span>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
-                                    <i class="fas fa-envelope mr-2"></i> Thông tin tài khoản
-
+                                <a class="nav-link" data-toggle="dropdown" href="#">
+                                    <img src="@Url.Content("~/content/dist/img/user8-128x128.jpg") " alt="User Avatar" class="img-size-32 img-circle mr-3">
+                                    <span class="badge badge-warning navbar-badge">Hot</span>
                                 </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
-                                    <i class="fas fa-users mr-2"></i> Đổi mật khẩu
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right mx-auto">
+                                    <span class="dropdown-item dropdown-header">Hệ thống</span>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fas fa-envelope mr-2"></i> Thông tin tài khoản
 
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
-                                    <i class="fa-solid fa-arrow-right mr-2"></i> Vào ADMIN
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">
-                                    <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Đăng Xuất
-                                </a>
-                            </div>
-                        </li>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fas fa-users mr-2"></i> Đổi mật khẩu
+
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    @if (user.permission == "admin")
+                                    {
+                                        <a href="@Url.Action("Index", "Admin")" class="dropdown-item">
+                                            <i class="fa-solid fa-arrow-right mr-2"></i> Vào ADMIN
+                                        </a>
+                                    }
+                                    <div class="dropdown-divider"></div>
+                                    <a href="@Url.Action("Logout", "Login")" class="dropdown-item">
+                                        <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Đăng Xuất
+                                    </a>
+                                </div>
+                            </li>
+                        }
                     </ul>
 
                 </div>
