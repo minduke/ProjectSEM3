@@ -4,6 +4,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    function changePass() {
+        var json = getFormObj("formChangePass");
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ChangePassword", "Login")',
+            data: json,
+            dataType: 'json',
+
+            success: function (response) {
+                if (response.result == true) {
+                    showSuccessMessage("Đổi mật khẩu thành công");
+                }
+                else {
+                    showErrorMessage(response.error);
+                }
+            },
+            error: handleException
+        });
+    }
+</script>
+
 <div class="content-wrapper">
     <div class="login-box mx-auto ">
         <div class="login-logo ">
@@ -14,9 +37,9 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Thay Đổi Mật Khẩu</p>
 
-                <form action="javascript:changePass()" method="post">
+                <form action="javascript:changePass();" method="post" id="formChangePass">
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" id="old" placeholder="Mật khẩu hiện tại">
+                        <input type="password" class="form-control" id="old" name="oldPass" placeholder="Mật khẩu hiện tại">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -24,7 +47,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" id="new" placeholder="Mật khẩu mới">
+                        <input type="password" class="form-control" id="new" name="newPass" placeholder="Mật khẩu mới">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -32,7 +55,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" id="repeat" placeholder="Nhập lại mật khẩu">
+                        <input type="password" class="form-control" id="repeat" name="repeatPass" placeholder="Nhập lại mật khẩu">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

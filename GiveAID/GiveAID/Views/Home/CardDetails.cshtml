@@ -7,6 +7,11 @@
     {
         posts = ViewBag.cardDetails;
     }
+    List<GiveAID.Models.entities.payment> donater = new List<GiveAID.Models.entities.payment>();
+    if (ViewBag.donater != null)
+    {
+        donater = ViewBag.donater;
+    }
 }
 
 <script>
@@ -132,7 +137,6 @@
     .product-image {
         position: relative;
         left: 100px;
-       
     }
     /* anh detail  */
 
@@ -141,7 +145,7 @@
         position: relative;
         left: 50px;
         top: 10px;
-        margin-bottom:10px;
+        margin-bottom: 10px;
     }
     /* o thong tin detail  */
 
@@ -317,8 +321,8 @@
                                     <h5 class="mt-5 text-muted">Thông tin liên hệ</h5>
                                     <ul class="list-unstyled">
                                         <li>
-                                            <a href="" class="btn-link text-secondary"><i class="fas fa-home me-3"></i> New York, NY 10012, US<a>
-</li>
+                                            <a href="" class="btn-link text-secondary"><i class="fas fa-home me-3"></i> New York, NY 10012, US</a>
+                                        </li>
                                         <li>
                                             <a href="" class="btn-link text-secondary">
                                                 <i class="fas fa-envelope me-3"></i>
@@ -356,12 +360,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Nguyễn Văn A</td>
-                                                <td>1,000,000 VND</td>
-                                                <td>2024-05-15 09:30</td>
-                                            </tr>
-                                            <tr>
+                                            @foreach (var item in donater)
+                                            {
+                                                <tr>
+                                                    <td>@item.user.fullname</td>
+                                                    <td>@Convert.ToInt64(item.transaction_amout) VND</td>
+                                                    <td>@item.transaction_date</td>
+                                                </tr>
+                                            }
+                                            @*<tr>
                                                 <td>Trần Thị B</td>
                                                 <td>500,000 VND</td>
                                                 <td>2024-05-14 14:45</td>
@@ -370,7 +377,7 @@
                                                 <td>Phạm Văn C</td>
                                                 <td>2,000,000 VND</td>
                                                 <td>2024-05-13 18:20</td>
-                                            </tr>
+                                            </tr>*@
                                         </tbody>
                                     </table>
                                 </div>
@@ -387,6 +394,7 @@
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
+        </div>
     </section>
     <!-- /.content -->
 </div>

@@ -2,14 +2,36 @@
 @{
     ViewBag.Title = "InfoUser";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var infor = ViewBag.infor as GiveAID.Models.entities.user;
 }
+
+<script>
+    function EditUser() {
+        var json = getFormObj("formEditUser");
+
+        $.ajax({
+            type: 'POST',
+            data: json,
+            dataType: 'json',
+            url:'@Url.Action("EditUser", "Home")',
+            success: function (response) {
+                if (response.result == true) {
+                    showSuccessMessage("Cập nhật thông tin thành công");
+                }
+                else {
+                    showErrorMessage(response.error);
+                }
+            },
+            error: handleException
+        })
+    }
+</script>
 
 <style>
     .rowInfo {
         position: relative;
-        left:550px;
+        left: 550px;
     }
-
 </style>
 
 <!-- Content Wrapper. Contains page content -->
@@ -23,7 +45,6 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                     
                     </ol>
                 </div>
             </div>
@@ -35,36 +56,37 @@
         <div class="container-fluid">
             <div class="row rowInfo">
                 <div class="col-md-3">
+                    <form action="javascript:EditUser();" method="post" id="formEditUser">
+                        <!-- Profile Image -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle"
+                                         src="@Url.Content("~/Content/Images/BinCute.jpg")"
+                                         alt="User profile picture">
+                                </div>
 
-                    <!-- Profile Image -->
-                    <div class="card card-primary card-outline">
-                        <div class="card-body box-profile">
-                            <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle"
-                                     src="@Url.Content("~/Content/Images/BinCute.jpg")"
-                                     alt="User profile picture">
+                                <h3 class="profile-username text-center"><input type="text" name="fullname" style="text-align:center" value="@infor.fullname" /></h3>
+
+                                <p class="text-muted text-center">@infor.gender</p>
+
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b>Số điện thoại</b> <input style="text-align:center" class="float-right" value="@infor.phone" name="phone" />
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Email</b> <input class="float-right" style="text-align:center" value="@infor.email" name="email" />
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Địa chỉ</b> <textarea class="float-right" name="address">@infor.address</textarea>
+                                    </li>
+                                </ul>
+
+                                <button type="submit" class="btn btn-primary btn-block"><b>Sửa Thông Tin</b></button>
                             </div>
-
-                            <h3 class="profile-username text-center">Đinh Nhật Trường</h3>
-
-                            <p class="text-muted text-center">BinYangHo2k2</p>
-
-                            <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
-                                    <b>Số điện thoại</b> <a class="float-right">0123456789</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Email</b> <a class="float-right">binyangho2k2@gmail.com</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Địa chỉ</b> <a class="float-right">Trạm cứu thương, Đất Thánh P6 Tân Bình HCM</a>
-                                </li>
-                            </ul>
-
-                            <a href="#" class="btn btn-primary btn-block"><b>Sửa Thông Tin</b></a>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-body -->
-                    </div>
+                    </form>
                     <!-- /.card -->
                 </div>
             </div>
