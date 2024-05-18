@@ -26,6 +26,11 @@ namespace GiveAID.Controllers
             int totalPosts = posts.Count;
             int totalPages = (int)Math.Ceiling((double)totalPosts / pageSize);
 
+            int maxDisplayPages = 3; // Số lượng ô phân trang hiển thị
+
+            int startPage = ((page - 1) / maxDisplayPages) * maxDisplayPages + 1;
+            int endPage = Math.Min(startPage + maxDisplayPages - 1, totalPages);
+
             posts = posts.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
             ViewBag.posts = posts;
@@ -33,9 +38,12 @@ namespace GiveAID.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.PageSize = pageSize;
             ViewBag.TotalPages = totalPages;
+            ViewBag.StartPage = startPage;
+            ViewBag.EndPage = endPage;
+
+
             return View();
-
-
+            
         }
 
         public ActionResult About()
