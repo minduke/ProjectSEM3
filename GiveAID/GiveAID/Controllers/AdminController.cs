@@ -28,7 +28,7 @@ namespace GiveAID.Controllers
         public JsonResult SubmitNews(post post, HttpPostedFileBase[] fileBase)
         {
             var PathUpload = Server.MapPath("/Content/Images");
-            if(!Directory.Exists(PathUpload))
+            if (!Directory.Exists(PathUpload))
             {
                 Directory.CreateDirectory(PathUpload);
             }
@@ -39,7 +39,7 @@ namespace GiveAID.Controllers
                 string fileExtension = Path.GetExtension(file.FileName).ToLower();
                 if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
                 {
-                    var fileName = DateTime.Now.Ticks +"_"+ file.FileName;
+                    var fileName = DateTime.Now.Ticks + "_" + file.FileName;
                     var filePath = Path.Combine(PathUpload, fileName);
                     file.SaveAs(filePath);
                     imageFiles.Add(fileName);
@@ -55,7 +55,7 @@ namespace GiveAID.Controllers
             en.SaveChanges();
 
             var postId = post.id;
-            foreach(var imageFile in imageFiles)
+            foreach (var imageFile in imageFiles)
             {
                 var imagePost = new image_post
                 {
@@ -66,8 +66,12 @@ namespace GiveAID.Controllers
             }
 
             en.SaveChanges();
-            return Json(new {result = true});
-            
+            return Json(new { result = true });
+
+        }
+        public ActionResult chartJS()
+        {
+            return View();
         }
 
     }
