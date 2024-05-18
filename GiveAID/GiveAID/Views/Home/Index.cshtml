@@ -7,6 +7,7 @@
     {
         posts = ViewBag.posts;
     }
+    int totalPages = ViewBag.TotalPages;
 }
 
 <style>
@@ -55,6 +56,16 @@
         /* kích thước img background card index home */
         height: 400px;
     }
+
+
+    .PageVIP {
+        position: relative;
+       left:500px;
+       margin: 4px 7px 2px 4px;
+       margin-bottom:10px;
+    }
+
+
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -194,6 +205,41 @@
             </div>
 
 
+            <div class="container PageVIP">
+                <!--Phan trang-->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
+                            </li>
+                        }
+
+                        @if (ViewBag.CurrentPage < totalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+
+            </div>
+
+           
+
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="@Url.Content("~/Content/Images/2DV.gif")" loading="lazy" class="d-block w-100" alt="anh test 1">
@@ -204,7 +250,7 @@
                 </div>
             </div>
 
-            
+
 
             <!-- /.container-fluid -->
 
