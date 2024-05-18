@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using GiveAID.Helpers;
 using WebGrease;
+using Microsoft.Ajax.Utilities;
 
 namespace GiveAID.Controllers
 {
@@ -43,6 +44,8 @@ namespace GiveAID.Controllers
         {
             var detail = en.posts.FirstOrDefault(x => x.id == id);
             ViewBag.cardDetails = detail;
+            var donater = en.payments.Where(x => x.post_id == id).ToList();
+            ViewBag.donater = donater;
             return View();
         }
 
@@ -178,13 +181,43 @@ namespace GiveAID.Controllers
             return View();
         }
 
-        public ActionResult InforUser() { 
-            
-            
-            return View();
-        
+        public ActionResult InforUser()
+        {
+            if (CheckLogin())
+            {
+                var user = Session["USER"] as user;
+                var info = en.users.FirstOrDefault(x => x.id == user.id);
+                ViewBag.infor = info;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
         }
 
+        public JsonResult EditUser(user user)
+        {
+            if (CheckLogin())
+            {
+                var a = Session["USER"] as user;
+                var edit = en.users.FirstOrDefault(x => x.id == a.id);
+                edit.fullname = user.fullname;
+                edit.phone = user.phone;
+                edit.email = user.email;
+                if (user.address.IsNullOrWhiteSpace())
+                {
+                    edit.address = "";
+                }
+                else
+                {
+                    edit.address = user.address;
+                }
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            throw new Exception("something wrong");
+        }
 
 
 

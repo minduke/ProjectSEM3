@@ -12,6 +12,24 @@ namespace GiveAID.Controllers
     public class BaseController : Controller
     {
         public static string SecretKey = "WuDuke2@";
+
+        public bool CheckLogin()
+        {
+            try
+            {
+                if (Session["USER"] != null)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public string EncryptDES(string originalString, string key)
         {
             if (String.IsNullOrEmpty(originalString))

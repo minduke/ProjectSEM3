@@ -26,21 +26,28 @@ namespace GiveAID.Controllers
 
         public JsonResult Login(LoginModel model)
         {
-            string username = model.username;
-            string password = model.password;
+            try
+            {
+                string username = model.username;
+                string password = model.password;
 
-            var user = en.users.FirstOrDefault(x => x.username == username || x.phone == username || x.email == username);
+                var user = en.users.FirstOrDefault(x => x.username == username || x.phone == username || x.email == username);
 
-            if (user == null)
-                throw new Exception("Tài khoản không tồn tại");
+                if (user == null)
+                    throw new Exception("Tài khoản không tồn tại");
 
-            string a = DecryptDES(user.password, SecretKey);
+                string a = DecryptDES(user.password, SecretKey);
 
-            if (password != a)
-                throw new Exception("Sai mật khẩu");
+                if (password != a)
+                    throw new Exception("Sai mật khẩu");
 
-            Session["USER"] = user;
-            return Json(new { result = true });
+                Session["USER"] = user;
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw new Exception("Lỗi không xác định");
+            }
         }
 
         public JsonResult Register(user user)
@@ -77,10 +84,43 @@ namespace GiveAID.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-        public ActionResult ChangePass()
+        public class ChangePassModel
         {
-            return View();
+            public string oldPass { get; set; }
+            public string newPass { get; set; }
+            public string repeatPass { get; set; }
         }
 
+        public JsonResult ChangePassword(ChangePassModel model)
+        {
+            try
+            {
+                var user = Session["USER"] as user;
+                var data = en.users.FirstOrDefault(x => x.id == user.id);
+
+                if (DecryptDES(user.password, SecretKey) != model.oldPass)
+                    throw new Exception("Sai mật khẩu hiện tại");
+
+                if (model.newPass != model.repeatPass)
+                    throw new Exception("Vui lòng xác nhận lại mật khẩu mới");
+
+                data.password = EncryptDES(model.newPass, SecretKey);
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw new Exception("Xảy ra lỗi không xác định");
+            }
+        }
+
+        public ActionResult ChangePass()
+        {
+            if (CheckLogin())
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Login");
+        }
     }
 }
