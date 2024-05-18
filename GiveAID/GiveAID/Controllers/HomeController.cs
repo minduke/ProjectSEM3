@@ -18,11 +18,23 @@ namespace GiveAID.Controllers
 
         GiveAIDEntities en = new GiveAIDEntities();
 
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, int pageSize = 3)
         {
+
             var posts = en.posts.ToList();
+            int totalPosts = posts.Count;
+            int totalPages = (int)Math.Ceiling((double)totalPosts / pageSize);
+
+            posts = posts.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
             ViewBag.posts = posts;
+            ViewBag.TotalPosts = totalPosts;
+            ViewBag.CurrentPage = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalPages = totalPages;
             return View();
+
+
         }
 
         public ActionResult About()
