@@ -18,7 +18,7 @@ namespace GiveAID.Controllers
         }
 
         public ActionResult CreateNews()
-        { 
+        {
             ViewBag.category = en.categories.ToList();
             return View();
         }
@@ -74,6 +74,20 @@ namespace GiveAID.Controllers
             return View();
         }
 
+        public ActionResult NewPartner()
+        {
+            return View();
+        }
+
+        public ActionResult EditHome()
+        {
+            return View();
+        }
+
+        public ActionResult EditDetail()
+        {
+            return View();
+        }
     }
 
 }

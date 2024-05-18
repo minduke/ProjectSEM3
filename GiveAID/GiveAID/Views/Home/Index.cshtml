@@ -22,17 +22,19 @@
 
         .carousel-caption.d-none.d-md-block h5 {
             /* CSS cho thẻ <h5> */
-            color: red;
+            color: ghostwhite;
             font-weight: bold;
             font-size: 22px;
             text-transform: uppercase;
+            text-shadow: 5px 5px 10px #00FF00;
         }
 
         .carousel-caption.d-none.d-md-block p {
             /* CSS cho thẻ <p> */
-            color: white;
+            color: ghostwhite;
             font-weight: bold;
             font-size: 20px;
+            text-shadow: 5px 5px 10px #00FF00;
         }
 
 
@@ -66,6 +68,19 @@
        margin-bottom:10px;
     }
 
+    .progress {
+        width: 100%;
+        background-color: #f3f3f3;
+    }
+        
+    .progress-bar {
+        width: 0%;
+        
+        background-color: #4caf50;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+    }
 
 </style>
 <!-- Content Wrapper. Contains page content -->
@@ -170,7 +185,7 @@
                                         <div class="description-block">
                                             <h5 class="description-header">
                                                 <div class="progress">
-                                                    <div class="progress-bar" style="width:100%">100%</div>
+                                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:70%">70%</div>
                                                 </div>
                                             </h5>
                                             <span class="description-text">Tiến Độ</span>
@@ -209,7 +224,7 @@
             <div class="container PageVIP">
                 <!--Phan trang-->
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination">
+                    @*<ul class="pagination">
                         @if (ViewBag.CurrentPage > 1)
                         {
                             <li class="page-item">
@@ -234,7 +249,7 @@
                                 </a>
                             </li>
                         }
-                    </ul>
+                    </ul>*@
 
                     <ul class="pagination">
                         @if (ViewBag.CurrentPage > 1)
@@ -265,18 +280,32 @@
                 </nav>
 
             </div>
-
-           
-
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="@Url.Content("~/Content/Images/2DV.gif")" loading="lazy" class="d-block w-100" alt="anh test 1">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Châm ngôn sống</h5>
-                        <p>Hãy thở khi còn sống.</p>
+            <div class="description-block">
+                <h5 class="description-header">
+                    <div class="progress">
+                        <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar" >0%</div>
                     </div>
-                </div>
+                </h5>
+                <span class="description-text">Tiến Độ</span>
+
+                <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
             </div>
+
+
+            <script>
+                function updateProgressBar() {
+                    var input = document.getElementById('progressInput').value;
+                    var progressBar = document.getElementById('myProgressBar');
+                    if (input < 0) input = 0;
+                    if (input > 100) input = 100;
+                    progressBar.style.width = input + '%';
+                    progressBar.innerHTML = input + '%';
+                }
+            </script>
+
+
+        
+
 
 
 
@@ -284,7 +313,16 @@
 
 
         </div>
-    
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="@Url.Content("~/Content/Images/sloganVIP.jpg")" loading="lazy" class="d-block w-100" alt="anh test 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>If you're still breathing, you're alive</h5>
+                    <p>So don't forget to breathe</p>
+                </div>
+            </div>
+        </div>
+
         <!-- /.content -->
     </div>
     <!-- Main content -->
