@@ -39,3 +39,8 @@ function VipremoveClass(className) {
 function hayAddClass(className) {
     $("body").addClass(className);
 }
+
+
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+});

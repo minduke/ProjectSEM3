@@ -23,15 +23,22 @@ namespace GiveAID.Controllers
         {
 
             int totalPosts = en.posts.Count();
-            //int totalPosts = posts.Count;
+           
             int totalPages = (int)Math.Ceiling((double)totalPosts / pageSize);
 
             int maxDisplayPages = 3; // Số lượng ô phân trang hiển thị
 
             int startPage = ((page - 1) / maxDisplayPages) * maxDisplayPages + 1;
             int endPage = Math.Min(startPage + maxDisplayPages - 1, totalPages);
+            // Lọc và phân trang trực tiếp trên truy vấn
+            var posts = en.posts
+                            .OrderByDescending(x => x.id)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
 
-            var posts = en.posts.OrderByDescending(x => x.id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+
 
             ViewBag.posts = posts;
             ViewBag.TotalPosts = totalPosts;

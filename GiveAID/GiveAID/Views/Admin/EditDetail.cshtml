@@ -1,71 +1,15 @@
 ﻿
 @{
-    ViewBag.Title = "CreateNews";
+    ViewBag.Title = "EditDetail";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    List<GiveAID.Models.entities.category> categories = new List<GiveAID.Models.entities.category>();
-    if (ViewBag.category != null)
-    {
-        categories = ViewBag.category;
-    }
-}
-
-@section scripts{
-    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('content');
-
-        $(document).ready(function (e) {
-            $('#btnSubmit').click(function (e) {
-                e.preventDefault();
-                var dt = CKEDITOR.instances['content'].getData();
-                $('#MoTa').val(dt);
-
-                $('#formTinTuc').submit();
-            })
-        })
-        var currentDate = new Date();
-        var day = currentDate.getDate();
-        var month = currentDate.getMonth() + 1; // Tháng bắt đầu từ 0, nên cần +1
-        var year = currentDate.getFullYear();
-
-        // Định dạng ngày tháng
-        var formattedDate = year + "-" + month + "-" + day;
-
-        document.getElementById("time_start").value = formattedDate;
-        
-        function doSubmitNews() {
-            var form = document.getElementById("formTinTuc");
-            var formData = new FormData(form);
-            VipaddClass("loading");
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("SubmitNews", "Admin")',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response.result == true) {
-                        VipremoveClass("loading");
-                        showSuccessMessage("Tạo mới thành công");
-                        form.reset();
-                    } else {
-                        VipremoveClass("loading");
-                        showErrorMessage(response.error);
-                    }
-                },
-                error: handleException
-            })
-        }
-    </script>
 }
 
 <div class="content-wrapper">
 
     <div class="card-header">
-        <h4 class="card-title">Create News</h4>
+        <h4 class="card-title">Edit Detail</h4>
     </div>
     <!-- /.card-header -->
-
     <!--Load GIF-->
     <div class="modalLoading"></div>
 
@@ -102,7 +46,7 @@
 
             <div class="form-group">
                 <label for="content">Nội dung bài viết</label>
-                <input type="text" class="form-control" id="content" placeholder="Nội dung bài viết" required>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
             </div>
 
             <div>
@@ -111,11 +55,11 @@
 
             <div class="form-group">
                 <label>Lĩnh vực</label>
-                <select class="form-control" name="cate_id">
-                    @foreach (var item in categories)
-                    {
-                        <option value="@item.cate_id">@item.name</option>
-                    }
+                <select class="form-control" id="sel1" name="cate_id">
+                    <option>No thich con Phuong</option>
+                    <option>Con cho Duc</option>
+                    <option>Con cho Duc</option>
+                    <option>No thich con Phuong</option>
                 </select>
             </div>
 

@@ -17,6 +17,7 @@
             success: function (response) {
                 if (response.result == true) {
                     showSuccessMessage("Đổi mật khẩu thành công");
+                    json.reset();
                 }
                 else {
                     showErrorMessage(response.error);
