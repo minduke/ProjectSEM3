@@ -17,7 +17,7 @@ namespace GiveAID
 
             routes.MapRoute(
              name: "ViewHome",
-             url: "View/Index",
+             url: "Home",
              defaults: new { controller = "Home", action = "Index"}
          );
 

@@ -4,9 +4,90 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>đây là những thứ lấy trên url xuống nè</h2>
-<div>@ViewBag.transaction_no</div>
-<div>@ViewBag.response_code</div>
-<div>@ViewBag.id</div>
-<div>@ViewBag.amout</div>
+<style>
+    /*  .cardRE {
+        animation: loaderAnimation 10s ease-in-out;
+        background: rgba( 255, 255, 255, .8 );
+        overflow: hidden;
+        position: fixed;
+        z-index: 1000;
+        top: 100px;
+        left: 400px;
+        height: 50vh;
+        width: 50vw;
+        display: block;
+    }*/
 
+    .cardRE {
+        animation: loaderAnimation 5s ease-in-out;
+        background: rgba(255, 255, 255, 0.8);
+        /* Các thuộc tính khác */
+        width: 500px;
+        height: 200px;
+        top: 1px;
+        left: 550px;
+        z-index: 1000;
+    }
+
+   
+    .blur-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        filter: blur(10px);
+        z-index: 999;
+    }
+
+ 
+</style>
+
+<div class="blur-background"></div>
+<div class="content-wrapper">
+
+    <section class="content">
+        <div class="container">
+            <h1>Helllo</h1>
+            <h2>Chào cậu</h2>
+            <h3>Trái tìm cậu thật ấm áp</h3>
+            <button type="button" class="btn btn-outline-dark"><a href="@Url.RouteUrl("ViewHome")">Trở vè nhà nào</a></button>
+        </div>
+        <div class="container-fluid">
+            <!-- Nội dung của bạn -->
+            <!-- /.col -->
+            <div class="col-md-3">
+                <div class="card bg-gradient-success cardRE">
+                    <div class="card-header">
+                        <h3 class="card-title">Báo cáo kết quả</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" onclick="DivremoveClass('blur-background')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <h2>đây là những thứ lấy trên url xuống nè</h2>
+                        <div>@ViewBag.transaction_no</div>
+                        <div>@ViewBag.response_code</div>
+                        <div>@ViewBag.id</div>
+                        <div>@ViewBag.amout</div>
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+
+    </section>
+
+
+
+           
+        </div>
