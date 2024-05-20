@@ -9,7 +9,8 @@
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <title>Give-AID | N.G.O</title>
-
+     <!-- Favicon -->
+     <link rel="icon" href="@Url.Content("~/Content/Images/favicon/favicon.ico")" />
      <!-- Font Awesome 6.5.2 -->
      <link href="@Url.Content("~/Content/plugins/fontawesome-free-6.5.2-web/css/all.min.css")" rel="stylesheet" />
      <!-- Google Font: Source Sans Pro -->
@@ -83,7 +84,7 @@
      <!--customJS-->
      <script src="@Url.Content("~/Content/custom/customJS.js")"></script>
 
-    
+
 
 
  </head>
@@ -100,7 +101,7 @@
                  </li>
                  <!--home icon-->
                  <li class="nav-item d-none d-sm-inline-block">
-                     <a href="@Url.Action("Index", "Admin")" class="nav-link" data-toggle="tooltip" title="Home ADMIN">
+                     <a href="@Url.RouteUrl("ViewHome")" class="nav-link" data-toggle="tooltip" title="Home ADMIN">
                          <i class="fas fa-home"></i>
                      </a>
                  </li>
@@ -193,7 +194,7 @@
                              <a href="#" class="nav-link active">
                                  <i class="fas fa-users-cog mr-2"></i>
                                  <p>
-                                     Hệ Thống
+                                     System
                                      <i class="right fas fa-angle-left"></i>
                                  </p>
                              </a>
@@ -202,21 +203,21 @@
                                  <li class="nav-item">
                                      <a href="@Url.Action("NewPartner","Admin")" class="nav-link">
                                          <i class="fa-solid fa-handshake mr-1"></i>
-                                         <p>Thêm đối tác</p>
+                                         <p>Add partners</p>
                                      </a>
                                  </li>
 
                                  <li class="nav-item">
                                      <a href="@Url.Action("CreateNews","Admin")" class="nav-link">
                                          <i class="fa-solid fa-newspaper mr-1"></i>
-                                         <p>Tạo tin</p>
+                                         <p>Create news</p>
                                      </a>
                                  </li>
 
                                  <li class="nav-item">
                                      <a href="@Url.Action("ChangePass","Login")" class="nav-link">
                                          <i class="fas fa-unlock-alt mr-1"></i>
-                                         <p>Đổi mật khẩu</p>
+                                         <p>Change Password</p>
                                      </a>
                                  </li>
 
@@ -224,13 +225,15 @@
                                  <li class="nav-item">
                                      <a href="@Url.Action("chartJS","Admin")" class="nav-link">
                                          <i class="fas fa-chart-bar mr-1"></i>
-                                         <p>Thống kê</p>
+                                         <p>
+                                             Statistics
+                                         </p>
                                      </a>
                                  </li>
 
                                  <li class="nav-item">
                                      <a href="#" class="nav-link">
-                                         <i class="fas fa-chart-pie mr-2"></i>
+                                         <i class="fas fa-chart-pie mr-1"></i>
                                          <p>
                                              Edit
                                              <i class="right fas fa-angle-left"></i>
@@ -238,18 +241,25 @@
                                      </a>
                                      <ul class="nav nav-treeview">
                                          <li class="nav-item">
-                                             <a href="@Url.Action("EditHome","Admin")" class="nav-link">
+                                             <a href="@Url.Action("EditPartner","Admin")" class="nav-link">
                                                  <i class="far fa-circle nav-icon"></i>
-                                                 <p>News Home</p>
+                                                 <p>Edit Partner</p>
                                              </a>
                                          </li>
                                          <li class="nav-item">
                                              <a href="@Url.Action("EditDetail","Admin")" class="nav-link">
                                                  <i class="far fa-circle nav-icon"></i>
-                                                 <p>News Detail</p>
+                                                 <p>Edit Detail</p>
                                              </a>
                                          </li>
                                      </ul>
+                                 </li>
+
+                                 <li class="nav-item">
+                                     <a href="@Url.Action("ListAll","Admin")" class="nav-link">
+                                         <i class="fa-solid fa-table-list mr-1"></i>
+                                         <p>List for All</p>
+                                     </a>
                                  </li>
 
                              </ul>

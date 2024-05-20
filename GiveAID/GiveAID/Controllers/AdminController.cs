@@ -84,10 +84,10 @@ namespace GiveAID.Controllers
             return View();
         }
 
-        public JsonResult NewPartner(partner partner, HttpPostedFileBase fileBase)
+        public JsonResult partnerNew(partner partner, HttpPostedFileBase fileBase)
         {
             if (partner.name != null && fileBase != null && partner.description != null && partner.address != null && partner.phone != null && partner.email != null)
-            {
+            {    // coi lại chỗ này 
                 var PathUpload = Server.MapPath("/Content/Images/partner");
                 if (!Directory.Exists(PathUpload))
                 {
@@ -116,12 +116,22 @@ namespace GiveAID.Controllers
 
         }
 
-        public ActionResult EditHome()
+        public ActionResult NewPartner()
+        {
+            return View();
+        }
+
+        public ActionResult EditPartner()
         {
             return View();
         }
 
         public ActionResult EditDetail()
+        {
+            return View();
+        }
+
+        public ActionResult ListAll()
         {
             return View();
         }

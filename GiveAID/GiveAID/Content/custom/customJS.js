@@ -36,9 +36,7 @@ function VipremoveClass(className) {
     $("body").removeClass(className);
 }
 
-function hayAddClass(className) {
-    $("body").addClass(className);
-}
+
 
 
     $(document).ready(function(){

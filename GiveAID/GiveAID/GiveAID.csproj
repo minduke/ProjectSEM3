@@ -269,6 +269,7 @@
     <Content Include="Content\Images\BinCute.jpg" />
     <Content Include="Content\Images\donation.png" />
     <Content Include="Content\Images\facebook.png" />
+    <Content Include="Content\Images\favicon\favicon.ico" />
     <Content Include="Content\Images\rabbit.jpg" />
     <Content Include="Content\Images\sloganVIP.jpg" />
     <Content Include="Content\Images\tiktok.png" />
@@ -4691,9 +4692,10 @@
     <Content Include="Views\Home\InforUser.cshtml" />
     <Content Include="Views\Admin\chartJS.cshtml" />
     <Content Include="Views\Admin\NewPartner.cshtml" />
-    <Content Include="Views\Admin\EditHome.cshtml" />
+    <Content Include="Views\Admin\EditPartner.cshtml" />
     <Content Include="Views\Admin\EditDetail.cshtml" />
     <Content Include="Views\Home\DonationP.cshtml" />
+    <Content Include="Views\Admin\ListAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

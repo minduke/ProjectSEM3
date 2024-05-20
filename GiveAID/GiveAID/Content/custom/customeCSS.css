@@ -8,7 +8,7 @@
     height: 100%;
     width: 100%;
     background: rgba( 255, 255, 255, .8 ) url('https://i.gifer.com/VAyR.gif') 50% 50% no-repeat;
-    animation: loaderAnimation 5s ease-in-out; /* Thời gian chạy là 3 giây */
+    animation: loaderAnimation 10s ease-in-out; /* Thời gian chạy là 3 giây */
 }
 
 @keyframes loaderAnimation {
