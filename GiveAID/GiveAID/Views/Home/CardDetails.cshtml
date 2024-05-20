@@ -12,6 +12,12 @@
     {
         donater = ViewBag.donater;
     }
+
+    int percent = 0;
+    if(ViewBag.sum != null)
+    {
+        percent = (int)((ViewBag.sum / posts.target) * 100);
+    }
 }
 
 <script>
@@ -209,7 +215,7 @@
 
                                     <div class="project-target">
                                         <span>Mục tiêu</span>
-                                        <h5>@posts.target</h5>
+                                        <h5>@Convert.ToInt64(posts.target).ToString("N0") VND</h5>
                                     </div>
 
 
@@ -217,12 +223,12 @@
 
                                     <div class="donation-amount">
                                         <span>Đã đạt được</span>
-                                        <h5>$500,000</h5>
+                                        <h5>@Convert.ToInt64(ViewBag.sum).ToString("N0") VND</h5>
                                     </div>
 
                                     <div class="progress">
 
-                                        <div class="progress-bar" style="width: 50%">50%</div>
+                                        <div class="progress-bar" style="width: @percent%">@percent%</div>
                                     </div>
                                 </label>
 
@@ -364,7 +370,7 @@
                                             {
                                                 <tr>
                                                     <td>@item.user.fullname</td>
-                                                    <td>@Convert.ToInt64(item.transaction_amout) VND</td>
+                                                    <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
                                                     <td>@item.transaction_date</td>
                                                 </tr>
                                             }

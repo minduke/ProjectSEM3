@@ -1,4 +1,5 @@
 ﻿using GiveAID.Models.entities;
+using GiveAID.Models.model_view;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 using GiveAID.Helpers;
 using WebGrease;
 using Microsoft.Ajax.Utilities;
+using System.Runtime.InteropServices;
 
 namespace GiveAID.Controllers
 {
@@ -23,7 +25,7 @@ namespace GiveAID.Controllers
         {
 
             int totalPosts = en.posts.Count();
-           
+
             int totalPages = (int)Math.Ceiling((double)totalPosts / pageSize);
 
             int maxDisplayPages = 3; // Số lượng ô phân trang hiển thị
@@ -31,7 +33,17 @@ namespace GiveAID.Controllers
             int startPage = ((page - 1) / maxDisplayPages) * maxDisplayPages + 1;
             int endPage = Math.Min(startPage + maxDisplayPages - 1, totalPages);
             // Lọc và phân trang trực tiếp trên truy vấn
-            var posts = en.posts
+            var posts = en.sp_GetPost()
+                            .Select(x => new ViewPost
+                            {
+                                id = x.id,
+                                title = x.title,
+                                image = x.image,
+                                target = (decimal)x.target,
+                                cate_id = x.cate_id,
+                                name = x.name,
+                                total = (decimal)x.total
+                            })
                             .OrderByDescending(x => x.id)
                             .Skip((page - 1) * pageSize)
                             .Take(pageSize)
@@ -67,12 +79,25 @@ namespace GiveAID.Controllers
             return View();
         }
 
+        //public class ViewPost
+        //{
+        //    public int id { get; set; }
+        //    public string title { get; set; }
+        //    public string image { get; set; }
+        //    public decimal target { get; set; }
+        //    public int cate_id { get; set; }
+        //    public string name { get; set; }
+        //    public decimal total { get; set; }
+        //}
+
         public ActionResult CardDetails(int id)
         {
             var detail = en.posts.FirstOrDefault(x => x.id == id);
             ViewBag.cardDetails = detail;
             var donater = en.payments.Where(x => x.post_id == id).ToList();
             ViewBag.donater = donater;
+            var sum = en.payments.Where(x => x.id == id).Sum(x => x.transaction_amout);
+            ViewBag.sum = sum;
             return View();
         }
 

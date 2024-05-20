@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Trang Chu";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<GiveAID.Models.entities.post> posts = new List<GiveAID.Models.entities.post>();
+    List<GiveAID.Models.model_view.ViewPost> posts = new List<GiveAID.Models.model_view.ViewPost>();
     if (ViewBag.posts != null)
     {
         posts = ViewBag.posts;
@@ -154,7 +154,7 @@
                             <div class="widget-user-header text-white "
                                  style="background: url('@Url.Content("~/Content/Images/" + item.image)') center center;">
 
-                                <h3 class="widget-user-username text-right">@item.category.name</h3>
+                                <h3 class="widget-user-username text-right">@item.name</h3>
                                 <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
                             </div>
                             <div class="widget-user-image">
@@ -185,7 +185,7 @@
                                         <div class="description-block">
                                             <h5 class="description-header">
                                                 <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:70%">70%</div>
+                                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:@Convert.ToInt64((item.total/item.target)*100)%">@(Convert.ToInt64((item.total/item.target)*100))%</div>
                                                 </div>
                                             </h5>
                                             <span class="description-text">Tiến Độ</span>
@@ -196,7 +196,7 @@
 
                                     <div class="col-sm-4 border-right">
                                         <div class="description-block">
-                                            <h5 class="description-header">500.000.000đ</h5>
+                                            <h5 class="description-header">@Convert.ToInt64(item.total).ToString("N0") đ</h5>
                                             <span class="description-text">Đã Góp</span>
                                         </div>
                                         <!-- /.description-block -->
