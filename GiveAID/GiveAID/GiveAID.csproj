@@ -267,6 +267,7 @@
     <Content Include="Content\Images\2DV.gif" />
     <Content Include="Content\Images\apple.png" />
     <Content Include="Content\Images\BinCute.jpg" />
+    <Content Include="Content\Images\donation.png" />
     <Content Include="Content\Images\facebook.png" />
     <Content Include="Content\Images\rabbit.jpg" />
     <Content Include="Content\Images\sloganVIP.jpg" />

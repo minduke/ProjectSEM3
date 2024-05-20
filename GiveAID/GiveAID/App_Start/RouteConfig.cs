@@ -13,6 +13,14 @@ namespace GiveAID
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Route cho phân trang với URL thân thiện
+            routes.MapRoute(
+                name: "PagedPosts",
+                url: "page/{page}/{pageSize}",
+                defaults: new { controller = "Home", action = "Index", page = UrlParameter.Optional, pageSize = UrlParameter.Optional }
+            );
+
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
