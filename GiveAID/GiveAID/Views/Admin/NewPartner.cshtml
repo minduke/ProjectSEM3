@@ -6,12 +6,13 @@
 
 <script>
     function submitPartner() {
-        var json = getFormObj("formPartner");
+        var json = document.getElementById("formPartner");
+        var formData = new FormData(json);
 
         $.ajax({
             type: 'POST',
             url: '@Url.Action("partnerNew", "Admin")',
-            data: json,
+            data: formData,
             contentType: false,
             processData: false,
             success: function (response) {
@@ -52,10 +53,10 @@
             </div>
 
             <div class="form-group">
-                <label for="fileBase">Logo cho đối tác</label>
+                <label for="fileBasePartner">Logo cho đối tác</label>
 
 
-                <input type="file" class="form-control" id="fileBase" name="fileBase" required>
+                <input type="file" class="form-control" id="fileBasePartner" name="fileBasePartner" required>
             </div>
 
             <div class="form-group">
