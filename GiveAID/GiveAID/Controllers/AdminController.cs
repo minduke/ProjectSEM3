@@ -84,36 +84,38 @@ namespace GiveAID.Controllers
             return View();
         }
 
-        public JsonResult partnerNew(partner partner, HttpPostedFileBase fileBase)
+        public JsonResult partnerNew(partner partner, HttpPostedFileBase fileBasePartner)
         {
-            if (partner.name != null && fileBase != null && partner.description != null && partner.address != null && partner.phone != null && partner.email != null)
-            {    // coi lại chỗ này 
-                var PathUpload = Server.MapPath("/Content/Images/partner");
-                if (!Directory.Exists(PathUpload))
-                {
-                    Directory.CreateDirectory(PathUpload);
-                }
-                string fileExtension = Path.GetExtension(fileBase.FileName).ToLower();
-                if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
-                {
-                    var fileName = DateTime.Now.Ticks + "_" + fileBase.FileName;
-                    var filePath = Path.Combine(PathUpload, fileName);
-                    fileBase.SaveAs(filePath);
-                    partner.partner_image = fileName;
-                    en.partners.Add(partner);
-                    en.SaveChanges();
-                    return Json(new { result = true });
-                }
-                else
-                {
-                    throw new Exception("Sai định dạng ảnh");
-                }
-            }
-            else
+            if (string.IsNullOrWhiteSpace(partner.name) &&
+                fileBasePartner == null &&
+                string.IsNullOrWhiteSpace(partner.description) &&
+                string.IsNullOrWhiteSpace(partner.address) &&
+                string.IsNullOrWhiteSpace(partner.phone) &&
+                string.IsNullOrWhiteSpace(partner.email))
             {
                 throw new Exception("Vui lòng điền đầy đủ thông tin");
             }
 
+            var PathUpload = Server.MapPath("/Content/Images/partner");
+            if (!Directory.Exists(PathUpload))
+            {
+                Directory.CreateDirectory(PathUpload);
+            }
+            string fileExtension = Path.GetExtension(fileBasePartner.FileName).ToLower();
+            if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
+            {
+                var fileName = DateTime.Now.Ticks + "_" + fileBasePartner.FileName;
+                var filePath = Path.Combine(PathUpload, fileName);
+                fileBasePartner.SaveAs(filePath);
+                partner.partner_image = fileName;
+                en.partners.Add(partner);
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            else
+            {
+                throw new Exception("Sai định dạng ảnh");
+            }
         }
 
         public ActionResult NewPartner()
