@@ -70,19 +70,7 @@ namespace GiveAID.Controllers
 
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+       
 
         //public class ViewPost
         //{
@@ -290,8 +278,20 @@ namespace GiveAID.Controllers
             throw new Exception("something wrong");
         }
 
-       
 
+        public ActionResult About()
+        {
+
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+
+
+            return View();
+        }
 
     }
 }
