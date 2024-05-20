@@ -21,6 +21,11 @@ namespace GiveAID.Controllers
 
         GiveAIDEntities en = new GiveAIDEntities();
 
+       public ActionResult DonationP()
+        {
+            return View();
+        }
+
         public ActionResult Index(int page = 1, int pageSize = 3)
         {
 
@@ -285,7 +290,7 @@ namespace GiveAID.Controllers
             throw new Exception("something wrong");
         }
 
-
+       
 
 
     }

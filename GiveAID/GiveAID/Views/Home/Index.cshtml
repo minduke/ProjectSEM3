@@ -81,12 +81,17 @@
         line-height: 30px;
         color: white;
     }
-
+    .text-ellipsis {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 250px; /* Định nghĩa kích thước cố định của nội dung */
+    }
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="1000">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="3000">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
@@ -94,24 +99,24 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="@Url.Content("~/content/Images/2DV.gif")" class="d-block w-100" alt="anh test 1">
+                <img src="@Url.Content("~/content/Images/2DV.gif")" class="d-block w-100" alt="anh 1">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Châm ngôn sống</h5>
-                    <p>Hãy thở khi còn sống.</p>
+                    <h5>Maxim of life</h5>
+                    <p>Always be happy to make life happier</p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="@Url.Content("~/content/Images/Xqg8.gif")" class="d-block w-100" alt="anh 2">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
+                    <h5>Truth of life</h5>
+                    <p>We only live once in this world, why should we think so much?</p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="@Url.Content("~/content/Images/YhSO.gif")" class="d-block w-100" alt="anh 3">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
+                    <h5>Things you never knew!!!</h5>
+                    <p>Mr. Bin is a gay man and he likes girls</p>
                 </div>
             </div>
         </div>
@@ -164,7 +169,7 @@
                                 <div class="row">
                                     <div class="container">
                                         <a href="@Url.Action("CardDetails","Home")/@item.id">
-                                            <h4>
+                                            <h4 class="text-ellipsis">
                                                 @item.title
 
                                             </h4>
@@ -221,35 +226,37 @@
             </div>
 
 
+
+
             <div class="container PageVIP">
                 <!--Phan trang-->
                 <nav aria-label="Page navigation example">
                     @*<ul class="pagination">
-                        @if (ViewBag.CurrentPage > 1)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        }
+                            @if (ViewBag.CurrentPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            }
 
-                        @for (int i = 1; i <= totalPages; i++)
-                        {
-                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                                <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
-                            </li>
-                        }
+                            @for (int i = 1; i <= totalPages; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
+                                </li>
+                            }
 
-                        @if (ViewBag.CurrentPage < totalPages)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        }
-                    </ul>*@
+                            @if (ViewBag.CurrentPage < totalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>*@
 
                     <ul class="pagination">
                         @if (ViewBag.CurrentPage > 1)
@@ -283,7 +290,7 @@
             <div class="description-block">
                 <h5 class="description-header">
                     <div class="progress">
-                        <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar" >0%</div>
+                        <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
                     </div>
                 </h5>
                 <span class="description-text">Tiến Độ</span>
@@ -304,7 +311,7 @@
             </script>
 
 
-        
+
 
 
 
