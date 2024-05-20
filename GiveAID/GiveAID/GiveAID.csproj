@@ -4679,6 +4679,7 @@
     <Content Include="Views\Admin\NewPartner.cshtml" />
     <Content Include="Views\Admin\EditHome.cshtml" />
     <Content Include="Views\Admin\EditDetail.cshtml" />
+    <Content Include="Views\Home\DonationP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
