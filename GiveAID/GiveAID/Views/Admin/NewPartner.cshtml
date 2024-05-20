@@ -4,6 +4,29 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<script>
+    function submitPartner() {
+        var json = getFormObj("formPartner");
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("NewPartner", "Admin")',
+            data: json,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.result == true) {
+                    showSuccessMessage("Thêm đối tác thành công");
+                    json.reset();
+                } else {
+                    showErrorMessage(response.error);
+                }
+            },
+            error: handleException
+        })
+    }
+</script>
+
 <div class="content-wrapper">
 
     <div class="card-header">
@@ -16,11 +39,11 @@
 
 
     <!-- form start -->
-    <form id="formTinTuc" action="javascript:doSubmitNews();" method="post" enctype="multipart/form-data">
+    <form id="formPartner" action="javascript:submitPartner();" method="post" enctype="multipart/form-data">
         <div class="card-body mx-auto">
             <div class="form-group">
                 <label for="Tiêu Đề">Tên Đối Tác</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Tên mối" required>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Tên mối" required>
             </div>
 
             <div class="form-group">
@@ -32,22 +55,22 @@
                 <label for="fileBase">Logo cho đối tác</label>
 
 
-                <input type="file" class="form-control" id="fileBase" name="fileBase" required multiple>
+                <input type="file" class="form-control" id="fileBase" name="fileBase" required>
             </div>
 
             <div class="form-group">
                 <label for="description">Địa chỉ </label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Ví dụ: Khu phố đèn tím " required>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Ví dụ: Khu phố đèn tím " required>
             </div>
 
             <div class="form-group">
                 <label for="description">Email </label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Ví dụ: DucLOVEP2T " required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Ví dụ: DucLOVEP2T " required>
             </div>
 
             <div class="form-group">
                 <label for="description">Số điện thoại</label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Ví dụ: 0908540891" required>
+                <input type="number" class="form-control" id="phone" name="phone" placeholder="Ví dụ: 0908540891" required>
             </div>
 
             @*<input type="hidden" id="time_start" name="time_start" value="" />*@
@@ -55,32 +78,32 @@
             @*<input type="hidden" name="TrangThai" value="Mở" />*@
 
             @*<div class="form-group">
-            <label for="target">Số tiền mục tiêu</label>
-            <input type="number" class="form-control" id="target" name="target" placeholder="" required>
-        </div>
+                    <label for="target">Số tiền mục tiêu</label>
+                    <input type="number" class="form-control" id="target" name="target" placeholder="" required>
+                </div>
 
-        <div class="form-group">
-            <label for="content">Nội dung bài viết</label>
-            <input type="text" class="form-control" id="content" placeholder="Nội dung bài viết" required>
-        </div>
+                <div class="form-group">
+                    <label for="content">Nội dung bài viết</label>
+                    <input type="text" class="form-control" id="content" placeholder="Nội dung bài viết" required>
+                </div>
 
-        <div>
-            <input type="hidden" name="content" id="MoTa" />
-        </div>
+                <div>
+                    <input type="hidden" name="content" id="MoTa" />
+                </div>
 
-        <div class="form-group">
-            <label>Lĩnh vực</label>
-            <select class="form-control" name="cate_id">
+                <div class="form-group">
+                    <label>Lĩnh vực</label>
+                    <select class="form-control" name="cate_id">
 
-                <option value="Con cho Duc"></option>
-                <option value="No thich con Phuong"></option>
-            </select>
-        </div>
+                        <option value="Con cho Duc"></option>
+                        <option value="No thich con Phuong"></option>
+                    </select>
+                </div>
 
-        <div class="form-group">
-            <label for="time_end">Ngày kết thúc quyên góp</label>
-            <input type="date" class="form-control" id="time_end" name="time_end" required>
-        </div>*@
+                <div class="form-group">
+                    <label for="time_end">Ngày kết thúc quyên góp</label>
+                    <input type="date" class="form-control" id="time_end" name="time_end" required>
+                </div>*@
 
 
         </div>
