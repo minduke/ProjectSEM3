@@ -15,8 +15,13 @@
             dataType: "json",
             success: function (response) {
                 if (response.result == true) {
+
+                    showSuccessMessage("Chào cậu!!!");
+
                     var url = '@Url.Action("Index", "Login")';
+                    
                     open(url, "_self");
+                    
                 }
                 else {
                     showErrorMessage(response.error);
@@ -30,17 +35,17 @@
 <div class="content-wrapper">
     <div class="register-box mx-auto">
         <div class="register-logo">
-            <a href="../../index2.html"><b>Give</b>-AID</a>
+            <a href="@Url.Action("Index","Home")"><b>Give</b>-AID</a>
         </div>
 
-        <div class="card mt-sm-5">
+        <div class="card mt-sm-5 mb-5" >
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Tạo Tài Khoản</p>
 
                 <form action="javascript:doRegister();" method="post" id="formRegister">
                     @* nhập tên người dùng  *@
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Họ và tên">
+                        <input type="text" class="form-control" name="fullname" id="fullname" placeholder="First and last name">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-file-signature"></span>
@@ -49,7 +54,7 @@
                     </div>
                     @* nhập tài khoản *@
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Tài khoản">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Username">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -67,7 +72,7 @@
                     </div>
                     @* Nhập mật khẩu *@
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -76,7 +81,7 @@
                     </div>
                     @* nhập lại mật khẩu  *@
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="password2" placeholder="Nhập lại mật khẩu">
+                        <input type="password" class="form-control" name="password2" placeholder="Enter the password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -84,14 +89,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
-                            <div class="icheck-primary">
-
-                            </div>
-                        </div>
+                     
                         <!-- /.col -->
-                        <div class="col-5">
-                            <button type="submit" class="btn btn-primary btn-block">Tạo tài khoản</button>
+                        <div class="col-11 ml-3">
+                            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
                         </div>
                         <!-- /.col -->
                     </div>

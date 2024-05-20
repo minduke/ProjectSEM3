@@ -8,7 +8,7 @@
         posts = ViewBag.posts;
     }
     int totalPages = ViewBag.TotalPages;
-  
+   
 }
 
 <style>
@@ -70,17 +70,16 @@
 
     .progress {
         width: 100%;
-        background-color: #f3f3f3;
+        background-color: lightgray;
     }
-        
-    .progress-bar {
-        width: 0%;
-        
-        background-color: #4caf50;
-        text-align: center;
-        line-height: 30px;
-        color: white;
+
+    .custom-progress-bar {
+        background-color: #FF66FF;
+        /* Các thuộc tính khác tùy chỉnh */
     }
+
+
+
     .text-ellipsis {
         overflow: hidden;
         white-space: nowrap;
@@ -186,11 +185,14 @@
                                     </div>
 
                                     <!-- /.col -->
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 border-right">
                                         <div class="description-block">
                                             <h5 class="description-header">
                                                 <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:@Convert.ToInt64((item.total/item.target)*100)%">@(Convert.ToInt64((item.total/item.target)*100))%</div>
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated custom-progress-bar"                        role="progressbar"  aria-valuemin="0" aria-valuemax="100" 
+                                                         style="width:@Convert.ToInt64((item.total/item.target)*100)%">
+                                                        <span class="">@(Convert.ToInt64((item.total/item.target)*100))%</span>
+                                                    </div>
                                                 </div>
                                             </h5>
                                             <span class="description-text">Tiến Độ</span>
@@ -199,7 +201,7 @@
                                         <!-- /.description-block -->
                                     </div>
 
-                                    <div class="col-sm-4 border-right">
+                                    <div class="col-sm-4 ">
                                         <div class="description-block">
                                             <h5 class="description-header">@Convert.ToInt64(item.total).ToString("N0") đ</h5>
                                             <span class="description-text">Đã Góp</span>
@@ -232,31 +234,31 @@
                 <!--Phan trang-->
                 <nav aria-label="Page navigation example">
                     @*<ul class="pagination">
-                            @if (ViewBag.CurrentPage > 1)
-                            {
-                                <li class="page-item">
-                                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                            }
+                    @if (ViewBag.CurrentPage > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    }
 
-                            @for (int i = 1; i <= totalPages; i++)
-                            {
-                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
-                                </li>
-                            }
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
+                        </li>
+                    }
 
-                            @if (ViewBag.CurrentPage < totalPages)
-                            {
-                                <li class="page-item">
-                                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            }
-                        </ul>*@
+                    @if (ViewBag.CurrentPage < totalPages)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    }
+                </ul>*@
 
                     <ul class="pagination">
                         @if (ViewBag.CurrentPage > 1)
@@ -287,17 +289,22 @@
                 </nav>
 
             </div>
-            <div class="description-block">
-                <h5 class="description-header">
-                    <div class="progress">
-                        <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
-                    </div>
-                </h5>
-                <span class="description-text">Tiến Độ</span>
+            @*<div class="description-block">
+            <h5 class="description-header">
+                <div class="progress">
+                    <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
+                </div>
+            </h5>
+            <span class="description-text">Tiến Độ</span>
 
-                <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
-            </div>
+            <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
+        </div>*@
 
+
+            <!-- Stripes + Animation -->
+        <div class="progress mb-3" id="animated-bar">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+        </div>
 
             <script>
                 function updateProgressBar() {
