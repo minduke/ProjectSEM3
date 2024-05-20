@@ -41,6 +41,18 @@
           <Property Name="image" Type="varchar(max)" />
           <Property Name="post_id" Type="int" />
         </EntityType>
+        <EntityType Name="partner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="partner_image" Type="varchar(max)" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="address" Type="nvarchar" MaxLength="200" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="payment">
           <Key>
             <PropertyRef Name="id" />
@@ -65,6 +77,7 @@
           <Property Name="time_end" Type="date" />
           <Property Name="target" Type="decimal" Precision="18" Scale="2" />
           <Property Name="cate_id" Type="int" />
+          <Property Name="partner_id" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -100,6 +113,18 @@
             </Principal>
             <Dependent Role="post">
               <PropertyRef Name="cate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partner_id">
+          <End Role="partner" Type="Self.partner" Multiplicity="0..1" />
+          <End Role="post" Type="Self.post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="partner_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -139,17 +164,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetPost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="GiveAIDModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="contact" EntityType="Self.contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="image_post" EntityType="Self.image_post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="partner" EntityType="Self.partner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payment" EntityType="Self.payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_cate_id" Association="Self.FK_cate_id">
             <End Role="category" EntitySet="category" />
+            <End Role="post" EntitySet="post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partner_id" Association="Self.FK_partner_id">
+            <End Role="partner" EntitySet="partner" />
             <End Role="post" EntitySet="post" />
           </AssociationSet>
           <AssociationSet Name="FK_post_id" Association="Self.FK_post_id">
@@ -227,6 +289,8 @@
           <NavigationProperty Name="category" Relationship="Self.FK_cate_id" FromRole="post" ToRole="category" />
           <NavigationProperty Name="payments" Relationship="Self.FK_post_id" FromRole="post" ToRole="payment" />
           <NavigationProperty Name="image_post" Relationship="GiveAIDModel.FK_post_image_id" FromRole="post" ToRole="image_post" />
+          <Property Name="partner_id" Type="Int32" />
+          <NavigationProperty Name="partner" Relationship="GiveAIDModel.FK_partner_id" FromRole="post" ToRole="partner" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -315,6 +379,42 @@
             <End Role="post" EntitySet="posts" />
             <End Role="image_post" EntitySet="image_post" />
           </AssociationSet>
+          <EntitySet Name="partners" EntityType="GiveAIDModel.partner" />
+          <AssociationSet Name="FK_partner_id" Association="GiveAIDModel.FK_partner_id">
+            <End Role="partner" EntitySet="partners" />
+            <End Role="post" EntitySet="posts" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetPost" ReturnType="Collection(GiveAIDModel.sp_GetPost_Result)" />
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(GiveAIDModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(GiveAIDModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
         <EntityType Name="image_post">
           <Key>
@@ -337,6 +437,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="partner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="partner_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="posts" Relationship="GiveAIDModel.FK_partner_id" FromRole="partner" ToRole="post" />
+        </EntityType>
+        <Association Name="FK_partner_id">
+          <End Type="GiveAIDModel.partner" Role="partner" Multiplicity="0..1" />
+          <End Type="GiveAIDModel.post" Role="post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="partner">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="partner_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_GetPost_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" />
+          <Property Type="String" Name="image" Nullable="true" />
+          <Property Type="Decimal" Name="target" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="cate_id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" />
+          <Property Type="Decimal" Name="total" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -389,6 +534,7 @@
           <EntitySetMapping Name="posts">
             <EntityTypeMapping TypeName="GiveAIDModel.post">
               <MappingFragment StoreEntitySet="post">
+                <ScalarProperty Name="partner_id" ColumnName="partner_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="description" ColumnName="description" />
@@ -437,6 +583,56 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="partners">
+            <EntityTypeMapping TypeName="GiveAIDModel.partner">
+              <MappingFragment StoreEntitySet="partner">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="partner_image" ColumnName="partner_image" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="GiveAIDModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="GiveAIDModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="GiveAIDModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_GetPost" FunctionName="GiveAIDModel.Store.sp_GetPost">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiveAIDModel.sp_GetPost_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="target" ColumnName="target" />
+                <ScalarProperty Name="cate_id" ColumnName="cate_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="GiveAIDModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiveAIDModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="GiveAIDModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiveAIDModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="GiveAIDModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="GiveAIDModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

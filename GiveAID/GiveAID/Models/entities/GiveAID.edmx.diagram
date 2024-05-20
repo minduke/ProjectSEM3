@@ -17,6 +17,8 @@
         <AssociationConnector Association="GiveAIDModel.FK_user_id" ManuallyRouted="false" />
         <EntityTypeShape EntityType="GiveAIDModel.image_post" Width="1.5" PointX="5.25" PointY="7.75" />
         <AssociationConnector Association="GiveAIDModel.FK_post_image_id" />
+        <EntityTypeShape EntityType="GiveAIDModel.partner" Width="1.5" PointX="7.375" PointY="8" />
+        <AssociationConnector Association="GiveAIDModel.FK_partner_id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

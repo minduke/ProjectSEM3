@@ -30,11 +30,13 @@ namespace GiveAID.Models.entities
         public Nullable<System.DateTime> time_end { get; set; }
         public Nullable<decimal> target { get; set; }
         public Nullable<int> cate_id { get; set; }
+        public Nullable<int> partner_id { get; set; }
     
         public virtual category category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<payment> payments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<image_post> image_post { get; set; }
+        public virtual partner partner { get; set; }
     }
 }
