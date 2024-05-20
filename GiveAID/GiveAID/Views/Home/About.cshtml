@@ -1,9 +1,123 @@
 ﻿@{
     ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
 
-    <p>Use this area to provide additional information.</p>
-</main>
+<style>
+
+    .carousel-caption {
+        /* CSS cho thẻ <h5> */
+
+        bottom: 90px;
+    }
+
+        .carousel-caption.d-none.d-md-block h5 {
+            /* CSS cho thẻ <h5> */
+            color: ghostwhite;
+            font-weight: bold;
+            font-size: 22px;
+            text-transform: uppercase;
+            text-shadow: 5px 5px 10px #00FF00;
+        }
+
+        .carousel-caption.d-none.d-md-block p {
+            /* CSS cho thẻ <p> */
+            color: ghostwhite;
+            font-weight: bold;
+            font-size: 20px;
+            text-shadow: 5px 5px 10px #00FF00;
+        }
+
+
+    .w-100 {
+        /* kích thước thẻ slide index home */
+        width: 100vw;
+        height: 40vh;
+        filter: blur(3px);
+        background-color: rgba(0, 0, 0, 0.5); /* Màu nền làm mờ */
+    }
+
+    .logoBrandCard {
+        /* kích thước logo card index home */
+        width: 250px;
+        height: 200px;
+        margin: 3px;
+    }
+
+</style>
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-body row">
+                <div class="col-5 text-center d-flex align-items-center justify-content-center">
+                    <div class="">
+                        <h2>Give-AID <strong>N.G.O</strong></h2>
+                        <p class="lead mb-5">
+                            123 Testing Ave, Testtown, 9876 NA<br>
+                            Phone: +1 234 56789012
+                        </p>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="form-group">
+                        <h1>Give-AID</h1> 
+                        <p>
+                            Tinh hoa hội tụ phụ nữ rất yêu 3D+ cũng mê nói chi con gái :D 
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <div class="card-dark">
+                            <div class="card-header">
+                                <h3>Đội Nhóm Cute</h3>
+                            </div>
+                            <div class="card-body row-cols-2">
+                                <div class=" col-6 mx-auto">
+                                    <h3>Giám sát công trình</h3>
+                                    <img class="img-circle logoBrandCard" src="@Url.Content("~/content/Images/Bin.png")" alt="User Avatar">
+                                    <p>Kẻ hủy diệt sinh viên, người mang bóng đêm tới cho học sinh, máy sấy hình người BBoyBin</p>
+                                </div>
+                                <div class="float-left col-md-3">
+                                    <h3>Tổ tiết tấu</h3>
+                                    <img class="img-circle logoBrandCard" src="@Url.Content("~/content/Images/Wu.png")" alt="User Avatar">
+                                    <p>Chuyên gia trong lĩnh vực lên mạng kể chuyện cười</p>
+
+                                </div>
+                                <div class="float-right col-5">
+                                    <h3>Tổ ẩm thực</h3>
+                                    <img class="img-circle logoBrandCard" src="@Url.Content("~/content/Images/Duke2.png")" alt="User Avatar">
+                                    <p>Thực thần trong các món ăn uống đặc biệt trứng gà Lạ Hề và đó là Lê Đức</p>
+                                </div
+                            </div>
+                            
+                         </div">
+                        
+                    </div>
+                    <div class="form-group">
+                        <p>Tinh thần kiên cường ý chí bất khuất và đó là tình.<strong>Yêu quý con người</strong></p>
+                    </div>
+                    <div class="form-group">
+                        
+                    </div>
+                    <div class="form-group">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="@Url.Content("~/Content/Images/sloganVIP.jpg")" loading="lazy" class="d-block w-100" alt="anh test 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>If you're still breathing, you're alive</h5>
+                    <p>So don't forget to breathe</p>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+    <!-- /.content -->
+</div>
