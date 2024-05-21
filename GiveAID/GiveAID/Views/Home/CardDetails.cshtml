@@ -185,12 +185,12 @@
                     <div class="col-12 col-sm-6">
                         <h3 class="d-inline-block d-sm-none">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
                         <div class="col-12">
-                            <img src="@Url.Content("~/content/images/" + posts.image)" class="product-image" alt="Product Image">
+                            <img src="@Url.Content("~/content/images/post/" + posts.image)" class="product-image" alt="Product Image">
                         </div>
                         <div class="col-12 product-image-thumbs">
                             @foreach (var item in posts.image_post)
                             {
-                                <div class="product-image-thumb active"><img src="@Url.Content("~/content/images/" + item.image)" alt="Product Image"></div>
+                                <div class="product-image-thumb active"><img src="@Url.Content("~/content/images/post/" + item.image)" alt="Product Image"></div>
                             }
                             @*<div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-2.jpg")" alt="Product Image"></div>
                                 <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-3.jpg")" alt="Product Image"></div>
