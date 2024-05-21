@@ -182,13 +182,13 @@
         }
 
         function deleteImage(imageId) {
-            // Call server to delete image by id
+            
             $.ajax({
                 url: '@Url.Action("DeleteImage", "Admin")',
                 type: 'POST',
                 data: { id: imageId },
-                success: function (response) {
-                    if (response.success) {
+                success: function (response) { 
+                    if (response.result) {
                         showSuccessMessage("Xoá ảnh thành công");
                         document.querySelector(`button[onclick="deleteImage(${imageId})"]`).parentElement.remove();
                     } else {
