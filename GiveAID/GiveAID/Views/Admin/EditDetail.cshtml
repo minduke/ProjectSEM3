@@ -2,6 +2,204 @@
 @{
     ViewBag.Title = "EditDetail";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var post = ViewBag.EditPost as GiveAID.Models.entities.post;
+    List<GiveAID.Models.entities.category> categories = new List<GiveAID.Models.entities.category>();
+    if (ViewBag.cate != null)
+    {
+        categories = ViewBag.cate;
+    }
+}
+
+@section scripts{
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('comment');
+
+        $(document).ready(function (e) {
+            $('#comment').val($('#MoTa').val());
+
+            $('#btnSubmit').click(function (e) {
+                e.preventDefault();
+                var data = CKEDITOR.instances['comment'].getData();
+                $('#MoTa').val(data);
+
+                $('#formEditPost').submit();
+            })
+        })
+
+        function doEditPost() {
+            var dt = document.getElementById('formEditPost');
+            var form = new FormData(dt);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DoEditPost", "Admin")',
+                data: form,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.result == true) {
+                        showSuccessMessage("Chỉnh sửa thành công");
+                    }
+                    else {
+                        showErrorMessage(response.error);
+                    }
+                },
+                error: handleException
+            })
+        }
+
+        function previewThumbnail(event) {
+            var input = event.target;
+            var imagesPreview = document.getElementById('thumb');
+            imagesPreview.innerHTML = ''; // Clear any previous images
+
+            if (input.files) {
+                var filesAmount = input.files.length;
+
+                for (let i = 0; i < filesAmount; i++) {
+                    let file = input.files[i];
+                    let reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        let imgContainer = document.createElement('div');
+                        imgContainer.style.position = 'relative';
+                        imgContainer.style.display = 'inline-block';
+                        imgContainer.style.marginRight = '10px';
+                        imgContainer.style.marginBottom = '10px';
+
+                        let img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxWidth = '200px';
+                        img.style.maxHeight = '200px';
+
+                        let removeButton = document.createElement('button');
+                        removeButton.innerHTML = 'X';
+                        removeButton.style.position = 'absolute';
+                        removeButton.style.top = '5px';
+                        removeButton.style.right = '5px';
+                        removeButton.style.backgroundColor = 'red';
+                        removeButton.style.color = 'white';
+                        removeButton.style.border = 'none';
+                        removeButton.style.borderRadius = '50%';
+                        removeButton.style.cursor = 'pointer';
+
+                        removeButton.onclick = function () {
+                            imgContainer.remove();
+                            // Remove the file from the input element
+                            var dt = new DataTransfer();
+                            for (var j = 0; j < input.files.length; j++) {
+                                if (input.files[j] !== file) {
+                                    dt.items.add(input.files[j]);
+                                }
+                            }
+                            input.files = dt.files;
+                        };
+
+                        imgContainer.appendChild(img);
+                        imgContainer.appendChild(removeButton);
+                        imagesPreview.appendChild(imgContainer);
+                    }
+
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        function previewImages(event) {
+            var input = event.target;
+            var imagesPreview = document.getElementById('imagesPreview');
+            imagesPreview.innerHTML = ''; // Clear any previous images
+
+            if (input.files) {
+                var filesAmount = input.files.length;
+
+                for (let i = 0; i < filesAmount; i++) {
+                    let file = input.files[i];
+                    let reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        let imgContainer = document.createElement('div');
+                        imgContainer.style.position = 'relative';
+                        imgContainer.style.display = 'inline-block';
+                        imgContainer.style.marginRight = '10px';
+                        imgContainer.style.marginBottom = '10px';
+
+                        let img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxWidth = '200px';
+                        img.style.maxHeight = '200px';
+
+                        let removeButton = document.createElement('button');
+                        removeButton.innerHTML = 'X';
+                        removeButton.style.position = 'absolute';
+                        removeButton.style.top = '5px';
+                        removeButton.style.right = '5px';
+                        removeButton.style.backgroundColor = 'red';
+                        removeButton.style.color = 'white';
+                        removeButton.style.border = 'none';
+                        removeButton.style.borderRadius = '50%';
+                        removeButton.style.cursor = 'pointer';
+
+                        removeButton.onclick = function () {
+                            imgContainer.remove();
+                            // Remove the file from the input element
+                            var dt = new DataTransfer();
+                            for (var j = 0; j < input.files.length; j++) {
+                                if (input.files[j] !== file) {
+                                    dt.items.add(input.files[j]);
+                                }
+                            }
+                            input.files = dt.files;
+                        };
+
+                        imgContainer.appendChild(img);
+                        imgContainer.appendChild(removeButton);
+                        imagesPreview.appendChild(imgContainer);
+                    }
+
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        var idPost = document.getElementById('id');
+
+        function deleteThumb(idPost) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteThumb", "Admin")',
+                data: { id: idPost },
+                success: function (response) {
+                    if (response.result == true) {
+                        showSuccessMessage("Xoá ảnh nền thành công");
+                        document.getElementById('imageId').remove();
+                    } else {
+                        showErrorMessage(response.error);
+                    }
+                },
+                error: handleException
+            })
+        }
+
+        function deleteImage(imageId) {
+            // Call server to delete image by id
+            $.ajax({
+                url: '@Url.Action("DeleteImage", "Admin")',
+                type: 'POST',
+                data: { id: imageId },
+                success: function (response) {
+                    if (response.success) {
+                        showSuccessMessage("Xoá ảnh thành công");
+                        document.querySelector(`button[onclick="deleteImage(${imageId})"]`).parentElement.remove();
+                    } else {
+                        showErrorMessage(response.error);
+                    }
+                },
+                error: handleException
+            })
+        }
+    
+    </script>
 }
 
 <div class="content-wrapper">
@@ -16,23 +214,41 @@
 
 
     <!-- form start -->
-    <form id="formTinTuc" action="javascript:doSubmitNews();" method="post" enctype="multipart/form-data">
+    <form id="formEditPost" action="javascript:doEditPost();" method="post" enctype="multipart/form-data">
         <div class="card-body mx-auto">
             <div class="form-group">
                 <label for="Tiêu Đề">Tiêu Đề</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Tiêu Đề" required>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Tiêu Đề" required value="@post.title">
             </div>
 
+            <input type="hidden" name="id" id="id" value="@post.id" />
+
             <div class="form-group">
-                <label for="description">Mô tả ngắn gọn</label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="phần mô tả này được hiển thị bên dưới tiêu đề trên trang chính" required>
+                <label for="fileBase">Ảnh nền</label>
+
+                <div class="" id="imageId">
+                    <img src="~/Content/Images/post/@post.image" alt="chưa có ảnh" width="150px" height="150px" />
+                    <button type="button" onclick="deleteThumb(@post.id)">Xoá</button>
+                </div>
+
+                <input type="file" class="form-control" id="thumbnail" name="thumbnail" required onchange="previewThumbnail(event)">
+                <div id="thumb" style="margin-top: 10px;"></div>
+
             </div>
 
             <div class="form-group">
                 <label for="fileBase">Hình ảnh liên quan</label>
+                @foreach (var item in post.image_post)
+                {
+                    <div class="image-container">
+                        <img src="~/Content/Images/post/@item.image" alt="" width="150px" height="150px">
+                        <button type="button" onclick="deleteImage(@item.id)">Xoá</button>
+                    </div>
+                }
 
+                <input type="file" class="form-control" id="fileBase" name="fileBase" required multiple onchange="previewImages(event)">
+                <div id="imagesPreview" style="margin-top: 10px;"></div>
 
-                <input type="file" class="form-control" id="fileBase" name="fileBase" required multiple>
             </div>
 
             <input type="hidden" id="time_start" name="time_start" value="" />
@@ -41,31 +257,38 @@
 
             <div class="form-group">
                 <label for="target">Số tiền mục tiêu</label>
-                <input type="number" class="form-control" id="target" name="target" placeholder="" required>
+                <input type="number" class="form-control" id="target" name="target" placeholder="" value="@Convert.ToInt64(post.target)" required>
             </div>
 
             <div class="form-group">
                 <label for="content">Nội dung bài viết</label>
-                <textarea class="form-control" rows="5" id="comment"></textarea>
+                <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
             </div>
 
             <div>
-                <input type="hidden" name="content" id="MoTa" />
+                <input type="text" name="content" id="MoTa" value="@post.content" />
             </div>
 
             <div class="form-group">
                 <label>Lĩnh vực</label>
                 <select class="form-control" id="sel1" name="cate_id">
-                    <option>No thich con Phuong</option>
-                    <option>Con cho Duc</option>
-                    <option>Con cho Duc</option>
-                    <option>No thich con Phuong</option>
+                    @foreach (var item in categories)
+                    {
+                        <option value="@item.cate_id" @(post.cate_id == item.cate_id ? "selected" : "")>@item.name</option>
+                    }
                 </select>
             </div>
 
+            @*<div class="form-group">
+                    <label>Đối tác</label>
+                    <select class="form-control" id="sel1" name="cate_id">
+                        <option></option>
+                    </select>
+                </div>*@
+
             <div class="form-group">
                 <label for="time_end">Ngày kết thúc quyên góp</label>
-                <input type="date" class="form-control" id="time_end" name="time_end" required>
+                <input type="date" class="form-control" id="time_end" name="time_end" value="@post.time_end.Value.ToString("yyyy-MM-dd")" required>
             </div>
 
 

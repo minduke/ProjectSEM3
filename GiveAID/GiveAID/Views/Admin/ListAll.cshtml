@@ -2,6 +2,19 @@
 @{
     ViewBag.Title = "ListAll";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int index = 1;
+
+    List<GiveAID.Models.entities.post> posts = new List<GiveAID.Models.entities.post>();
+    if (ViewBag.post != null)
+    {
+        posts = ViewBag.post;
+    }
+
+    List<GiveAID.Models.entities.partner> partner = new List<GiveAID.Models.entities.partner>();
+    if (ViewBag.partner != null)
+    {
+        partner = ViewBag.partner;
+    }
 }
 
 <style>
@@ -10,9 +23,9 @@
 
 
 
-   
 
-   
+
+
 
 
 
@@ -33,15 +46,13 @@
         border-bottom: 2px solid #FF3399; /* Thay đổi màu và đường kẻ dưới khi tab được kích hoạt */
         background-color: whitesmoke;
     }
-
-
 </style>
 
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
-  
+
 
 
     <!-- Content Header (Page header) -->
@@ -55,11 +66,11 @@
                     <ul class="nav nav-tabs content-vip" role="tablist">
                         <li class="nav-item content-baby">
                             <!--Table 1-->
-                            <a class="nav-link active" data-toggle="tab" href="#home">List of articles</a>
+                            <a class="nav-link active" data-toggle="tab" href="#home">Bài viết</a>
                         </li>
                         <li class="nav-item content-baby">
                             <!--Table 2-->
-                            <a class="nav-link" data-toggle="tab" href="#menu1">List Partner</a>
+                            <a class="nav-link" data-toggle="tab" href="#menu1">Đối tác</a>
                         </li>
                     </ul>
 
@@ -69,36 +80,31 @@
                             <br>
                             <div class="row mb-2">
 
-                                <h5>List View</h5>
+                                <h5>Danh sách bài viết</h5>
                                 <!--Table 1-->
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
+                                            <th scope="col">Ảnh nền</th>
+                                            <th scope="col">Tiêu Đề</th>
+                                            <th scope="col">Mục tiêu</th>
+                                            <th scope="col">Ngày kết thúc</th>
+                                            <th scope="col">Chỉnh sửa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@@twitter</td>
-                                        </tr>
+                                        @foreach (var item in posts)
+                                        {
+                                            <tr>
+                                                <th scope="row">@(index++)</th>
+                                                <td><img style="width:150px; height:150px" src="~/Content/Images/post/@item.image" alt="Alternate Text" /></td>
+                                                <td>@item.title</td>
+                                                <td>@Convert.ToInt64(item.target).ToString("N0") VND</td>
+                                                <td>@item.time_end.Value.ToShortDateString()</td>
+                                                <td><a href="@Url.Content("~/Admin/EditDetail/")@item.id">Xem thêm</a></td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                                 <!--Table 1-->
@@ -107,36 +113,31 @@
                         <div id="menu1" class="container tab-pane fade">
                             <br>
                             <div class="row mb-2">
-                                <h5>List Partner</h5>
+                                <h5>Danh sách đối tác</h5>
                                 <!--Table 2-->
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
+                                            <th scope="col">Ảnh</th>
+                                            <th scope="col">Tên</th>
+                                            <th scope="col">Số điện thoại</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Chỉnh sửa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@@twitter</td>
-                                        </tr>
+                                        @foreach (var item in partner)
+                                        {
+                                            <tr>
+                                                <th scope="row">@(index++)</th>
+                                                <td><img style="width:150px; height:150px" src="~/Content/Images/partner/@item.partner_image" alt="Alternate Text" /></td>
+                                                <td>@item.name</td>
+                                                <td>@item.phone</td>
+                                                <td>@item.email</td>
+                                                <td><a href="@Url.Content("~/Admin/EditPartner")">EDIT</a></td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                                 <!--Table 2-->
