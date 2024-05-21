@@ -133,9 +133,51 @@ namespace GiveAID.Controllers
             return View();
         }
 
-        public ActionResult EditPartner()
+        public ActionResult EditPartner(int id)
         {
+            var dt = en.partners.FirstOrDefault(x => x.id == id);
+            ViewBag.partner = dt;
             return View();
+        }
+
+        public JsonResult DoEditPartner(partner partner, HttpPostedFileBase fileBase)
+        {
+            try
+            {
+                var dt = en.partners.FirstOrDefault(x => x.id == partner.id);
+                if (fileBase != null)
+                {
+                    var PathUpload = Server.MapPath("/Content/Images/partner");
+                    if (!Directory.Exists(PathUpload))
+                    {
+                        Directory.CreateDirectory(PathUpload);
+                    }
+                    string fileExtension = Path.GetExtension(fileBase.FileName).ToLower();
+                    if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
+                    {
+                        var fileName = DateTime.Now.Ticks + "_" + fileBase.FileName;
+                        var filePath = Path.Combine(PathUpload, fileName);
+                        fileBase.SaveAs(filePath);
+                        dt.partner_image = fileName;
+                    }
+                    else
+                    {
+                        throw new Exception("Sai định dạng ảnh");
+                    }
+                }
+
+                dt.name = partner.name;
+                dt.description = partner.description;
+                dt.email = partner.email;
+                dt.phone = partner.phone;
+                dt.address = partner.address;
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw new Exception("Lỗi không xác định");
+            }
         }
 
         public ActionResult EditDetail(int id)
