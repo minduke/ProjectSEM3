@@ -16,9 +16,10 @@ namespace GiveAID.Models.entities
         public int id { get; set; }
         public string title { get; set; }
         public string image { get; set; }
-        public Nullable<decimal> target { get; set; }
+        public decimal target { get; set; }
         public int cate_id { get; set; }
         public string name { get; set; }
+        public string partner_name { get; set; }
         public Nullable<decimal> total { get; set; }
     }
 }

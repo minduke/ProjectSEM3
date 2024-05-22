@@ -8,6 +8,12 @@
     {
         categories = ViewBag.cate;
     }
+
+    List<GiveAID.Models.entities.partner> partners = new List<GiveAID.Models.entities.partner>();
+    if (ViewBag.partner != null)
+    {
+        partners = ViewBag.partner;
+    }
 }
 
 @section scripts{
@@ -182,12 +188,12 @@
         }
 
         function deleteImage(imageId) {
-            
+
             $.ajax({
                 url: '@Url.Action("DeleteImage", "Admin")',
                 type: 'POST',
                 data: { id: imageId },
-                success: function (response) { 
+                success: function (response) {
                     if (response.result) {
                         showSuccessMessage("Xoá ảnh thành công");
                         document.querySelector(`button[onclick="deleteImage(${imageId})"]`).parentElement.remove();
@@ -198,6 +204,7 @@
                 error: handleException
             })
         }
+
         // label chosefile for thumbnail
         $("#thumbnail").change(function () {
             filename = this.files[0].name;
@@ -209,6 +216,7 @@
             filename = this.files[0].name;
             $(".filename-contain").text(filename);
         });
+
     </script>
 }
 
@@ -373,6 +381,7 @@
                 <div>
                     <input type="hidden" name="content" id="MoTa" value="@post.content" />
                 </div>
+
 
                 <div class="form-group">
                     <label>Lĩnh vực</label>

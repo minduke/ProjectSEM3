@@ -120,7 +120,7 @@ namespace GiveAID.Controllers
 
         public JsonResult partnerNew(partner partner, HttpPostedFileBase fileBasePartner)
         {
-            if (string.IsNullOrWhiteSpace(partner.name) &&
+            if (string.IsNullOrWhiteSpace(partner.partner_name) &&
                 fileBasePartner == null &&
                 string.IsNullOrWhiteSpace(partner.description) &&
                 string.IsNullOrWhiteSpace(partner.address) &&
@@ -212,7 +212,7 @@ namespace GiveAID.Controllers
                     }
                 }
 
-                dt.name = partner.name;
+                dt.partner_name = partner.partner_name;
                 dt.description = partner.description;
                 dt.email = partner.email;
                 dt.phone = partner.phone;
@@ -252,6 +252,7 @@ namespace GiveAID.Controllers
                     var post = en.posts.FirstOrDefault(x => x.id == id);
                     ViewBag.EditPost = post;
                     ViewBag.cate = en.categories.ToList();
+                    ViewBag.partner = en.partners.ToList();
                     return View();
                 }
             }
@@ -335,6 +336,7 @@ namespace GiveAID.Controllers
                 data.target = post.target;
                 data.content = post.content;
                 data.cate_id = post.cate_id;
+                data.partner_id = post.partner_id;
                 data.time_end = post.time_end;
                 en.SaveChanges();
                 return Json(new { result = true });

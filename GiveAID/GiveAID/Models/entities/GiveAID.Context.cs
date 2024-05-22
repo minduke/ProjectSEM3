@@ -30,12 +30,12 @@ namespace GiveAID.Models.entities
         public virtual DbSet<admin> admins { get; set; }
         public virtual DbSet<category> categories { get; set; }
         public virtual DbSet<contact> contacts { get; set; }
+        public virtual DbSet<image_post> image_post { get; set; }
+        public virtual DbSet<partner> partners { get; set; }
         public virtual DbSet<payment> payments { get; set; }
         public virtual DbSet<post> posts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<user> users { get; set; }
-        public virtual DbSet<image_post> image_post { get; set; }
-        public virtual DbSet<partner> partners { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -97,6 +97,11 @@ namespace GiveAID.Models.entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetPost_Result>("sp_GetPost");
         }
     
+        public virtual ObjectResult<sp_GetTarget_Result> sp_GetTarget()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTarget_Result>("sp_GetTarget");
+        }
+    
         public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
         {
             var diagramnameParameter = diagramname != null ?
@@ -143,11 +148,6 @@ namespace GiveAID.Models.entities
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual ObjectResult<sp_GetTarget_Result> sp_GetTarget()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTarget_Result>("sp_GetTarget");
         }
     }
 }

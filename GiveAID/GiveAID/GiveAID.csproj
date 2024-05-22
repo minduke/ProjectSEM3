@@ -4253,13 +4253,6 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\entities\GiveAID.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GiveAID.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\entities\GiveAID.edmx.diagram">
-      <DependentUpon>GiveAID.edmx</DependentUpon>
-    </Content>
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\CHANGES.html" />
     <Content Include="Scripts\ckeditor\ckeditor.asp" />
@@ -4318,6 +4311,13 @@
     <Content Include="Content\plugins\fontawesome-free-6.5.2-web\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\plugins\fontawesome-free-6.5.2-web\webfonts\fa-v4compatibility.ttf" />
     <Content Include="Content\plugins\fontawesome-free-6.5.2-web\webfonts\fa-v4compatibility.woff2" />
+    <EntityDeploy Include="Models\entities\GiveAID.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GiveAID.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\entities\GiveAID.edmx.diagram">
+      <DependentUpon>GiveAID.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\ckeditor\ckeditor.php" />
     <Content Include="Scripts\ckeditor\ckeditor_basic.js" />
