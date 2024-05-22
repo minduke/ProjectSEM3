@@ -46,7 +46,8 @@ namespace GiveAID.Controllers
                                 image = x.image,
                                 target = (decimal)x.target,
                                 cate_id = x.cate_id,
-                                name = x.name,
+                                cate_name = x.name,
+                                partner_name = x.partner_name,
                                 total = (decimal)x.total
                             })
                             .OrderByDescending(x => x.id)
@@ -55,7 +56,7 @@ namespace GiveAID.Controllers
                             .ToList();
 
 
-
+            
 
             ViewBag.posts = posts;
             ViewBag.TotalPosts = totalPosts;
@@ -192,7 +193,7 @@ namespace GiveAID.Controllers
                 //    vnpay.AddRequestData("vnp_BankCode", "INTCARD");
                 //}
 
-                vnpay.AddRequestData("vnp_CreateDate", payment.transaction_date.ToString("yyyyMMddHHmmss"));
+                vnpay.AddRequestData("vnp_CreateDate", payment.transaction_date.Value.ToString("yyyyMMddHHmmss"));
                 vnpay.AddRequestData("vnp_CurrCode", "VND");
                 vnpay.AddRequestData("vnp_IpAddr", Utils.GetIpAddress());
 

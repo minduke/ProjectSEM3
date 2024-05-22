@@ -12,7 +12,8 @@ namespace GiveAID.Models.model_view
         public string image { get; set; }
         public decimal target { get; set; } = 0;
         public int cate_id { get; set; }
-        public string name { get; set; }
+        public string cate_name { get; set; }
+        public string partner_name { get; set; }
         public decimal total { get; set; } = 0;
     }
 }

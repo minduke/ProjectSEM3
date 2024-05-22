@@ -8,11 +8,11 @@
         posts = ViewBag.posts;
     }
     int totalPages = ViewBag.TotalPages;
-   
+
 }
 
 <style>
-  
+
 
     .carousel-caption {
         /* CSS cho thẻ <h5> */
@@ -63,9 +63,9 @@
 
     .PageVIP {
         position: relative;
-       left:500px;
-       margin: 4px 7px 2px 4px;
-       margin-bottom:10px;
+        left: 500px;
+        margin: 4px 7px 2px 4px;
+        margin-bottom: 10px;
     }
 
     .progress {
@@ -158,7 +158,7 @@
                             <div class="widget-user-header text-white "
                                  style="background: url('@Url.Content("~/Content/Images/post/" + item.image)') center center;">
 
-                                <h3 class="widget-user-username text-right">@item.name</h3>
+                                <h3 class="widget-user-username text-right">@item.cate_name</h3>
                                 <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
                             </div>
                             <div class="widget-user-image">
@@ -189,7 +189,7 @@
                                         <div class="description-block">
                                             <h5 class="description-header">
                                                 <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped progress-bar-animated custom-progress-bar"                        role="progressbar"  aria-valuemin="0" aria-valuemax="100" 
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated custom-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
                                                          style="width:@Convert.ToInt64((item.total/item.target)*100)%">
                                                         <span class="">@(Convert.ToInt64((item.total/item.target)*100))%</span>
                                                     </div>
@@ -234,31 +234,31 @@
                 <!--Phan trang-->
                 <nav aria-label="Page navigation example">
                     @*<ul class="pagination">
-                    @if (ViewBag.CurrentPage > 1)
-                    {
-                        <li class="page-item">
-                            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                    }
+                            @if (ViewBag.CurrentPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            }
 
-                    @for (int i = 1; i <= totalPages; i++)
-                    {
-                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                            <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
-                        </li>
-                    }
+                            @for (int i = 1; i <= totalPages; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
+                                </li>
+                            }
 
-                    @if (ViewBag.CurrentPage < totalPages)
-                    {
-                        <li class="page-item">
-                            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    }
-                </ul>*@
+                            @if (ViewBag.CurrentPage < totalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>*@
 
                     <ul class="pagination">
                         @if (ViewBag.CurrentPage > 1)
@@ -290,21 +290,21 @@
 
             </div>
             @*<div class="description-block">
-            <h5 class="description-header">
-                <div class="progress">
-                    <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
-                </div>
-            </h5>
-            <span class="description-text">Tiến Độ</span>
+                    <h5 class="description-header">
+                        <div class="progress">
+                            <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
+                        </div>
+                    </h5>
+                    <span class="description-text">Tiến Độ</span>
 
-            <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
-        </div>*@
+                    <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
+                </div>*@
 
 
             <!-- Stripes + Animation -->
-        <div class="progress mb-3" id="animated-bar">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-        </div>
+            <div class="progress mb-3" id="animated-bar">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            </div>
 
             <script>
                 function updateProgressBar() {

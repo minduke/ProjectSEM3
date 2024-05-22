@@ -21,7 +21,7 @@ namespace GiveAID.Models.entities
         }
     
         public int id { get; set; }
-        public string name { get; set; }
+        public string partner_name { get; set; }
         public string partner_image { get; set; }
         public string description { get; set; }
         public string address { get; set; }

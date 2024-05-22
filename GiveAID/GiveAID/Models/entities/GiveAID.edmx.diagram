@@ -4,21 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="45a991b3a3ed41c3a01fc367055fb4a5" Name="Diagram1">
-        <EntityTypeShape EntityType="GiveAIDModel.admin" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GiveAIDModel.category" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GiveAIDModel.contact" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GiveAIDModel.payment" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GiveAIDModel.post" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="GiveAIDModel.sysdiagram" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GiveAIDModel.user" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+      <Diagram DiagramId="0587dfec9ad049309b660383777049cb" Name="Diagram1">
+        <EntityTypeShape EntityType="GiveAIDModel.admin" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDModel.category" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDModel.contact" Width="1.5" PointX="7.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDModel.image_post" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDModel.partner" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDModel.payment" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDModel.post" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDModel.sysdiagram" Width="1.5" PointX="7.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDModel.user" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
         <AssociationConnector Association="GiveAIDModel.FK_cate_id" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveAIDModel.FK_post_image_id" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveAIDModel.FK_partner_id" ManuallyRouted="false" />
         <AssociationConnector Association="GiveAIDModel.FK_post_id" ManuallyRouted="false" />
         <AssociationConnector Association="GiveAIDModel.FK_user_id" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="GiveAIDModel.image_post" Width="1.5" PointX="5.25" PointY="7.75" />
-        <AssociationConnector Association="GiveAIDModel.FK_post_image_id" />
-        <EntityTypeShape EntityType="GiveAIDModel.partner" Width="1.5" PointX="7.375" PointY="8" />
-        <AssociationConnector Association="GiveAIDModel.FK_partner_id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

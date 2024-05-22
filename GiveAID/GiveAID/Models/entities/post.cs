@@ -17,8 +17,8 @@ namespace GiveAID.Models.entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public post()
         {
-            this.payments = new HashSet<payment>();
             this.image_post = new HashSet<image_post>();
+            this.payments = new HashSet<payment>();
         }
     
         public int id { get; set; }
@@ -35,9 +35,9 @@ namespace GiveAID.Models.entities
     
         public virtual category category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<payment> payments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<image_post> image_post { get; set; }
         public virtual partner partner { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<payment> payments { get; set; }
     }
 }
