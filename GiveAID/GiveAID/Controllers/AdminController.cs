@@ -223,7 +223,7 @@ namespace GiveAID.Controllers
             }
             catch
             {
-                throw new Exception("Lỗi không xác định");
+                throw;
             }
         }
 
@@ -341,7 +341,7 @@ namespace GiveAID.Controllers
             }
             catch
             {
-                throw new Exception("Lỗi không xác định");
+                throw;
             }
         }
 

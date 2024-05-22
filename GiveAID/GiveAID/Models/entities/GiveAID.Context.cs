@@ -144,5 +144,10 @@ namespace GiveAID.Models.entities
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<sp_GetTarget_Result> sp_GetTarget()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTarget_Result>("sp_GetTarget");
+        }
     }
 }

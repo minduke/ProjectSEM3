@@ -177,6 +177,9 @@
     <Compile Include="Models\entities\sp_GetPost_Result.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\entities\sp_GetTarget_Result.cs">
+      <DependentUpon>GiveAID.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\entities\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
