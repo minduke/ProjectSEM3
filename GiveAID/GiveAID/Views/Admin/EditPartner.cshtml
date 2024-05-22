@@ -84,6 +84,26 @@
             error: handleException
         })
     }
+
+    var idPartner = document.getElementById('id');
+
+    function doDeleteImagePartner(idPartner) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeleteImagePartner", "Admin")',
+            data: { id: idPartner },
+            success: function (response) {
+                if (response.result == true) {
+                    showSuccessMessage("Xoá ảnh thành công");
+                    document.getElementById('imagePartner').remove();
+                }
+                else {
+                    showErrorMessage(response.error);
+                }
+            },
+            error: handleException
+        })
+    }
 </script>
 
 <div class="content-wrapper">
@@ -112,9 +132,11 @@
 
             <div class="form-group">
                 <label for="fileBase">Logo</label>
-                <img src="~/Content/Images/partner/@partner.partner_image" style="width:150px; height:150px" alt="Alternate Text" />
-
-                <input type="file" class="form-control" id="fileBase" name="fileBase" required onchange="previewImages(event)">
+                <div class="" id="imagePartner">
+                    <img src="~/Content/Images/partner/@partner.partner_image" style="width:150px; height:150px" alt="Alternate Text" />
+                    <button type="button" onclick="doDeleteImagePartner(@partner.id)">Xoá</button>
+                </div>
+                <input type="file" class="form-control" id="fileBase" name="fileBase" onchange="previewImages(event)">
                 <div id="imagesPreview" style="margin-top: 10px;"></div>
             </div>
 
@@ -129,28 +151,28 @@
 
             <div class="form-group">
                 <label for="content">Số điện thoại</label>
-                <input class="form-control" id="phone" name="phone" value="@partner.phone"/>
+                <input class="form-control" id="phone" name="phone" value="@partner.phone" />
             </div>
 
             @*<div>
-                <input type="hidden" name="content" id="MoTa" />
-            </div>*@
+                    <input type="hidden" name="content" id="MoTa" />
+                </div>*@
 
             @*<div class="form-group">
-                <label>Lĩnh vực</label>
-               
-                <select class="form-control" id="sel1" name="cate_id">
-                    <option>No thich con Phuong</option>
-                    <option>Con cho Duc</option>
-                    <option>Con cho Duc</option>
-                    <option>No thich con Phuong</option>
-                </select>
-            </div>*@
+                    <label>Lĩnh vực</label>
+
+                    <select class="form-control" id="sel1" name="cate_id">
+                        <option>No thich con Phuong</option>
+                        <option>Con cho Duc</option>
+                        <option>Con cho Duc</option>
+                        <option>No thich con Phuong</option>
+                    </select>
+                </div>*@
 
             @*<div class="form-group">
-                <label for="time_end">Ngày kết thúc quyên góp</label>
-                <input type="date" class="form-control" id="time_end" name="time_end" required>
-            </div>*@
+                    <label for="time_end">Ngày kết thúc quyên góp</label>
+                    <input type="date" class="form-control" id="time_end" name="time_end" required>
+                </div>*@
 
 
         </div>
