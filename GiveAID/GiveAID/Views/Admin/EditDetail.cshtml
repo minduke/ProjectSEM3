@@ -132,8 +132,8 @@
 
                         let img = document.createElement('img');
                         img.src = e.target.result;
-                        img.style.maxWidth = '200px';
-                        img.style.maxHeight = '200px';
+                        img.style.maxWidth = '150px';
+                        img.style.maxHeight = '150px';
 
                         let removeButton = document.createElement('button');
                         removeButton.innerHTML = 'X';
@@ -205,13 +205,100 @@
             })
         }
 
+        // label chosefile for thumbnail
+        $("#thumbnail").change(function () {
+            filename = this.files[0].name;
+            $(".filename-container").text(filename);
+        });
+
+        // label chosefile for fileBase
+        $("#fileBase").change(function () {
+            filename = this.files[0].name;
+            $(".filename-contain").text(filename);
+        });
+
     </script>
 }
 
+<style>
+
+    .custom-Button {
+        position: relative;
+        left: 123px;
+        bottom: 145px;
+        
+        display: flex;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        width: 50px;
+        height: 50px;
+    }
+        .custom-Button i {
+            width: fit-content;
+            height: auto;
+            color: red;
+            font-size: 20px;
+            
+        }
+            .custom-Button i:hover {
+                color: hotpink; /* Màu sắc khi hover */
+            }
+
+   
+
+       
+   
+
+    .form-control{
+        /*cho sua tieu de*/
+        height:50px;
+        width:700px;
+    }
+
+   
+
+    input[type="file"] {
+        visibility: hidden;
+        /*an nut mac dinh di*/
+    }
+
+    .filename-container.placeholder {
+        color: #999; /*thumbnail*/
+        font-style: italic;
+    }
+
+    .filename-contain.placeholder {
+        color: #999;  /*fileBase*/
+        font-style: italic;
+    }
+    .cusFILE {  
+        /*custom nut chon file*/
+        padding: 10px 20px;
+        background-color: #f1f1f1;
+        color: #333;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .cusFILE:hover {
+        background-color: hotpink;
+    }
+    .viewBefore {
+       /*anh khi chon */
+        position: relative;
+        left: 350px;
+        bottom: 360px;
+    }
+  
+
+</style>
 <div class="content-wrapper">
 
     <div class="card-header">
-        <h4 class="card-title">Edit Detail</h4>
+        <h4 class="card-title">Edit Detail version 1.0</h4>
+   
     </div>
     <!-- /.card-header -->
     <!--Load GIF-->
@@ -234,11 +321,22 @@
 
                 <div class="" id="imageId">
                     <img src="~/Content/Images/post/@post.image" alt="chưa có ảnh" width="150px" height="150px" />
-                    <button type="button" onclick="deleteThumb(@post.id)">Xoá</button>
+                    <button class="custom-Button" type="button" onclick="deleteThumb(@post.id)"><i class="fa-solid fa-delete-left"></i></button>
                 </div>
+                <!-- choose file img-->
+                <label for="thumbnail" class="cusFILE">Choose File</label>
+                <div class="filename-container">Enter a filename...</div>
+                <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event)">
+                
+                <!-- view file img-->
+                <div class="viewBefore">
+                    <label for="thumb">Xem trước</label>
+                    <div id="thumb"></div>
+                </div>
+                
 
-                <input type="file" class="form-control" id="thumbnail" name="thumbnail" required onchange="previewThumbnail(event)">
-                <div id="thumb" style="margin-top: 10px;"></div>
+
+
 
             </div>
 
@@ -246,62 +344,69 @@
                 <label for="fileBase">Hình ảnh liên quan</label>
                 @foreach (var item in post.image_post)
                 {
-                    <div class="image-container">
-                        <img src="~/Content/Images/post/@item.image" alt="" width="150px" height="150px">
-                        <button type="button" onclick="deleteImage(@item.id)">Xoá</button>
+                    <div class="image-container cusLIMG">
+                        <div class="container-fluid cusC">
+                            <img src="~/Content/Images/post/@item.image" alt="" width="150px" height="150px">
+                            <button class="custom-Button" type="button" onclick="deleteImage(@item.id)"><i class="fa-solid fa-delete-left"></i></button>
+                        </div>
+
                     </div>
                 }
 
-                <input type="file" class="form-control" id="fileBase" name="fileBase" required multiple onchange="previewImages(event)">
+                <!-- choose file img-->
+
+                <label for="fileBase" class="cusFILE">Choose File</label> 
+                <div class="filename-contain">Enter a filename...</div>
+                <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event)">
+
+                <!-- view file img-->
                 <div id="imagesPreview" style="margin-top: 10px;"></div>
 
             </div>
 
-            <input type="hidden" id="time_start" name="time_start" value="" />
+                <input type="hidden" id="time_start" name="time_start" value="" />
 
-            @*<input type="hidden" name="TrangThai" value="Mở" />*@
+                @*<input type="hidden" name="TrangThai" value="Mở" />*@
 
-            <div class="form-group">
-                <label for="target">Số tiền mục tiêu</label>
-                <input type="number" class="form-control" id="target" name="target" placeholder="" value="@Convert.ToInt64(post.target)" required>
+                <div class="form-group">
+                    <label for="target">Số tiền mục tiêu</label>
+                    <input type="number" class="form-control" id="target" name="target" placeholder="" value="@Convert.ToInt64(post.target)" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">Nội dung bài viết</label>
+                    <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                </div>
+
+                <div>
+                    <input type="hidden" name="content" id="MoTa" value="@post.content" />
+                </div>
+
+
+                <div class="form-group">
+                    <label>Lĩnh vực</label>
+                    <select class="form-control" id="sel1" name="cate_id">
+                        @foreach (var item in categories)
+                        {
+                            <option value="@item.cate_id" @(post.cate_id == item.cate_id ? "selected" : "")>@item.name</option>
+                        }
+                    </select>
+                </div>
+
+                @*<div class="form-group">
+            <label>Đối tác</label>
+            <select class="form-control" id="sel1" name="cate_id">
+                <option></option>
+            </select>
+        </div>*@
+
+                <div class="form-group">
+                    <label for="time_end">Ngày kết thúc quyên góp</label>
+                    <input type="date" class="form-control" id="time_end" name="time_end" value="@post.time_end.Value.ToString("yyyy-MM-dd")" required>
+                </div>
+
+
             </div>
-
-            <div class="form-group">
-                <label for="content">Nội dung bài viết</label>
-                <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
-            </div>
-
-            <div>
-                <input type="text" name="content" id="MoTa" value="@post.content" />
-            </div>
-
-            <div class="form-group">
-                <label>Lĩnh vực</label>
-                <select class="form-control" id="sel1" name="cate_id">
-                    @foreach (var item in categories)
-                    {
-                        <option value="@item.cate_id" @(post.cate_id == item.cate_id ? "selected" : "")>@item.name</option>
-                    }
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Đối tác</label>
-                <select class="form-control" id="sel1" name="partner_id">
-                    @foreach (var item in partners)
-                    {
-                        <option value="@item.id" @(post.partner_id == item.id ? "selected" : "")>@item.partner_name</option>
-                    }
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="time_end">Ngày kết thúc quyên góp</label>
-                <input type="date" class="form-control" id="time_end" name="time_end" value="@post.time_end.Value.ToString("yyyy-MM-dd")" required>
-            </div>
-
-
-        </div>
         <!-- /.card-body -->
 
         <div class="card-footer">
