@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GiveAID.Models.entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace GiveAID.Controllers
     public class BaseController : Controller
     {
         public static string SecretKey = "WuDuke2@";
+
+        GiveAIDEntities en = new GiveAIDEntities();
 
         public bool CheckLogin()
         {
@@ -67,6 +70,32 @@ namespace GiveAID.Controllers
                 cryptoProvider.CreateDecryptor(bytes, bytes), CryptoStreamMode.Read);
             StreamReader reader = new StreamReader(cryptoStream);
             return reader.ReadToEnd();
+        }
+
+        public void UpdateStatusByDate()
+        {
+            var posts = en.posts.ToList();
+            foreach (var post in posts)
+            {
+                if(post.time_end == DateTime.Now)
+                {
+                    post.status = "Đóng";
+                    en.SaveChanges();
+                }
+            }
+        }
+
+        public void UpdateStatusByTarget()
+        {
+            var posts = en.sp_GetTarget();
+            foreach (var item in posts)
+            {
+                if(item.amout == item.target)
+                {
+                    var post = en.posts.FirstOrDefault(x=>x.id == item.id);
+                    post.status = "Đóng";
+                }
+            }
         }
     }
 }

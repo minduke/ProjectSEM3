@@ -15,14 +15,30 @@ namespace GiveAID.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            if (CheckLogin())
+            {
+                var user = Session["USER"] as user;
+                if (user.permission == "admin")
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         public ActionResult CreateNews()
         {
-            ViewBag.category = en.categories.ToList();
-            ViewBag.partner = en.partners.ToList();
-            return View();
+            if (CheckLogin())
+            {
+                var user = Session["USER"] as user;
+                if (user.permission == "admin")
+                {
+                    ViewBag.category = en.categories.ToList();
+                    ViewBag.partner = en.partners.ToList();
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpPost]
@@ -91,7 +107,15 @@ namespace GiveAID.Controllers
         }
         public ActionResult chartJS()
         {
-            return View();
+            if (CheckLogin())
+            {
+                var user = Session["USER"] as user;
+                if (user.permission == "admin")
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         public JsonResult partnerNew(partner partner, HttpPostedFileBase fileBasePartner)
@@ -130,20 +154,108 @@ namespace GiveAID.Controllers
 
         public ActionResult NewPartner()
         {
-            return View();
+            if (CheckLogin())
+            {
+                var user = Session["USER"] as user;
+                if (user.permission == "admin")
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Login");
         }
 
-        public ActionResult EditPartner()
+        public ActionResult EditPartner(int id)
         {
-            return View();
+            if (CheckLogin())
+            {
+                var user = Session["USER"] as user;
+                if (user.permission == "admin")
+                {
+                    var dt = en.partners.FirstOrDefault(x => x.id == id);
+                    ViewBag.partner = dt;
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Login");
+        }
+
+        public JsonResult DoEditPartner(partner partner, HttpPostedFileBase fileBase)
+        {
+            try
+            {
+                var dt = en.partners.FirstOrDefault(x => x.id == partner.id);
+
+                if (dt.partner_image == "" && fileBase == null)
+                {
+                    throw new Exception("Vui lòng điền đầy đủ thông tin");
+                }
+
+                if (fileBase != null)
+                {
+                    var PathUpload = Server.MapPath("/Content/Images/partner");
+                    if (!Directory.Exists(PathUpload))
+                    {
+                        Directory.CreateDirectory(PathUpload);
+                    }
+                    string fileExtension = Path.GetExtension(fileBase.FileName).ToLower();
+                    if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
+                    {
+                        var fileName = DateTime.Now.Ticks + "_" + fileBase.FileName;
+                        var filePath = Path.Combine(PathUpload, fileName);
+                        fileBase.SaveAs(filePath);
+                        dt.partner_image = fileName;
+                    }
+                    else
+                    {
+                        throw new Exception("Sai định dạng ảnh");
+                    }
+                }
+
+                dt.name = partner.name;
+                dt.description = partner.description;
+                dt.email = partner.email;
+                dt.phone = partner.phone;
+                dt.address = partner.address;
+                en.SaveChanges();
+
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public JsonResult DeleteImagePartner(int id)
+        {
+            try
+            {
+                var dt = en.partners.FirstOrDefault(x => x.id == id);
+                dt.partner_image = "";
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw new Exception("Lỗi không xác định");
+            }
         }
 
         public ActionResult EditDetail(int id)
         {
-            var post = en.posts.FirstOrDefault(x => x.id == id);
-            ViewBag.EditPost = post;
-            ViewBag.cate = en.categories.ToList();
-            return View();
+            if (CheckLogin())
+            {
+                var user = Session["USER"] as user;
+                if (user.permission == "admin")
+                {
+                    var post = en.posts.FirstOrDefault(x => x.id == id);
+                    ViewBag.EditPost = post;
+                    ViewBag.cate = en.categories.ToList();
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         [ValidateInput(false)]
@@ -153,7 +265,19 @@ namespace GiveAID.Controllers
             {
                 var data = en.posts.FirstOrDefault(x => x.id == post.id);
 
-                if (fileBase != null)
+                var dt = en.image_post.Where(x => x.post_id == post.id).Count();
+
+                if (data.image == "" && thumbnail == null)
+                {
+                    throw new Exception("Vui lòng điền đầy đủ thông tin");
+                }
+
+                if (dt == 0 && fileBase[0] == null)
+                {
+                    throw new Exception("Vui lòng điền đầy đủ thông tin");
+                }
+
+                if (fileBase.Length > 0 && fileBase[0] != null)
                 {
                     var PathUpload = Server.MapPath("/Content/Images/post");
                     if (!Directory.Exists(PathUpload))
@@ -217,7 +341,7 @@ namespace GiveAID.Controllers
             }
             catch
             {
-                throw new Exception("Lỗi không xác định");
+                throw;
             }
         }
 
@@ -251,9 +375,17 @@ namespace GiveAID.Controllers
 
         public ActionResult ListAll()
         {
-            ViewBag.post = en.posts.ToList();
-            ViewBag.partner = en.partners.ToList();
-            return View();
+            if (CheckLogin())
+            {
+                var user = Session["USER"] as user;
+                if (user.permission == "admin")
+                {
+                    ViewBag.post = en.posts.ToList();
+                    ViewBag.partner = en.partners.ToList();
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Login");
         }
     }
 
