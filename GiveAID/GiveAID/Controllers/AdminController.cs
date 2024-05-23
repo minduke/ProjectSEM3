@@ -43,9 +43,9 @@ namespace GiveAID.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult SubmitNews(post post, HttpPostedFileBase[] fileBase, HttpPostedFileBase thumb)
+        public JsonResult SubmitNews(post post, HttpPostedFileBase[] fileBase, HttpPostedFileBase thumbnail)
         {
-            if (!string.IsNullOrWhiteSpace(post.title) && !post.content.IsNullOrWhiteSpace() && post.target > 0 && fileBase != null && thumb != null && post.time_end != null)
+            if (!string.IsNullOrWhiteSpace(post.title) && !post.content.IsNullOrWhiteSpace() && post.target > 0 && fileBase != null && thumbnail != null && post.time_end != null)
             {
 
                 var PathUpload = Server.MapPath("/Content/Images/post");
@@ -71,15 +71,15 @@ namespace GiveAID.Controllers
                     }
                 }
 
-                string thumbExtension = Path.GetExtension(thumb.FileName).ToLower();
-                if (thumbExtension != ".jpg" || thumbExtension != ".png" || thumbExtension != ".gif")
+                string thumbExtension = Path.GetExtension(thumbnail.FileName).ToLower();
+                if (thumbExtension != ".jpg" && thumbExtension != ".png" && thumbExtension != ".gif")
                 {
                     throw new Exception("Sai định dạng ảnh nền");
                 }
 
-                var thumbName = DateTime.Now.Ticks + "_" + thumb.FileName;
+                var thumbName = DateTime.Now.Ticks + "_" + thumbnail.FileName;
                 var thumbPath = Path.Combine(PathUpload, thumbName);
-                thumb.SaveAs(thumbPath);
+                thumbnail.SaveAs(thumbPath);
                 post.image = thumbName;
 
                 en.posts.Add(post);
