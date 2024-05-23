@@ -314,29 +314,24 @@
                                 </div>
 
                                 <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2 infoALL">
-                                    <h3 class="text-primary"><img src="@Url.Content("~/Content/Images/youtube.png")" alt="Logo">Quỹ Từ tâm Đắk Lắk</h3>
+                                    <h3 class="text-primary"><img src="@Url.Content("~/Content/Images/partner/" + posts.partner.partner_image)" alt="Logo">@posts.partner.partner_name</h3>
                                     <p class="text-muted">
-                                        “Quỹ Từ tâm Đắk Lắk hoạt động theo các quy định của Nghị định 93/2019/NĐ-CP,
-                                        với mục đích hỗ trợ nạn nhân bị ảnh hưởng nghiêm trọng bởi thiên tai, hỏa hoạn, dịch bệnh,
-                                        tai nạn và các đối tượng đặc biệt nghèo khó, yếu thế, cần sự trợ giúp của xã hội.
-                                        Quỹ Từ Tâm Đắk Lắk cũng tham gia các hoạt động vì mục tiêu phát triển bền vững,
-                                        xây dựng xã hội văn minh, như góp phần bảo vệ môi trường, trao học bổng,
-                                        đào tạo kỹ năng sống, đem lại nhiều giá trị tốt đẹp cho thế hệ trẻ, không vì mục tiêu lợi nhuận.”
+                                        @posts.partner.description
                                     </p>
 
                                     <h5 class="mt-5 text-muted">Thông tin liên hệ</h5>
                                     <ul class="list-unstyled">
                                         <li>
-                                            <a href="" class="btn-link text-secondary"><i class="fas fa-home me-3"></i> New York, NY 10012, US</a>
+                                            <a href="" class="btn-link text-secondary"><i class="fas fa-home me-3"></i> @posts.partner.address</a>
                                         </li>
                                         <li>
                                             <a href="" class="btn-link text-secondary">
                                                 <i class="fas fa-envelope me-3"></i>
-                                                info@example.com
+                                                @posts.partner.email
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="" class="btn-link text-secondary"><i class="fas fa-phone me-3"></i> + 01 234 567 88</a>
+                                            <a href="" class="btn-link text-secondary"><i class="fas fa-phone me-3"></i>@posts.partner.phone</a>
                                         </li>
 
                                     </ul>
@@ -374,16 +369,6 @@
                                                     <td>@item.transaction_date</td>
                                                 </tr>
                                             }
-                                            @*<tr>
-                                                <td>Trần Thị B</td>
-                                                <td>500,000 VND</td>
-                                                <td>2024-05-14 14:45</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Phạm Văn C</td>
-                                                <td>2,000,000 VND</td>
-                                                <td>2024-05-13 18:20</td>
-                                            </tr>*@
                                         </tbody>
                                     </table>
                                 </div>
