@@ -470,55 +470,7 @@
 
     <!-- Main content -->
     <div class="content">
-        <div class="container">
-      
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="description-block">
-                <h5 class="description-header">
-                    <div class="progress">
-                        <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
-                    </div>
-                </h5>
-                <span class="description-text">Tiến Độ</span>
-
-                <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
-            </div>
-
-
-            <script>
-                function updateProgressBar() {
-                    var input = document.getElementById('progressInput').value;
-                    var progressBar = document.getElementById('myProgressBar');
-                    if (input < 0) input = 0;
-                    if (input > 100) input = 100;
-                    progressBar.style.width = input + '%';
-                    progressBar.innerHTML = input + '%';
-                }
-            </script>
-
-
-
-
-
-
-
-            <!-- /.container-fluid -->
-
-
-        </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="@Url.Content("~/Content/Images/sloganVIP.jpg")" loading="lazy" class="d-block w-100" alt="anh test 1">

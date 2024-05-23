@@ -42,7 +42,7 @@
         /* kích thước thẻ slide index home */
         width: 100vw;
         height: 40vh;
-        filter: blur(3px);
+        filter: blur(2px);
         background-color: rgba(0, 0, 0, 0.5); /* Màu nền làm mờ */
     }
 
@@ -98,21 +98,21 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="@Url.Content("~/content/Images/2DV.gif")" class="d-block w-100" alt="anh 1">
+                <img src="@Url.Content("~/content/Images/anhSlide1.png")" class="d-block w-100" alt="anh 1">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Maxim of life</h5>
                     <p>Always be happy to make life happier</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="@Url.Content("~/content/Images/Xqg8.gif")" class="d-block w-100" alt="anh 2">
+                <img src="@Url.Content("~/content/Images/anhSlide2.png")" class="d-block w-100" alt="anh 2">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Truth of life</h5>
                     <p>We only live once in this world, why should we think so much?</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="@Url.Content("~/content/Images/YhSO.gif")" class="d-block w-100" alt="anh 3">
+                <img src="@Url.Content("~/content/Images/2DV.gif")" class="d-block w-100" alt="anh 3">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Things you never knew!!!</h5>
                     <p>Mr. Bin is a gay man and he likes girls</p>
@@ -234,31 +234,31 @@
                 <!--Phan trang-->
                 <nav aria-label="Page navigation example">
                     @*<ul class="pagination">
-                            @if (ViewBag.CurrentPage > 1)
-                            {
-                                <li class="page-item">
-                                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                            }
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        }
 
-                            @for (int i = 1; i <= totalPages; i++)
-                            {
-                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                                    <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
-                                </li>
-                            }
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
+                            </li>
+                        }
 
-                            @if (ViewBag.CurrentPage < totalPages)
-                            {
-                                <li class="page-item">
-                                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            }
-                        </ul>*@
+                        @if (ViewBag.CurrentPage < totalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>*@
 
                     <ul class="pagination">
                         @if (ViewBag.CurrentPage > 1)
@@ -290,32 +290,18 @@
 
             </div>
             @*<div class="description-block">
-                    <h5 class="description-header">
-                        <div class="progress">
-                            <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
-                        </div>
-                    </h5>
-                    <span class="description-text">Tiến Độ</span>
+                <h5 class="description-header">
+                    <div class="progress">
+                        <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
+                    </div>
+                </h5>
+                <span class="description-text">Tiến Độ</span>
 
-                    <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
-                </div>*@
+                <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
+            </div>*@
 
 
-            <!-- Stripes + Animation -->
-            <div class="progress mb-3" id="animated-bar">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-            </div>
 
-            <script>
-                function updateProgressBar() {
-                    var input = document.getElementById('progressInput').value;
-                    var progressBar = document.getElementById('myProgressBar');
-                    if (input < 0) input = 0;
-                    if (input > 100) input = 100;
-                    progressBar.style.width = input + '%';
-                    progressBar.innerHTML = input + '%';
-                }
-            </script>
 
 
 
