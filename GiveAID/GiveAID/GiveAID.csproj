@@ -4703,6 +4703,7 @@
     <Content Include="Views\Admin\EditDetail.cshtml" />
     <Content Include="Views\Home\DonationP.cshtml" />
     <Content Include="Views\Admin\ListAll.cshtml" />
+    <Content Include="Views\Home\TestView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
