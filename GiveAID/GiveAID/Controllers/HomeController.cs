@@ -109,37 +109,39 @@ namespace GiveAID.Controllers
                 string fromAddress = "vuvunguyen12345@gmail.com";
                 string password = "viovutezgtdjjvar";
 
+                // Xây dựng URL động
+                string url = Url.Action("CardDetails", "Home", new { id = 14 }, Request.Url.Scheme);
+                string emailBody = $"Tham gia link cá độ đi nè: <a href='{url}'>{url}</a>";
+
                 // Tạo đối tượng MailMessage
-                MailMessage mail = new MailMessage();
-                mail.From = new MailAddress(fromAddress);
-                mail.To.Add(new MailAddress(toAddress));
-                mail.Subject = subject;
-                mail.Body = body;
+                using (MailMessage mail = new MailMessage())
+                {
+                    mail.From = new MailAddress(fromAddress);
+                    mail.To.Add(new MailAddress(toAddress));
+                    mail.Subject = subject;
+                    mail.Body = emailBody;
+                    mail.IsBodyHtml = true; // Đảm bảo nội dung email được gửi dưới dạng HTML
 
-                // Thiết lập thông tin SMTP Server
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential(fromAddress, password);
+                    // Thiết lập thông tin SMTP Server
+                    using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                    {
+                        smtp.EnableSsl = true;
+                        smtp.Credentials = new NetworkCredential(fromAddress, password);
 
-                try
-                {
-                    // Gửi email
-                    smtp.Send(mail);
-                    return Content("Email sent successfully!");
-                }
-                catch (SmtpException ex)
-                {
-                    return Content("Failed to send email. Error: " + ex.Message);
-                }
-                finally
-                {
-                    // Giải phóng tài nguyên
-                    mail.Dispose();
-                    smtp.Dispose();
+                        try
+                        {
+                            // Gửi email
+                            smtp.Send(mail);
+                            return Content("Email sent successfully!");
+                        }
+                        catch (SmtpException ex)
+                        {
+                            return Content("Failed to send email. Error: " + ex.Message);
+                        }
+                    }
                 }
             }
+
             else
             {
                 return RedirectToAction("Index", "Login");
@@ -294,5 +296,19 @@ namespace GiveAID.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult chartJS()
+        {
+            var listU = en.payments.Where(x => !string.IsNullOrEmpty(x.transaction_no)) // Lọc các bản ghi với giá trị transaction_no không rỗng
+    .Select(x => new
+    {
+        x.transaction_no
+    })
+    .ToList();
+
+            return Json(listU);
+        }
+
+        public ActionResult TestView() { return View(); }
     }
 }

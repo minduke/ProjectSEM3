@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "TestView";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    function chartClick() {
+          $.ajax({
+      url: '@Url.Action("chartJS","Home")',
+      type: 'POST', // Phương thức HTTP
+      dataType: 'json', // Kiểu dữ liệu trả về
+      success: function (data) {
+          // Xử lý dữ liệu trả về
+          console.log(data);
+
+          // Tạo mảng chứa các giá trị transaction_no
+          var transactionNos = data.map(function (item) {
+              return item.transaction_no;
+          });
+
+          // Tạo mảng chứa các nhãn cho biểu đồ
+          var labels = data.map(function (item, index) {
+              return 'Item ' + (index + 1);
+          });
+
+          // Tạo context và khởi tạo biểu đồ
+          var ctx = document.getElementById("myChart");
+          new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: 'Transaction No',
+                      data: transactionNos,
+                      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                      borderColor: 'rgba(75, 192, 192, 1)',
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  responsive: true,
+                  scales: {
+                      y: {
+                          beginAtZero: true
+                      }
+                  },
+
+              }
+          });
+          var ctx2 = document.getElementById("myChart2");
+          new Chart(ctx2, {
+              type: 'doughnut', // Thay đổi giá trị của type thành 'doughnut'
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: 'Transaction No',
+                      data: transactionNos,
+                      backgroundColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)',
+                          'rgb(255, 205, 86)',
+                          'rgb(255 ,0,  255)',
+                          'rgb(148,0,211)'
+                      ],
+                      borderColor: ['rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)',
+                          'rgb(255, 205, 86)',
+                          'rgb(255 ,0,  255)',
+                          'rgb(148,0,211)'],
+                      borderWidth: 1,
+                      hoverOffset: 4
+                  }]
+              },
+              options: {
+                  responsive: true,
+                  scales: {
+                      y: {
+                          beginAtZero: true
+                      }
+                  }
+              }
+          });
+
+
+      },
+      error: function (error) {
+          // Xử lý lỗi (nếu có)
+          console.log(error);
+      }
+
+  });
+    }
+
+    @*$.ajax({
+        url: '@Url.Action("chartJS","Home")',
+        type: 'POST', // Phương thức HTTP
+        dataType: 'json', // Kiểu dữ liệu trả về
+        success: function (data) {
+            // Xử lý dữ liệu trả về
+            console.log(data);
+
+            // Tạo mảng chứa các giá trị transaction_no
+            var transactionNos = data.map(function (item) {
+                return item.transaction_no;
+            });
+
+            // Tạo mảng chứa các nhãn cho biểu đồ
+            var labels = data.map(function (item, index) {
+                return 'Item ' + (index + 1);
+            });
+
+            // Tạo context và khởi tạo biểu đồ
+            var ctx = document.getElementById("myChart");
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Transaction No',
+                        data: transactionNos,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+
+                }
+            });
+            var ctx2 = document.getElementById("myChart2");
+            new Chart(ctx2, {
+                type: 'doughnut', // Thay đổi giá trị của type thành 'doughnut'
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Transaction No',
+                        data: transactionNos,
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(255 ,0,  255)',
+                            'rgb(148,0,211)'
+                        ],
+                        borderColor: ['rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(255 ,0,  255)',
+                            'rgb(148,0,211)'],
+                        borderWidth: 1,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+
+        },
+        error: function (error) {
+            // Xử lý lỗi (nếu có)
+            console.log(error);
+        }
+
+    });*@
+
+
+
+</script>
+
+
+
+<div class="content-wrapper">
+
+
+    <div class="card">
+            <div class="card-body">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+        <button type="button" onclick="chartClick()">create chart</button>
+</div>
