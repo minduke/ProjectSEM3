@@ -77,7 +77,7 @@ namespace GiveAID.Controllers
             var posts = en.posts.ToList();
             foreach (var post in posts)
             {
-                if(post.time_end == DateTime.Now)
+                if (post.time_end == DateTime.Now.Date)
                 {
                     post.status = "Đóng";
                     en.SaveChanges();
@@ -87,15 +87,12 @@ namespace GiveAID.Controllers
 
         public void UpdateStatusByTarget()
         {
-            var posts = en.sp_GetTarget();
+            var posts = en.posts.Where(x => x.payments.Sum(s => s.transaction_amout ?? 0) >= x.target).ToList();
             foreach (var item in posts)
             {
-                if(item.amout == item.target)
-                {
-                    var post = en.posts.FirstOrDefault(x=>x.id == item.id);
-                    post.status = "Đóng";
-                }
+                item.status = "Đóng";
             }
+            en.SaveChanges();
         }
     }
 }

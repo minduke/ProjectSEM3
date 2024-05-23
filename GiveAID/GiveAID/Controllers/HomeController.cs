@@ -21,7 +21,7 @@ namespace GiveAID.Controllers
 
         GiveAIDEntities en = new GiveAIDEntities();
 
-       public ActionResult DonationP()
+        public ActionResult DonationP()
         {
             return View();
         }
@@ -37,26 +37,25 @@ namespace GiveAID.Controllers
 
             int startPage = ((page - 1) / maxDisplayPages) * maxDisplayPages + 1;
             int endPage = Math.Min(startPage + maxDisplayPages - 1, totalPages);
-            // Lọc và phân trang trực tiếp trên truy vấn
-            var posts = en.sp_GetPost()
-                            .Select(x => new ViewPost
-                            {
-                                id = x.id,
-                                title = x.title,
-                                image = x.image,
-                                target = (decimal)x.target,
-                                cate_id = x.cate_id,
-                                cate_name = x.name,
-                                partner_name = x.partner_name,
-                                total = (decimal)x.total
-                            })
-                            .OrderByDescending(x => x.id)
-                            .Skip((page - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
+
+            var posts = en.posts.Select(s => new ViewPost
+            {
+                id = s.id,
+                title = s.title,
+                image = s.image,
+                target = s.target ?? 0,
+                cate_name = s.category.name,
+                partner_image = s.partner.partner_image,
+                partner_name = s.partner.partner_name,
+                //total = s.payments.Any() ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+                total = s.payments.Any() ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+            })
+                .OrderByDescending(x => x.id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
 
-            
 
             ViewBag.posts = posts;
             ViewBag.TotalPosts = totalPosts;
@@ -70,19 +69,6 @@ namespace GiveAID.Controllers
             return View();
 
         }
-
-       
-
-        //public class ViewPost
-        //{
-        //    public int id { get; set; }
-        //    public string title { get; set; }
-        //    public string image { get; set; }
-        //    public decimal target { get; set; }
-        //    public int cate_id { get; set; }
-        //    public string name { get; set; }
-        //    public decimal total { get; set; }
-        //}
 
         public ActionResult CardDetails(int id)
         {
@@ -163,10 +149,12 @@ namespace GiveAID.Controllers
                 //order.Status = "0"; //0: Trạng thái thanh toán "chờ thanh toán" hoặc "Pending" khởi tạo giao dịch chưa có IPN
                 //order.CreatedDate = DateTime.Now;
 
+                var user = Session["USER"] as user;
+
                 //Save order to db
                 payment payment = new payment();
                 payment.transaction_amout = transaction_amout;
-                payment.user_id = 1;
+                payment.user_id = user.id;
                 payment.transaction_date = DateTime.Now;
                 payment.post_id = id;
                 en.payments.Add(payment);
@@ -180,31 +168,16 @@ namespace GiveAID.Controllers
                 vnpay.AddRequestData("vnp_Command", "pay");
                 vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
                 vnpay.AddRequestData("vnp_Amount", (payment.transaction_amout * 100).ToString()); //Số tiền thanh toán. Số tiền không mang các ký tự phân tách thập phân, phần nghìn, ký tự tiền tệ. Để gửi số tiền thanh toán là 100,000 VND (một trăm nghìn VNĐ) thì merchant cần nhân thêm 100 lần (khử phần thập phân), sau đó gửi sang VNPAY là: 10000000
-                                                                                                  //if (bankcode_Vnpayqr.Checked == true)
-                                                                                                  //{
-                                                                                                  //    vnpay.AddRequestData("vnp_BankCode", "VNPAYQR");
-                                                                                                  //}
-                                                                                                  //else if (bankcode_Vnbank.Checked == true)
-                                                                                                  //{
+                                                                                                  
                 vnpay.AddRequestData("vnp_BankCode", "VNBANK");
-                //}
-                //else if (bankcode_Intcard.Checked == true)
-                //{
-                //    vnpay.AddRequestData("vnp_BankCode", "INTCARD");
-                //}
 
                 vnpay.AddRequestData("vnp_CreateDate", payment.transaction_date.Value.ToString("yyyyMMddHHmmss"));
                 vnpay.AddRequestData("vnp_CurrCode", "VND");
                 vnpay.AddRequestData("vnp_IpAddr", Utils.GetIpAddress());
 
-                //if (locale_Vn.Checked == true)
-                //{
+                
                 vnpay.AddRequestData("vnp_Locale", "vn");
-                //}
-                //else if (locale_En.Checked == true)
-                //{
-                //    vnpay.AddRequestData("vnp_Locale", "en");
-                //}
+              
                 vnpay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang:" + PayId);
                 vnpay.AddRequestData("vnp_OrderType", "other"); //default value: other
 
