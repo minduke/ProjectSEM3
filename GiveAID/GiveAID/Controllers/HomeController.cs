@@ -76,7 +76,7 @@ namespace GiveAID.Controllers
             ViewBag.cardDetails = detail;
             var donater = en.payments.Where(x => x.post_id == id).ToList();
             ViewBag.donater = donater;
-            var sum = en.payments.Where(x => x.id == id).Sum(x => x.transaction_amout);
+            var sum = en.payments.Where(x => x.post_id == id).Sum(x => x.transaction_amout);
             ViewBag.sum = sum;
             return View();
         }
@@ -141,8 +141,8 @@ namespace GiveAID.Controllers
                 //Get Config Info
                 string vnp_Returnurl = "https://localhost:44311/home/result"; //URL nhan ket qua tra ve 
                 string vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; //URL thanh toan cua VNPAY 
-                string vnp_TmnCode = "TXK5WD36"; //Ma định danh merchant kết nối (Terminal Id)
-                string vnp_HashSecret = "J6O0W70J5QTK03K66VLSVO2PR6M7ASLM"; //Secret Key
+                string vnp_TmnCode = "URFUYJCU"; //Ma định danh merchant kết nối (Terminal Id)
+                string vnp_HashSecret = "E9I897QUPGE8T9T41D62F5JQ3GVDILBP"; //Secret Key
 
                 //Get payment input
                 //OrderInfo order = new OrderInfo();
