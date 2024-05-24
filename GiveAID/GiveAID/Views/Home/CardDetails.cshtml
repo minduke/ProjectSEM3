@@ -14,7 +14,7 @@
     }
 
     int percent = 0;
-    if(ViewBag.sum != null)
+    if (ViewBag.sum != null)
     {
         percent = (int)((ViewBag.sum / posts.target) * 100);
     }
@@ -28,7 +28,40 @@
             $('.product-image-thumb.active').removeClass('active')
             $(this).addClass('active')
         })
-    })
+    });
+
+
+    function doDonate() {
+        var idPost = $('#idPost').val();
+        var target = $('#target').val();
+        var amout = $('#amout').val();
+        var transaction_amout = $('#transaction_amout').val();
+
+
+        debugger
+        $.ajax({
+            type: 'POST',
+            data:
+            {
+                idPost: idPost,
+                target: target,
+                amout: amout,
+                transaction_amout: transaction_amout
+            },
+            dataType: 'json',
+            url: '@Url.Action("Donate", "Home")',
+            success: function (response) {
+                if (response.result == true) {
+                    var url = response.url;
+                    open(url, "_self");
+                } else {
+                    var url = response.url;
+                    open(url, "_self");
+                }
+            },
+            error: handleException
+        })
+    }
 </script>
 
 <style>
@@ -156,7 +189,7 @@
     /* o thong tin detail  */
     .text-primary {
         color: #d200f5 !important;
-        text-align:center;
+        text-align: center;
     }
 </style>
 
@@ -219,6 +252,7 @@
                                     <div class="project-target">
                                         <span>Mục tiêu</span>
                                         <h5>@Convert.ToInt64(posts.target).ToString("N0") VND</h5>
+                                        <input type="hidden" id="target" value="@posts.target" />
                                     </div>
 
 
@@ -227,6 +261,7 @@
                                     <div class="donation-amount">
                                         <span>Đã đạt được</span>
                                         <h5>@Convert.ToInt64(ViewBag.sum).ToString("N0") VND</h5>
+                                        <input type="hidden" id="amout" value="@ViewBag.sum" />
                                     </div>
 
                                     <div class="progress">
@@ -245,20 +280,26 @@
                         <div class="mt-2 cusDONATE">
 
 
-                            <form action="@Url.Action("Donate", "Home")" method="post">
-                                @if (Session["USER"] != null)
-                                {
-                                    <input type="number" class="moneyHoney" placeholder="10.000đ" name="transaction_amout">
-                                }
-                                    <input type="hidden" name="id" value="@posts.id" />
+
+                            @if (Session["USER"] != null)
+                            {
+                                <input type="number" class="moneyHoney" placeholder="10.000đ" name="transaction_amout" id="transaction_amout">
+
+                                <input type="hidden" name="id" id="idPost" value="@posts.id" />
 
 
-                                    <button type="submit" class="btn btn-primary btn-lg btn-flat">
-                                        <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                                        Donate
-                                    </button>
-                                </form>
 
+
+                                <button type="button" class="btn btn-primary btn-lg btn-flat" onclick="doDonate()">
+                                    <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                                    Donate
+                                </button>
+                            }
+                            else
+                            {
+
+                                <h5>Để ủng hộ. Vui lòng <a href="@Url.Content("~/Login")">đăng nhập</a></h5>
+                            }
                         </div>
 
                         <hr class="mt-5">

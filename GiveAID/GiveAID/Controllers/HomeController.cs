@@ -168,7 +168,15 @@ namespace GiveAID.Controllers
             }
         }
 
-        public void Donate(int transaction_amout, int id)
+        public class DonateModel
+        {
+            public int idPost { get; set; }
+            public decimal target { get; set; }
+            public decimal amout { get; set; }
+            public int transaction_amout { get; set; }
+        }
+
+        public JsonResult Donate(DonateModel model)
         {
             if (CheckLogin())
             {
@@ -186,13 +194,19 @@ namespace GiveAID.Controllers
                 //order.CreatedDate = DateTime.Now;
 
                 var user = Session["USER"] as user;
+                var a = model.target - model.amout;
+
+                if (model.transaction_amout > a || model.transaction_amout < 5000)
+                {
+                    throw new Exception("Số tiền không hợp lệ");
+                }
 
                 //Save order to db
                 payment payment = new payment();
-                payment.transaction_amout = transaction_amout;
+                payment.transaction_amout = model.transaction_amout;
                 payment.user_id = user.id;
                 payment.transaction_date = DateTime.Now;
-                payment.post_id = id;
+                payment.post_id = model.idPost;
                 en.payments.Add(payment);
                 en.SaveChanges();
 
@@ -225,12 +239,13 @@ namespace GiveAID.Controllers
 
                 string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
                 //log.InfoFormat("VNPAY URL: {0}", paymentUrl);
-                Response.Redirect(paymentUrl);
+                //Response.Redirect(paymentUrl);
                 //RedirectToRoute(paymentUrl);
+                return Json(new { result = true, url = paymentUrl });
             }
             else
             {
-                Response.Redirect("~/Login");
+                return Json(new { result = false, url = "~/Login" });
             }
         }
 
