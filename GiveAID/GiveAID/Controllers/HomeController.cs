@@ -174,6 +174,7 @@ namespace GiveAID.Controllers
             public decimal target { get; set; }
             public decimal amout { get; set; }
             public int transaction_amout { get; set; }
+            public decimal balance { get; set; }
         }
 
         public JsonResult Donate(DonateModel model)
@@ -194,9 +195,8 @@ namespace GiveAID.Controllers
                 //order.CreatedDate = DateTime.Now;
 
                 var user = Session["USER"] as user;
-                var a = model.target - model.amout;
 
-                if (model.transaction_amout > a || model.transaction_amout < 5000)
+                if (model.transaction_amout > model.balance || model.transaction_amout < 5000)
                 {
                     throw new Exception("Số tiền không hợp lệ");
                 }

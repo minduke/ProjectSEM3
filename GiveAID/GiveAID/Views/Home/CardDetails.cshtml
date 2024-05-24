@@ -7,6 +7,7 @@
     {
         posts = ViewBag.cardDetails;
     }
+
     List<GiveAID.Models.entities.payment> donater = new List<GiveAID.Models.entities.payment>();
     if (ViewBag.donater != null)
     {
@@ -14,6 +15,7 @@
     }
 
     int percent = 0;
+
     if (ViewBag.sum != null)
     {
         percent = (int)((ViewBag.sum / posts.target) * 100);
@@ -36,6 +38,7 @@
         var target = $('#target').val();
         var amout = $('#amout').val();
         var transaction_amout = $('#transaction_amout').val();
+        var balance = $('#balance').val();
 
 
         debugger
@@ -46,7 +49,8 @@
                 idPost: idPost,
                 target: target,
                 amout: amout,
-                transaction_amout: transaction_amout
+                transaction_amout: transaction_amout,
+                balance: balance
             },
             dataType: 'json',
             url: '@Url.Action("Donate", "Home")',
@@ -228,10 +232,6 @@
                             {
                                 <div class="product-image-thumb active"><img src="@Url.Content("~/content/images/post/" + item.image)" alt="Product Image"></div>
                             }
-                            @*<div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-2.jpg")" alt="Product Image"></div>
-                                <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-3.jpg")" alt="Product Image"></div>
-                                <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-4.jpg")" alt="Product Image"></div>
-                                <div class="product-image-thumb"><img src="@Url.Content("~/content/dist/img/prod-3.jpg")" alt="Product Image"></div>*@
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
@@ -301,6 +301,11 @@
                                 <h5>Để ủng hộ. Vui lòng <a href="@Url.Content("~/Login")">đăng nhập</a></h5>
                             }
                         </div>
+
+                        <hr class="mt-5">
+
+                        <h5>@Convert.ToInt64(posts.target - ViewBag.sum).ToString("N0")</h5> @*cái này để hiển thị lên cho người dùng thấy*@
+                        <input type="text" id="balance" value="@(posts.target - ViewBag.sum)" /> @*cái này để lấy dữ liệu gửi đi. css xong thì đưa cái này về hidden*@
 
                         <hr class="mt-5">
 
