@@ -154,7 +154,10 @@
         margin-bottom: 10px;
     }
     /* o thong tin detail  */
-
+    .text-primary {
+        color: #d200f5 !important;
+        text-align:center;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -243,15 +246,18 @@
 
 
                             <form action="@Url.Action("Donate", "Home")" method="post">
-                                <input type="number" class="moneyHoney" placeholder="10.000đ" name="transaction_amout">
-                                <input type="hidden" name="id" value="@posts.id" />
+                                @if (Session["USER"] != null)
+                                {
+                                    <input type="number" class="moneyHoney" placeholder="10.000đ" name="transaction_amout">
+                                }
+                                    <input type="hidden" name="id" value="@posts.id" />
 
 
-                                <button type="submit" class="btn btn-primary btn-lg btn-flat">
-                                    <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                                    Donate
-                                </button>
-                            </form>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-flat">
+                                        <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                                        Donate
+                                    </button>
+                                </form>
 
                         </div>
 
@@ -314,7 +320,7 @@
                                 </div>
 
                                 <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2 infoALL">
-                                    <h3 class="text-primary"><img src="@Url.Content("~/Content/Images/partner/" + posts.partner.partner_image)" alt="Logo">@posts.partner.partner_name</h3>
+                                    <h3 class="text-primary"><img src="@Url.Content("~/Content/Images/partner/" + posts.partner.partner_image)" alt="Logo" class="img-size-64 mr-2 mt-2"> - @posts.partner.partner_name</h3>
                                     <p class="text-muted">
                                         @posts.partner.description
                                     </p>
