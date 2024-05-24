@@ -108,7 +108,7 @@
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-
+    <!-- SLIDE IMAGE -->
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="3000">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -148,7 +148,7 @@
         <div class="container">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"> Home <small>Version 3.0</small></h1>
+                    <h1 class="m-0"> Home <small></small></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -196,9 +196,10 @@
                                     </div>
 
                                     <div class="col-sm-4 border-right">
+                                        <!-- Mục tiêu -->
                                         <div class="description-block">
                                             <h5 class="description-header">@Convert.ToInt64(item.target).ToString("N0")đ</h5>
-                                            <span class="description-text">Mục Tiêu</span>
+                                            <span class="description-text">Target</span>
                                         </div>
                                         <!-- /.description-block -->
                                     </div>
@@ -207,6 +208,7 @@
                                     <div class="col-sm-4 border-right">
                                         <div class="description-block">
                                             <h5 class="description-header">
+                                                <!-- Tiến độ -->
                                                 <div class="progress">
                                                     <div class="progress-bar progress-bar-striped progress-bar-animated custom-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
                                                          style="width:@Convert.ToInt64((item.total/item.target)*100)%">
@@ -214,7 +216,7 @@
                                                     </div>
                                                 </div>
                                             </h5>
-                                            <span class="description-text">Tiến Độ</span>
+                                            <span class="description-text">Progress</span>
 
                                         </div>
                                         <!-- /.description-block -->
@@ -222,8 +224,9 @@
 
                                     <div class="col-sm-4 ">
                                         <div class="description-block">
+                                            <!-- đã quyên góp -->
                                             <h5 class="description-header">@Convert.ToInt64(item.total).ToString("N0")đ</h5>
-                                            <span class="description-text">Đã Góp</span>
+                                            <span class="description-text">Donation</span>
                                         </div>
                                         <!-- /.description-block -->
                                     </div>
@@ -252,32 +255,7 @@
             <div class="container PageVIP">
                 <!--Phan trang-->
                 <nav aria-label="Page navigation example">
-                    @*<ul class="pagination">
-                        @if (ViewBag.CurrentPage > 1)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        }
 
-                        @for (int i = 1; i <= totalPages; i++)
-                        {
-                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                                <a class="page-link" href="@Url.Action("Index", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
-                            </li>
-                        }
-
-                        @if (ViewBag.CurrentPage < totalPages)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        }
-                    </ul>*@
 
                     <ul class="pagination">
                         @if (ViewBag.CurrentPage > 1)
@@ -309,15 +287,15 @@
 
             </div>
             @*<div class="description-block">
-                <h5 class="description-header">
-                    <div class="progress">
-                        <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
-                    </div>
-                </h5>
-                <span class="description-text">Tiến Độ</span>
+                    <h5 class="description-header">
+                        <div class="progress">
+                            <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
+                        </div>
+                    </h5>
+                    <span class="description-text">Tiến Độ</span>
 
-                <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
-            </div>*@
+                    <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
+                </div>*@
 
 
 
@@ -346,4 +324,4 @@
     </div>
     <!-- Main content -->
 </div>
-<!-- Content Wrapper. Contains page content -->
+
