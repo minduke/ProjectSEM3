@@ -23,6 +23,41 @@ namespace GiveAID.Controllers
 
         public ActionResult DonationP()
         {
+            var running = en.posts
+                .Where(x => x.status == "Mở")
+                .Select(s => new ViewPost
+                {
+                    id = s.id,
+                    title = s.title,
+                    image = s.image,
+                    target = s.target ?? 0,
+                    cate_name = s.category.name,
+                    partner_image = s.partner.partner_image,
+                    partner_name = s.partner.partner_name,
+                    total = s.payments.Any() ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+                })
+                .OrderByDescending(x => x.id)
+                .ToList();
+
+            var complete = en.posts
+                .Where(x => x.status == "Đóng")
+                .Select(s => new ViewPost
+                {
+                    id = s.id,
+                    title = s.title,
+                    image = s.image,
+                    target = s.target ?? 0,
+                    cate_name = s.category.name,
+                    partner_image = s.partner.partner_image,
+                    partner_name = s.partner.partner_name,
+                    total = s.payments.Any() ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+                })
+                .OrderByDescending(x => x.id)
+                .ToList();
+
+            ViewBag.running = running;
+            ViewBag.complete = complete;
+
             return View();
         }
 
@@ -47,7 +82,6 @@ namespace GiveAID.Controllers
                 cate_name = s.category.name,
                 partner_image = s.partner.partner_image,
                 partner_name = s.partner.partner_name,
-                //total = s.payments.Any() ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
                 total = s.payments.Any() ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
             })
                 .OrderByDescending(x => x.id)
@@ -170,16 +204,16 @@ namespace GiveAID.Controllers
                 vnpay.AddRequestData("vnp_Command", "pay");
                 vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
                 vnpay.AddRequestData("vnp_Amount", (payment.transaction_amout * 100).ToString()); //Số tiền thanh toán. Số tiền không mang các ký tự phân tách thập phân, phần nghìn, ký tự tiền tệ. Để gửi số tiền thanh toán là 100,000 VND (một trăm nghìn VNĐ) thì merchant cần nhân thêm 100 lần (khử phần thập phân), sau đó gửi sang VNPAY là: 10000000
-                                                                                                  
+
                 vnpay.AddRequestData("vnp_BankCode", "VNBANK");
 
                 vnpay.AddRequestData("vnp_CreateDate", payment.transaction_date.Value.ToString("yyyyMMddHHmmss"));
                 vnpay.AddRequestData("vnp_CurrCode", "VND");
                 vnpay.AddRequestData("vnp_IpAddr", Utils.GetIpAddress());
 
-                
+
                 vnpay.AddRequestData("vnp_Locale", "vn");
-              
+
                 vnpay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang:" + PayId);
                 vnpay.AddRequestData("vnp_OrderType", "other"); //default value: other
 
