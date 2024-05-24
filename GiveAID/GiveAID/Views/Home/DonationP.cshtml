@@ -2,6 +2,19 @@
 @{
     ViewBag.Title = "DonationP";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<GiveAID.Models.model_view.ViewPost> running = new List<GiveAID.Models.model_view.ViewPost>();
+    if (ViewBag.running != null)
+    {
+        running = ViewBag.running;
+    }
+
+    List<GiveAID.Models.model_view.ViewPost> complete = new List<GiveAID.Models.model_view.ViewPost>();
+    if (ViewBag != null)
+    {
+        complete = ViewBag.complete;
+    }
+
 }
 
 <style>
@@ -79,13 +92,11 @@
     .content-vip {
         display: flex;
         justify-content: center;
-        
     }
 
     .content-baby {
         flex: 1;
         text-align: center;
-       
     }
 
 
@@ -160,6 +171,7 @@
                     </ul>
 
                     <!-- Tab panes -->
+
                     <div class="tab-content" style="width:100%">
                         <div id="home" class="container tab-pane active">
                             <br>
@@ -167,212 +179,71 @@
 
                                 <!--mot card-->
                                 <!-- /.col -->
+                                @foreach (var item in running)
+                                {
+                                    <div class="col-md-4">
+                                        <!-- Widget: user widget style 1 -->
+                                        <div class="card card-widget widget-user">
+                                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                                            <div class="widget-user-header text-white "
+                                                 style="background: url('@Url.Content("~/Content/Images/post/" + @item.image)') center center;">
 
-                                <div class="col-md-4">
-                                    <!-- Widget: user widget style 1 -->
-                                    <div class="card card-widget widget-user">
-                                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                                        <div class="widget-user-header text-white "
-                                             style="background: url('@Url.Content("~/Content/Images/BinCute.jpg")') center center;">
-
-                                            <h3 class="widget-user-username text-right">Tâm tư</h3>
-                                            <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
-                                        </div>
-                                        <div class="widget-user-image">
-                                            <img class="img-circle logoBrandCard" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="row">
-                                                <div class="container">
-                                                    <a href="#">
-                                                        <h4 class="text-ellipsis">
-                                                            Hình ảnh Tóm tắt các ý chính và điều cần lưu ý cho trang web Give-AID của tổ chức                           phi chính phủ (N.G.O):Tóm
-                                                            tắt các ý chính và điều cần lưu ý
-                                                            cho trang web Give-AID của tổ chức phi chính                                                                    phủ (N.G.O):
-
-                                                        </h4>
-                                                    </a>
-
-                                                </div>
-
-                                                <div class="col-sm-4 border-right">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">900.000.000đ</h5>
-                                                        <span class="description-text">Mục Tiêu</span>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-
-                                                <!-- /.col -->
-                                                <div class="col-sm-4">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">
-                                                            <div class="progress">
-                                                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:100%">70%</div>
-                                                            </div>
-                                                        </h5>
-                                                        <span class="description-text">Tiến Độ</span>
-
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-
-                                                <div class="col-sm-4 border-right">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">500.000.000đ</h5>
-                                                        <span class="description-text">Đã Góp</span>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-                                                <!-- /.col -->
-                                                <!-- /.col -->
+                                                <h3 class="widget-user-username text-right">@item.cate_name</h3>
+                                                <h5 class="widget-user-desc text-right">@item.partner_name</h5>
                                             </div>
-                                            <!-- /.row -->
-                                        </div>
-                                    </div>
-                                    <!-- /.widget-user -->
-                                </div>
-
-
-                                <!-- /.col -->
-                                <!--mot card-->
-                                <!-- /.col -->
-
-                                <div class="col-md-4">
-                                    <!-- Widget: user widget style 1 -->
-                                    <div class="card card-widget widget-user">
-                                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                                        <div class="widget-user-header text-white "
-                                             style="background: url('@Url.Content("~/Content/Images/BinCute.jpg")') center center;">
-
-                                            <h3 class="widget-user-username text-right">Tâm tư</h3>
-                                            <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
-                                        </div>
-                                        <div class="widget-user-image">
-                                            <img class="img-circle logoBrandCard" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="row">
-                                                <div class="container">
-                                                    <a href="#">
-                                                        <h4 class="text-ellipsis">
-                                                            Hình ảnh Tóm tắt các ý chính và điều cần lưu ý cho trang web Give-AID của tổ chức                           phi chính phủ (N.G.O):Tóm
-                                                            tắt các ý chính và điều cần lưu ý
-                                                            cho trang web Give-AID của tổ chức phi chính                                                                    phủ (N.G.O):
-
-                                                        </h4>
-                                                    </a>
-
-                                                </div>
-
-                                                <div class="col-sm-4 border-right">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">900.000.000đ</h5>
-                                                        <span class="description-text">Mục Tiêu</span>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-
-                                                <!-- /.col -->
-                                                <div class="col-sm-4">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">
-                                                            <div class="progress">
-                                                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:100%">70%</div>
-                                                            </div>
-                                                        </h5>
-                                                        <span class="description-text">Tiến Độ</span>
-
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-
-                                                <div class="col-sm-4 border-right">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">500.000.000đ</h5>
-                                                        <span class="description-text">Đã Góp</span>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-                                                <!-- /.col -->
-                                                <!-- /.col -->
+                                            <div class="widget-user-image">
+                                                <img class="img-circle logoBrandCard" src="@Url.Content("~/content/images/partner/" + @item.partner_image)" alt="User Avatar">
                                             </div>
-                                            <!-- /.row -->
-                                        </div>
-                                    </div>
-                                    <!-- /.widget-user -->
-                                </div>
+                                            <div class="card-footer">
+                                                <div class="row">
+                                                    <div class="container">
+                                                        <a href="@Url.Action("CardDetails", "Home")/@item.id">
+                                                            <h4 class="text-ellipsis">
+                                                                @item.title
 
-
-                                <!-- /.col -->
-                                <!--mot card-->
-                                <!-- /.col -->
-
-                                <div class="col-md-4">
-                                    <!-- Widget: user widget style 1 -->
-                                    <div class="card card-widget widget-user">
-                                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                                        <div class="widget-user-header text-white "
-                                             style="background: url('@Url.Content("~/Content/Images/BinCute.jpg")') center center;">
-
-                                            <h3 class="widget-user-username text-right">Tâm tư</h3>
-                                            <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
-                                        </div>
-                                        <div class="widget-user-image">
-                                            <img class="img-circle logoBrandCard" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="row">
-                                                <div class="container">
-                                                    <a href="#">
-                                                        <h4 class="text-ellipsis">
-                                                            Hình ảnh Tóm tắt các ý chính và điều cần lưu ý cho trang web Give-AID của tổ chức                           phi chính phủ (N.G.O):Tóm
-                                                            tắt các ý chính và điều cần lưu ý
-                                                            cho trang web Give-AID của tổ chức phi chính                                                                    phủ (N.G.O):
-
-                                                        </h4>
-                                                    </a>
-
-                                                </div>
-
-                                                <div class="col-sm-4 border-right">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">900.000.000đ</h5>
-                                                        <span class="description-text">Mục Tiêu</span>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-
-                                                <!-- /.col -->
-                                                <div class="col-sm-4">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">
-                                                            <div class="progress">
-                                                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:100%">70%</div>
-                                                            </div>
-                                                        </h5>
-                                                        <span class="description-text">Tiến Độ</span>
+                                                            </h4>
+                                                        </a>
 
                                                     </div>
-                                                    <!-- /.description-block -->
-                                                </div>
 
-                                                <div class="col-sm-4 border-right">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">500.000.000đ</h5>
-                                                        <span class="description-text">Đã Góp</span>
+                                                    <div class="col-sm-4 border-right">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">@Convert.ToInt64(item.target).ToString("N0") VND</h5>
+                                                            <span class="description-text">Mục Tiêu</span>
+                                                        </div>
+                                                        <!-- /.description-block -->
                                                     </div>
-                                                    <!-- /.description-block -->
+
+                                                    <!-- /.col -->
+                                                    <div class="col-sm-4">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">
+                                                                <div class="progress">
+                                                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:@Convert.ToInt64((item.total / item.target) * 100)%">@Convert.ToInt64((item.total / item.target) * 100)%</div>
+                                                                </div>
+                                                            </h5>
+                                                            <span class="description-text">Tiến Độ</span>
+
+                                                        </div>
+                                                        <!-- /.description-block -->
+                                                    </div>
+
+                                                    <div class="col-sm-4 border-right">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">@Convert.ToInt64(item.total).ToString("N0") VND</h5>
+                                                            <span class="description-text">Đã Góp</span>
+                                                        </div>
+                                                        <!-- /.description-block -->
+                                                    </div>
+                                                    <!-- /.col -->
+                                                    <!-- /.col -->
                                                 </div>
-                                                <!-- /.col -->
-                                                <!-- /.col -->
+                                                <!-- /.row -->
                                             </div>
-                                            <!-- /.row -->
                                         </div>
+                                        <!-- /.widget-user -->
                                     </div>
-                                    <!-- /.widget-user -->
-                                </div>
-
+                                }
 
                                 <!-- /.col -->
 
@@ -386,70 +257,71 @@
 
                                 <!--mot card-->
                                 <!-- /.col -->
+                                @foreach (var it in complete)
+                                {
+                                    <div class="col-md-4">
+                                        <!-- Widget: user widget style 1 -->
+                                        <div class="card card-widget widget-user">
+                                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                                            <div class="widget-user-header text-white "
+                                                 style="background: url('@Url.Content("~/Content/Images/" + @it.image)') center center;">
 
-                                <div class="col-md-4">
-                                    <!-- Widget: user widget style 1 -->
-                                    <div class="card card-widget widget-user">
-                                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                                        <div class="widget-user-header text-white "
-                                             style="background: url('@Url.Content("~/Content/Images/BinCute.jpg")') center center;">
-
-                                            <h3 class="widget-user-username text-right">Tâm tư</h3>
-                                            <h5 class="widget-user-desc text-right">Từ Thiện Vui Vẻ</h5>
-                                        </div>
-                                        <div class="widget-user-image">
-                                            <img class="img-circle logoBrandCard" src="@Url.Content("~/content/dist/img/user3-128x128.jpg")" alt="User Avatar">
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="row">
-                                                <div class="container">
-                                                    <a href="#">
-                                                        <h4>
-                                                            Sa chào cô chú
-
-                                                        </h4>
-                                                    </a>
-
-                                                </div>
-
-                                                <div class="col-sm-4 border-right">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">900.000.000đ</h5>
-                                                        <span class="description-text">Mục Tiêu</span>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-
-                                                <!-- /.col -->
-                                                <div class="col-sm-4">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">
-                                                            <div class="progress">
-                                                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:70%">70%</div>
-                                                            </div>
-                                                        </h5>
-                                                        <span class="description-text">Tiến Độ</span>
-
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-
-                                                <div class="col-sm-4 border-right">
-                                                    <div class="description-block">
-                                                        <h5 class="description-header">500.000.000đ</h5>
-                                                        <span class="description-text">Đã Góp</span>
-                                                    </div>
-                                                    <!-- /.description-block -->
-                                                </div>
-                                                <!-- /.col -->
-                                                <!-- /.col -->
+                                                <h3 class="widget-user-username text-right">@it.cate_name</h3>
+                                                <h5 class="widget-user-desc text-right">@it.partner_name</h5>
                                             </div>
-                                            <!-- /.row -->
-                                        </div>
-                                    </div>
-                                    <!-- /.widget-user -->
-                                </div>
+                                            <div class="widget-user-image">
+                                                <img class="img-circle logoBrandCard" src="@Url.Content("~/content/images/partner/" + @it.partner_image)" alt="User Avatar">
+                                            </div>
+                                            <div class="card-footer">
+                                                <div class="row">
+                                                    <div class="container">
+                                                        <a href="@Url.Action("CardDetails", "Home")/@it.id">
+                                                            <h4>
+                                                                @it.title
 
+                                                            </h4>
+                                                        </a>
+
+                                                    </div>
+
+                                                    <div class="col-sm-4 border-right">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">@Convert.ToInt64(it.target).ToString("N0") VND</h5>
+                                                            <span class="description-text">Mục Tiêu</span>
+                                                        </div>
+                                                        <!-- /.description-block -->
+                                                    </div>
+
+                                                    <!-- /.col -->
+                                                    <div class="col-sm-4">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">
+                                                                <div class="progress">
+                                                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:@Convert.ToInt64((it.total / it.target) * 100)%">@Convert.ToInt64((it.total / it.target) * 100)%</div>
+                                                                </div>
+                                                            </h5>
+                                                            <span class="description-text">Tiến Độ</span>
+
+                                                        </div>
+                                                        <!-- /.description-block -->
+                                                    </div>
+
+                                                    <div class="col-sm-4 border-right">
+                                                        <div class="description-block">
+                                                            <h5 class="description-header">@Convert.ToInt64(it.total).ToString("N0") VND</h5>
+                                                            <span class="description-text">Đã Góp</span>
+                                                        </div>
+                                                        <!-- /.description-block -->
+                                                    </div>
+                                                    <!-- /.col -->
+                                                    <!-- /.col -->
+                                                </div>
+                                                <!-- /.row -->
+                                            </div>
+                                        </div>
+                                        <!-- /.widget-user -->
+                                    </div>
+                                }
 
                                 <!-- /.col -->
 
