@@ -67,6 +67,22 @@
     }
 
 
+    .widget-user .widget-user-username {
+        /*mau cho linh vuc*/
+        color: #FFB200;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-shadow: 5px 5px 10px #4CFFCC;
+    }
+
+    .widget-user .widget-user-desc {
+        /*mau cho partner text*/
+        color: #3D3D3D;
+        font-weight: bold;
+        text-shadow: 5px 5px 10px #E87CD1;
+    }
+
+
     .PageVIP {
         position: relative;
         left: 500px;
@@ -76,15 +92,12 @@
 
     .progress {
         width: 100%;
-        background-color: #f3f3f3;
+        background-color: lightgray;
     }
 
-    .progress-bar {
-        width: 0%;
-        background-color: #4caf50;
-        text-align: center;
-        line-height: 30px;
-        color: white;
+    .custom-progress-bar {
+        background-color: #FF66FF;
+        /* Các thuộc tính khác tùy chỉnh */
     }
 
 
@@ -114,6 +127,11 @@
         text-overflow: ellipsis;
         width: 250px; /* Định nghĩa kích thước cố định của nội dung */
     }
+
+    .description-block > .description-header {
+        font-size: 14px;
+    }
+
 </style>
 
 
@@ -163,10 +181,10 @@
                     <br>
                     <ul class="nav nav-tabs content-vip" role="tablist">
                         <li class="nav-item content-baby">
-                            <a class="nav-link active" data-toggle="tab" href="#home">Dự án đang chạy</a>
+                            <a class="nav-link active" data-toggle="tab" href="#home">Project is running</a>
                         </li>
                         <li class="nav-item content-baby">
-                            <a class="nav-link" data-toggle="tab" href="#menu1">Dự án đã kết thúc</a>
+                            <a class="nav-link" data-toggle="tab" href="#menu1">The project has ended</a>
                         </li>
                     </ul>
 
@@ -207,31 +225,38 @@
                                                     </div>
 
                                                     <div class="col-sm-4 border-right">
+                                                        <!-- Mục tiêu -->
                                                         <div class="description-block">
-                                                            <h5 class="description-header">@Convert.ToInt64(item.target).ToString("N0") VND</h5>
-                                                            <span class="description-text">Mục Tiêu</span>
+                                                            <h5 class="description-header">@Convert.ToInt64(item.target).ToString("N0")đ</h5>
+                                                            <span class="description-text">Target</span>
                                                         </div>
                                                         <!-- /.description-block -->
                                                     </div>
 
                                                     <!-- /.col -->
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-4 border-right">
                                                         <div class="description-block">
                                                             <h5 class="description-header">
                                                                 <div class="progress">
-                                                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:@Convert.ToInt64((item.total / item.target) * 100)%">@Convert.ToInt64((item.total / item.target) * 100)%</div>
+                                                                    <!-- Tiến độ -->
+                                                                    <div class="progress-bar progress-bar-striped progress-bar-animated 
+                                                                         custom-progress-bar" role="progressbar" 
+                                                                         aria-valuemin="0" aria-valuemax="100" 
+                                                                         style="width:@Convert.ToInt64((item.total / item.target) 
+                                                                    * 100)%">@Convert.ToInt64((item.total / item.target) * 100)%
+                                                                    </div>
                                                                 </div>
                                                             </h5>
-                                                            <span class="description-text">Tiến Độ</span>
+                                                            <span class="description-text">Progress</span>
 
                                                         </div>
                                                         <!-- /.description-block -->
                                                     </div>
 
-                                                    <div class="col-sm-4 border-right">
+                                                    <div class="col-sm-4 ">
                                                         <div class="description-block">
-                                                            <h5 class="description-header">@Convert.ToInt64(item.total).ToString("N0") VND</h5>
-                                                            <span class="description-text">Đã Góp</span>
+                                                            <h5 class="description-header">@Convert.ToInt64(item.total).ToString("N0")đ</h5>
+                                                            <span class="description-text">Donation</span>
                                                         </div>
                                                         <!-- /.description-block -->
                                                     </div>
@@ -283,11 +308,11 @@
                                                         </a>
 
                                                     </div>
-
+                                                    <!-- Mục tiêu -->
                                                     <div class="col-sm-4 border-right">
                                                         <div class="description-block">
-                                                            <h5 class="description-header">@Convert.ToInt64(it.target).ToString("N0") VND</h5>
-                                                            <span class="description-text">Mục Tiêu</span>
+                                                            <h5 class="description-header">@Convert.ToInt64(it.target).ToString("N0")đ</h5>
+                                                            <span class="description-text">Target</span>
                                                         </div>
                                                         <!-- /.description-block -->
                                                     </div>
@@ -297,10 +322,14 @@
                                                         <div class="description-block">
                                                             <h5 class="description-header">
                                                                 <div class="progress">
-                                                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:@Convert.ToInt64((it.total / it.target) * 100)%">@Convert.ToInt64((it.total / it.target) * 100)%</div>
+                                                                    <div class="progress-bar progress-bar-striped progress-bar-animated 
+                                                                         custom-progress-bar" role="progressbar" 
+                                                                         aria-valuemin="0" aria-valuemax="100"
+                                                                         style="width:@Convert.ToInt64((it.total / it.target) 
+                                                                   *      100)%">@Convert.ToInt64((it.total / it.target) * 100)%</div>
                                                                 </div>
-                                                            </h5>
-                                                            <span class="description-text">Tiến Độ</span>
+                                                            </h5>  <!-- Tiến độ -->
+                                                            <span class="description-text">Progress</span>
 
                                                         </div>
                                                         <!-- /.description-block -->
@@ -308,8 +337,9 @@
 
                                                     <div class="col-sm-4 border-right">
                                                         <div class="description-block">
-                                                            <h5 class="description-header">@Convert.ToInt64(it.total).ToString("N0") VND</h5>
-                                                            <span class="description-text">Đã Góp</span>
+                                                            <!-- đã quyên góp -->
+                                                            <h5 class="description-header">@Convert.ToInt64(it.total).ToString("N0")đ</h5>
+                                                            <span class="description-text">Donation</span>
                                                         </div>
                                                         <!-- /.description-block -->
                                                     </div>

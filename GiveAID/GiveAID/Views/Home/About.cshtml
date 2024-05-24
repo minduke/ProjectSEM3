@@ -41,9 +41,37 @@
         /* kích thước logo card index home */
         width: 250px;
         height: 200px;
-        margin: 3px;
+        margin: 2px;
     }
-
+    .titleH1 {
+        color: #34495E;
+        font-weight: bold;
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: 5px 5px 10px #00FF00;
+    }
+    .titleH3 {
+        color: #FBFCFC;
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: 5px 5px 10px #00FF00;
+    }
+    .titleh3 {
+        text-align: center;
+        text-transform: uppercase;
+        color: #34495E;
+        text-shadow: 5px 5px 10px #A569BD;
+    }
+    .titleF {
+        font-style: italic;
+        color: #229954;
+        background-color: #E5E7E9;
+    }
+    .cusWD {
+        color: #34495E;
+        text-transform: uppercase;
+        text-shadow: 5px 5px 10px #A569BD;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -55,69 +83,99 @@
             <div class="card-body row">
                 <div class="col-5 text-center d-flex align-items-center justify-content-center">
                     <div class="">
-                        <h2>Give-AID <strong>N.G.O</strong></h2>
-                        <p class="lead mb-5">
-                            123 Testing Ave, Testtown, 9876 NA<br>
-                            Phone: +1 234 56789012
-                        </p>
+                        <img src=" @Url.Content("~/Content/Images/LogoGive2.png")" alt="AdminLTE Logo">
                     </div>
                 </div>
                 <div class="col-7">
                     <div class="form-group">
-                        <h1>Give-AID</h1> 
-                        <p>
-                            Tinh hoa hội tụ phụ nữ rất yêu 3D+ cũng mê nói chi con gái :D 
-                        </p>
+                        <h1 class="titleH1">Introducing the team</h1>
+
                     </div>
                     <div class="form-group">
                         <div class="card-dark">
-                            <div class="card-header">
-                                <h3>Đội Nhóm Cute</h3>
+                            <div class="card-header titleH3">
+                                <h3>Give - AID's team</h3>
                             </div>
                             <div class="card-body row-cols-2">
-                                <div class=" col-6 mx-auto">
-                                    <h3>Giám sát công trình</h3>
-                                    <img class="img-circle logoBrandCard" src="@Url.Content("~/content/Images/Bin.png")" alt="User Avatar">
-                                    <p>Kẻ hủy diệt sinh viên, người mang bóng đêm tới cho học sinh, máy sấy hình người BBoyBin</p>
-                                </div>
-                                <div class="float-left col-md-3">
-                                    <h3>Tổ tiết tấu</h3>
+
+                                <div class="float-left col-5 cusWD">
+                                    <h3>Lại Nguyên Vũ</h3>
                                     <img class="img-circle logoBrandCard" src="@Url.Content("~/content/Images/Wu.png")" alt="User Avatar">
-                                    <p>Chuyên gia trong lĩnh vực lên mạng kể chuyện cười</p>
+                                    <h5 class="ml-5">Content Creator</h5>
 
                                 </div>
-                                <div class="float-right col-5">
-                                    <h3>Tổ ẩm thực</h3>
+                                <div class="float-right col-5 cusWD">
+                                    <h3>Lê Minh Đức</h3>
                                     <img class="img-circle logoBrandCard" src="@Url.Content("~/content/Images/Duke2.png")" alt="User Avatar">
-                                    <p>Thực thần trong các món ăn uống đặc biệt trứng gà Lạ Hề và đó là Lê Đức</p>
-                                </div
+                                    <h5 class="ml-5">Creator of logic</h5>
+                                </div>
+
+
+
                             </div>
-                            
-                         </div">
-                        
-                    </div>
-                    <div class="form-group">
-                        <p>Tinh thần kiên cường ý chí bất khuất và đó là tình.<strong>Yêu quý con người</strong></p>
-                    </div>
-                    <div class="form-group">
-                        
-                    </div>
-                    <div class="form-group">
-                        
+                            <div class="card-footer titleF">
+                                <h3>*Give - AID was born with the sweat and enthusiasm of the whole group, it was created through hard work and effort, it is not here to save anything. It simply wants to bring warmth to the heart people who share with the community.*</h3>
+                            </div>
+
+
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="@Url.Content("~/Content/Images/sloganVIP.jpg")" loading="lazy" class="d-block w-100" alt="anh test 1">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>If you're still breathing, you're alive</h5>
-                    <p>So don't forget to breathe</p>
+
+            <div class="container">
+                <h3 class="titleh3 mt-3 mb-3">Our partner</h3>
+                <!-- SLIDE IMAGE -->
+                <div id="logo-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#logo-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#logo-carousel" data-slide-to="1"></li>
+                        <li data-target="#logo-carousel" data-slide-to="2"></li>
+                        <!-- Thêm các chỉ số cho từng logo -->
+                    </ol>
+
+                    <!-- Slides -->
+                    <div class="carousel-inner mt-3 mb-3">
+                        <div class="carousel-item active" style="text-align:center;">
+                            <img src="~/Content/Images/apple.png" loading="lazy" alt="Logo 1" class="ml-3 mr-3">
+                            <img src="~/Content/Images/facebook.png" loading="lazy" class="ml-3 mr-3">
+                            <img src="~/Content/Images/youtube.png" loading="lazy" class="ml-3 mr-3">
+                        </div>
+                        <div class="carousel-item" style="text-align:center;">
+                            <img src="~/Content/Images/youtube.png" loading="lazy" class="ml-3 mr-3">
+                            <img src="~/Content/Images/facebook.png" loading="lazy" class="ml-3 mr-3">
+                            <img src="~/Content/Images/apple.png" alt="Logo 2" loading="lazy" class="ml-3 mr-3">
+                        </div>
+                        <div class="carousel-item" style="text-align:center;">
+                            <img src="~/Content/Images/tiktok.png" loading="lazy" class="ml-3 mr-3">
+                            <img src="~/Content/Images/apple.png" alt="Logo 3" class="ml-3 mr-3">
+                        </div>
+                        <!-- Thêm các slide cho từng logo -->
+                    </div>
+
+                    <!-- Controls -->
+
+                </div>
+
+            </div>
+
+
+        
+
+
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="@Url.Content("~/Content/Images/sloganVIP.jpg")" loading="lazy" class="d-block w-100" alt="anh test 1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>If you're still breathing, you're alive</h5>
+                        <p>So don't forget to breathe</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+</section>
    
     <!-- /.content -->
 </div>
