@@ -108,7 +108,7 @@ namespace GiveAID.Controllers
             ViewBag.cardDetails = detail;
             var donater = en.payments.Where(x => x.post_id == id).ToList();
             ViewBag.donater = donater;
-            var sum = en.payments.Where(x => x.post_id == id).Sum(x => x.transaction_amout);
+            var sum = en.payments.Where(x => x.post_id == id).Sum(x => x.transaction_amout) ?? 0;
             ViewBag.sum = sum;
             return View();
         }
