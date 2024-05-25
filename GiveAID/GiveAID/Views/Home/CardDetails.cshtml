@@ -160,7 +160,7 @@
 
     /* content khi nhap nut cu the la noi dung*/
     .infoALL {
-        width: fit-content;
+        width: 85vw;
         height: fit-content;
         background-color: rgb(238, 234, 234);
     }
@@ -345,28 +345,24 @@
                         <hr class="mt-5">
 
                         <div class="mt-4 product-share">
-                            <a href="#" class="text-gray">
-                                <i class="fab fa-facebook-square fa-2x"></i>
-                            </a>
-                            <a href="#" class="text-gray">
-                                <i class="fab fa-twitter-square fa-2x"></i>
-                            </a>
-                            <a href="#" class="text-gray">
-                                <i class="fas fa-envelope-square fa-2x"></i>
-                            </a>
-                            <a href="#" class="text-gray">
-                                <i class="fas fa-rss-square fa-2x"></i>
-                            </a>
+                            <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#shareEMAIL" aria-expanded="false" aria-controls="shareEMAIL">
+                                <i class="fa-solid fa-share-nodes mr-1"></i>
+                                Share
+                            </button>
+                            <div class="collapse" id="shareEMAIL">
+                                <label>Enter recipient's email: </label>
+                                <input type="email" name="ReceiverEmail" id="ReceiverEmail" value="" />
+                                <input type="hidden" name="currentUrl" id="currentUrl" />
+                                <input type="hidden" id="titlePost" value="@posts.title" />
+                                <div>
+                                    <button class="btn btn-success mb-3" type="button" onclick="SharePost()">Chia sẻ</button>
+                                </div>
+                                
+                            </div>
                         </div>
 
                         <hr class="mt-5">
-                        <div>
-                            <label>Chia sẻ cho thầy đi</label>
-                            <input type="email" name="ReceiverEmail" id="ReceiverEmail" value="" />
-                            <input type="text" name="currentUrl" id="currentUrl" />
-                            <input type="text" id="titlePost" value="@posts.title" />
-                            <button type="button" onclick="SharePost()">Chia sẻ</button>
-                        </div>
+                     
 
                     </div>
                 </div>
