@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -93,6 +95,77 @@ namespace GiveAID.Controllers
                 item.status = "Đóng";
             }
             en.SaveChanges();
+        }
+
+        public void SendMailThanks(string toAddress)
+        {
+            string fromAddress = "vuvunguyen12345@gmail.com";
+            string password = "viovutezgtdjjvar";
+
+            string templatePath = Server.MapPath("~/Content/template_email/tks_email.html");
+            string emailBody = System.IO.File.ReadAllText(templatePath);
+
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress(fromAddress);
+                mail.To.Add(new MailAddress(toAddress));
+                mail.Subject = "Thư Cám Ơn";
+                mail.Body = emailBody;
+                mail.IsBodyHtml = true;
+
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.EnableSsl = true;
+                    smtp.Credentials = new NetworkCredential(fromAddress, password);
+
+                    try
+                    {
+                        smtp.Send(mail);
+                    }
+                    catch (SmtpException ex)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        public void SendMailInvite(string toAddress, string currentUrl, string titlePost)
+        {
+            string fromAddress = "vuvunguyen12345@gmail.com";
+            string password = "viovutezgtdjjvar";
+
+            string templatePath = Server.MapPath("~/Content/template_email/invite_email.html");
+            string emailBody = System.IO.File.ReadAllText(templatePath);
+
+            var user = Session["USER"] as user;
+            emailBody = emailBody.Replace("{{username}}", user.fullname);
+            emailBody = emailBody.Replace("{{urlPost}}", currentUrl);
+            emailBody = emailBody.Replace("{{title}}", titlePost);
+
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress(fromAddress);
+                mail.To.Add(new MailAddress(toAddress));
+                mail.Subject = "Thư Mời";
+                mail.Body = emailBody;
+                mail.IsBodyHtml = true;
+
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.EnableSsl = true;
+                    smtp.Credentials = new NetworkCredential(fromAddress, password);
+
+                    try
+                    {
+                        smtp.Send(mail);
+                    }
+                    catch (SmtpException ex)
+                    {
+
+                    }
+                }
+            }
         }
     }
 }

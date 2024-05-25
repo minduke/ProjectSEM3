@@ -16,8 +16,6 @@ namespace GiveAID.Controllers
 {
     public class HomeController : BaseController
     {
-        //private static readonly ILog log =
-        //  LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         GiveAIDEntities en = new GiveAIDEntities();
 
@@ -115,56 +113,23 @@ namespace GiveAID.Controllers
             return View();
         }
 
-        public ActionResult sendMail()
+        public JsonResult InviteMail(string linkPost, string receiverEmail, string titlePost)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult SendEmail(string toAddress, string subject, string body)
-        {
-            if (CheckLogin())
+            try
             {
-                // Thiết lập thông tin tài khoản email
-                string fromAddress = "vuvunguyen12345@gmail.com";
-                string password = "viovutezgtdjjvar";
-
-                // Xây dựng URL động
-                string url = Url.Action("CardDetails", "Home", new { id = 14 }, Request.Url.Scheme);
-                string emailBody = $"Tham gia link cá độ đi nè: <a href='{url}'>{url}</a>";
-
-                // Tạo đối tượng MailMessage
-                using (MailMessage mail = new MailMessage())
+                if (CheckLogin())
                 {
-                    mail.From = new MailAddress(fromAddress);
-                    mail.To.Add(new MailAddress(toAddress));
-                    mail.Subject = subject;
-                    mail.Body = emailBody;
-                    mail.IsBodyHtml = true; // Đảm bảo nội dung email được gửi dưới dạng HTML
-
-                    // Thiết lập thông tin SMTP Server
-                    using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
-                    {
-                        smtp.EnableSsl = true;
-                        smtp.Credentials = new NetworkCredential(fromAddress, password);
-
-                        try
-                        {
-                            // Gửi email
-                            smtp.Send(mail);
-                            return Content("Email sent successfully!");
-                        }
-                        catch (SmtpException ex)
-                        {
-                            return Content("Failed to send email. Error: " + ex.Message);
-                        }
-                    }
+                    SendMailInvite(receiverEmail, linkPost, titlePost);
+                    return Json(new { result = true });
+                }
+                else
+                {
+                    return Json(new { result = false });
                 }
             }
-
-            else
+            catch
             {
-                return RedirectToAction("Index", "Login");
+                throw new Exception("Đã có lỗi xảy ra");
             }
         }
 
@@ -186,13 +151,6 @@ namespace GiveAID.Controllers
                 string vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; //URL thanh toan cua VNPAY 
                 string vnp_TmnCode = "URFUYJCU"; //Ma định danh merchant kết nối (Terminal Id)
                 string vnp_HashSecret = "E9I897QUPGE8T9T41D62F5JQ3GVDILBP"; //Secret Key
-
-                //Get payment input
-                //OrderInfo order = new OrderInfo();
-                //order.OrderId = DateTime.Now.Ticks; // Giả lập mã giao dịch hệ thống merchant gửi sang VNPAY
-                //order.Amount = 100000; // Giả lập số tiền thanh toán hệ thống merchant gửi sang VNPAY 100,000 VND
-                //order.Status = "0"; //0: Trạng thái thanh toán "chờ thanh toán" hoặc "Pending" khởi tạo giao dịch chưa có IPN
-                //order.CreatedDate = DateTime.Now;
 
                 var user = Session["USER"] as user;
 
@@ -238,9 +196,7 @@ namespace GiveAID.Controllers
                 //Billing
 
                 string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
-                //log.InfoFormat("VNPAY URL: {0}", paymentUrl);
-                //Response.Redirect(paymentUrl);
-                //RedirectToRoute(paymentUrl);
+                
                 return Json(new { result = true, url = paymentUrl });
             }
             else
