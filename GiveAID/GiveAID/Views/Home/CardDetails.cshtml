@@ -40,8 +40,6 @@
         var transaction_amout = $('#transaction_amout').val();
         var balance = $('#balance').val();
 
-
-        debugger
         $.ajax({
             type: 'POST',
             data:
@@ -66,6 +64,33 @@
             error: handleException
         })
     }
+
+    function SharePost() {
+
+        var linkPost = $('#currentUrl').val();
+        var receiverEmail = $('#ReceiverEmail').val();
+        var titlePost = $('#titlePost').val();
+
+        $.ajax({
+            type: 'POST',
+            data: {
+                linkPost: linkPost,
+                receiverEmail: receiverEmail,
+                titlePost: titlePost
+            },
+            dataType: 'json',
+            url: '@Url.Action("InviteMail", "Home")',
+            success: function (response) {
+                if (response.result == true) {
+                    showSuccessMessage("Chia sẻ thành công");
+                } else {
+                    open("@Url.Content("~/Login")", "_self");
+                }
+            },
+            error: handleException
+        })
+    }
+
 </script>
 
 <style>
@@ -195,6 +220,7 @@
         color: #d200f5 !important;
         text-align: center;
     }
+
     .text-partner {
         color: #d200f5 !important;
         text-align: center;
@@ -276,7 +302,7 @@
                                         <h5>@Convert.ToInt64(posts.target - ViewBag.sum).ToString("N0") VND</h5>
                                         <input type="hidden" id="balance" value="@(posts.target - ViewBag.sum)" />
                                     </div>
-                                  
+
                                     <div class="progress">
                                         <!--cho nay hien thanh tien do-->
                                         <div class="progress-bar" style="width: @percent%">@percent%</div>
@@ -311,10 +337,10 @@
                             else
                             {
 
-                                  <h5>To donate. Please<a href="@Url.Content("~/Login")"> log in</a></h5>
+                                <h5>To donate. Please<a href="@Url.Content("~/Login")"> log in</a></h5>
                             }
                         </div>
-                    
+
 
                         <hr class="mt-5">
 
@@ -331,6 +357,15 @@
                             <a href="#" class="text-gray">
                                 <i class="fas fa-rss-square fa-2x"></i>
                             </a>
+                        </div>
+
+                        <hr class="mt-5">
+                        <div>
+                            <label>Chia sẻ cho thầy đi</label>
+                            <input type="email" name="ReceiverEmail" id="ReceiverEmail" value="" />
+                            <input type="text" name="currentUrl" id="currentUrl" />
+                            <input type="text" id="titlePost" value="@posts.title" />
+                            <button type="button" onclick="SharePost()">Chia sẻ</button>
                         </div>
 
                     </div>
@@ -366,8 +401,8 @@
                                         <p>
                                             <em>
                                                 @**Toàn bộ số tiền quyên góp từ cộng đồng sẽ tự động chuyển thẳng tới Quỹ Từ tâm Đắk Lắk (không               qua GiveNow)
-                                                để tiến hành hỗ trợ viện phí điều trị cho bé H’Đinh Kbuor.
-                                                Thông tin cập nhật về chương trình sẽ được cập nhật tại mục Báo cáo của dự án này.*@
+                                                    để tiến hành hỗ trợ viện phí điều trị cho bé H’Đinh Kbuor.
+                                                    Thông tin cập nhật về chương trình sẽ được cập nhật tại mục Báo cáo của dự án này.*@
                                             </em>
                                         </p>
                                     </div>
@@ -383,8 +418,10 @@
                                     <h5 class="mt-3 text-muted">Contact Info</h5>
                                     <ul class="list-unstyled">
                                         <li>
-                                            <a href="" class="btn-link text-secondary"><i class="fas fa-home me-3 mr-2"></i> 
-                                            @posts.partner.address</a>
+                                            <a href="" class="btn-link text-secondary">
+                                                <i class="fas fa-home me-3 mr-2"></i>
+                                                @posts.partner.address
+                                            </a>
                                         </li>
                                         <li>
                                             <a href="" class="btn-link text-secondary">
@@ -394,7 +431,8 @@
                                         </li>
                                         <li>
                                             <a href="" class="btn-link text-secondary">
-                                            <i class="fas fa-phone me-3 mr-2"></i>@posts.partner.phone</a>
+                                                <i class="fas fa-phone me-3 mr-2"></i>@posts.partner.phone
+                                            </a>
                                         </li>
 
                                     </ul>
@@ -453,3 +491,10 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<script>
+
+    var currentUrl = window.location.href;
+    document.getElementById('currentUrl').value = currentUrl;
+
+</script>
