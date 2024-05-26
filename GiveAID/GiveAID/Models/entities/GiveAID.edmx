@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GiveAIDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GiveAIDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin">
           <Key>
             <PropertyRef Name="id" />
@@ -63,6 +63,8 @@
           <Property Name="transaction_amout" Type="decimal" Precision="18" Scale="2" />
           <Property Name="transaction_no" Type="varchar(max)" />
           <Property Name="transaction_date" Type="datetime" />
+          <Property Name="banktran_no" Type="varchar" MaxLength="50" />
+          <Property Name="pay_status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="post">
           <Key>
@@ -229,8 +231,7 @@
             <End Role="payment" EntitySet="payment" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GiveAIDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -297,6 +298,8 @@
           <Property Name="transaction_date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="post" Relationship="Self.FK_post_id" FromRole="payment" ToRole="post" />
           <NavigationProperty Name="user" Relationship="Self.FK_user_id" FromRole="payment" ToRole="user" />
+          <Property Name="banktran_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pay_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="post">
           <Key>
@@ -555,6 +558,8 @@
           <EntitySetMapping Name="payments">
             <EntityTypeMapping TypeName="GiveAIDModel.payment">
               <MappingFragment StoreEntitySet="payment">
+                <ScalarProperty Name="pay_status" ColumnName="pay_status" />
+                <ScalarProperty Name="banktran_no" ColumnName="banktran_no" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="post_id" ColumnName="post_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
