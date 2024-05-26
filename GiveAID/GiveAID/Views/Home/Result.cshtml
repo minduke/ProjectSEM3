@@ -6,57 +6,48 @@
 }
 
 <style>
-    /*  .cardRE {
-        animation: loaderAnimation 10s ease-in-out;
-        background: rgba( 255, 255, 255, .8 );
-        overflow: hidden;
-        position: fixed;
-        z-index: 1000;
-        top: 100px;
-        left: 400px;
-        height: 50vh;
-        width: 50vw;
-        display: block;
-    }*/
-
-    .cardRE {
-        animation: loaderAnimation 5s ease-in-out;
-        background: rgba(255, 255, 255, 0.8);
-        /* Các thuộc tính khác */
-        width: 500px;
-        height: 200px;
-        top: 1px;
-        left: 550px;
-        z-index: 1000;
+    .card-img-top{
+        width:500px;
+        height:200px;
+        margin:auto;
+        padding:10px;
     }
-
-   
-    .blur-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        filter: blur(10px);
-        z-index: 999;
+    .CusTitle {
+        font-size: 50px;
+        text-align: center;
+        text-transform: uppercase;
     }
-
- 
+    .cusBodycard {
+      text-align:center;
+    }
 </style>
 
-<div class="blur-background"></div>
+
 <div class="content-wrapper">
 
     <section class="content">
-        <div class="container">
-            <h1>Helllo</h1>
-            <h2>Chào cậu</h2>
-            <h3>Trái tìm cậu thật ấm áp</h3>
-            <button type="button" class="btn btn-outline-dark"><a href="@Url.RouteUrl("ViewHome")">Trở vè nhà nào</a></button>
+     
+
+     
+        <div class="card mb-2 mt-2">
+            <img class="card-img-top" src="@Url.Content("~/Content/Images/LogoGive2.png")" alt="Card image cap">
+            <h3 class="card-title CusTitle">Thư Cảm Ơn</h3>
+            <div class="card-body cusBodycard">
+                <p class="card-text">
+                    Cám ơn <b>@data.user.fullname</b> đã ủng hộ <b>@Convert.ToInt64(data.transaction_amout).ToString("N0") VND</b>
+                </p>
+                <p class="card-text">
+                    Cho bài viết <b>@data.post.title</b> của chúng tôi.
+                   
+                </p>
+                <p class="card-text">
+                   
+                    Đây là mã tra cứu thông tin giao dịch của bạn <b>@data.banktran_no</b>.
+                </p>
+                <p class="card-text"><small class="text-muted"><button type="button" class="btn btn-outline-dark"><a href="@Url.RouteUrl("ViewHome")">Trở vè nhà nào</a></button></small></p>
+            </div>
         </div>
-        
-        <div>Cám ơn <b>@data.user.fullname</b> đã ủng hộ <b>@Convert.ToInt64(data.transaction_amout).ToString("N0") VND</b> cho bài viết <b>@data.post.title</b> của chúng tôi. Đây là mã tra cứu thông tin giao dịch của bạn <b>@data.banktran_no</b></div>
+
 
     </section>
 
