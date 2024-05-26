@@ -11,6 +11,8 @@ using GiveAID.Helpers;
 using WebGrease;
 using Microsoft.Ajax.Utilities;
 using System.Runtime.InteropServices;
+using System.Globalization;
+using System.EnterpriseServices;
 
 namespace GiveAID.Controllers
 {
@@ -18,6 +20,9 @@ namespace GiveAID.Controllers
     {
 
         GiveAIDEntities en = new GiveAIDEntities();
+
+        private static string vnp_TmnCode = "URFUYJCU"; //Ma định danh merchant kết nối (Terminal Id)
+        private static string vnp_HashSecret = "E9I897QUPGE8T9T41D62F5JQ3GVDILBP"; //Secret Key
 
         public ActionResult DonationP()
         {
@@ -32,7 +37,7 @@ namespace GiveAID.Controllers
                     cate_name = s.category.name,
                     partner_image = s.partner.partner_image,
                     partner_name = s.partner.partner_name,
-                    total = s.payments.Any() ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(x => x.id)
                 .ToList();
@@ -48,7 +53,7 @@ namespace GiveAID.Controllers
                     cate_name = s.category.name,
                     partner_image = s.partner.partner_image,
                     partner_name = s.partner.partner_name,
-                    total = s.payments.Any() ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(x => x.id)
                 .ToList();
@@ -80,7 +85,7 @@ namespace GiveAID.Controllers
                 cate_name = s.category.name,
                 partner_image = s.partner.partner_image,
                 partner_name = s.partner.partner_name,
-                total = s.payments.Any() ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+                total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
             })
                 .OrderByDescending(x => x.id)
                 .Skip((page - 1) * pageSize)
@@ -108,7 +113,7 @@ namespace GiveAID.Controllers
             ViewBag.cardDetails = detail;
             var donater = en.payments.Where(x => x.post_id == id).ToList();
             ViewBag.donater = donater;
-            var sum = en.payments.Where(x => x.post_id == id).Sum(x => x.transaction_amout) ?? 0;
+            var sum = en.payments.Where(x => x.post_id == id && x.pay_status == "Thành công").Sum(x => x.transaction_amout) ?? 0;
             ViewBag.sum = sum;
             return View();
         }
@@ -149,8 +154,7 @@ namespace GiveAID.Controllers
                 //Get Config Info
                 string vnp_Returnurl = "https://localhost:44311/home/result"; //URL nhan ket qua tra ve 
                 string vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; //URL thanh toan cua VNPAY 
-                string vnp_TmnCode = "URFUYJCU"; //Ma định danh merchant kết nối (Terminal Id)
-                string vnp_HashSecret = "E9I897QUPGE8T9T41D62F5JQ3GVDILBP"; //Secret Key
+
 
                 var user = Session["USER"] as user;
 
@@ -196,7 +200,7 @@ namespace GiveAID.Controllers
                 //Billing
 
                 string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
-                
+
                 return Json(new { result = true, url = paymentUrl });
             }
             else
@@ -210,14 +214,23 @@ namespace GiveAID.Controllers
             string transaction_no = Request.QueryString["vnp_TransactionNo"];
             string response_code = Request.QueryString["vnp_ResponseCode"];
             int id = Int32.Parse(Request.QueryString["vnp_TxnRef"]);
+            string banktran_no = Request.QueryString["vnp_BankTranNo"];
+            string payDate = Request.QueryString["vnp_PayDate"];
+            string TmnCode = Request.QueryString["vnp_TmnCode"];
 
-            ViewBag.transaction_no = transaction_no;
-            ViewBag.response_code = response_code;
-            ViewBag.id = id;
+            if (response_code == "00" && TmnCode == vnp_TmnCode)
+            {
+                DateTime dateTime = DateTime.ParseExact(payDate, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
 
-            var data = en.payments.FirstOrDefault(x => x.id == id);
-            data.transaction_no = transaction_no;
-            en.SaveChanges();
+                var data = en.payments.FirstOrDefault(x => x.id == id);
+                data.transaction_no = transaction_no;
+                data.pay_status = "Thành công";
+                data.transaction_date = dateTime;
+                data.banktran_no = banktran_no;
+                en.SaveChanges();
+
+                ViewBag.data = data;
+            }
             return View();
         }
 
