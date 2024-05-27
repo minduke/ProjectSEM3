@@ -318,16 +318,16 @@ namespace GiveAID.Controllers
         [HttpPost]
         public JsonResult chartJS()
         {
-            var listU = en.payments.Where(x => !string.IsNullOrEmpty(x.transaction_no)) // Lọc các bản ghi với giá trị transaction_no không rỗng
-    .Select(x => new
-    {
-        x.transaction_no
-    })
-    .ToList();
+            var listU = en.payments.Select(s => new
+            {
+                s.transaction_amout
+            });
+              
 
 
             return Json(listU);
         }
+  
 
         public ActionResult TestView()
         {

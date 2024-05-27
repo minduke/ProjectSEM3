@@ -18,7 +18,7 @@
 
           // Tạo mảng chứa các giá trị transaction_no
           var transactionNos = data.map(function (item) {
-              return item.transaction_no;
+              return item.transaction_amout;
           });
 
           // Tạo mảng chứa các nhãn cho biểu đồ
@@ -194,7 +194,7 @@
         <p>Tổng tiền dự kiến: @Convert.ToInt64(ViewBag.sumTarget).ToString("N0") VND</p>
         <p>Tổng tiền đã thu: @Convert.ToInt64(ViewBag.sumAmout).ToString("N0") VND</p>
     </div>*@
-
+    <input type="date" name="name" value="" />
     <div class="card">
         <div class="card-body">
             <canvas id="myChart"></canvas>
