@@ -3,6 +3,11 @@
     ViewBag.Title = "InfoUser";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var infor = ViewBag.infor as GiveAID.Models.entities.user;
+    List<GiveAID.Models.entities.payment> donate = new List<GiveAID.Models.entities.payment>();
+    if (ViewBag.donate != null)
+    {
+        donate = ViewBag.donate;
+    }
 }
 
 <script>
@@ -32,13 +37,11 @@
         position: relative;
         left: 500px;
     }
-    .cusHistDonate{
-     position:relative;
-    
-     left:700px;
-  
+
+    .cusHistDonate {
+        position: relative;
+        left: 700px;
     }
- 
 </style>
 
 <!-- Content Wrapper. Contains page content -->
@@ -151,18 +154,19 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <tr>
-                                <td>1,000,000 VND</td>
-                                <td>Sa chào cô chú đi mày</td>
-                                <td> 29/2/2024 </td>
-                            </tr>
-
+                            @foreach (var item in donate)
+                            {
+                                <tr>
+                                    <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
+                                    <td><a href="@Url.Action("CardDetails", "Home")/@item.post_id">@item.post.title</a></td>
+                                    <td>@item.transaction_date</td>
+                                </tr>
+                            }
 
 
                         </tbody>
                     </table>
-                  
+
                 </div>
 
             </div>

@@ -240,6 +240,8 @@ namespace GiveAID.Controllers
             {
                 var user = Session["USER"] as user;
                 var info = en.users.FirstOrDefault(x => x.id == user.id);
+                var donate = en.payments.Where(x => x.user_id == user.id).Take(5).OrderByDescending(x => x.transaction_date).ToList();
+                ViewBag.donate = donate;
                 ViewBag.infor = info;
                 return View();
             }
