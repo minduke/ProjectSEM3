@@ -331,11 +331,11 @@ namespace GiveAID.Controllers
 
         public ActionResult TestView()
         {
-            ViewBag.postCount = en.posts.Count();
-            ViewBag.runningCount = en.posts.Where(x => x.status == "Mở").Count();
-            ViewBag.completeCount = en.posts.Where(x => x.status == "Đóng").Count();
-            ViewBag.sumTarget = en.posts.Sum(x => x.target);
-            ViewBag.sumAmout = en.payments.Sum(x => x.transaction_amout);
+            //ViewBag.postCount = en.posts.Count();
+            //ViewBag.runningCount = en.posts.Where(x => x.status == "Mở").Count();
+            //ViewBag.completeCount = en.posts.Where(x => x.status == "Đóng").Count();
+            //ViewBag.sumTarget = en.posts.Sum(x => x.target);
+            //ViewBag.sumAmout = en.payments.Sum(x => x.transaction_amout);
             return View();
         }
     }
