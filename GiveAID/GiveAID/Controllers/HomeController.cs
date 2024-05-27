@@ -78,18 +78,18 @@ namespace GiveAID.Controllers
             int endPage = Math.Min(startPage + maxDisplayPages - 1, totalPages);
 
             var posts = en.posts
-                .Where(s=>s.status == "Mở")
+                .Where(s => s.status == "Mở")
                 .Select(s => new ViewPost
-            {
-                id = s.id,
-                title = s.title,
-                image = s.image,
-                target = s.target ?? 0,
-                cate_name = s.category.name,
-                partner_image = s.partner.partner_image,
-                partner_name = s.partner.partner_name,
-                total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
-            })
+                {
+                    id = s.id,
+                    title = s.title,
+                    image = s.image,
+                    target = s.target ?? 0,
+                    cate_name = s.category.name,
+                    partner_image = s.partner.partner_image,
+                    partner_name = s.partner.partner_name,
+                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+                })
                 .OrderByDescending(x => x.id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -325,9 +325,18 @@ namespace GiveAID.Controllers
     })
     .ToList();
 
+
             return Json(listU);
         }
 
-        public ActionResult TestView() { return View(); }
+        public ActionResult TestView()
+        {
+            ViewBag.postCount = en.posts.Count();
+            ViewBag.runningCount = en.posts.Where(x => x.status == "Mở").Count();
+            ViewBag.completeCount = en.posts.Where(x => x.status == "Đóng").Count();
+            ViewBag.sumTarget = en.posts.Sum(x => x.target);
+            ViewBag.sumAmout = en.payments.Sum(x => x.transaction_amout);
+            return View();
+        }
     }
 }

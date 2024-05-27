@@ -187,16 +187,23 @@
 
 <div class="content-wrapper">
 
+    <div>
+        <p>Tổng số dự án: @ViewBag.postCount</p>
+        <p>Số dự án đang thực hiện: @ViewBag.runningCount</p>
+        <p>Số dự án đã hoàn thành: @ViewBag.completeCount</p>
+        <p>Tổng tiền dự kiến: @Convert.ToInt64(ViewBag.sumTarget).ToString("N0") VND</p>
+        <p>Tổng tiền đã thu: @Convert.ToInt64(ViewBag.sumAmout).ToString("N0") VND</p>
+    </div>
 
     <div class="card">
-            <div class="card-body">
-                <canvas id="myChart"></canvas>
-            </div>
+        <div class="card-body">
+            <canvas id="myChart"></canvas>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <canvas id="myChart2"></canvas>
-            </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <canvas id="myChart2"></canvas>
         </div>
-        <button type="button" onclick="chartClick()">create chart</button>
+    </div>
+    <button type="button" onclick="chartClick()">create chart</button>
 </div>
