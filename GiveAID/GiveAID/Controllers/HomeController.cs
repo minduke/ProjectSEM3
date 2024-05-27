@@ -13,6 +13,7 @@ using Microsoft.Ajax.Utilities;
 using System.Runtime.InteropServices;
 using System.Globalization;
 using System.EnterpriseServices;
+using System.IO;
 
 namespace GiveAID.Controllers
 {
@@ -76,7 +77,9 @@ namespace GiveAID.Controllers
             int startPage = ((page - 1) / maxDisplayPages) * maxDisplayPages + 1;
             int endPage = Math.Min(startPage + maxDisplayPages - 1, totalPages);
 
-            var posts = en.posts.Select(s => new ViewPost
+            var posts = en.posts
+                .Where(s=>s.status == "Mở")
+                .Select(s => new ViewPost
             {
                 id = s.id,
                 title = s.title,
@@ -251,15 +254,37 @@ namespace GiveAID.Controllers
             }
         }
 
-        public JsonResult EditUser(user user)
+        public JsonResult EditUser(user user, HttpPostedFileBase thumbnail)
         {
             if (CheckLogin())
             {
+                var PathUpload = Server.MapPath("/Content/Images/user");
+                if (!Directory.Exists(PathUpload))
+                {
+                    Directory.CreateDirectory(PathUpload);
+                }
+
                 var a = Session["USER"] as user;
                 var edit = en.users.FirstOrDefault(x => x.id == a.id);
+
+                if (thumbnail != null)
+                {
+                    string thumbExtension = Path.GetExtension(thumbnail.FileName).ToLower();
+                    if (thumbExtension != ".jpg" && thumbExtension != ".png" && thumbExtension != ".gif")
+                    {
+                        throw new Exception("Sai định dạng ảnh nền");
+                    }
+
+                    var thumbName = DateTime.Now.Ticks + "_" + thumbnail.FileName;
+                    var thumbPath = Path.Combine(PathUpload, thumbName);
+                    thumbnail.SaveAs(thumbPath);
+                    edit.image = thumbName;
+                }
+
                 edit.fullname = user.fullname;
                 edit.phone = user.phone;
                 edit.email = user.email;
+
                 if (user.address.IsNullOrWhiteSpace())
                 {
                     edit.address = "";
@@ -268,6 +293,7 @@ namespace GiveAID.Controllers
                 {
                     edit.address = user.address;
                 }
+
                 en.SaveChanges();
                 return Json(new { result = true });
             }
