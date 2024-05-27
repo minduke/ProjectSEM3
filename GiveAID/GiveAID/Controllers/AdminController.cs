@@ -20,10 +20,17 @@ namespace GiveAID.Controllers
                 var user = Session["USER"] as user;
                 if (user.permission == "admin")
                 {
+                    ViewBag.postCount = en.posts.Count();
+                    ViewBag.runningCount = en.posts.Where(x => x.status == "Mở").Count();
+                    ViewBag.completeCount = en.posts.Where(x => x.status == "Đóng").Count();
+                    ViewBag.sumTarget = en.posts.Sum(x => x.target);
+                    ViewBag.sumAmout = en.payments.Sum(x => x.transaction_amout);
                     return View();
                 }
             }
+           
             return RedirectToAction("Index", "Login");
+
         }
 
         public ActionResult CreateNews()
