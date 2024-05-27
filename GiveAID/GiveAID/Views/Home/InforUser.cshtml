@@ -12,12 +12,14 @@
 
 <script>
     function EditUser() {
-        var json = getFormObj("formEditUser");
+        var data = document.getElementById('formEditUser');
+        var form = new FormData(data);
 
         $.ajax({
             type: 'POST',
-            data: json,
-            dataType: 'json',
+            data: form,
+            contentType: false,
+            processData: false,
             url:'@Url.Action("EditUser", "Home")',
             success: function (response) {
                 if (response.result == true) {
@@ -29,6 +31,63 @@
             },
             error: handleException
         })
+    }
+
+    function previewThumbnail(event) {
+        var input = event.target;
+        var imagesPreview = document.getElementById('thumb');
+        imagesPreview.innerHTML = ''; // Clear any previous images
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+
+            for (let i = 0; i < filesAmount; i++) {
+                let file = input.files[i];
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    let imgContainer = document.createElement('div');
+                    imgContainer.style.position = 'relative';
+                    imgContainer.style.display = 'inline-block';
+                    imgContainer.style.marginRight = '10px';
+                    imgContainer.style.marginBottom = '10px';
+
+                    let img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '200px';
+                    img.style.maxHeight = '200px';
+
+                    let removeButton = document.createElement('button');
+                    removeButton.innerHTML = 'X';
+                    removeButton.style.position = 'absolute';
+                    removeButton.style.top = '5px';
+                    removeButton.style.right = '5px';
+                    removeButton.style.backgroundColor = 'red';
+                    removeButton.style.color = 'white';
+                    removeButton.style.border = 'none';
+                    removeButton.style.borderRadius = '50%';
+                    removeButton.style.cursor = 'pointer';
+
+                    removeButton.onclick = function () {
+                        imgContainer.remove();
+                        // Remove the file from the input element
+                        var dt = new DataTransfer();
+                        for (var j = 0; j < input.files.length; j++) {
+                            if (input.files[j] !== file) {
+                                dt.items.add(input.files[j]);
+                            }
+                        }
+                        input.files = dt.files;
+                    };
+
+                    imgContainer.appendChild(img);
+                    imgContainer.appendChild(removeButton);
+                    imagesPreview.appendChild(imgContainer);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
     }
 </script>
 
@@ -76,7 +135,7 @@
                             <div class="text-center">
                                 <h3>Profile</h3>
                                 <img class="profile-user-img img-fluid img-circle"
-                                     src="@Url.Content("~/Content/Images/BinCute.jpg")"
+                                     src="@Url.Content("~/Content/Images/user/" + infor.image)"
                                      alt="User profile picture">
                             </div>
 
@@ -112,6 +171,11 @@
                                     <div class="card card-body">
                                         <form action="javascript:EditUser();" method="post" id="formEditUser">
                                             <h3 class="profile-username text-center"><input type="text" name="fullname" style="text-align:center" value="@infor.fullname" /></h3>
+
+                                            <label for="thumbnail" class="cusFILE"><i class="fa-solid fa-upload mr-1"></i>Choose your avatar</label>
+                                            @*<div class="filename-container">Enter a filename...</div>*@
+                                            <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event)">
+                                            <div id="thumb"></div>
 
                                             <p class="text-muted text-center">@infor.gender</p>
 
