@@ -24,6 +24,14 @@
             success: function (response) {
                 if (response.result == true) {
                     showSuccessMessage("Cập nhật thông tin thành công");
+
+                    $('#profileImage').attr('src', '@Url.Content("~/Content/Images/user/")' + response.data.image);
+                    $('#profileName').text(response.data.fullname);
+                    $('#profilePhone').text(response.data.phone);
+                    $('#profileEmail').text(response.data.email);
+                    $('#profileAddress').text(response.data.address);
+
+                    $('.collapse').css({ 'display': 'none' });
                 }
                 else {
                     showErrorMessage(response.error);
@@ -134,25 +142,25 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <h3>Profile</h3>
-                                <img class="profile-user-img img-fluid img-circle"
+                                <img class="profile-user-img img-fluid img-circle" id="profileImage"
                                      src="@Url.Content("~/Content/Images/user/" + infor.image)"
                                      alt="User profile picture">
                             </div>
 
-                            <h3 class="profile-username text-center">@infor.fullname</h3>
+                            <h3 class="profile-username text-center" id="profileName">@infor.fullname</h3>
 
                             <p class="text-muted text-center">@infor.gender</p>
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Số điện thoại:</b> <span class="float-right mr-3">@infor.phone</span>
+                                    <b>Số điện thoại:</b> <span class="float-right mr-3" id="profilePhone">@infor.phone</span>
                                 </li>
                                 <li class="list-group-item">
 
-                                    <b>Email</b> <span class="float-right mr-3">@infor.email</span>
+                                    <b>Email</b> <span class="float-right mr-3" id="profileEmail">@infor.email</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Địa chỉ</b><span class="float-lg-right mr-3">@infor.address</span>
+                                    <b>Địa chỉ</b><span class="float-lg-right mr-3" id="profileAddress">@infor.address</span>
                                 </li>
                             </ul>
                             <div class="container-fluid">
@@ -163,7 +171,7 @@
 
 
                                 <!-- /.Sua thong tin -->
-                                <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="editBtn">
                                     Sửa thông tin
                                 </button>
 
