@@ -8,7 +8,7 @@
         posts = ViewBag.posts;
     }
     int totalPages = ViewBag.TotalPages;
-
+    
 }
 
 <style>
@@ -77,11 +77,13 @@
 
 
     .PageVIP {
-        position: relative;
-        left: 500px;
-        margin: 4px 7px 2px 4px;
-        margin-bottom: 10px;
+        margin: auto;
+        width: 50%;
+       /* border: 3px solid green;*/
+        padding: 10px;
+        
     }
+        
 
     .progress {
         width: 100%;
@@ -152,9 +154,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        @*<li class="breadcrumb-item"><a href="#"></a></li>
                         <li class="breadcrumb-item"><a href="#"></a></li>
-                        <li class="breadcrumb-item active"></li>*@
+                        <li class="breadcrumb-item"><a href="#"></a></li>
+                        <li class="breadcrumb-item active"></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -254,61 +256,35 @@
 
             <div class="container PageVIP">
                 <!--Phan trang-->
-                <nav aria-label="Page navigation example">
+                    <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+                        <ul class="pagination">
+                            @if (ViewBag.CurrentPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            }
 
+                            @for (int i = ViewBag.StartPage; i <= ViewBag.EndPage; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
+                                </li>
+                            }
 
-                    <ul class="pagination">
-                        @if (ViewBag.CurrentPage > 1)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        }
-
-                        @for (int i = ViewBag.StartPage; i <= ViewBag.EndPage; i++)
-                        {
-                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                                <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
-                            </li>
-                        }
-
-                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </nav>
-
+                            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
             </div>
-            @*<div class="description-block">
-                    <h5 class="description-header">
-                        <div class="progress">
-                            <div id="myProgressBar" class="progress-bar progress-bar-striped bg-success" role="progressbar">0%</div>
-                        </div>
-                    </h5>
-                    <span class="description-text">Tiến Độ</span>
-
-                    <input type="number" id="progressInput" min="0" max="100" value="0" oninput="updateProgressBar()" />
-                </div>*@
-
-
-
-
-
-
-
-
-
-
-            <!-- /.container-fluid -->
-
-
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
