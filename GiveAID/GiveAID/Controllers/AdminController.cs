@@ -389,7 +389,7 @@ namespace GiveAID.Controllers
                 var user = Session["USER"] as user;
                 if (user.permission == "admin")
                 {
-                    ViewBag.post = en.posts.ToList();
+                    ViewBag.post = en.posts.OrderByDescending(x => x.id).ToList();
                     ViewBag.partner = en.partners.ToList();
                     return View();
                 }

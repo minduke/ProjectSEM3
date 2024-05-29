@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Globalization;
 using System.EnterpriseServices;
 using System.IO;
+using System.Data.Entity;
 
 namespace GiveAID.Controllers
 {
@@ -295,7 +296,20 @@ namespace GiveAID.Controllers
                 }
 
                 en.SaveChanges();
-                return Json(new { result = true });
+
+                var updateUser = en.users.FirstOrDefault(x => x.id == edit.id);
+                return Json(new
+                {
+                    result = true,
+                    data = new
+                    {
+                        fullname = updateUser.fullname,
+                        phone = updateUser.phone,
+                        email = updateUser.email,
+                        address = updateUser.address,
+                        image = updateUser.image
+                    }
+                });
             }
             throw new Exception("something wrong");
         }
