@@ -28,7 +28,7 @@ namespace GiveAID.Controllers
                     return View();
                 }
             }
-           
+
             return RedirectToAction("Index", "Login");
 
         }
@@ -191,6 +191,9 @@ namespace GiveAID.Controllers
         {
             try
             {
+                if (partner.partner_name == null || partner.phone == null || partner.address == null || partner.description == null || partner.email == null)
+                    throw new Exception("Vui lòng điền đầy đủ thông tin");
+
                 var dt = en.partners.FirstOrDefault(x => x.id == partner.id);
 
                 if (dt.partner_image == "" && fileBase == null)

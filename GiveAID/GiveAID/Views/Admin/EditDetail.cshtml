@@ -18,7 +18,7 @@
 
 @section scripts{
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>
-    <script>
+    <script type="text/javascript">
         CKEDITOR.replace('comment');
 
         $(document).ready(function (e) {
@@ -30,31 +30,12 @@
                 $('#MoTa').val(data);
 
                 $('#formEditPost').submit();
-            })
-        })
+            });
+        });
 
-        function doEditPost() {
-            var dt = document.getElementById('formEditPost');
-            var form = new FormData(dt);
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("DoEditPost", "Admin")',
-                data: form,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response.result == true) {
-                        showSuccessMessage("Chỉnh sửa thành công");
-                    }
-                    else {
-                        showErrorMessage(response.error);
-                    }
-                },
-                error: handleException
-            })
-        }
 
         function previewThumbnail(event) {
+
             var input = event.target;
             var imagesPreview = document.getElementById('thumb');
             imagesPreview.innerHTML = ''; // Clear any previous images
@@ -104,12 +85,13 @@
                         imgContainer.appendChild(img);
                         imgContainer.appendChild(removeButton);
                         imagesPreview.appendChild(imgContainer);
-                    }
+                    };
 
                     reader.readAsDataURL(file);
                 }
             }
         }
+
 
         function previewImages(event) {
             var input = event.target;
@@ -154,14 +136,14 @@
                                 if (input.files[j] !== file) {
                                     dt.items.add(input.files[j]);
                                 }
-                            }
+                            };
                             input.files = dt.files;
                         };
 
                         imgContainer.appendChild(img);
                         imgContainer.appendChild(removeButton);
                         imagesPreview.appendChild(imgContainer);
-                    }
+                    };
 
                     reader.readAsDataURL(file);
                 }
@@ -171,38 +153,67 @@
         var idPost = document.getElementById('id');
 
         function deleteThumb(idPost) {
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("DeleteThumb", "Admin")',
-                data: { id: idPost },
-                success: function (response) {
-                    if (response.result == true) {
-                        showSuccessMessage("Xoá ảnh nền thành công");
-                        document.getElementById('imageId').remove();
-                    } else {
-                        showErrorMessage(response.error);
-                    }
-                },
-                error: handleException
-            })
+            if (confirm("Bạn có chắc muốn xoá ảnh này không ?!")) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("DeleteThumb", "Admin")',
+                    data: { id: idPost },
+                    success: function (response) {
+                        if (response.result == true) {
+                            showSuccessMessage("Xoá ảnh nền thành công");
+                            document.getElementById('imageId').remove();
+                        } else {
+                            showErrorMessage(response.error);
+                        }
+                    },
+                    error: handleException
+                });
+            }
         }
 
-        function deleteImage(imageId) {
 
+        function deleteImage(imageId) {
+            if (confirm("Bạn có chắc muốn xoá ảnh này không ?!")) {
+                $.ajax({
+                    url: '@Url.Action("DeleteImage", "Admin")',
+                    type: 'POST',
+                    data: { id: imageId },
+                    success: function (response) {
+                        if (response.result) {
+                            showSuccessMessage("Xoá ảnh thành công");
+                            document.querySelector(`button[onclick="deleteImage(${imageId})"]`).parentElement.remove();
+                        } else {
+                            showErrorMessage(response.error);
+                        }
+                    },
+                    error: handleException
+                });
+            }
+        }
+
+
+        function doEditPost() {
+            var dt = document.getElementById('formEditPost');
+            var form = new FormData(dt);
+            debugger
             $.ajax({
-                url: '@Url.Action("DeleteImage", "Admin")',
                 type: 'POST',
-                data: { id: imageId },
+                url: '@Url.Action("DoEditPost", "Admin")',
+                data: form,
+                contentType: false,
+                processData: false,
                 success: function (response) {
-                    if (response.result) {
-                        showSuccessMessage("Xoá ảnh thành công");
-                        document.querySelector(`button[onclick="deleteImage(${imageId})"]`).parentElement.remove();
-                    } else {
+                    if (response.result == true) {
+
+                        location.reload();
+                    }
+                    else {
+
                         showErrorMessage(response.error);
                     }
                 },
                 error: handleException
-            })
+            });
         }
 
         // label chosefile for thumbnail
@@ -217,6 +228,8 @@
             $(".filename-contain").text(filename);
         });
 
+
+
     </script>
 }
 
@@ -226,7 +239,6 @@
         position: relative;
         left: 123px;
         bottom: 145px;
-        
         display: flex;
         background-color: transparent;
         border: none;
@@ -234,13 +246,14 @@
         width: 50px;
         height: 50px;
     }
+
         .custom-Button i {
             width: fit-content;
             height: auto;
             color: red;
             font-size: 20px;
-            
         }
+
             .custom-Button i:hover {
                 color: hotpink; /* Màu sắc khi hover */
             }
@@ -268,16 +281,16 @@
                 color: hotpink; /* Màu sắc khi hover */
             }
 
-       
-   
 
-    .form-control{
+
+
+    .form-control {
         /*cho sua tieu de*/
-        height:50px;
-        width:700px;
+        height: 50px;
+        width: 700px;
     }
 
-   
+
 
     input[type="file"] {
         visibility: hidden;
@@ -290,10 +303,11 @@
     }
 
     .filename-contain.placeholder {
-        color: #999;  /*fileBase*/
+        color: #999; /*fileBase*/
         font-style: italic;
     }
-    .cusFILE {  
+
+    .cusFILE {
         /*custom nut chon file*/
         padding: 10px 20px;
         background-color: #f1f1f1;
@@ -303,20 +317,20 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
-    .cusFILE:hover {
-        background-color: hotpink;
-    }
+
+        .cusFILE:hover {
+            background-color: hotpink;
+        }
 
     hr.new4 {
         border: 1px solid hotpink;
     }
-
 </style>
 <div class="content-wrapper">
 
     <div class="card-header">
         <h4 class="card-title">Edit Detail version 1.0</h4>
-   
+
     </div>
     <!-- /.card-header -->
     <!--Load GIF-->
@@ -325,7 +339,7 @@
 
 
     <!-- form start -->
-    <form id="formEditPost" action="javascript:doEditPost();" method="post" enctype="multipart/form-data" >
+    <form id="formEditPost" action="javascript:doEditPost();" method="post" enctype="multipart/form-data">
         <div class="card-body mx-auto">
             <div class="form-group">
                 <label for="Tiêu Đề"><h1>Title</h1></label>
@@ -345,7 +359,7 @@
                         <!-- choose file img-->
                         <label for="thumbnail" class="cusFILE"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
                         <div class="filename-container">Enter a filename...</div>
-                        <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event)">
+                        <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event);">
                     </div>
 
                     <div class="col-sm-7">
@@ -384,10 +398,10 @@
                         <!-- choose file img-->
                         <label for="fileBase" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
                         <div class="filename-contain">Enter a filename...</div>
-                        <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event)">
-                       
+                        <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event);">
+
                     </div>
-                 
+
                     <div class="col-sm-12">
                         <!-- view file img-->
                         <label for="imagesPreview"><h2>Preview</h2></label>
@@ -396,11 +410,12 @@
                                 <div id="imagesPreview"></div>
                             </div>
                         </div>
-                        
-                                                   
-                     </div>
-                 </div>
-               
+
+
+                    </div>
+
+                </div>
+
 
             </div>
 
@@ -434,11 +449,11 @@
             </div>
 
             @*<div class="form-group">
-            <label>Đối tác</label>
-            <select class="form-control" id="sel1" name="cate_id">
-                <option></option>
-            </select>
-        </div>*@
+                    <label>Đối tác</label>
+                    <select class="form-control" id="sel1" name="cate_id">
+                        <option></option>
+                    </select>
+                </div>*@
 
             <div class="form-group">
                 <label for="time_end"><h3>Donation end date</h3></label>

@@ -11,8 +11,15 @@ namespace GiveAID.Helpers
         private ErrorLog log = new ErrorLog();
         public void OnException(ExceptionContext context)
         {
+            var param = "";
+            try
+            {
+                param = System.Web.HttpUtility.HtmlEncode(context.RequestContext.HttpContext.Request.Params.ToString());
+            }
+            catch { }
+
             //ghi log loi ra txt, luu o app_data
-            log.WriteLog(context.Exception, context.RouteData.Values["controller"].ToString(), context.RouteData.Values["action"].ToString(), context.RequestContext.HttpContext.Request.Params.ToString());
+            log.WriteLog(context.Exception, context.RouteData.Values["controller"].ToString(), context.RouteData.Values["action"].ToString(), param);
 
             //custom tra json error khi co exception
             context.HttpContext.Response.StatusCode = 500;

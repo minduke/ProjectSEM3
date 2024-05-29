@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = "ListAll";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    int index = 1;
+    int indexPost = 1;
+    int indexPartner = 1;
 
     List<GiveAID.Models.entities.post> posts = new List<GiveAID.Models.entities.post>();
     if (ViewBag.post != null)
@@ -97,7 +98,7 @@
                                         @foreach (var item in posts)
                                         {
                                             <tr>
-                                                <th scope="row">@(index++)</th>
+                                                <th scope="row">@(indexPost++)</th>
                                                 <td><img style="width:150px; height:150px" src="~/Content/Images/post/@item.image" alt="Alternate Text" /></td>
                                                 <td>@item.title</td>
                                                 <td>@Convert.ToInt64(item.target).ToString("N0") VND</td>
@@ -130,7 +131,7 @@
                                         @foreach (var item in partner)
                                         {
                                             <tr>
-                                                <th scope="row">@(index++)</th>
+                                                <th scope="row">@(indexPartner++)</th>
                                                 <td><img style="width:70px; height:70px" src="~/Content/Images/partner/@item.partner_image" alt="Alternate Text" /></td>
                                                 <td>@item.partner_name</td>
                                                 <td>@item.phone</td>
