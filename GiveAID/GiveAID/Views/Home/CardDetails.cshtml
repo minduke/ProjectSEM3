@@ -324,13 +324,20 @@
                                     Share
                                 </button>
                                 <div class="collapse" id="shareEMAIL">
-                                    <label>Enter recipient's email: </label>
-                                    <input type="email" name="ReceiverEmail" id="ReceiverEmail" value="" />
-                                    <input type="hidden" name="currentUrl" id="currentUrl" />
-                                    <input type="hidden" id="titlePost" value="@posts.title" />
                                     <div>
-                                        <button class="btn btn-success mb-3" type="button" onclick="SharePost()">Chia sẻ</button>
+                                        <label>Enter recipient's email: </label>
+                                        <input type="email" name="ReceiverEmail" id="ReceiverEmail" value="" />
+                                        <input type="hidden" name="currentUrl" id="currentUrl" />
+                                        <input type="hidden" id="titlePost" value="@posts.title" />
+
+                                        <div>
+                                            <button class="btn btn-success mb-3" type="button" onclick="SharePost()">Chia sẻ</button>
+                                        </div>
+
+
                                     </div>
+                                    <label>Email's for P2T</label>
+                                    <input type="email">
 
                                 </div>
                             </div>

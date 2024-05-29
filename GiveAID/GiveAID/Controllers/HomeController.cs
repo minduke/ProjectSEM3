@@ -69,7 +69,7 @@ namespace GiveAID.Controllers
         public ActionResult Index(int page = 1, int pageSize = 3)
         {
 
-            int totalPosts = en.posts.Count();
+            int totalPosts = en.posts.Where(s => s.status == "Mở").Count();
 
             int totalPages = (int)Math.Ceiling((double)totalPosts / pageSize);
 

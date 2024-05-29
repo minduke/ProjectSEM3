@@ -75,107 +75,112 @@
 </style>
 
 <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0"> Home <small></small></h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                        <li class="breadcrumb-item active">About Us</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
     <!-- Main content -->
-    <section class="content">
-
+    <div class="content">
         <!-- Default box -->
         <div class="card">
             <div class="card-body row">
-                <div class="col-5 text-center d-flex align-items-center justify-content-center">
+                <div class="col-sm-5 text-center d-flex align-items-center justify-content-center">
                     <div class="">
-                        <img src=" @Url.Content("~/Content/Images/LogoGive2.png")" alt="AdminLTE Logo">
+                        <h2>GIVE<strong>-AID</strong></h2>
+                        <p class="lead mb-5">
+                            123 Testing Ave, Testtown, 9876 NA<br>
+                            Phone: +1 234 56789012
+                        </p>
                     </div>
                 </div>
-                <div class="col-7">
-                    <div class="form-group">
-                        <h1 class="titleH1">Introducing the team</h1>
+                <div class="col-sm-7">
+                    <h1>My Team</h1>
+                    <div class="row">
 
-                    </div>
-                    <div class="form-group">
-                        <div class="card-dark">
-                            <div class="card-header titleH3">
-                                <h3>Give - AID's team</h3>
-                            </div>
-                            <div class="card-body row-cols-2">
-
-                                <div class="float-left col-5 cusWD">
-                                    <h3>Lại Nguyên Vũ</h3>
-                                    <img class="img-circle logoBrandCard" src="@Url.Content("~/content/Images/Wu.png")" alt="User Avatar">
-                                    <h5 class="ml-5">Content Creator</h5>
-
-                                </div>
-                                <div class="float-right col-5 cusWD">
-                                    <h3>Lê Minh Đức</h3>
-                                    <img class="img-circle logoBrandCard" src="@Url.Content("~/content/Images/Duke2.png")" alt="User Avatar">
-                                    <h5 class="ml-5">Creator of logic</h5>
-                                </div>
-
-
+                        <div class="col-sm-5 mr-3" style="width: 15rem; ">
+                            <img class="card-img-top" style="border-radius:50%;" src="@Url.Content("~/Content/Images/Wu.png")" alt="Card image cap" width="100" height="170">
+                            <div class="card-body">
+                                <h5 class="card-title">Lại Nguyên Vũ</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 
                             </div>
-                            <div class="card-footer titleF">
-                                <h3>*Give - AID was born with the sweat and enthusiasm of the whole group, it was created through hard work and effort, it is not here to save anything. It simply wants to bring warmth to the heart people who share with the community.*</h3>
-                            </div>
-
-
                         </div>
+                        <div class="col-sm-5 ml-3" style="width: 15rem;">
+                            <img class="card-img-top" style="border-radius:50%;"  src="@Url.Content("~/Content/Images/Duke2.png")" alt="Card image cap" width="100" height="170">
+                            <div class="card-body">
+                                <h5 class="card-title">Lê Minh Đức</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
+        </div>
 
-            <div class="container">
-                <h3 class="titleh3 mt-3 mb-3">Our partner</h3>
-                <!-- SLIDE IMAGE -->
-                <div id="logo-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#logo-carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#logo-carousel" data-slide-to="1"></li>
-                        <li data-target="#logo-carousel" data-slide-to="2"></li>
-                        <!-- Thêm các chỉ số cho từng logo -->
-                    </ol>
 
-                    <!-- Slides -->
-                    <div class="carousel-inner mt-3 mb-3">
-                        <div class="carousel-item active" style="text-align:center;">
-                            <img src="~/Content/Images/apple.png" loading="lazy" alt="Logo 1" class="ml-3 mr-3">
-                            <img src="~/Content/Images/facebook.png" loading="lazy" class="ml-3 mr-3">
-                            <img src="~/Content/Images/youtube.png" loading="lazy" class="ml-3 mr-3">
-                        </div>
-                        <div class="carousel-item" style="text-align:center;">
-                            <img src="~/Content/Images/youtube.png" loading="lazy" class="ml-3 mr-3">
-                            <img src="~/Content/Images/facebook.png" loading="lazy" class="ml-3 mr-3">
-                            <img src="~/Content/Images/apple.png" alt="Logo 2" loading="lazy" class="ml-3 mr-3">
-                        </div>
-                        <div class="carousel-item" style="text-align:center;">
-                            <img src="~/Content/Images/tiktok.png" loading="lazy" class="ml-3 mr-3">
-                            <img src="~/Content/Images/apple.png" alt="Logo 3" class="ml-3 mr-3">
-                        </div>
-                        <!-- Thêm các slide cho từng logo -->
+
+        <div class="container">
+            <h3 class="titleh3 mt-3 mb-3">Our partner</h3>
+            <!-- SLIDE IMAGE -->
+            <div id="logo-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#logo-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#logo-carousel" data-slide-to="1"></li>
+                    <li data-target="#logo-carousel" data-slide-to="2"></li>
+                    <!-- Thêm các chỉ số cho từng logo -->
+                </ol>
+
+                <!-- Slides -->
+                <div class="carousel-inner mt-3 mb-3">
+                    <div class="carousel-item active" style="text-align:center;">
+                        <img src="~/Content/Images/apple.png" loading="lazy" alt="Logo 1" class="ml-3 mr-3">
+                        <img src="~/Content/Images/facebook.png" loading="lazy" class="ml-3 mr-3">
+                        <img src="~/Content/Images/youtube.png" loading="lazy" class="ml-3 mr-3">
                     </div>
-
-                    <!-- Controls -->
-
+                    <div class="carousel-item" style="text-align:center;">
+                        <img src="~/Content/Images/youtube.png" loading="lazy" class="ml-3 mr-3">
+                        <img src="~/Content/Images/facebook.png" loading="lazy" class="ml-3 mr-3">
+                        <img src="~/Content/Images/apple.png" alt="Logo 2" loading="lazy" class="ml-3 mr-3">
+                    </div>
+                    <div class="carousel-item" style="text-align:center;">
+                        <img src="~/Content/Images/tiktok.png" loading="lazy" class="ml-3 mr-3">
+                        <img src="~/Content/Images/apple.png" alt="Logo 3" class="ml-3 mr-3">
+                    </div>
+                    <!-- Thêm các slide cho từng logo -->
                 </div>
+
+                <!-- Controls -->
 
             </div>
 
+        </div>
 
-        
-
-
-
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="@Url.Content("~/Content/Images/sloganVIP.jpg")" loading="lazy" class="d-block w-100" alt="anh test 1">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>If you're still breathing, you're alive</h5>
-                        <p>So don't forget to breathe</p>
-                    </div>
+        <!--Cho nay tuyen ngon-->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="@Url.Content("~/Content/Images/sloganVIP.jpg")" loading="lazy" class="d-block w-100" alt="anh test 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>If you're still breathing, you're alive</h5>
+                    <p>So don't forget to breathe</p>
                 </div>
             </div>
-</section>
-   
+        </div>
+    </div>
+
     <!-- /.content -->
 </div>
