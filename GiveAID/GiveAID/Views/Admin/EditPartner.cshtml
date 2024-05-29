@@ -76,6 +76,7 @@
             success: function (response) {
                 if (response.result == true) {
                     showSuccessMessage("Chỉnh sửa thành công");
+                    location.reload();
                 }
                 else {
                     showErrorMessage(response.error);
@@ -88,21 +89,23 @@
     var idPartner = document.getElementById('id');
 
     function doDeleteImagePartner(idPartner) {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("DeleteImagePartner", "Admin")',
-            data: { id: idPartner },
-            success: function (response) {
-                if (response.result == true) {
-                    showSuccessMessage("Xoá ảnh thành công");
-                    document.getElementById('imagePartner').remove();
-                }
-                else {
-                    showErrorMessage(response.error);
-                }
-            },
-            error: handleException
-        })
+        if (confirm("Bạn có chắc chắn xoá ảnh ?!")) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteImagePartner", "Admin")',
+                data: { id: idPartner },
+                success: function (response) {
+                    if (response.result == true) {
+                        showSuccessMessage("Xoá ảnh thành công");
+                        document.getElementById('imagePartner').remove();
+                    }
+                    else {
+                        showErrorMessage(response.error);
+                    }
+                },
+                error: handleException
+            })
+        }
     }
 </script>
 
@@ -122,7 +125,7 @@
         <div class="card-body mx-auto">
             <div class="form-group">
                 <label for="Tiêu Đề">Tên Đối Tác</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Tiêu Đề" value="@partner.partner_name" required>
+                <input type="text" class="form-control" id="name" name="partner_name" placeholder="Tiêu Đề" value="@partner.partner_name" required>
             </div>
 
             <div class="form-group">
@@ -147,17 +150,17 @@
             <div class="form-group">
 
                 <label for="description">Địa chỉ </label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="Ví dụ: Khu phố đèn tím " required>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Ví dụ: Khu phố đèn tím" value="@partner.address" required>
             </div>
 
             <div class="form-group">
                 <label for="description">Email </label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Ví dụ: DucLOVEP2T " required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Ví dụ: DucLOVEP2T" value="@partner.email" required>
             </div>
 
             <div class="form-group">
                 <label for="description">Số điện thoại</label>
-                <input type="number" class="form-control" id="phone" name="phone" placeholder="Ví dụ: 0908540891" required>
+                <input type="number" class="form-control" id="phone" name="phone" placeholder="Ví dụ: 0908540891" value="@partner.phone" required>
             </div>
 
             <div>
