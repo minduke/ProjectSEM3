@@ -101,20 +101,18 @@
 
 <style>
     .rowInfo {
-        position: relative;
-        left: 500px;
+       
+        width: 100%;
+       
     }
-
-    .cusHistDonate {
-        position: relative;
-        left: 700px;
-    }
+    
+        
 </style>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -126,122 +124,108 @@
                 </div>
             </div>
         </div><!-- /.container-fluid -->
-    </section>
+    </div>
 
     <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row rowInfo">
+    <div class="content">
+        <div class="container-fluid rowInfo">
+            <div class="customCARD ml-lg-5">
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <h3>Profile</h3>
+                            <img class="profile-user-img img-fluid img-circle" id="profileImage"
+                                 src="@Url.Content("~/Content/Images/user/" + infor.image)"
+                                 alt="User profile picture">
+                        </div>
+                        <h3 class="profile-username text-center" id="profileName">@infor.fullname</h3>
+
+                        <p class="text-muted text-center">@infor.gender</p>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Số điện thoại:</b> <span class="float-right mr-3" id="profilePhone">@infor.phone</span>
+                            </li>
+                            <li class="list-group-item">
+
+                                <b>Email</b> <span class="float-right mr-3" id="profileEmail">@infor.email</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Địa chỉ</b><span class="float-lg-right mr-3" id="profileAddress">@infor.address</span>
+                            </li>
+                        </ul>
+                        <div class="container-fluid">
+
+                            <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#DONATE" aria-expanded="false" aria-controls="collapseExample">
+                                Lịch sử Donate
+                            </button>
 
 
+                            <!-- /.Sua thong tin -->
+                            <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="editBtn">
+                                Sửa thông tin
+                            </button>
 
-                <div class="col-md-4">
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
+                                    <form action="javascript:EditUser();" method="post" id="formEditUser">
+                                        <h3 class="profile-username text-center"><input type="text" name="fullname" style="text-align:center" value="@infor.fullname" /></h3>
 
-                    <!-- Profile Image -->
-                    <div class="card card-primary card-outline">
-                        <div class="card-body box-profile">
-                            <div class="text-center">
-                                <h3>Profile</h3>
-                                <img class="profile-user-img img-fluid img-circle" id="profileImage"
-                                     src="@Url.Content("~/Content/Images/user/" + infor.image)"
-                                     alt="User profile picture">
+                                        <label for="thumbnail" class="cusFILE"><i class="fa-solid fa-upload mr-1"></i>Choose your avatar</label>
+                                        @*<div class="filename-container">Enter a filename...</div>*@
+                                        <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event)">
+                                        <div id="thumb"></div>
+
+                                        <p class="text-muted text-center">@infor.gender</p>
+
+                                        <ul class="list-group list-group-unbordered mb-3">
+                                            <li class="list-group-item">
+                                                <b>Số điện thoại</b> <input style="text-align:center" class="float-right" value="@infor.phone" name="phone" />
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Email</b> <input class="float-right" style="text-align:center" value="@infor.email" name="email" />
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Địa chỉ</b> <textarea class="float-right" name="address">@infor.address</textarea>
+                                            </li>
+                                        </ul>
+                                        <button type="submit" class="btn btn-primary btn-block"><b>Sao lưu</b></button>.
+                                    </form>
+                                </div>
                             </div>
-
-                            <h3 class="profile-username text-center" id="profileName">@infor.fullname</h3>
-
-                            <p class="text-muted text-center">@infor.gender</p>
-
-                            <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
-                                    <b>Số điện thoại:</b> <span class="float-right mr-3" id="profilePhone">@infor.phone</span>
-                                </li>
-                                <li class="list-group-item">
-
-                                    <b>Email</b> <span class="float-right mr-3" id="profileEmail">@infor.email</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Địa chỉ</b><span class="float-lg-right mr-3" id="profileAddress">@infor.address</span>
-                                </li>
-                            </ul>
-                            <div class="container-fluid">
-
-                                <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#DONATE" aria-expanded="false" aria-controls="collapseExample">
-                                    Lịch sử Donate
-                                </button>
-
-
-                                <!-- /.Sua thong tin -->
-                                <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="editBtn">
-                                    Sửa thông tin
-                                </button>
-
-                                <div class="collapse" id="collapseExample">
-                                    <div class="card card-body">
-                                        <form action="javascript:EditUser();" method="post" id="formEditUser">
-                                            <h3 class="profile-username text-center"><input type="text" name="fullname" style="text-align:center" value="@infor.fullname" /></h3>
-
-                                            <label for="thumbnail" class="cusFILE"><i class="fa-solid fa-upload mr-1"></i>Choose your avatar</label>
-                                            @*<div class="filename-container">Enter a filename...</div>*@
-                                            <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event)">
-                                            <div id="thumb"></div>
-
-                                            <p class="text-muted text-center">@infor.gender</p>
-
-                                            <ul class="list-group list-group-unbordered mb-3">
-                                                <li class="list-group-item">
-                                                    <b>Số điện thoại</b> <input style="text-align:center" class="float-right" value="@infor.phone" name="phone" />
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <b>Email</b> <input class="float-right" style="text-align:center" value="@infor.email" name="email" />
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <b>Địa chỉ</b> <textarea class="float-right" name="address">@infor.address</textarea>
-                                                </li>
-                                            </ul>
-                                            <button type="submit" class="btn btn-primary btn-block"><b>Sao lưu</b></button>.
-                                        </form>
+                            <div class="collapse " id="DONATE">
+                                <div class="table-responsive-sm">
+                                    <h3 class="cover-Title">Lịch sử Donate</h3>
+                                    <div class="card-body">
+                                        <table class="table table-striped table-bordered ">
+                                            <thead>
+                                                <tr>
+                                                    <th>Số tiền</th>
+                                                    <th>Bài viết</th>
+                                                    <th>Ngày và giờ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in donate)
+                                                {
+                                                    <tr>
+                                        <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
+                                        <td><a href="@Url.Action("CardDetails", "Home")/@item.post_id">@item.post.title</a></td>
+                                        <td>@item.transaction_date</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-
-                        <!-- /.card-body -->
                     </div>
-
-
-
-                    <!-- /.card -->
+                    <!-- /.card-body -->
                 </div>
-
-                <div class="collapse cusHisDonate" id="DONATE">
-                    <table class="table table-striped table-bordered ">
-                        <h1>Lịch sử Donate</h1>
-                        <thead>
-                            <tr>
-                                <th>Số tiền</th>
-                                <th>Bài viết</th>
-                                <th>Ngày và giờ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in donate)
-                            {
-                                <tr>
-                                    <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
-                                    <td><a href="@Url.Action("CardDetails", "Home")/@item.post_id">@item.post.title</a></td>
-                                    <td>@item.transaction_date</td>
-                                </tr>
-                            }
-
-
-                        </tbody>
-                    </table>
-
-                </div>
-
+                <!-- /.card -->
             </div>
         </div>
-    </section>
+    </div>
 </div>
