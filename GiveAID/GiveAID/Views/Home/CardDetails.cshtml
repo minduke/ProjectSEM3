@@ -165,8 +165,12 @@
         background-color: rgb(238, 234, 234);
     }
 
- 
-
+    .contentCK {
+     width: 100%;
+    }
+        .contentCK * {
+         width:fit-content !important;
+        }
  
     /*end*/
 
@@ -378,7 +382,7 @@
                             <div class="tab-pane fade show active" width="fit-content" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                                 <div class="row">
                                     <!--Content CK build-->
-                                    <div class="col-sm-12">@Html.Raw(posts.content)</div>
+                                    <div class="col-sm-12 contentCK">@Html.Raw(posts.content)</div>
                                 </div>
                             </div>
                             <!--noi dung danh sach nguoi ung ho-->
