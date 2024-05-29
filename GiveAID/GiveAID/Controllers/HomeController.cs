@@ -39,7 +39,7 @@ namespace GiveAID.Controllers
                     cate_name = s.category.name,
                     partner_image = s.partner.partner_image,
                     partner_name = s.partner.partner_name,
-                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(x => x.id)
                 .ToList();
@@ -55,7 +55,7 @@ namespace GiveAID.Controllers
                     cate_name = s.category.name,
                     partner_image = s.partner.partner_image,
                     partner_name = s.partner.partner_name,
-                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(x => x.id)
                 .ToList();
@@ -89,7 +89,7 @@ namespace GiveAID.Controllers
                     cate_name = s.category.name,
                     partner_image = s.partner.partner_image,
                     partner_name = s.partner.partner_name,
-                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Sum(x => x.transaction_amout ?? 0) : 0
+                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(x => x.id)
                 .Skip((page - 1) * pageSize)
@@ -128,8 +128,27 @@ namespace GiveAID.Controllers
             {
                 if (CheckLogin())
                 {
-                    SendMailInvite(receiverEmail, linkPost, titlePost);
-                    return Json(new { result = true });
+                    DateTime savedTime = new DateTime();
+                    if (Session["TimeSendMail"] != null)
+                    {
+                        savedTime = (DateTime)Session["TimeSendMail"];
+                    }
+
+                    DateTime currentTime = DateTime.Now;
+
+                    DateTime future = savedTime.AddMinutes(5);
+                    TimeSpan timeSubtract = future - currentTime;
+
+                    if (Session["TimeSendMail"] == null || timeSubtract.TotalMinutes == 0)
+                    {
+                        SendMailInvite(receiverEmail, linkPost, titlePost);
+                        Session["TimeSendMail"] = DateTime.Now;
+                        return Json(new { result = true });
+                    }
+                    else
+                    {
+                        throw new Exception("Vui lòng đợi " + (int)timeSubtract.TotalMinutes + " phút để gửi tiếp");
+                    }
                 }
                 else
                 {
@@ -138,7 +157,7 @@ namespace GiveAID.Controllers
             }
             catch
             {
-                throw new Exception("Đã có lỗi xảy ra");
+                throw;
             }
         }
 
@@ -336,12 +355,12 @@ namespace GiveAID.Controllers
             {
                 s.transaction_amout
             });
-              
+
 
 
             return Json(listU);
         }
-  
+
 
         public ActionResult TestView()
         {
