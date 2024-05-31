@@ -40,6 +40,7 @@ namespace GiveAID.Controllers
                 var user = Session["USER"] as user;
                 if (user.permission == "admin")
                 {
+                    ViewBag.post = en.posts.OrderByDescending(x => x.id).ToList();
                     ViewBag.category = en.categories.ToList();
                     ViewBag.partner = en.partners.ToList();
                     return View();
@@ -161,32 +162,54 @@ namespace GiveAID.Controllers
 
         public ActionResult NewPartner()
         {
-            if (CheckLogin())
-            {
-                var user = Session["USER"] as user;
-                if (user.permission == "admin")
-                {
-                    return View();
-                }
-            }
-            return RedirectToAction("Index", "Login");
+            if (!CheckLogin())
+                return RedirectToAction("Index", "Login");
+
+            var user = Session["USER"] as user;
+            if (user.permission != "admin")
+                return RedirectToAction("Index", "Login");
+
+            ViewBag.partner = en.partners.ToList();
+            return View();
         }
 
-        public ActionResult EditPartner(int id)
+        public ActionResult EditPartner(int? id = null)
+        {
+            if (!CheckLogin())
+                return RedirectToAction("Index", "Login");
+
+            var user = Session["USER"] as user;
+            if (user.permission != "admin")
+                return RedirectToAction("Index", "Login");
+
+
+            var dt = en.partners.FirstOrDefault(x => x.id == id);
+           
+            ViewBag.partner = dt == null ? new partner() : dt;
+            ViewBag.IsEditing = dt != null;
+
+            return View();
+
+
+
+        }
+
+        public ActionResult EditDetail(int id)
         {
             if (CheckLogin())
             {
                 var user = Session["USER"] as user;
                 if (user.permission == "admin")
                 {
-                    var dt = en.partners.FirstOrDefault(x => x.id == id);
-                    ViewBag.partner = dt;
+                    var post = en.posts.FirstOrDefault(x => x.id == id);
+                    ViewBag.EditPost = post;
+                    ViewBag.cate = en.categories.ToList();
+                    ViewBag.partner = en.partners.ToList();
                     return View();
                 }
             }
             return RedirectToAction("Index", "Login");
         }
-
         public JsonResult DoEditPartner(partner partner, HttpPostedFileBase fileBase)
         {
             try
@@ -252,22 +275,7 @@ namespace GiveAID.Controllers
             }
         }
 
-        public ActionResult EditDetail(int id)
-        {
-            if (CheckLogin())
-            {
-                var user = Session["USER"] as user;
-                if (user.permission == "admin")
-                {
-                    var post = en.posts.FirstOrDefault(x => x.id == id);
-                    ViewBag.EditPost = post;
-                    ViewBag.cate = en.categories.ToList();
-                    ViewBag.partner = en.partners.ToList();
-                    return View();
-                }
-            }
-            return RedirectToAction("Index", "Login");
-        }
+  
 
         [ValidateInput(false)]
         public JsonResult DoEditPost(post post, HttpPostedFileBase[] fileBase, HttpPostedFileBase thumbnail)
@@ -392,8 +400,8 @@ namespace GiveAID.Controllers
                 var user = Session["USER"] as user;
                 if (user.permission == "admin")
                 {
-                    ViewBag.post = en.posts.OrderByDescending(x => x.id).ToList();
-                    ViewBag.partner = en.partners.ToList();
+
+
                     return View();
                 }
             }

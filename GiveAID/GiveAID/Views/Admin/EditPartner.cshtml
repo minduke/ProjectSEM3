@@ -112,7 +112,18 @@
 <div class="content-wrapper">
 
     <div class="card-header">
-        <h4 class="card-title">Edit Partner</h4>
+        @{
+            if (ViewBag.IsEditing == true)
+            {
+                <h4 class="card-title">Edit Partner</h4>
+            }
+            else
+            {
+                <h4 class="card-title">Create Partner</h4>
+            }
+
+        }
+        @*<h4 class="card-title">Edit Partner</h4>*@
     </div>
     <!-- /.card-header -->
     <!--Load GIF-->

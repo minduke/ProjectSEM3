@@ -8,7 +8,7 @@
         posts = ViewBag.posts;
     }
     int totalPages = ViewBag.TotalPages;
-    
+
 }
 
 <style>
@@ -67,6 +67,7 @@
         text-transform: uppercase;
         text-shadow: 5px 5px 10px #4CFFCC;
     }
+
     .widget-user .widget-user-desc {
         /*mau cho partner text*/
         color: #3D3D3D;
@@ -79,11 +80,10 @@
     .PageVIP {
         margin: auto;
         width: 50%;
-       /* border: 3px solid green;*/
+        /* border: 3px solid green;*/
         padding: 10px;
-        
     }
-        
+
 
     .progress {
         width: 100%;
@@ -103,13 +103,16 @@
         text-overflow: ellipsis;
         width: 250px; /* Định nghĩa kích thước cố định của nội dung */
     }
+
     .description-block > .description-header {
         font-size: 14px;
- 
     }
 </style>
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
+
     <!-- SLIDE IMAGE -->
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="3000">
         <ol class="carousel-indicators">
@@ -143,7 +146,7 @@
 
     </div>
 
-
+   
     <!-- Content Header (Page header) -->
     <div class="content-header">
 
@@ -154,9 +157,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        @*<li class="breadcrumb-item"><a href="#"></a></li>
                         <li class="breadcrumb-item"><a href="#"></a></li>
-                        <li class="breadcrumb-item active"></li>*@
+                        @*<li class="breadcrumb-item"><a href="#"></a></li>
+                            <li class="breadcrumb-item active"></li>*@
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -267,14 +270,14 @@
                             </li>
                         }
 
-                     
-                            @for (int i = ViewBag.StartPage; i <= ViewBag.EndPage; i++)
-                            {
-                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "..")">
-                                    <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
-                                </li>
-                            }
-                      
+
+                        @for (int i = ViewBag.StartPage; i <= ViewBag.EndPage; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "..")">
+                                <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
+                            </li>
+                        }
+
 
                         @if (ViewBag.CurrentPage < ViewBag.TotalPages)
                         {
@@ -285,7 +288,7 @@
                             </li>
                         }
                     </ul>
-        </nav>
+                </nav>
             </div>
         </div>
         <div class="carousel-inner">
