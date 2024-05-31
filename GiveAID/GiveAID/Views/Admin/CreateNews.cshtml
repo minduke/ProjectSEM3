@@ -273,7 +273,7 @@
                                     <td><img style="width:150px; height:150px" src="~/Content/Images/post/@item.image" alt="Alternate Text" /></td>
                                     <td>@item.title</td>
                                     <td>@Convert.ToInt64(item.target).ToString("N0") VND</td>
-                                    <td>@item.time_end.Value.ToShortDateString()</td>
+                                    <td>@(item.time_end.HasValue ? item.time_end.Value.ToShortDateString() : "")</td>
                                     <td><a href="@Url.Content("~/Admin/EditDetail/")@item.id">See more</a></td>
                                     <td>
                                         <!--Nut check-box-->

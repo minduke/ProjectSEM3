@@ -3,6 +3,7 @@
     ViewBag.Title = "EditDetail";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     var post = ViewBag.EditPost as GiveAID.Models.entities.post;
+
     List<GiveAID.Models.entities.category> categories = new List<GiveAID.Models.entities.category>();
     if (ViewBag.cate != null)
     {
@@ -15,7 +16,7 @@
         partners = ViewBag.partner;
     }
 
-    bool isEditPost = ViewBag.IsEditPost ?? false;
+    //bool isEditPost = ViewBag.IsEditPost ?? false;
 }
 
 @section scripts{
@@ -200,7 +201,7 @@
             debugger
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("DoEditPost", "Admin")',
+                url: '@Url.Content(ViewBag.IsEditPost == true ? "~/Admin/DoEditPost" : "~/Admin/SubmitNews")',
                 data: form,
                 contentType: false,
                 processData: false,
@@ -360,7 +361,7 @@
                         </div>
                         <!-- choose file img-->
                         <label for="thumbnail" class="cusFILE"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
-                        @*<div class="filename-container">Enter a filename...</div>*@
+                        
                         <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event);">
                     </div>
 
@@ -389,17 +390,13 @@
                                     <img src="~/Content/Images/post/@item.image" alt="" width="150px" height="150px">
                                     <button class="custom-Button2" type="button" onclick="deleteImage(@item.id)"><i class="fa-solid fa-delete-left"></i></button>
                                 </div>
-
-
-
-
                             }
                         </div>
 
 
                         <!-- choose file img-->
                         <label for="fileBase" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
-                        @*<div class="filename-contain">Enter a filename...</div>*@
+                        
                         <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event);">
 
                     </div>
@@ -443,50 +440,30 @@
             <div class="form-group">
                 <label><h3>Field</h3></label>
                 <select class="form-control" id="sel1" name="cate_id">
-                    @{
-                        if (isEditPost && post != null)
-                        {
-                            foreach (var item in categories)
-                            {
-                                <option value="@item.cate_id" @(post.cate_id == item.cate_id ? "selected" : "")>@item.name</option>
-                            }
-                        }
-                        else
-                        {
-                            foreach (var item in categories)
-                            {
-                                <option value="@item.cate_id">@item.name</option>
-                            }
-                        }
+
+                    @foreach (var item in categories)
+                    {
+                        <option value="@item.cate_id">@item.name</option>
                     }
+
                 </select>
             </div>
 
-            @*<div class="form-group">
+            <div class="form-group">
                 <label>Partner</label>
                 <select class="form-control" id="sel1" name="partner_id">
-                    @{
-                        if (ViewBag.IsEditPost == true)
-                        {
-                            foreach (var item in partners)
-                            {
-                                <option value="@item.id" @(post.partner_id == item.id ? "selected" : "")>@item.partner_name</option>
-                            }
-                        }
-                        else
-                        {
-                            foreach (var item in partners)
-                            {
-                                <option value="@item.id">@item.partner_name</option>
-                            }
-                        }
+
+                    @foreach (var item in partners)
+                    {
+                        <option value="@item.id" @(post.partner_id == item.id ? "selected" : "")>@item.partner_name</option>
                     }
+
                 </select>
-            </div>*@
+            </div>
 
             <div class="form-group">
                 <label for="time_end"><h3>Donation end date</h3></label>
-                <input type="date" class="form-control" id="time_end" name="time_end" value="@post.time_end.Value.ToString("yyyy-MM-dd")" required>
+                <input type="date" class="form-control" id="time_end" name="time_end" value="@(post.time_end.HasValue ? post.time_end.Value.ToString("yyyy-MM-dd") : "") " required>
             </div>
 
 
