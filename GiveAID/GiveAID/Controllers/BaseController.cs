@@ -9,6 +9,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using GiveAID.Helpers;
+using System.EnterpriseServices;
+using System.Web.UI;
 
 namespace GiveAID.Controllers
 {
@@ -17,6 +21,8 @@ namespace GiveAID.Controllers
         public static string SecretKey = "WuDuke2@";
 
         GiveAIDEntities en = new GiveAIDEntities();
+
+        private ErrorLog log = new ErrorLog();
 
         public bool CheckLogin()
         {
@@ -76,24 +82,37 @@ namespace GiveAID.Controllers
 
         public void UpdateStatusByDate()
         {
-            var today = DateTime.Now.Date;
-            var posts = en.posts.Where(x => x.status == "Mở" && x.time_end == today).ToList();
-            foreach (var post in posts)
+            try
             {
-                post.status = "Đóng";
+                var today = DateTime.Now.Date;
+                var posts = en.posts.Where(x => x.status == "Mở" && DbFunctions.TruncateTime(x.time_end) <= today).ToList();
+                foreach (var post in posts)
+                {
+                    post.status = "Đóng";
+                }
+                en.SaveChanges();
             }
-            en.SaveChanges();
-
+            catch (Exception ex)
+            {
+                log.WriteLog(ex, "UpdateStatusByDate");
+            }
         }
 
         public void UpdateStatusByTarget()
         {
-            var posts = en.posts.Where(x => x.payments.Where(s => s.pay_status == "Thành công").Sum(s => s.transaction_amout ?? 0) >= x.target).ToList();
-            foreach (var item in posts)
+            try
             {
-                item.status = "Đóng";
+                var posts = en.posts.Where(x => x.payments.Where(s => s.pay_status == "Thành công").Sum(s => s.transaction_amout ?? 0) >= x.target).ToList();
+                foreach (var item in posts)
+                {
+                    item.status = "Đóng";
+                }
+                en.SaveChanges();
             }
-            en.SaveChanges();
+            catch (Exception ex)
+            {
+                log.WriteLog(ex, "UpdateStatusByTarget");
+            }
         }
 
         public void SendMailThanks(string toAddress)
