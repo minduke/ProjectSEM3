@@ -53,7 +53,11 @@ namespace GiveAID.Controllers
         [ValidateInput(false)]
         public JsonResult SubmitNews(post post, HttpPostedFileBase[] fileBase, HttpPostedFileBase thumbnail)
         {
-            if (!string.IsNullOrWhiteSpace(post.title) && !post.content.IsNullOrWhiteSpace() && post.target > 0 && fileBase != null && thumbnail != null && post.time_end != null)
+            if (!string.IsNullOrWhiteSpace(post.title) &&
+                !string.IsNullOrWhiteSpace(post.content) &&
+                post.target > 0 && fileBase[0] != null &&
+                thumbnail != null &&
+                post.time_end != null)
             {
 
                 var PathUpload = Server.MapPath("/Content/Images/post");
@@ -128,21 +132,23 @@ namespace GiveAID.Controllers
 
         public JsonResult partnerNew(partner partner, HttpPostedFileBase fileBasePartner)
         {
-            if (string.IsNullOrWhiteSpace(partner.partner_name) &&
-                fileBasePartner == null &&
-                string.IsNullOrWhiteSpace(partner.description) &&
-                string.IsNullOrWhiteSpace(partner.address) &&
-                string.IsNullOrWhiteSpace(partner.phone) &&
+            if (string.IsNullOrWhiteSpace(partner.partner_name) ||
+                fileBasePartner == null ||
+                string.IsNullOrWhiteSpace(partner.description) ||
+                string.IsNullOrWhiteSpace(partner.address) ||
+                string.IsNullOrWhiteSpace(partner.phone) ||
                 string.IsNullOrWhiteSpace(partner.email))
             {
                 throw new Exception("Vui lòng điền đầy đủ thông tin");
             }
 
             var PathUpload = Server.MapPath("/Content/Images/partner");
+
             if (!Directory.Exists(PathUpload))
             {
                 Directory.CreateDirectory(PathUpload);
             }
+
             string fileExtension = Path.GetExtension(fileBasePartner.FileName).ToLower();
             if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
             {

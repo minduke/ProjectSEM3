@@ -12,6 +12,7 @@ namespace GiveAID.Helpers
         public void OnException(ExceptionContext context)
         {
             var param = "";
+
             try
             {
                 param = System.Web.HttpUtility.HtmlEncode(context.RequestContext.HttpContext.Request.Params.ToString());

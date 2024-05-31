@@ -76,20 +76,19 @@ namespace GiveAID.Controllers
 
         public void UpdateStatusByDate()
         {
-            var posts = en.posts.ToList();
+            var today = DateTime.Now.Date;
+            var posts = en.posts.Where(x => x.status == "Mở" && x.time_end == today).ToList();
             foreach (var post in posts)
             {
-                if (post.time_end == DateTime.Now.Date)
-                {
-                    post.status = "Đóng";
-                    en.SaveChanges();
-                }
+                post.status = "Đóng";
             }
+            en.SaveChanges();
+
         }
 
         public void UpdateStatusByTarget()
         {
-            var posts = en.posts.Where(x => x.payments.Sum(s => s.transaction_amout ?? 0) >= x.target).ToList();
+            var posts = en.posts.Where(x => x.payments.Where(s => s.pay_status == "Thành công").Sum(s => s.transaction_amout ?? 0) >= x.target).ToList();
             foreach (var item in posts)
             {
                 item.status = "Đóng";

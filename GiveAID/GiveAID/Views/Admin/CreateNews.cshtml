@@ -60,6 +60,8 @@
                         VipremoveClass("loading");
                         showSuccessMessage("Tạo mới thành công");
                         form.reset();
+                        document.getElementById('thumb').innerHTML = '';
+                        document.getElementById('imagesPreview').innerHTML = '';
                     } else {
                         VipremoveClass("loading");
                         showErrorMessage(response.error);
