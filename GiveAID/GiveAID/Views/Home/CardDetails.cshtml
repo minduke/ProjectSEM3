@@ -29,7 +29,26 @@
             $('.product-image').prop('src', $image_element.attr('src'))
             $('.product-image-thumb.active').removeClass('active')
             $(this).addClass('active')
-        })
+        });
+
+        $('#addBtn').click(function () {
+            var container = $('#input-container');
+            var inputCount = container.find('input').length;
+
+            if (inputCount < 4) {
+                var input = $('<input>', {
+                    type: 'email',
+                    name: 'ReceiverEmail',
+                    id: 'ReceiverEmail',
+                    class: 'receiver-email',
+                    value: ''
+                });
+                container.append(input);
+            }
+            else {
+                alert("Bạn chỉ được gửi tối đa cho 5 người");
+            }
+        });
     });
 
 
@@ -67,21 +86,28 @@
 
     function SharePost() {
 
+        var receiverEmails = [];
+
+        $('.receiver-email').each(function () {
+            receiverEmails.push($(this).val());
+        })
+        
         var linkPost = $('#currentUrl').val();
-        var receiverEmail = $('#ReceiverEmail').val();
+        //var receiverEmail = $('#ReceiverEmail').val();
         var titlePost = $('#titlePost').val();
 
         $.ajax({
             type: 'POST',
             data: {
                 linkPost: linkPost,
-                receiverEmail: receiverEmail,
+                receiverEmail: receiverEmails,
                 titlePost: titlePost
             },
             dataType: 'json',
             url: '@Url.Action("InviteMail", "Home")',
             success: function (response) {
                 if (response.result == true) {
+                    
                     showSuccessMessage("Chia sẻ thành công");
                 } else {
                     open("@Url.Content("~/Login")", "_self");
@@ -166,18 +192,19 @@
     }
 
     .contentCK {
-     width: 100%;
+        width: 100%;
     }
+
         .contentCK * {
-         width:fit-content !important;
+            width: fit-content !important;
         }
- 
+
     /*end*/
 
 
 
     /*thong tin cua card table*/
-  
+
 
     .cover-Title {
         display: flex;
@@ -194,7 +221,6 @@
     .product-image {
         max-width: 100%;
         height: 500px;
-       
     }
 
 
@@ -202,7 +228,7 @@
 
     /* o thong tin detail  */
     .containercus {
-       width:100%;
+        width: 100%;
     }
     /* o thong tin detail  */
     .text-primary {
@@ -227,7 +253,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
-                            <li class="breadcrumb-item active">Detail</li>
+                        <li class="breadcrumb-item active">Detail</li>
                     </ol>
                 </div>
             </div>
@@ -236,7 +262,7 @@
 
     <!-- Main content -->
     <div class="content">
-        
+
         <div class="container">
             <!-- Default box -->
             <div class="card card-solid">
@@ -326,9 +352,12 @@
                                 <div class="collapse" id="shareEMAIL">
                                     <div>
                                         <label>Enter recipient's email: </label>
-                                        <input type="email" name="ReceiverEmail" id="ReceiverEmail" value="" />
+                                        <input type="email" name="ReceiverEmail" id="ReceiverEmail" value="" class="receiver-email" />
                                         <input type="hidden" name="currentUrl" id="currentUrl" />
                                         <input type="hidden" id="titlePost" value="@posts.title" />
+
+                                        <button class="btn btn-success mb-3" id="addBtn">add</button>
+                                        <div id="input-container"></div>
 
                                         <div>
                                             <button class="btn btn-success mb-3" type="button" onclick="SharePost()">Chia sẻ</button>
@@ -336,8 +365,7 @@
 
 
                                     </div>
-                                    <label>Email's for P2T</label>
-                                    <input type="email">
+
 
                                 </div>
                             </div>
@@ -370,8 +398,8 @@
                                 </ul>
                                 <!--partner context-->
                             </div>
-                           
-                            
+
+
 
                         </div>
 
@@ -430,7 +458,7 @@
             </div>
             <!-- /.card -->
         </div>
-        
+
     </div>
     <!-- /.content -->
 </div>

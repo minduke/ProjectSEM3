@@ -129,7 +129,7 @@ namespace GiveAID.Controllers
             }
         }
 
-        public void SendMailInvite(string toAddress, string currentUrl, string titlePost)
+        public void SendMailInvite(string[] toAddress, string currentUrl, string titlePost)
         {
             string fromAddress = "vuvunguyen12345@gmail.com";
             string password = "viovutezgtdjjvar";
@@ -145,23 +145,27 @@ namespace GiveAID.Controllers
             using (MailMessage mail = new MailMessage())
             {
                 mail.From = new MailAddress(fromAddress);
-                mail.To.Add(new MailAddress(toAddress));
-                mail.Subject = "Thư Mời";
-                mail.Body = emailBody;
-                mail.IsBodyHtml = true;
-
-                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                foreach (var item in toAddress)
                 {
-                    smtp.EnableSsl = true;
-                    smtp.Credentials = new NetworkCredential(fromAddress, password);
+                    mail.To.Add(new MailAddress(item));
 
-                    try
-                    {
-                        smtp.Send(mail);
-                    }
-                    catch (SmtpException ex)
-                    {
+                    mail.Subject = "Thư Mời";
+                    mail.Body = emailBody;
+                    mail.IsBodyHtml = true;
 
+                    using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                    {
+                        smtp.EnableSsl = true;
+                        smtp.Credentials = new NetworkCredential(fromAddress, password);
+
+                        try
+                        {
+                            smtp.Send(mail);
+                        }
+                        catch (SmtpException ex)
+                        {
+
+                        }
                     }
                 }
             }

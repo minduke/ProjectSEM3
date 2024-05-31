@@ -62,6 +62,7 @@
                         form.reset();
                         document.getElementById('thumb').innerHTML = '';
                         document.getElementById('imagesPreview').innerHTML = '';
+                        CKEDITOR.instances['content'].setData('');
                     } else {
                         VipremoveClass("loading");
                         showErrorMessage(response.error);

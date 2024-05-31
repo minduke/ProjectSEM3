@@ -122,7 +122,7 @@ namespace GiveAID.Controllers
             return View();
         }
 
-        public JsonResult InviteMail(string linkPost, string receiverEmail, string titlePost)
+        public JsonResult InviteMail(string linkPost, string[] receiverEmail, string titlePost)
         {
             try
             {
@@ -139,7 +139,7 @@ namespace GiveAID.Controllers
                     DateTime future = savedTime.AddMinutes(5);
                     TimeSpan timeSubtract = future - currentTime;
 
-                    if (Session["TimeSendMail"] == null || timeSubtract.TotalMinutes == 0)
+                    if (Session["TimeSendMail"] == null || timeSubtract.TotalMinutes <= 0)
                     {
                         SendMailInvite(receiverEmail, linkPost, titlePost);
                         Session["TimeSendMail"] = DateTime.Now;
