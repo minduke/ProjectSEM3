@@ -14,6 +14,8 @@
     {
         partners = ViewBag.partner;
     }
+
+    bool isEditPost = ViewBag.IsEditPost ?? false;
 }
 
 @section scripts{
@@ -358,7 +360,7 @@
                         </div>
                         <!-- choose file img-->
                         <label for="thumbnail" class="cusFILE"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
-                        <div class="filename-container">Enter a filename...</div>
+                        @*<div class="filename-container">Enter a filename...</div>*@
                         <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event);">
                     </div>
 
@@ -397,7 +399,7 @@
 
                         <!-- choose file img-->
                         <label for="fileBase" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
-                        <div class="filename-contain">Enter a filename...</div>
+                        @*<div class="filename-contain">Enter a filename...</div>*@
                         <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event);">
 
                     </div>
@@ -441,19 +443,46 @@
             <div class="form-group">
                 <label><h3>Field</h3></label>
                 <select class="form-control" id="sel1" name="cate_id">
-                    @foreach (var item in categories)
-                    {
-                        <option value="@item.cate_id" @(post.cate_id == item.cate_id ? "selected" : "")>@item.name</option>
+                    @{
+                        if (isEditPost && post != null)
+                        {
+                            foreach (var item in categories)
+                            {
+                                <option value="@item.cate_id" @(post.cate_id == item.cate_id ? "selected" : "")>@item.name</option>
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in categories)
+                            {
+                                <option value="@item.cate_id">@item.name</option>
+                            }
+                        }
                     }
                 </select>
             </div>
 
             @*<div class="form-group">
-                    <label>Đối tác</label>
-                    <select class="form-control" id="sel1" name="cate_id">
-                        <option></option>
-                    </select>
-                </div>*@
+                <label>Partner</label>
+                <select class="form-control" id="sel1" name="partner_id">
+                    @{
+                        if (ViewBag.IsEditPost == true)
+                        {
+                            foreach (var item in partners)
+                            {
+                                <option value="@item.id" @(post.partner_id == item.id ? "selected" : "")>@item.partner_name</option>
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in partners)
+                            {
+                                <option value="@item.id">@item.partner_name</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>*@
 
             <div class="form-group">
                 <label for="time_end"><h3>Donation end date</h3></label>

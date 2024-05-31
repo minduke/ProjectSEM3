@@ -148,24 +148,23 @@ namespace GiveAID.Controllers
                 foreach (var item in toAddress)
                 {
                     mail.To.Add(new MailAddress(item));
+                }
+                mail.Subject = "Thư Mời";
+                mail.Body = emailBody;
+                mail.IsBodyHtml = true;
 
-                    mail.Subject = "Thư Mời";
-                    mail.Body = emailBody;
-                    mail.IsBodyHtml = true;
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.EnableSsl = true;
+                    smtp.Credentials = new NetworkCredential(fromAddress, password);
 
-                    using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                    try
                     {
-                        smtp.EnableSsl = true;
-                        smtp.Credentials = new NetworkCredential(fromAddress, password);
+                        smtp.Send(mail);
+                    }
+                    catch (SmtpException ex)
+                    {
 
-                        try
-                        {
-                            smtp.Send(mail);
-                        }
-                        catch (SmtpException ex)
-                        {
-
-                        }
                     }
                 }
             }
