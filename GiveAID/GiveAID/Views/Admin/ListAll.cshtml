@@ -2,35 +2,11 @@
 @{
     ViewBag.Title = "ListAll";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    int indexPost = 1;
-    int indexPartner = 1;
 
-    List<GiveAID.Models.entities.post> posts = new List<GiveAID.Models.entities.post>();
-    if (ViewBag.post != null)
-    {
-        posts = ViewBag.post;
-    }
-
-    List<GiveAID.Models.entities.partner> partner = new List<GiveAID.Models.entities.partner>();
-    if (ViewBag.partner != null)
-    {
-        partner = ViewBag.partner;
-    }
+   
 }
 
 <style>
-
-
-
-
-
-
-
-
-
-
-
-
     .content-vip {
         display: flex;
         justify-content: center;
@@ -77,71 +53,21 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content" style="width:100%">
-                        <div id="home" class="container tab-pane active">
+                        <div id="home" class="container tab-pane active table-responsive-md">
                             <br>
                             <div class="row mb-2">
 
-                                <h5>List of articles</h5>
-                                <!--Table 1-->
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Background</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Target</th>
-                                            <th scope="col">End date</th>
-                                            <th scope="col">Edit</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in posts)
-                                        {
-                                            <tr>
-                                                <th scope="row">@(indexPost++)</th>
-                                                <td><img style="width:150px; height:150px" src="~/Content/Images/post/@item.image" alt="Alternate Text" /></td>
-                                                <td>@item.title</td>
-                                                <td>@Convert.ToInt64(item.target).ToString("N0") VND</td>
-                                                <td>@item.time_end.Value.ToShortDateString()</td>
-                                                <td><a href="@Url.Content("~/Admin/EditDetail/")@item.id">See more</a></td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                                <!--Table 1-->
-                            </div>
-                        </div>
-                        <div id="menu1" class="container tab-pane fade">
-                            <br>
-                            <div class="row mb-2">
                                 <h5>Danh sách đối tác</h5>
                                 <!--Table 2-->
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Ảnh</th>
-                                            <th scope="col">Tên</th>
-                                            <th scope="col">Số điện thoại</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Chỉnh sửa</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in partner)
-                                        {
-                                            <tr>
-                                                <th scope="row">@(indexPartner++)</th>
-                                                <td><img style="width:70px; height:70px" src="~/Content/Images/partner/@item.partner_image" alt="Alternate Text" /></td>
-                                                <td>@item.partner_name</td>
-                                                <td>@item.phone</td>
-                                                <td>@item.email</td>
-                                                <td><a href="@Url.Content("~/Admin/EditPartner/")@item.id">EDIT</a></td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
+                              
                                 <!--Table 2-->
+                            </div>
+                        </div>
+                       
+                        <div id="menu1" class="container tab-pane fade table-responsive-md">
+                            <br>
+                            <div class="row mb-2">
+                               
 
 
                             </div>
