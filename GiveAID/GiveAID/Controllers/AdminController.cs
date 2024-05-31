@@ -24,7 +24,7 @@ namespace GiveAID.Controllers
                     ViewBag.runningCount = en.posts.Where(x => x.status == "Mở").Count();
                     ViewBag.completeCount = en.posts.Where(x => x.status == "Đóng").Count();
                     ViewBag.sumTarget = en.posts.Sum(x => x.target);
-                    ViewBag.sumAmout = en.payments.Sum(x => x.transaction_amout);
+                    ViewBag.sumAmout = en.payments.Where(x=>x.pay_status == "Thành công").Sum(x => x.transaction_amout);
                     return View();
                 }
             }
@@ -42,6 +42,24 @@ namespace GiveAID.Controllers
                 {
                     ViewBag.post = en.posts.OrderByDescending(x => x.id).ToList();
                     ViewBag.category = en.categories.ToList();
+                    ViewBag.partner = en.partners.ToList();
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Login");
+        }
+
+        public ActionResult EditDetail(int? id = null)
+        {
+            if (CheckLogin())
+            {
+                var user = Session["USER"] as user;
+                if (user.permission == "admin")
+                {
+                    var post = en.posts.FirstOrDefault(x => x.id == id);
+                    ViewBag.EditPost = post == null ? new post() : post;
+                    ViewBag.IsEditPost = post != null;
+                    ViewBag.cate = en.categories.ToList();
                     ViewBag.partner = en.partners.ToList();
                     return View();
                 }
@@ -117,171 +135,6 @@ namespace GiveAID.Controllers
             }
 
         }
-        public ActionResult chartJS()
-        {
-            if (CheckLogin())
-            {
-                var user = Session["USER"] as user;
-                if (user.permission == "admin")
-                {
-                    return View();
-                }
-            }
-            return RedirectToAction("Index", "Login");
-        }
-
-        public JsonResult partnerNew(partner partner, HttpPostedFileBase fileBasePartner)
-        {
-            if (string.IsNullOrWhiteSpace(partner.partner_name) ||
-                fileBasePartner == null ||
-                string.IsNullOrWhiteSpace(partner.description) ||
-                string.IsNullOrWhiteSpace(partner.address) ||
-                string.IsNullOrWhiteSpace(partner.phone) ||
-                string.IsNullOrWhiteSpace(partner.email))
-            {
-                throw new Exception("Vui lòng điền đầy đủ thông tin");
-            }
-
-            var PathUpload = Server.MapPath("/Content/Images/partner");
-
-            if (!Directory.Exists(PathUpload))
-            {
-                Directory.CreateDirectory(PathUpload);
-            }
-
-            string fileExtension = Path.GetExtension(fileBasePartner.FileName).ToLower();
-            if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
-            {
-                var fileName = DateTime.Now.Ticks + "_" + fileBasePartner.FileName;
-                var filePath = Path.Combine(PathUpload, fileName);
-                fileBasePartner.SaveAs(filePath);
-                partner.partner_image = fileName;
-                en.partners.Add(partner);
-                en.SaveChanges();
-                return Json(new { result = true });
-            }
-            else
-            {
-                throw new Exception("Sai định dạng ảnh");
-            }
-        }
-
-        public ActionResult NewPartner()
-        {
-            if (!CheckLogin())
-                return RedirectToAction("Index", "Login");
-
-            var user = Session["USER"] as user;
-            if (user.permission != "admin")
-                return RedirectToAction("Index", "Login");
-
-            ViewBag.partner = en.partners.ToList();
-            return View();
-        }
-
-        public ActionResult EditPartner(int? id = null)
-        {
-            if (!CheckLogin())
-                return RedirectToAction("Index", "Login");
-
-            var user = Session["USER"] as user;
-            if (user.permission != "admin")
-                return RedirectToAction("Index", "Login");
-
-
-            var dt = en.partners.FirstOrDefault(x => x.id == id);
-           
-            ViewBag.partner = dt == null ? new partner() : dt;
-            ViewBag.IsEditing = dt != null;
-
-            return View();
-
-
-
-        }
-
-        public ActionResult EditDetail(int id)
-        {
-            if (CheckLogin())
-            {
-                var user = Session["USER"] as user;
-                if (user.permission == "admin")
-                {
-                    var post = en.posts.FirstOrDefault(x => x.id == id);
-                    ViewBag.EditPost = post;
-                    ViewBag.cate = en.categories.ToList();
-                    ViewBag.partner = en.partners.ToList();
-                    return View();
-                }
-            }
-            return RedirectToAction("Index", "Login");
-        }
-        public JsonResult DoEditPartner(partner partner, HttpPostedFileBase fileBase)
-        {
-            try
-            {
-                if (partner.partner_name == null || partner.phone == null || partner.address == null || partner.description == null || partner.email == null)
-                    throw new Exception("Vui lòng điền đầy đủ thông tin");
-
-                var dt = en.partners.FirstOrDefault(x => x.id == partner.id);
-
-                if (dt.partner_image == "" && fileBase == null)
-                {
-                    throw new Exception("Vui lòng điền đầy đủ thông tin");
-                }
-
-                if (fileBase != null)
-                {
-                    var PathUpload = Server.MapPath("/Content/Images/partner");
-                    if (!Directory.Exists(PathUpload))
-                    {
-                        Directory.CreateDirectory(PathUpload);
-                    }
-                    string fileExtension = Path.GetExtension(fileBase.FileName).ToLower();
-                    if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
-                    {
-                        var fileName = DateTime.Now.Ticks + "_" + fileBase.FileName;
-                        var filePath = Path.Combine(PathUpload, fileName);
-                        fileBase.SaveAs(filePath);
-                        dt.partner_image = fileName;
-                    }
-                    else
-                    {
-                        throw new Exception("Sai định dạng ảnh");
-                    }
-                }
-
-                dt.partner_name = partner.partner_name;
-                dt.description = partner.description;
-                dt.email = partner.email;
-                dt.phone = partner.phone;
-                dt.address = partner.address;
-                en.SaveChanges();
-
-                return Json(new { result = true });
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public JsonResult DeleteImagePartner(int id)
-        {
-            try
-            {
-                var dt = en.partners.FirstOrDefault(x => x.id == id);
-                dt.partner_image = "";
-                en.SaveChanges();
-                return Json(new { result = true });
-            }
-            catch
-            {
-                throw new Exception("Lỗi không xác định");
-            }
-        }
-
-  
 
         [ValidateInput(false)]
         public JsonResult DoEditPost(post post, HttpPostedFileBase[] fileBase, HttpPostedFileBase thumbnail)
@@ -370,6 +223,160 @@ namespace GiveAID.Controllers
                 throw;
             }
         }
+
+        public ActionResult chartJS()
+        {
+            if (CheckLogin())
+            {
+                var user = Session["USER"] as user;
+                if (user.permission == "admin")
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Index", "Login");
+        }
+
+        public ActionResult EditPartner(int? id = null)
+        {
+            if (!CheckLogin())
+                return RedirectToAction("Index", "Login");
+
+            var user = Session["USER"] as user;
+            if (user.permission != "admin")
+                return RedirectToAction("Index", "Login");
+
+
+            var dt = en.partners.FirstOrDefault(x => x.id == id);
+
+            ViewBag.partner = dt == null ? new partner() : dt;
+            ViewBag.IsEditing = dt != null;
+
+            return View();
+        }
+
+        public JsonResult partnerNew(partner partner, HttpPostedFileBase fileBase)
+        {
+            if (string.IsNullOrWhiteSpace(partner.partner_name) ||
+                fileBase == null ||
+                string.IsNullOrWhiteSpace(partner.description) ||
+                string.IsNullOrWhiteSpace(partner.address) ||
+                string.IsNullOrWhiteSpace(partner.phone) ||
+                string.IsNullOrWhiteSpace(partner.email))
+            {
+                throw new Exception("Vui lòng điền đầy đủ thông tin");
+            }
+
+            var PathUpload = Server.MapPath("/Content/Images/partner");
+
+            if (!Directory.Exists(PathUpload))
+            {
+                Directory.CreateDirectory(PathUpload);
+            }
+
+            string fileExtension = Path.GetExtension(fileBase.FileName).ToLower();
+            if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
+            {
+                var fileName = DateTime.Now.Ticks + "_" + fileBase.FileName;
+                var filePath = Path.Combine(PathUpload, fileName);
+                fileBase.SaveAs(filePath);
+                partner.partner_image = fileName;
+                en.partners.Add(partner);
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            else
+            {
+                throw new Exception("Sai định dạng ảnh");
+            }
+        }
+
+        public JsonResult DoEditPartner(partner partner, HttpPostedFileBase fileBase)
+        {
+            try
+            {
+                if (partner.partner_name == null || partner.phone == null || partner.address == null || partner.description == null || partner.email == null)
+                    throw new Exception("Vui lòng điền đầy đủ thông tin");
+
+                var dt = en.partners.FirstOrDefault(x => x.id == partner.id);
+
+                if (dt.partner_image == "" && fileBase == null)
+                {
+                    throw new Exception("Vui lòng điền đầy đủ thông tin");
+                }
+
+                if (fileBase != null)
+                {
+                    var PathUpload = Server.MapPath("/Content/Images/partner");
+                    if (!Directory.Exists(PathUpload))
+                    {
+                        Directory.CreateDirectory(PathUpload);
+                    }
+                    string fileExtension = Path.GetExtension(fileBase.FileName).ToLower();
+                    if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
+                    {
+                        var fileName = DateTime.Now.Ticks + "_" + fileBase.FileName;
+                        var filePath = Path.Combine(PathUpload, fileName);
+                        fileBase.SaveAs(filePath);
+                        dt.partner_image = fileName;
+                    }
+                    else
+                    {
+                        throw new Exception("Sai định dạng ảnh");
+                    }
+                }
+
+                dt.partner_name = partner.partner_name;
+                dt.description = partner.description;
+                dt.email = partner.email;
+                dt.phone = partner.phone;
+                dt.address = partner.address;
+                en.SaveChanges();
+
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public ActionResult NewPartner()
+        {
+            if (!CheckLogin())
+                return RedirectToAction("Index", "Login");
+
+            var user = Session["USER"] as user;
+            if (user.permission != "admin")
+                return RedirectToAction("Index", "Login");
+
+            ViewBag.partner = en.partners.ToList();
+            return View();
+        }
+
+
+
+
+
+
+        public JsonResult DeleteImagePartner(int id)
+        {
+            try
+            {
+                var dt = en.partners.FirstOrDefault(x => x.id == id);
+                dt.partner_image = "";
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw new Exception("Lỗi không xác định");
+            }
+        }
+
+  
+
+        
 
         public JsonResult DeleteThumb(int id)
         {

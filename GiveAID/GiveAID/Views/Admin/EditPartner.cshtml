@@ -69,7 +69,7 @@
         var form = new FormData(json);
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("DoEditPartner", "Admin")',
+            url: '@Url.Content(ViewBag.IsEditing == true ? "~/Admin/DoEditPartner" : "~/Admin/partnerNew")',
             data: form,
             contentType: false,
             processData: false,
