@@ -85,7 +85,7 @@
     }
 
     function SharePost() {
-
+        VipaddClass("loading");
         var receiverEmails = [];
 
         $('.receiver-email').each(function () {
@@ -107,7 +107,7 @@
             url: '@Url.Action("InviteMail", "Home")',
             success: function (response) {
                 if (response.result == true) {
-                    
+                    VipremoveClass("loading");
                     showSuccessMessage("Chia sẻ thành công");
                 } else {
                     open("@Url.Content("~/Login")", "_self");
@@ -259,6 +259,9 @@
             </div>
         </div><!-- /.container-fluid -->
     </div>
+
+    <!--Load GIF-->
+    <div class="modalLoading"></div>
 
     <!-- Main content -->
     <div class="content">
