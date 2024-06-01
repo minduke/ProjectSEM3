@@ -3,17 +3,7 @@
     ViewBag.Title = "CreateNews";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     int indexPost = 1;
-    List<GiveAID.Models.entities.category> categories = new List<GiveAID.Models.entities.category>();
-    if (ViewBag.category != null)
-    {
-        categories = ViewBag.category;
-    }
 
-    List<GiveAID.Models.entities.partner> partners = new List<GiveAID.Models.entities.partner>();
-    if(ViewBag.partner != null)
-    {
-        partners = ViewBag.partner;
-    }
     List<GiveAID.Models.entities.post> posts = new List<GiveAID.Models.entities.post>();
     if (ViewBag.post != null)
     {
@@ -21,172 +11,35 @@
     }
 }
 
-@section scripts{
-    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('content');
+<script>
+    $(document).ready(function () {
+        $(".checkbox-wrapper-55 input[type='checkbox']").on("change", function () {
+            
+            var checkbox = $(this);
+            var postId = checkbox.attr("id").split("-")[1];
+            var status = checkbox.is(":checked") ? "Mở" : "Đóng";
 
-        $(document).ready(function (e) {
-            $('#btnSubmit').click(function (e) {
-                e.preventDefault();
-                var dt = CKEDITOR.instances['content'].getData();
-                $('#MoTa').val(dt);
+            if (confirm("Bạn muốn đổi trạng thái à ?!")) {
+                
+                $.ajax({
+                    url: '@Url.Content("~/Admin/ChangeStatusPost")',
+                    type: 'POST',
+                    data: { id: postId },
+                    success: function (response) {
+                        if (response.result == true) {
+                            checkbox.siblings(".status-label").text(status);
+                            showSuccessMessage("Thay đổi trạng thái thành công");
+                        } else {
 
-                $('#formTinTuc').submit();
-            })
-        })
-        var currentDate = new Date();
-        var day = currentDate.getDate();
-        var month = currentDate.getMonth() + 1; // Tháng bắt đầu từ 0, nên cần +1
-        var year = currentDate.getFullYear();
-
-        // Định dạng ngày tháng
-        var formattedDate = year + "-" + month + "-" + day;
-
-        document.getElementById("time_start").value = formattedDate;
-        
-        function doSubmitNews() {
-            var form = document.getElementById("formTinTuc");
-            var formData = new FormData(form);
-            VipaddClass("loading");
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("SubmitNews", "Admin")',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response.result == true) {
-                        VipremoveClass("loading");
-                        showSuccessMessage("Tạo mới thành công");
-                        form.reset();
-                        document.getElementById('thumb').innerHTML = '';
-                        document.getElementById('imagesPreview').innerHTML = '';
-                        CKEDITOR.instances['content'].setData('');
-                    } else {
-                        VipremoveClass("loading");
-                        showErrorMessage(response.error);
-                    }
-                },
-                error: handleException
-            })
-        }
-
-        function previewImages(event) {
-            var input = event.target;
-            var imagesPreview = document.getElementById('imagesPreview');
-            imagesPreview.innerHTML = ''; // Clear any previous images
-
-            if (input.files) {
-                var filesAmount = input.files.length;
-
-                for (let i = 0; i < filesAmount; i++) {
-                    let file = input.files[i];
-                    let reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        let imgContainer = document.createElement('div');
-                        imgContainer.style.position = 'relative';
-                        imgContainer.style.display = 'inline-block';
-                        imgContainer.style.marginRight = '10px';
-                        imgContainer.style.marginBottom = '10px';
-
-                        let img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.style.maxWidth = '200px';
-                        img.style.maxHeight = '200px';
-
-                        let removeButton = document.createElement('button');
-                        removeButton.innerHTML = 'X';
-                        removeButton.style.position = 'absolute';
-                        removeButton.style.top = '5px';
-                        removeButton.style.right = '5px';
-                        removeButton.style.backgroundColor = 'red';
-                        removeButton.style.color = 'white';
-                        removeButton.style.border = 'none';
-                        removeButton.style.borderRadius = '50%';
-                        removeButton.style.cursor = 'pointer';
-
-                        removeButton.onclick = function () {
-                            imgContainer.remove();
-                            // Remove the file from the input element
-                            var dt = new DataTransfer();
-                            for (var j = 0; j < input.files.length; j++) {
-                                if (input.files[j] !== file) {
-                                    dt.items.add(input.files[j]);
-                                }
-                            }
-                            input.files = dt.files;
-                        };
-
-                        imgContainer.appendChild(img);
-                        imgContainer.appendChild(removeButton);
-                        imagesPreview.appendChild(imgContainer);
-                    }
-
-                    reader.readAsDataURL(file);
-                }
+                        }
+                    },
+                    error: handleException
+                });
             }
-        }
+        });
+    });
+</script>
 
-        function previewThumbnail(event) {
-            var input = event.target;
-            var imagesPreview = document.getElementById('thumb');
-            imagesPreview.innerHTML = ''; // Clear any previous images
-
-            if (input.files) {
-                var filesAmount = input.files.length;
-
-                for (let i = 0; i < filesAmount; i++) {
-                    let file = input.files[i];
-                    let reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        let imgContainer = document.createElement('div');
-                        imgContainer.style.position = 'relative';
-                        imgContainer.style.display = 'inline-block';
-                        imgContainer.style.marginRight = '10px';
-                        imgContainer.style.marginBottom = '10px';
-
-                        let img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.style.maxWidth = '200px';
-                        img.style.maxHeight = '200px';
-
-                        let removeButton = document.createElement('button');
-                        removeButton.innerHTML = 'X';
-                        removeButton.style.position = 'absolute';
-                        removeButton.style.top = '5px';
-                        removeButton.style.right = '5px';
-                        removeButton.style.backgroundColor = 'red';
-                        removeButton.style.color = 'white';
-                        removeButton.style.border = 'none';
-                        removeButton.style.borderRadius = '50%';
-                        removeButton.style.cursor = 'pointer';
-
-                        removeButton.onclick = function () {
-                            imgContainer.remove();
-                            // Remove the file from the input element
-                            var dt = new DataTransfer();
-                            for (var j = 0; j < input.files.length; j++) {
-                                if (input.files[j] !== file) {
-                                    dt.items.add(input.files[j]);
-                                }
-                            }
-                            input.files = dt.files;
-                        };
-
-                        imgContainer.appendChild(img);
-                        imgContainer.appendChild(removeButton);
-                        imagesPreview.appendChild(imgContainer);
-                    }
-
-                    reader.readAsDataURL(file);
-                }
-            }
-        }
-    </script>
-}
 <style>
     .content-vip {
         display: flex;
@@ -235,7 +88,7 @@
                 <!--Table 1-->
                 <a class="nav-link active" data-toggle="tab" href="#view">Views Posts</a>
             </li>
-         
+
         </ul>
         <!-- Tab panes -->
         <div class="tab-content" style="width:100%">
@@ -273,14 +126,14 @@
                                     <td>@(item.time_end.HasValue ? item.time_end.Value.ToShortDateString() : "")</td>
                                     <td>
                                         <a class="btn btn-warning" href="@Url.Content("~/Admin/EditDetail/")@item.id">EDIT</a>
-                                        
+
                                     </td>
                                     <td>
                                         <!--Nut check-box-->
                                         <div class="checkbox-wrapper-55">
                                             <label class="rocker rocker-small">
-                                                <input type="checkbox" id="myCheckbox">
-                                                <span class="switch-left">Mở</span>
+                                                <input type="checkbox" id="myCheckbox-@item.id" data-status="@item.status" @(item.status == "Mở" ? "checked" : "")>
+                                                <span class="status-label @(item.status == "Mở" ? "switch-left" : "switch-right")">@item.status</span>
                                                 <span class="switch-right">Đóng</span>
                                             </label>
                                         </div>
@@ -293,13 +146,13 @@
                 </div>
             </div>
 
-         
+
 
         </div>
-      
+
     </div>
 
 
-  
+
 </div>
 <!-- /.card -->

@@ -52,6 +52,7 @@
           <Property Name="address" Type="nvarchar" MaxLength="200" />
           <Property Name="phone" Type="varchar" MaxLength="50" />
           <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="partner_status" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="payment">
           <Key>
@@ -285,6 +286,7 @@
           <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="posts" Relationship="Self.FK_partner_id" FromRole="partner" ToRole="post" />
+          <Property Name="partner_status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="payment">
           <Key>
@@ -545,6 +547,7 @@
           <EntitySetMapping Name="partners">
             <EntityTypeMapping TypeName="GiveAIDModel.partner">
               <MappingFragment StoreEntitySet="partner">
+                <ScalarProperty Name="partner_status" ColumnName="partner_status" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="partner_name" ColumnName="partner_name" />
                 <ScalarProperty Name="partner_image" ColumnName="partner_image" />
