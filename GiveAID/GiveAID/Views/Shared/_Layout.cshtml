@@ -45,10 +45,7 @@
     <!--custom new-->
 
     <style>
-        .img-size-50 {
-            position: relative;
-            bottom: 15px;
-        }
+     
 
         .main-footer {
             background-color: #343a40;
@@ -122,34 +119,33 @@
                         {
 
                             <!-- Notifications Dropdown Menu -->
+                            <!--Logo sign in-->
                             <li class="nav-item dropdown">
 
-                                <a class="nav-link" data-toggle="dropdown" href="#">
-                                    <img src="@Url.Content("~/content/dist/img/user8-128x128.jpg") " alt="User Avatar" class="img-size-50 img-circle mr-3">
-
+                                <a class="nav-link btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" href="#">
+                                    <i class="fa-solid fa-address-card"></i>  USER
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right mx-auto">
-                                    <h3><span class="dropdown-item dropdown-header">Hệ Thống</span></h3>
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-left mx-auto">
+                                    <h3><span class="dropdown-item dropdown-header">System</span></h3>
                                     <div class="dropdown-divider"></div>
                                     <a href="@Url.Action("InforUser", "Home")" class="dropdown-item">
-                                        <i class="fa-solid fa-circle-info mr-2"></i> Thông tin tài khoản
-
+                                        <i class="fa-solid fa-circle-info mr-2"></i> Account Information
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a href="@Url.Action("ChangePass", "Login")" class="dropdown-item">
-                                        <i class="fa-solid fa-key mr-2"></i> Đổi mật khẩu
+                                        <i class="fa-solid fa-key mr-2"></i> Change Password
 
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     @if (user.permission == "admin")
                                     {
                                         <a href="@Url.Action("Index", "Admin")" class="dropdown-item">
-                                            <i class="fa-solid fa-users-gear mr-2"></i> Vào ADMIN
+                                            <i class="fa-solid fa-users-gear mr-2"></i> Admin system
                                         </a>
                                     }
                                     <div class="dropdown-divider"></div>
                                     <a href="@Url.Action("Logout", "Login")" class="dropdown-item">
-                                        <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Đăng Xuất
+                                        <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Log out
                                     </a>
                                 </div>
                             </li>

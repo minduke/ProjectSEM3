@@ -224,7 +224,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>@ViewBag.postCount</h3>
+                            <h3 style="width:fit-content;">@ViewBag.postCount</h3>
 
                             <p>Tổng số dự án</p>
                         </div>
@@ -239,7 +239,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>@ViewBag.runningCount<sup style="font-size: 20px"></sup></h3>
+                            <h3 style="width:fit-content;"> @ViewBag.runningCount<sup style="font-size: 20px"></sup></h3>
 
                             <p>Số dự án đang thực hiện</p>
                         </div>
@@ -254,7 +254,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>@ViewBag.completeCount</h3>
+                            <h3 style="width:fit-content;">@ViewBag.completeCount</h3>
 
                             <p>Số dự án đã hoàn thành</p>
                         </div>
@@ -269,7 +269,7 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>@Convert.ToInt64(ViewBag.sumTarget).ToString("N0") VND</h3>
+                            <h3 style="width:fit-content;">@Convert.ToInt64(ViewBag.sumTarget).ToString("N0") VND</h3>
 
                             <p>Tổng tiền dự kiến</p>
                         </div>
@@ -284,7 +284,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>@Convert.ToInt64(ViewBag.sumAmout).ToString("N0") VND</h3>
+                            <h3 style="width:fit-content;">@Convert.ToInt64(ViewBag.sumAmout).ToString("N0") VND</h3>
 
                             <p>Tổng tiền đã thu</p>
                         </div>
@@ -292,6 +292,20 @@
                             <i class="ion ion-stats-bars"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3 style="width:fit-content;">Ngày tháng năm</h3>
+                            <input type="date" name="name" value="" />
+                          
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        
                     </div>
                 </div>
                 <!-- ./col -->
