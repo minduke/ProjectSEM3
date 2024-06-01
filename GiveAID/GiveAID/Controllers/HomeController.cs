@@ -356,12 +356,28 @@ namespace GiveAID.Controllers
                 s.transaction_amout
             });
 
-
-
             return Json(listU);
         }
 
+        [HttpPost]
+        public JsonResult ChartData()
+        {
 
+            var chartJS = en.categories.Select(s => new ModalChart
+            {
+                name = s.name,
+                count = s.posts.Count,
+            }); 
+            return Json(chartJS);
+
+
+
+        }
+        public class ModalChart
+        {
+            public string name { get; set; }
+            public int count { get; set; }
+        }
         public ActionResult TestView()
         {
             //ViewBag.postCount = en.posts.Count();

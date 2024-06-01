@@ -9,7 +9,7 @@
 
     function chartClick() {
           $.ajax({
-      url: '@Url.Action("chartJS","Home")',
+      url: '@Url.Action("ChartData","Home")',
       type: 'POST', // Phương thức HTTP
       dataType: 'json', // Kiểu dữ liệu trả về
       success: function (data) {
