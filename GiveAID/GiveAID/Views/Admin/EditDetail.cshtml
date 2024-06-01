@@ -332,8 +332,18 @@
 <div class="content-wrapper">
 
     <div class="card-header">
-        <h4 class="card-title">Edit Detail version 1.0</h4>
+        
+        @{
+            if (ViewBag.IsEditPost == true)
+            {
+                <h4 class="card-title">Edit Detail</h4>
+            }
+            else
+            {
+                  <h4 class="card-title">Create Posts</h4>
+            }
 
+        }
     </div>
     <!-- /.card-header -->
     <!--Load GIF-->
