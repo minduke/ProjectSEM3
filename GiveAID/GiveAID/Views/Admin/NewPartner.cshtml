@@ -12,86 +12,34 @@
 }
 
 <script>
-    function submitPartner() {
-        var json = document.getElementById("formPartner");
-        var formData = new FormData(json);
+    $(document).ready(function () {
+    $(".checkbox-wrapper-55 input[type='checkbox']").on("change", function () {
 
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("partnerNew", "Admin")',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                if (response.result == true) {
-                    showSuccessMessage("Thêm đối tác thành công");
-                    document.getElementById('imagesPreview').innerHTML = '';
-                    json.reset();
-                } else {
-                    showErrorMessage(response.error);
-                }
-            },
-            error: handleException
-        })
-    }
+        var checkbox = $(this);
+        var postId = checkbox.attr("id").split("-")[1];
+        var status = checkbox.is(":checked") ? "Mở" : "Đóng";
 
-    function previewImages(event) {
-        var input = event.target;
-        var imagesPreview = document.getElementById('imagesPreview');
-        imagesPreview.innerHTML = ''; // Clear any previous images
+        if (confirm("Bạn muốn đổi trạng thái à ?!")) {
 
-        if (input.files) {
-            var filesAmount = input.files.length;
+            $.ajax({
+                url: '@Url.Content("~/Admin/ChangeStatusPartner")',
+                type: 'POST',
+                data: { id: postId },
+                success: function (response) {
+                    if (response.result == true) {
+                        checkbox.siblings(".status-label").text(status);
+                        showSuccessMessage("Thay đổi trạng thái thành công");
+                    } else {
 
-            for (let i = 0; i < filesAmount; i++) {
-                let file = input.files[i];
-                let reader = new FileReader();
-
-                reader.onload = function (e) {
-                    let imgContainer = document.createElement('div');
-                    imgContainer.style.position = 'relative';
-                    imgContainer.style.display = 'inline-block';
-                    imgContainer.style.marginRight = '10px';
-                    imgContainer.style.marginBottom = '10px';
-
-                    let img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.maxWidth = '200px';
-                    img.style.maxHeight = '200px';
-
-                    let removeButton = document.createElement('button');
-                    removeButton.innerHTML = 'X';
-                    removeButton.style.position = 'absolute';
-                    removeButton.style.top = '5px';
-                    removeButton.style.right = '5px';
-                    removeButton.style.backgroundColor = 'red';
-                    removeButton.style.color = 'white';
-                    removeButton.style.border = 'none';
-                    removeButton.style.borderRadius = '50%';
-                    removeButton.style.cursor = 'pointer';
-
-                    removeButton.onclick = function () {
-                        imgContainer.remove();
-                        // Remove the file from the input element
-                        var dt = new DataTransfer();
-                        for (var j = 0; j < input.files.length; j++) {
-                            if (input.files[j] !== file) {
-                                dt.items.add(input.files[j]);
-                            }
-                        }
-                        input.files = dt.files;
-                    };
-
-                    imgContainer.appendChild(img);
-                    imgContainer.appendChild(removeButton);
-                    imagesPreview.appendChild(imgContainer);
-                }
-
-                reader.readAsDataURL(file);
-            }
+                    }
+                },
+                error: handleException
+            });
         }
-    }
+    });
+});
 </script>
+
 <style>
     .content-vip {
         display: flex;
@@ -140,7 +88,7 @@
                 <!--Table 1-->
                 <a class="nav-link active" data-toggle="tab" href="#view">Views Partner</a>
             </li>
-       
+
         </ul>
         <!-- Tab panes -->
         <div class="tab-content" style="width:100%">
@@ -150,65 +98,65 @@
                     <div class="col-sm-12">
                         <h5>Danh sách đối tác</h5>
                     </div>
-                    
-               
-                   
-                        <div class="col-sm-12">
-                            <a class="btn btn-success" href="@Url.Content("~/Admin/EditPartner/")">Create new partner</a>
 
-                        </div>
 
-               
-                        <div class="col-sm-12">
-                            <!--Table 1-->
-                            <table class="table table-striped">
-                                <thead>
+
+                    <div class="col-sm-12">
+                        <a class="btn btn-success" href="@Url.Content("~/Admin/EditPartner/")">Create new partner</a>
+
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <!--Table 1-->
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Ảnh</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Số điện thoại</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Chỉnh sửa</th>
+                                    <th scope="col">Tới Tháng  <!--Nut check-box--></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in partner)
+                                {
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Ảnh</th>
-                                        <th scope="col">Tên</th>
-                                        <th scope="col">Số điện thoại</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Chỉnh sửa</th>
-                                        <th scope="col">Tới Tháng  <!--Nut check-box--></th>
+                                        <th scope="row">@(indexPartner++)</th>
+                                        <td><img style="width:70px; height:70px" src="~/Content/Images/partner/@item.partner_image" alt="Alternate Text" /></td>
+                                        <td>@item.partner_name</td>
+                                        <td>@item.phone</td>
+                                        <td>@item.email</td>
+                                        <td>
+                                            <a class="btn btn-warning" href="@Url.Content("~/Admin/EditPartner/")@item.id">EDIT</a>
+
+                                        </td>
+                                        <td>
+                                            <!--Nut check-box-->
+                                            <div class="checkbox-wrapper-55">
+                                                <label class="rocker rocker-small">
+                                                    <input type="checkbox" id="myCheckbox-@item.id" data-status="@item.partner_status"
+                                                           @(item.partner_status == "Mở" ? "checked" : "")>
+                                                    <span class="status-label @(item.partner_status == "Mở" ? "switch-left" : "switch-right")">
+                                                        @item.partner_status
+                                                    </span>
+                                                    <span class="switch-right">Đóng</span>
+                                                </label>
+                                            </div>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in partner)
-                                    {
-                                        <tr>
-                                            <th scope="row">@(indexPartner++)</th>
-                                            <td><img style="width:70px; height:70px" src="~/Content/Images/partner/@item.partner_image" alt="Alternate Text" /></td>
-                                            <td>@item.partner_name</td>
-                                            <td>@item.phone</td>
-                                            <td>@item.email</td>
-                                            <td>
-                                                <a class="btn btn-warning" href="@Url.Content("~/Admin/EditPartner/")@item.id">EDIT</a>
-                                           
-                                            </td>
-                                            <td>
-                                                <!--Nut check-box-->
-                                                <div class="checkbox-wrapper-55">
-                                                    <label class="rocker rocker-small">
-                                                        <input type="checkbox" id="myCheckbox">
-                                                        <span class="switch-left">Mở</span>
-                                                        <span class="switch-right">Đóng</span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <!--Table 1-->
-                        </div>
-                   
+                                }
+                            </tbody>
+                        </table>
+                        <!--Table 1-->
+                    </div>
+
                 </div>
-
-
-
-
-
-    
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
 </div>
-<!-- /.card -->

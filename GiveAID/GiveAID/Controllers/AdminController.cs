@@ -2,6 +2,7 @@
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -24,7 +25,7 @@ namespace GiveAID.Controllers
                     ViewBag.runningCount = en.posts.Where(x => x.status == "Mở").Count();
                     ViewBag.completeCount = en.posts.Where(x => x.status == "Đóng").Count();
                     ViewBag.sumTarget = en.posts.Sum(x => x.target);
-                    ViewBag.sumAmout = en.payments.Where(x=>x.pay_status == "Thành công").Sum(x => x.transaction_amout);
+                    ViewBag.sumAmout = en.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout);
                     return View();
                 }
             }
@@ -41,8 +42,6 @@ namespace GiveAID.Controllers
                 if (user.permission == "admin")
                 {
                     ViewBag.post = en.posts.OrderByDescending(x => x.id).ToList();
-                    ViewBag.category = en.categories.ToList();
-                    ViewBag.partner = en.partners.ToList();
                     return View();
                 }
             }
@@ -224,6 +223,38 @@ namespace GiveAID.Controllers
             }
         }
 
+        public JsonResult ChangeStatusPost(int id)
+        {
+            try
+            {
+                var post = en.posts.FirstOrDefault(x => x.id == id);
+
+                if (post.status == "Mở")
+                {
+                    post.status = "Đóng";
+                }
+                else
+                {
+                    var today = DateTime.Now.Date;
+                    var amout = en.payments.Where(x => x.post_id == id && x.pay_status == "Thành công").Sum(x => x.transaction_amout);
+
+                    if (post.time_end <= today)
+                        throw new Exception("Please update time end");
+
+                    if (post.target >= amout)
+                        throw new Exception("Please update target");
+
+                    post.status = "Mở";
+                }
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public ActionResult chartJS()
         {
             if (CheckLogin())
@@ -354,6 +385,22 @@ namespace GiveAID.Controllers
             return View();
         }
 
+        public JsonResult ChangeStatusPartner(int id)
+        {
+            try
+            {
+                var partner = en.partners.FirstOrDefault(x => x.id == id);
+                if (partner.partner_status == "Mở")
+                    partner.partner_status = "Đóng";
+                else
+                    partner.partner_status = "Mở";
+
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch { throw; }
+        }
+
 
 
 
@@ -374,9 +421,9 @@ namespace GiveAID.Controllers
             }
         }
 
-  
 
-        
+
+
 
         public JsonResult DeleteThumb(int id)
         {

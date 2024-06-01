@@ -27,6 +27,7 @@ namespace GiveAID.Models.entities
         public string address { get; set; }
         public string phone { get; set; }
         public string email { get; set; }
+        public string partner_status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<post> posts { get; set; }
