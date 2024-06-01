@@ -237,6 +237,9 @@ namespace GiveAID.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+      
+
+
         public ActionResult EditPartner(int? id = null)
         {
             if (!CheckLogin())
@@ -406,20 +409,7 @@ namespace GiveAID.Controllers
             return Json(new { result = true });
         }
 
-        public ActionResult ListAll()
-        {
-            if (CheckLogin())
-            {
-                var user = Session["USER"] as user;
-                if (user.permission == "admin")
-                {
 
-
-                    return View();
-                }
-            }
-            return RedirectToAction("Index", "Login");
-        }
     }
 
 }
