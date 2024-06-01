@@ -102,11 +102,11 @@
 
 
 
-    .content-baby{
-        text-align:center;
+    .content-baby {
+        text-align: center;
     }
 
-   
+
 
 
 
@@ -128,7 +128,6 @@
     .description-block > .description-header {
         font-size: 14px;
     }
-
 </style>
 
 
@@ -188,15 +187,15 @@
 
 
     </div>
-    
-        <ul class="nav nav-tabs row" role="tablist">
-            <li class="nav-item content-baby col-lg-6">
-                <a class="nav-link active" data-toggle="tab" href="#home">Project is running</a>
-            </li>
-            <li class="nav-item content-baby col-lg-6">
-                <a class="nav-link" data-toggle="tab" href="#menu1">Project was ended</a>
-            </li>
-        </ul>
+
+    <ul class="nav nav-tabs row" role="tablist">
+        <li class="nav-item content-baby col-lg-6">
+            <a class="nav-link active" data-toggle="tab" href="#home">Project is running</a>
+        </li>
+        <li class="nav-item content-baby col-lg-6">
+            <a class="nav-link" data-toggle="tab" href="#menu1">Project was ended</a>
+        </li>
+    </ul>
 
 
 
@@ -305,7 +304,7 @@
                             <div class="card card-widget widget-user">
                                 <!-- Add the bg color to the header using any of the bg-* classes -->
                                 <div class="widget-user-header text-white "
-                                     style="background: url('@Url.Content("~/Content/Images/" + @it.image)') center center;">
+                                     style="background: url('@Url.Content("~/Content/Images/post/" + @it.image)') center center;">
 
                                     <h3 class="widget-user-username text-right">@it.cate_name</h3>
                                     <h5 class="widget-user-desc text-right">@it.partner_name</h5>
@@ -341,41 +340,35 @@
                                                         <div class="progress-bar progress-bar-striped progress-bar-animated
                                                         custom-progress-bar" role="progressbar"
                                                              aria-valuemin="0" aria-valuemax="100"
-                                                             style="width:@Convert.ToInt64((it.total / it.target)
-                                                  *      100)%">@Convert.ToInt64((it.total / it.target) * 100)%</div>
+                                                             style="width:@Convert.ToInt64((it.total / it.target)*100)%">
+                                                            @Convert.ToInt64((it.total / it.target) * 100)%
+                                                        </div>
+                                                    </div>
+                                                </h5>  <!-- Tiến độ -->
+                                                <span class="description-text">Progress</span>
+
                                             </div>
-                                        </h5>  <!-- Tiến độ -->
-                                        <span class="description-text">Progress</span>
+                                            <!-- /.description-block -->
+                                        </div>
 
+                                        <div class="col-sm-4 border-right">
+                                            <div class="description-block">
+                                                <!-- đã quyên góp -->
+                                                <h5 class="description-header">@Convert.ToInt64(it.total).ToString("N0")đ</h5>
+                                                <span class="description-text">Donation</span>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <!-- /.col -->
                                     </div>
-                                    <!-- /.description-block -->
+                                    <!-- /.row -->
                                 </div>
-
-                                <div class="col-sm-4 border-right">
-                                    <div class="description-block">
-                                        <!-- đã quyên góp -->
-                                        <h5 class="description-header">@Convert.ToInt64(it.total).ToString("N0")đ</h5>
-                                        <span class="description-text">Donation</span>
-                                    </div>
-                                    <!-- /.description-block -->
-                                </div>
-                                <!-- /.col -->
-                                <!-- /.col -->
                             </div>
-                            <!-- /.row -->
+                            <!-- /.widget-user -->
                         </div>
-                    </div>
-                    <!-- /.widget-user -->
-                </div>
-            }
-
+                    }
                     <!-- /.col -->
-
-
-
-
-
-
                 </div>
             </div>
 
