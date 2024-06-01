@@ -34,16 +34,12 @@
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="@Url.RouteUrl("ViewHome")"><b>Give</b>-AID</a>
+        <a href="@Url.RouteUrl("ViewHome")" data-toggle="tooltip" title="Back To Home"><b>Give</b>-AID</a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in</p>
-
-            <!--Load GIF-->
-            <div class="modalLoading"></div>
-
 
             <form action="javascript:doLogin();" method="post" id="formLogin">
                 <div class="input-group mb-3">
@@ -65,7 +61,7 @@
                 <div class="row">
                     <div class="col-9">
                         <p class="mb-1">
-                            <a href="@Url.Action("CreateAcc","Login")">
+                            <a href="@Url.Action("CreateAcc","Login")" data-toggle="tooltip" title="Sign Up">
                                 Sign up for a new account, kid???
                             </a>
                         </p>

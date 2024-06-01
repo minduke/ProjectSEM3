@@ -117,8 +117,8 @@ namespace GiveAID.Controllers
 
         public void SendMailThanks(string toAddress)
         {
-            string fromAddress = "vuvunguyen12345@gmail.com";
-            string password = "viovutezgtdjjvar";
+            string fromAddress = "giveaid.2024@gmail.com";
+            string password = "svcpcngaulsnsfhr";
 
             string templatePath = Server.MapPath("~/Content/template_email/tks_email.html");
             string emailBody = System.IO.File.ReadAllText(templatePath);
@@ -150,8 +150,8 @@ namespace GiveAID.Controllers
 
         public void SendMailInvite(string[] toAddress, string currentUrl, string titlePost)
         {
-            string fromAddress = "vuvunguyen12345@gmail.com";
-            string password = "viovutezgtdjjvar";
+            string fromAddress = "giveaid.2024@gmail.com";
+            string password = "svcpcngaulsnsfhr";
 
             string templatePath = Server.MapPath("~/Content/template_email/invite_email.html");
             string emailBody = System.IO.File.ReadAllText(templatePath);

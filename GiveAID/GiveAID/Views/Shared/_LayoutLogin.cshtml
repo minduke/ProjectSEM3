@@ -34,9 +34,17 @@
 
     <!--custom-->
     <script src="@Url.Content("~/Content/custom/customJS.js")"></script>
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)), url('@Url.Content("~/Content/Images/anhSlide1.png")');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: bottom;
+        }
+    </style>
 </head>
 
-<body class="hold-transition login-page dark-mode" style="background-image: url(https://i.gifer.com/100b.gif);">
+<body class="hold-transition login-page dark-mode">
 
     @RenderBody()
 
