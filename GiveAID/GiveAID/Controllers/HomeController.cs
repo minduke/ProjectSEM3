@@ -26,8 +26,10 @@ namespace GiveAID.Controllers
         private static string vnp_TmnCode = "URFUYJCU"; //Ma định danh merchant kết nối (Terminal Id)
         private static string vnp_HashSecret = "E9I897QUPGE8T9T41D62F5JQ3GVDILBP"; //Secret Key
 
-        public ActionResult DonationP()
+        public ActionResult DonationP(int page = 1, int pagesize = 6)
         {
+            var totalRunning = en.posts.Count(x => x.status == "Mở");
+            var totalComplete = en.posts.Count(x => x.status == "Đóng");
             var running = en.posts
                 .Where(x => x.status == "Mở")
                 .Select(s => new ViewPost
@@ -42,6 +44,8 @@ namespace GiveAID.Controllers
                     total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(x => x.id)
+                .Skip((page - 1) * pagesize)
+                .Take(pagesize)
                 .ToList();
 
             var complete = en.posts
@@ -58,11 +62,15 @@ namespace GiveAID.Controllers
                     total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(x => x.id)
+                .Skip((page - 1) * pagesize)
+                .Take(pagesize)
                 .ToList();
 
             ViewBag.running = running;
             ViewBag.complete = complete;
-
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)totalRunning / pagesize);
+            ViewBag.TotalPagesComplete = (int)Math.Ceiling((double)totalComplete / pagesize);
             return View();
         }
 

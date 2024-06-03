@@ -170,10 +170,12 @@
                     <p class="text-p">
                         Chúng tay góp sức cứu trợ hoàn cảnh khó khăn
                     </p>
-                    <button class="btn-success">Y Te</button>
-                    <button class="btn-dark">Hoan Canh Kho Khan</button>
-                    <button class="btn-outline-warning">Gia Dinh</button>
-                    <button class="btn-danger">Tai Nan</button>
+                    @foreach (var item in posts)
+                    {
+                        <button class="btn-success">@item.cate_name</button>
+                    }
+
+                   
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
