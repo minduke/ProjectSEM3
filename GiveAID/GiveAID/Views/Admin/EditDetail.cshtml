@@ -208,7 +208,7 @@
         function doEditPost() {
             var dt = document.getElementById('formEditPost');
             var form = new FormData(dt);
-            debugger
+            
             $.ajax({
                 type: 'POST',
                 url: '@Url.Content(ViewBag.IsEditPost == true ? "~/Admin/DoEditPost" : "~/Admin/SubmitNews")',

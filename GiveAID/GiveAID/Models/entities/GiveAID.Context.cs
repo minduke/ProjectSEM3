@@ -27,15 +27,15 @@ namespace GiveAID.Models.entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<admin> admins { get; set; }
         public virtual DbSet<category> categories { get; set; }
-        public virtual DbSet<contact> contacts { get; set; }
         public virtual DbSet<image_post> image_post { get; set; }
         public virtual DbSet<partner> partners { get; set; }
         public virtual DbSet<payment> payments { get; set; }
         public virtual DbSet<post> posts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<banner> banners { get; set; }
+        public virtual DbSet<configuration> configurations { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
