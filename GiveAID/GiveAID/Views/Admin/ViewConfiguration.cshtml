@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "EditHome";
+    ViewBag.Title = "ViewConfiguration";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
     List<GiveAID.Models.entities.banner> banners = new List<GiveAID.Models.entities.banner>();
@@ -113,57 +113,105 @@
         }
     }
 </script>
+<style>
+    .custom-Button {
+        position: relative;
+        left:125px;
+        bottom:135px;
+        display: flex;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        width: 50px;
+        height: 50px;
+    }
 
+        .custom-Button i {
+            width: fit-content;
+            height: auto;
+            color: red;
+            font-size: 20px;
+        }
+
+            .custom-Button i:hover {
+                color: hotpink; /* Màu sắc khi hover */
+            }
+</style>
 <div class="content-wrapper">
-    <!-- /.card-header -->
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Configuration</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Content("~/Admin")">Admin</a></li>
+                        <li class="breadcrumb-item active">ViewConfiguration</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    
     <!--Load GIF-->
     <div class="modalLoading"></div>
 
+    <div class="content">
+        <!-- form start -->
+        <form id="formEditBanner" action="javascript:doEditConfig();" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="fileBase">Banner</label>
+                <div class="" id="imagePartner">
+                    <div class="row">
+                        @foreach (var item in banners)
+                        {    
+                            <div class="col-sm-2">
+                                <input type="hidden" id="idBanner" value="@item.id">
+                                <img src="~/Content/Images/banner/@item.banner_image" style="width:150px; height:150px" alt="Image Banner" />
+                                <button class="custom-Button" type="button" onclick="doDeleteBanner(@item.id)"><i class="fa-solid fa-delete-left"></i></button>
+                            </div>
+                            
 
-
-    <!-- form start -->
-    <form id="formEditBanner" action="javascript:doEditConfig();" method="post" enctype="multipart/form-data">
-
-        <div class="form-group">
-            <label for="fileBase">Banner</label>
-            <div class="" id="imagePartner">
-                @foreach (var item in banners)
-                {
-                    <input type="hidden" id="idBanner" value="@item.id">
-                    <img src="~/Content/Images/banner/@item.banner_image" style="width:150px; height:150px" alt="Alternate Text" />
-                    <button type="button" onclick="doDeleteBanner(@item.id)">Xoá</button>
-                }
+                        }
+                    </div>
+                    
+                </div>
+                <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event)">
+                <div id="imagesPreview" style="margin-top: 10px;"></div>
             </div>
-            <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event)">
-            <div id="imagesPreview" style="margin-top: 10px;"></div>
-        </div>
 
-        <div class="form-group">
-            <label for="description">Introduce</label>
-            <input type="text" class="form-control" id="introduce" name="introduce" value="@ViewBag.SysIntroduce.value" required>
-        </div>
+            <div class="form-group">
+                <label for="description">Introduce</label>
+                <input type="text" class="form-control" id="introduce" name="introduce" value="@ViewBag.SysIntroduce.value" required>
+            </div>
 
-        <div class="form-group">
+            <div class="form-group">
 
-            <label for="description">Address</label>
-            <input type="text" class="form-control" id="address" name="address" value="@ViewBag.SysAddress.value" required>
-        </div>
+                <label for="description">Address</label>
+                <input type="text" class="form-control" id="address" name="address" value="@ViewBag.SysAddress.value" required>
+            </div>
 
-        <div class="form-group">
-            <label for="description">Email</label>
-            <input type="email" class="form-control" id="email" name="email" value="@ViewBag.SysEmail.value" required>
-        </div>
+            <div class="form-group">
+                <label for="description">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="@ViewBag.SysEmail.value" required>
+            </div>
 
-        <div class="form-group">
-            <label for="description">Phone</label>
-            <input type="number" class="form-control" id="phone" name="phone" value="@ViewBag.SysPhone.value" required>
-        </div>
+            <div class="form-group">
+                <label for="description">Phone</label>
+                <input type="number" class="form-control" id="phone" name="phone" value="@ViewBag.SysPhone.value" required>
+            </div>
 
-        <!-- /.card-body -->
+            <!-- /.card-body -->
 
-        <div class="card-footer">
-            <button type="submit" id="btnSubmit" class="btn btn-primary" value="Save">Save</button>
-        </div>
-    </form>
+            <div class="card-footer">
+                <button type="submit" id="btnSubmit" class="btn btn-primary" value="Save">Save</button>
+            </div>
+        </form>
+    </div>
+
+
 </div>
 <!-- /.card -->
