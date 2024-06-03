@@ -138,13 +138,13 @@
     <Compile Include="Helpers\ErrorLog.cs" />
     <Compile Include="Helpers\ExceptionHandlingAttributeMVC.cs" />
     <Compile Include="Helpers\VnPayLibrary.cs" />
-    <Compile Include="Models\entities\admin.cs">
+    <Compile Include="Models\entities\banner.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\entities\category.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\entities\contact.cs">
+    <Compile Include="Models\entities\configuration.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\entities\GiveAID.Context.cs">
@@ -4815,6 +4815,7 @@
     <Content Include="Views\Admin\EditDetail.cshtml" />
     <Content Include="Views\Home\DonationP.cshtml" />
     <Content Include="Views\Home\TestView.cshtml" />
+    <Content Include="Views\Admin\ViewConfiguration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

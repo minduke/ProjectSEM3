@@ -2,6 +2,7 @@
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -103,7 +104,7 @@ namespace GiveAID.Controllers
                 string thumbExtension = Path.GetExtension(thumbnail.FileName).ToLower();
                 if (thumbExtension != ".jpg" && thumbExtension != ".png" && thumbExtension != ".gif")
                 {
-                    throw new Exception("Sai định dạng ảnh nền");
+                    throw new Exception("Wrong image format");
                 }
 
                 var thumbName = DateTime.Now.Ticks + "_" + thumbnail.FileName;
@@ -130,7 +131,7 @@ namespace GiveAID.Controllers
             }
             else
             {
-                throw new Exception("Vui lòng điền đầy đủ thông tin");
+                throw new Exception("Please fill in all fields");
             }
 
         }
@@ -146,12 +147,12 @@ namespace GiveAID.Controllers
 
                 if (data.image == "" && thumbnail == null)
                 {
-                    throw new Exception("Vui lòng điền đầy đủ thông tin");
+                    throw new Exception("THUMBNAILS cannot be left blank");
                 }
 
                 if (dt == 0 && fileBase[0] == null)
                 {
-                    throw new Exception("Vui lòng điền đầy đủ thông tin");
+                    throw new Exception("IMAGES cannot be left blank");
                 }
 
                 if (fileBase.Length > 0 && fileBase[0] != null)
@@ -175,7 +176,7 @@ namespace GiveAID.Controllers
                         }
                         else
                         {
-                            throw new Exception("Sai định dạng ảnh");
+                            throw new Exception("Wrong image format");
                         }
                     }
 
@@ -268,7 +269,7 @@ namespace GiveAID.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-      
+
 
 
         public ActionResult EditPartner(int? id = null)
@@ -298,7 +299,7 @@ namespace GiveAID.Controllers
                 string.IsNullOrWhiteSpace(partner.phone) ||
                 string.IsNullOrWhiteSpace(partner.email))
             {
-                throw new Exception("Vui lòng điền đầy đủ thông tin");
+                throw new Exception("Please fill in all fields");
             }
 
             var PathUpload = Server.MapPath("/Content/Images/partner");
@@ -321,7 +322,7 @@ namespace GiveAID.Controllers
             }
             else
             {
-                throw new Exception("Sai định dạng ảnh");
+                throw new Exception("Wrong image format");
             }
         }
 
@@ -330,13 +331,13 @@ namespace GiveAID.Controllers
             try
             {
                 if (partner.partner_name == null || partner.phone == null || partner.address == null || partner.description == null || partner.email == null)
-                    throw new Exception("Vui lòng điền đầy đủ thông tin");
+                    throw new Exception("Please fill in all fields");
 
                 var dt = en.partners.FirstOrDefault(x => x.id == partner.id);
 
                 if (dt.partner_image == "" && fileBase == null)
                 {
-                    throw new Exception("Vui lòng điền đầy đủ thông tin");
+                    throw new Exception("Please fill in all fields");
                 }
 
                 if (fileBase != null)
@@ -356,7 +357,7 @@ namespace GiveAID.Controllers
                     }
                     else
                     {
-                        throw new Exception("Sai định dạng ảnh");
+                        throw new Exception("Wrong image format");
                     }
                 }
 
@@ -404,29 +405,27 @@ namespace GiveAID.Controllers
             catch { throw; }
         }
 
-
-
-
-
-
         public JsonResult DeleteImagePartner(int id)
         {
             try
             {
                 var dt = en.partners.FirstOrDefault(x => x.id == id);
+
+                var filePath = Server.MapPath("~/Content/Images/partner/" + dt.partner_image);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+
                 dt.partner_image = "";
                 en.SaveChanges();
                 return Json(new { result = true });
             }
             catch
             {
-                throw new Exception("Lỗi không xác định");
+                throw new Exception("Something went wrong. Please try again");
             }
         }
-
-
-
-
 
         public JsonResult DeleteThumb(int id)
         {
@@ -456,7 +455,148 @@ namespace GiveAID.Controllers
             return Json(new { result = true });
         }
 
+        public ActionResult ViewConfiguration()
+        {
+            if (CheckLogin())
+            {
+                ViewBag.SysAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_ADDRESS");
+                ViewBag.SysEmail = en.configurations.FirstOrDefault(x => x.keyword == "SYS_EMAIL");
+                ViewBag.SysPhone = en.configurations.FirstOrDefault(x => x.keyword == "SYS_PHONE");
+                ViewBag.SysIntroduce = en.configurations.FirstOrDefault(x => x.keyword == "SYS_INTRODUCE");
+                ViewBag.banner = en.banners.ToList();
+                return View();
+            }
+            return RedirectToAction("Index", "Login");
+        }
 
+        public JsonResult DeleteBanner(int id)
+        {
+            try
+            {
+                var banner = en.banners.FirstOrDefault(x => x.id == id);
+                var filePath = Server.MapPath("~/Content/Images/banner/" + banner.banner_image);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+
+                en.banners.Remove(banner);
+                en.SaveChanges();
+                return Json(new {result = true });
+            }
+            catch
+            {
+                throw new Exception("Something went wrong. Please try again");
+            }
+        }
+
+        public class ModelConfig
+        {
+            public string phone { get; set; }
+            public string address {  get; set; }
+            public string email { get; set; }
+            public string introduce { get; set; }
+        }
+
+        public JsonResult EditConfig(ModelConfig model, HttpPostedFileBase[] fileBase)
+        {
+            try
+            {
+                if (model.introduce == null || model.phone == null || model.email == null || model.address == null)
+                    throw new Exception("Please fill in all fields");
+
+                var image = en.banners.Count();
+                if (image == 0 && fileBase[0] == null)
+                    throw new Exception("IMAGES cannot be left blank");
+
+                var SysPhone = en.configurations.FirstOrDefault(x => x.keyword == "SYS_PHONE");
+                if (SysPhone == null)
+                {
+                    SysPhone = new configuration()
+                    {
+                        keyword = "SYS_PHONE"
+                    };
+                    en.configurations.Add(SysPhone);
+                }
+                SysPhone.value = model.phone;
+
+                var SysAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_ADDRESS");
+                if(SysAddress == null)
+                {
+                    SysAddress = new configuration()
+                    {
+                        keyword = "SYS_ADDRESS"
+                    };
+                    en.configurations.Add(SysAddress);
+                }
+                SysAddress.value = model.address;
+
+                var SysEmail = en.configurations.FirstOrDefault(x => x.keyword == "SYS_EMAIL");
+                if (SysEmail == null)
+                {
+                    SysEmail = new configuration()
+                    {
+                        keyword = "SYS_EMAIL"
+                    };
+                    en.configurations.Add(SysEmail);
+                }
+                SysEmail.value = model.email;
+
+                var SysIntroduce = en.configurations.FirstOrDefault(x => x.keyword == "SYS_INTRODUCE");
+                if (SysIntroduce == null)
+                {
+                    SysIntroduce = new configuration()
+                    {
+                        keyword = "SYS_INTRODUCE"
+                    };
+                    en.configurations.Add(SysIntroduce);
+                }
+                SysIntroduce.value = model.introduce;
+
+                if (fileBase != null && fileBase[0] != null)
+                {
+                    var PathUpload = Server.MapPath("/Content/Images/banner");
+                    if (!Directory.Exists(PathUpload))
+                    {
+                        Directory.CreateDirectory(PathUpload);
+                    }
+
+                    var imageFiles = new List<string>();
+                    foreach (var file in fileBase)
+                    {
+                        string fileExtension = Path.GetExtension(file.FileName).ToLower();
+                        if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".gif")
+                        {
+                            var fileName = DateTime.Now.Ticks + "_" + file.FileName;
+                            var filePath = Path.Combine(PathUpload, fileName);
+                            file.SaveAs(filePath);
+                            imageFiles.Add(fileName);
+                        }
+                        else
+                        {
+                            throw new Exception("Wrong image format");
+                        }
+                    }
+
+                    foreach (var imageFile in imageFiles)
+                    {
+                        var imagePost = new banner()
+                        {
+                            banner_image = imageFile
+
+                        };
+                        en.banners.Add(imagePost);
+                    }
+                }
+
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 
 }

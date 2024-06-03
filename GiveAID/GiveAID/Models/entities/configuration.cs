@@ -12,10 +12,9 @@ namespace GiveAID.Models.entities
     using System;
     using System.Collections.Generic;
     
-    public partial class admin
+    public partial class configuration
     {
-        public int id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
+        public string keyword { get; set; }
+        public string value { get; set; }
     }
 }
