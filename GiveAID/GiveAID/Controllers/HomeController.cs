@@ -330,7 +330,7 @@ namespace GiveAID.Controllers
                     }
                 });
             }
-            throw new Exception("something wrong");
+            throw new Exception("Something went wrong. Please try again");
         }
 
 
@@ -363,7 +363,7 @@ namespace GiveAID.Controllers
         public JsonResult ChartData()
         {
 
-            var chartJS = en.categories.Select(s => new ModalChart
+            var chartJS = en.categories.Select(s => new ModelChart
             {
                 name = s.name,
                 count = s.posts.Count,
@@ -373,7 +373,7 @@ namespace GiveAID.Controllers
 
 
         }
-        public class ModalChart
+        public class ModelChart
         {
             public string name { get; set; }
             public int count { get; set; }
