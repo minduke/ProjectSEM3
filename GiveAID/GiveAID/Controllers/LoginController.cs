@@ -34,12 +34,12 @@ namespace GiveAID.Controllers
                 var user = en.users.FirstOrDefault(x => x.username == username || x.phone == username || x.email == username);
 
                 if (user == null)
-                    throw new Exception("Tài khoản không tồn tại");
+                    throw new Exception("Username does not exists");
 
                 string a = DecryptDES(user.password, SecretKey);
 
                 if (password != a)
-                    throw new Exception("Sai mật khẩu");
+                    throw new Exception("Wrong password");
 
                 Session["USER"] = user;
                 return Json(new { result = true });
@@ -60,7 +60,7 @@ namespace GiveAID.Controllers
                 if (CheckExists == null)
                 {
                     if (pass2 != user.password)
-                        throw new Exception("Vui lòng kiểm tra lại mật khẩu");
+                        throw new Exception("Please check your password again");
                     string pass = EncryptDES(user.password, SecretKey);
                     user.password = pass;
                     en.users.Add(user);
@@ -69,7 +69,7 @@ namespace GiveAID.Controllers
                 }
                 else
                 {
-                    throw new Exception("Tài khoản hoặc email đã tồn tại");
+                    throw new Exception("Username or Email already exists");
                 }
             }
             catch
@@ -99,10 +99,10 @@ namespace GiveAID.Controllers
                 var data = en.users.FirstOrDefault(x => x.id == user.id);
 
                 if (DecryptDES(user.password, SecretKey) != model.oldPass)
-                    throw new Exception("Sai mật khẩu hiện tại");
+                    throw new Exception("The current password is wrong");
 
                 if (model.newPass != model.repeatPass)
-                    throw new Exception("Vui lòng xác nhận lại mật khẩu mới");
+                    throw new Exception("Please check your new password again");
 
                 data.password = EncryptDES(model.newPass, SecretKey);
                 en.SaveChanges();
