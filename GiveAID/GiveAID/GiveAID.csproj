@@ -4809,7 +4809,6 @@
     <Content Include="Views\Home\Result.cshtml" />
     <Content Include="Views\Login\ChangePass.cshtml" />
     <Content Include="Views\Home\InforUser.cshtml" />
-    <Content Include="Views\Admin\chartJS.cshtml" />
     <Content Include="Views\Admin\NewPartner.cshtml" />
     <Content Include="Views\Admin\EditPartner.cshtml" />
     <Content Include="Views\Admin\EditDetail.cshtml" />

@@ -45,8 +45,6 @@
     <!--custom new-->
 
     <style>
-     
-
         .main-footer {
             background-color: #343a40;
             border-color: #4b545c;
@@ -67,19 +65,18 @@
             height: 60px;
         }
     </style>
-
 </head>
 <body class="hold-transition layout-top-nav">
 
     <div class="wrapper">
         <!-- Navbar -->
-       
+
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-dark">
             <div class="container">
                 <a href="@Url.RouteUrl("ViewHome")" class="navbar-brand">
-                    <img src=" @Url.Content("~/content/Images/LogoGive.png")" alt="Give Logo" 
+                    <img src=" @Url.Content("~/content/Images/LogoGive.png")" alt="Give Logo"
                          class="cusLogo img-circle ">
-                   
+
                 </a>
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,7 +92,7 @@
                         <li class="nav-item">
                             <a href="@Url.Action("DonationP","Home")" class="nav-link">Donate</a>
                         </li>
-                      
+
                         <li class="nav-item ">
                             <a href="@Url.Action("About","Home")" class="nav-link">About Us</a>
                         </li>
@@ -170,6 +167,7 @@
 
         @RenderSection("scripts", required: false)
 
+        <div><a href="#" id="backToTopBtn"><i class="fa-solid fa-turn-up"></i></a></div>
 
 
         <!-- Main Footer -->
@@ -178,9 +176,11 @@
             <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                 <!-- Left -->
                 <div class="me-5 d-none d-lg-block">
-                    
-                    <h5 class="text-color-1">  <img src=" @Url.Content("~/Content/Images/LogoGive.png")" alt="AdminLTE Logo" class="cusLogoF img-circle mr-3">
-                    Give-AID <span>Always want to bring joy and happiness to everyone</span> </h5>
+
+                    <h5 class="text-color-1">
+                        <img src=" @Url.Content("~/Content/Images/LogoGive.png")" alt="AdminLTE Logo" class="cusLogoF img-circle mr-3">
+                        Give-AID <span>Always want to bring joy and happiness to everyone</span>
+                    </h5>
                 </div>
                 <!-- Left -->
                 <!-- Right -->
@@ -218,8 +218,8 @@
                             <h6 class="text-uppercase fw-bold mb-4">
                                 <i class="fas fa-gem me-3 mr-2"></i>Give-AID
                             </h6>
-                            <p >
-                                <span>We don't come to be heroes, we come with warm hands.</span>  
+                            <p>
+                                <span>We don't come to be heroes, we come with warm hands.</span>
                             </p>
                         </div>
                         <!-- Grid column -->

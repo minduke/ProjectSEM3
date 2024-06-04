@@ -41,6 +41,12 @@
 </script>
 
 <style>
+    .text-ellipsi {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 15px; /* Định nghĩa kích thước cố định của nội dung */
+    }
     .content-vip {
         display: flex;
         justify-content: center;
@@ -65,12 +71,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">New Posts</h1>
+                    <h1 class="m-0">Posts</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                        <li class="breadcrumb-item active">Create News</li>
+                        <li class="breadcrumb-item active">View Posts</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -86,7 +92,7 @@
         <ul class="nav nav-tabs content-vip" role="tablist">
             <li class="nav-item content-baby">
                 <!--Table 1-->
-                <a class="nav-link active" data-toggle="tab" href="#view">Views Posts</a>
+                <a class="nav-link active" data-toggle="tab" href="#view"><h3>Views Posts</h3></a>
             </li>
 
         </ul>
@@ -96,53 +102,61 @@
                 <br>
                 <div class="row mb-2">
 
-                    <h5>List of articles</h5>
+                    <div class="col-sm-12">
+                        <h3>List of posts</h3>
+                    </div>
 
                     <div class="col-sm-12">
-                        <a class="btn btn-success" href="@Url.Content("~/Admin/EditDetail/")">Create News</a>
+                        <a class="btn btn-success" href="@Url.Content("~/Admin/EditDetail/")"><i class="fa-solid fa-plus mr-1"></i>Add</a>
 
                     </div>
-                    <!--Table 1-->
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Background</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Target</th>
-                                <th scope="col">End date</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Tới Tháng  <!--Nut check-box--></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in posts)
-                            {
-                                <tr>
-                                    <th scope="row">@(indexPost++)</th>
-                                    <td><img style="width:150px; height:150px" src="~/Content/Images/post/@item.image" alt="Alternate Text" /></td>
-                                    <td>@item.title</td>
-                                    <td>@Convert.ToInt64(item.target).ToString("N0") VND</td>
-                                    <td>@(item.time_end.HasValue ? item.time_end.Value.ToShortDateString() : "")</td>
-                                    <td>
-                                        <a class="btn btn-warning" href="@Url.Content("~/Admin/EditDetail/")@item.id">EDIT</a>
+                    <div class="col-sm-12">
+                        <div class="table-responsive-sm">
+                            <!--Table 1-->
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Background</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Target</th>
+                                        <th scope="col">End date</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Status<!--Nut check-box--></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in posts)
+                                    {
+                                        <tr>
+                                            <th scope="row">@(indexPost++)</th>
+                                            <td><img style="width:150px; height:150px" src="~/Content/Images/post/@item.image" alt="Alternate Text" /></td>
+                                            <td class="text-ellipsi">@item.title</td>
+                                            <td>@Convert.ToInt64(item.target).ToString("N0") VND</td>
+                                            <td>@(item.time_end.HasValue ? item.time_end.Value.ToShortDateString() : "")</td>
+                                            <td>
+                                                <a class="btn btn-warning" href="@Url.Content("~/Admin/EditDetail/")@item.id"><i class="fa-solid fa-pen-to-square mr-1"></i>Edit</a>
 
-                                    </td>
-                                    <td>
-                                        <!--Nut check-box-->
-                                        <div class="checkbox-wrapper-55">
-                                            <label class="rocker rocker-small">
-                                                <input type="checkbox" id="myCheckbox-@item.id" data-status="@item.status" @(item.status == "Mở" ? "checked" : "")>
-                                                <span class="status-label @(item.status == "Mở" ? "switch-left" : "switch-right")">@item.status</span>
-                                                <span class="switch-right">Đóng</span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <!--Table 1-->
+                                            </td>
+                                            <td>
+                                                <!--Nut check-box-->
+                                                <div class="checkbox-wrapper-55">
+                                                    <label class="rocker rocker-small">
+                                                        <input type="checkbox" id="myCheckbox-@item.id" data-status="@item.status" @(item.status == "Mở" ? "checked" : "")>
+                                                        <span class="status-label @(item.status == "Mở" ? "switch-left" : "switch-right")">@item.status</span>
+                                                        <span class="switch-right">Đóng</span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <!--Table 1-->
+                        </div>
+                        
+                    </div>
+                  
                 </div>
             </div>
 
