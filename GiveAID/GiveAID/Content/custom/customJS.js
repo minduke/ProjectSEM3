@@ -46,3 +46,18 @@ function DivremoveClass(className) {
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();   
 });
+
+//back to Top
+window.addEventListener("scroll", function () {
+    var backToTopBtn = document.getElementById("backToTopBtn");
+    if (window.pageYOffset > 200) {
+        backToTopBtn.style.display = "block";
+    } else {
+        backToTopBtn.style.display = "none";
+    }
+});
+
+document.getElementById("backToTopBtn").addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+//back to Top
