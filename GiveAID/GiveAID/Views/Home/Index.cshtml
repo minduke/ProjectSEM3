@@ -7,6 +7,13 @@
     {
         posts = ViewBag.posts;
     }
+
+    List<GiveAID.Models.entities.category> categories = new List<GiveAID.Models.entities.category>();
+    if(ViewBag.categories != null)
+    {
+        categories = ViewBag.categories;
+    }
+
     int totalPages = ViewBag.TotalPages;
 
 }
@@ -170,9 +177,9 @@
                     <p class="text-p">
                         Chúng tay góp sức cứu trợ hoàn cảnh khó khăn
                     </p>
-                    @foreach (var item in posts)
+                    @foreach (var item in categories)
                     {
-                        <button class="btn-success">@item.cate_name</button>
+                        <button class="btn-success">@item.name</button>
                     }
 
                    
