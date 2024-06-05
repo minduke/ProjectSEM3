@@ -94,7 +94,7 @@ namespace GiveAID.Controllers
                     }
                     else
                     {
-                        throw new Exception("Sai định dạng ảnh");
+                        throw new Exception("Wrong image format");
                     }
                 }
 
@@ -588,6 +588,28 @@ namespace GiveAID.Controllers
 
                 en.SaveChanges();
                 return Json(new { result = true });
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public JsonResult AddCategory(string name)
+        {
+            try
+            {
+                if (name == null)
+                    throw new Exception("Please fill in the name of category");
+
+                var check = en.categories.FirstOrDefault(x => x.name == name);
+                if (check != null)
+                    throw new Exception("The category name is exists");
+
+                var newCate = new category { name = name };
+                en.categories.Add(newCate);
+                en.SaveChanges();
+                return Json(new { result = true, newCate = new { cate_id = newCate.cate_id, name = newCate.name } });
             }
             catch
             {
