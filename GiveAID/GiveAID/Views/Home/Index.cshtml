@@ -171,11 +171,11 @@
             </div><!-- /.col -->
             <div class="col-sm-12" style="text-align:center;">
                 <p class="text-p">
-                    Chúng tay góp sức cứu trợ hoàn cảnh khó khăn
+                    Let's contribute to help in difficult situations
                 </p>
                 @foreach (var item in categories)
                 {
-                    <a href="@Url.Content("~/Home/Detail/" + item.cate_id)" class="btn-success">@item.name</a>
+                    <a href="@Url.Content("~/Home/Detail/" + item.cate_id)" class="btn btn-outline-dark">@item.name</a>
                 }
 
 
