@@ -1,6 +1,14 @@
 ﻿@{
     ViewBag.Title = "About";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<GiveAID.Models.entities.partner> partners = new List<GiveAID.Models.entities.partner>();
+    if (ViewBag.partner != null)
+    {
+        partners = ViewBag.partner;
+    }
+
+    var first = true;
 }
 
 <style>
@@ -26,6 +34,7 @@
             font-size: 20px;
             text-shadow: 5px 5px 10px #00FF00;
         }
+
     .w-100 {
         /* kích thước thẻ slide index home */
         width: 100vw;
@@ -33,12 +42,14 @@
         filter: blur(3px);
         background-color: rgba(0, 0, 0, 0.5); /* Màu nền làm mờ */
     }
+
     .logoBrandCard {
         /* kích thước logo card index home */
         width: 250px;
         height: 200px;
         margin: 2px;
     }
+
     .titleH1 {
         color: #34495E;
         font-weight: bold;
@@ -46,33 +57,37 @@
         text-transform: uppercase;
         text-shadow: 5px 5px 10px #00FF00;
     }
+
     .titleH3 {
         color: #FBFCFC;
         text-align: center;
         text-transform: uppercase;
         text-shadow: 5px 5px 10px #00FF00;
     }
+
     .titleh3 {
         text-align: center;
         text-transform: uppercase;
         color: #34495E;
         text-shadow: 5px 5px 10px #A569BD;
     }
+
     .titleF {
         font-style: italic;
         color: #229954;
         background-color: #E5E7E9;
     }
+
     .cusWD {
         color: #34495E;
         text-transform: uppercase;
         text-shadow: 5px 5px 10px #A569BD;
     }
 
-    .imgHEHE{
-        width:220px;
-        height:200px;
-        border-radius:50%;
+    .imgHEHE {
+        width: 220px;
+        height: 200px;
+        border-radius: 50%;
     }
 </style>
 
@@ -102,15 +117,15 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <i class="fa-solid fa-location-dot fa-bounce fa-2xl" style="color: #f0283c;"></i>
-                            <p class="lead mt-2"> 123 Testing Ave, Testtown, 9876 NA</p>
+                            <p class="lead mt-2">@ViewBag.SysAddress.value</p>
                         </div>
                         <div class="col-sm-12">
                             <i class="fa-solid fa-phone-volume fa-shake fa-2xl" style="color: #02c58a;"></i>
-                            <p class="lead mt-2">1900 6886</p>
+                            <p class="lead mt-2">@ViewBag.SysPhone.value</p>
                         </div>
                         <div class="col-sm-12">
                             <i class="fa-solid fa-envelope fa-beat-fade fa-2xl" style="color: #B197FC;"></i>
-                            <p class="lead mt-2">giveaid.2024@gmail.com</p>
+                            <p class="lead mt-2">@ViewBag.SysEmail.value</p>
                         </div>
                     </div>
                 </div>
@@ -159,28 +174,22 @@
             <div id="logo-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
-                    <li data-target="#logo-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#logo-carousel" data-slide-to="1"></li>
-                    <li data-target="#logo-carousel" data-slide-to="2"></li>
+                    @for (int i = 0; i < partners.Count(); i++)
+                    {
+                        <li data-target="#logo-carousel" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+                    }
                     <!-- Thêm các chỉ số cho từng logo -->
                 </ol>
 
                 <!-- Slides -->
                 <div class="carousel-inner mt-3 mb-3">
-                    <div class="carousel-item active" style="text-align:center;">
-                        <img src="~/Content/Images/apple.png" loading="lazy" alt="Logo 1" class="ml-3 mr-3">
-                        <img src="~/Content/Images/facebook.png" loading="lazy" class="ml-3 mr-3">
-                        <img src="~/Content/Images/youtube.png" loading="lazy" class="ml-3 mr-3">
-                    </div>
-                    <div class="carousel-item" style="text-align:center;">
-                        <img src="~/Content/Images/youtube.png" loading="lazy" class="ml-3 mr-3">
-                        <img src="~/Content/Images/facebook.png" loading="lazy" class="ml-3 mr-3">
-                        <img src="~/Content/Images/apple.png" alt="Logo 2" loading="lazy" class="ml-3 mr-3">
-                    </div>
-                    <div class="carousel-item" style="text-align:center;">
-                        <img src="~/Content/Images/tiktok.png" loading="lazy" class="ml-3 mr-3">
-                        <img src="~/Content/Images/apple.png" alt="Logo 3" class="ml-3 mr-3">
-                    </div>
+                    @foreach (var item in partners)
+                    {
+                        <div class="carousel-item @(first ? "active" : "")" style="text-align:center;">
+                            <img src="~/Content/Images/partner/@item.partner_image" loading="lazy" alt="Logo 1" class="ml-3 mr-3">
+                        </div>
+                        first = false;
+                    }
                     <!-- Thêm các slide cho từng logo -->
                 </div>
 

@@ -1,18 +1,12 @@
 ﻿using GiveAID.Models.entities;
 using GiveAID.Models.model_view;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GiveAID.Helpers;
-using WebGrease;
 using Microsoft.Ajax.Utilities;
-using System.Runtime.InteropServices;
 using System.Globalization;
-using System.EnterpriseServices;
 using System.IO;
 using System.Data.Entity;
 
@@ -71,10 +65,11 @@ namespace GiveAID.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)totalRunning / pagesize);
             ViewBag.TotalPagesComplete = (int)Math.Ceiling((double)totalComplete / pagesize);
+            ViewBag.banner = en.banners.ToList();
             return View();
         }
 
-        public ActionResult Index(int page = 1, int pageSize = 3, int? id = null)
+        public ActionResult Index(int page = 1, int pageSize = 3)
         {
 
             int totalPosts = en.posts.Where(s => s.status == "Mở").Count();
@@ -104,8 +99,6 @@ namespace GiveAID.Controllers
                 .Take(pageSize)
                 .ToList();
 
-
-
             ViewBag.posts = posts;
             ViewBag.TotalPosts = totalPosts;
             ViewBag.CurrentPage = page;
@@ -114,7 +107,7 @@ namespace GiveAID.Controllers
             ViewBag.StartPage = startPage;
             ViewBag.EndPage = endPage;
             ViewBag.categories = en.categories.ToList();
-
+            ViewBag.banner = en.banners.ToList();
 
             return View();
 
@@ -349,7 +342,10 @@ namespace GiveAID.Controllers
 
         public ActionResult About()
         {
-
+            ViewBag.SysEmail = en.configurations.FirstOrDefault(x => x.keyword == "SYS_EMAIL");
+            ViewBag.SysPhone = en.configurations.FirstOrDefault(x => x.keyword == "SYS_PHONE");
+            ViewBag.SysAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_ADDRESS");
+            ViewBag.partner = en.partners.ToList();
 
             return View();
         }
@@ -386,11 +382,13 @@ namespace GiveAID.Controllers
 
 
         }
+
         public class ModelChart
         {
             public string name { get; set; }
             public int count { get; set; }
         }
+
         public ActionResult TestView()
         {
             //ViewBag.postCount = en.posts.Count();
@@ -398,6 +396,29 @@ namespace GiveAID.Controllers
             //ViewBag.completeCount = en.posts.Where(x => x.status == "Đóng").Count();
             //ViewBag.sumTarget = en.posts.Sum(x => x.target);
             //ViewBag.sumAmout = en.payments.Sum(x => x.transaction_amout);
+            return View();
+        }
+
+        public ActionResult Detail(int id)
+        {
+            ViewBag.posts = en.posts
+                .Where(s => s.status == "Mở" && s.cate_id == id)
+                .Select(s => new ViewPost
+                {
+                    id = s.id,
+                    title = s.title,
+                    image = s.image,
+                    target = s.target ?? 0,
+                    cate_name = s.category.name,
+                    partner_image = s.partner.partner_image,
+                    partner_name = s.partner.partner_name,
+                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
+                })
+                .OrderByDescending(s => s.id)
+                .ToList();
+
+            ViewBag.banner = en.banners.ToList();
+            ViewBag.categories = en.categories.ToList();
             return View();
         }
     }
