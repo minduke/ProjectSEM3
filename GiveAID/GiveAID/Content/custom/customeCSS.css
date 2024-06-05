@@ -35,6 +35,9 @@ body.loading {
 
 /*end loading css*/
 
+html, body {
+    scroll-behavior: smooth;
+}
 
 #backToTopBtn {
     display: none;
@@ -50,6 +53,7 @@ body.loading {
     border-radius: 50%;
     z-index: 9999;
     cursor: pointer;
+
 }
 
     #backToTopBtn:hover {
