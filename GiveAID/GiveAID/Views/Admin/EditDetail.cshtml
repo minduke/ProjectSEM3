@@ -208,7 +208,7 @@
         function doEditPost() {
             var dt = document.getElementById('formEditPost');
             var form = new FormData(dt);
-            
+
             $.ajax({
                 type: 'POST',
                 url: '@Url.Content(ViewBag.IsEditPost == true ? "~/Admin/DoEditPost" : "~/Admin/SubmitNews")',
@@ -227,6 +227,36 @@
                 },
                 error: handleException
             });
+        }
+
+        function doSubmitCate() {
+
+            var name = $('#cate_name').val();
+            
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddCategory", "Admin")',
+                data: { name: name },
+                success: function (response) {
+                    if (response.result == true) {
+                        showSuccessMessage("Success");
+                        addNewCateToSelectBox(response.newCate);
+                        $('#cate_name').val('');
+                    }
+                    else {
+                        showErrorMessage(response.error);
+                    }
+                },
+                error: handleException
+            })
+        }
+
+        function addNewCateToSelectBox(category) {
+            var newOption = document.createElement('option');
+            newOption.value = category.cate_id;
+            newOption.textContent = category.name;
+
+            document.getElementById('sel1').appendChild(newOption);
         }
 
         // label chosefile for thumbnail
@@ -350,7 +380,7 @@
                         if (ViewBag.IsEditPost == true)
                         {
                             <div class="col-sm-6">
-                               <h1 class="m-0">Edit Detail</h1>
+                                <h1 class="m-0">Edit Detail</h1>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -380,7 +410,7 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-    
+
     </div>
     <!-- /.card-header -->
     <!--Load GIF-->
@@ -408,7 +438,7 @@
                         </div>
                         <!-- choose file img-->
                         <label for="thumbnail" class="cusFILE"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
-                        
+
                         <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event);">
                     </div>
 
@@ -443,7 +473,7 @@
 
                         <!-- choose file img-->
                         <label for="fileBase" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
-                        
+
                         <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event);">
 
                     </div>
@@ -485,7 +515,7 @@
 
 
             <div class="form-group">
-                <label><h3>Field</h3></label>
+                <label><h3>Category</h3></label>
                 <select class="form-control" id="sel1" name="cate_id">
 
                     @foreach (var item in categories)
@@ -497,7 +527,7 @@
             </div>
 
             <div class="form-group">
-                <label>Partner</label>
+                <label><h3>Partner</h3></label>
                 <select class="form-control" id="sel1" name="partner_id">
 
                     @foreach (var item in partners)
@@ -521,5 +551,15 @@
             <button type="submit" id="btnSubmit" class="btn btn-primary" value="Save">Save</button>
         </div>
     </form>
+
+    <div class="card-body">
+        <div class="form-group">
+            <label><h3>Add Category</h3></label>
+            <input type="text" class="form-control" id="cate_name" value="" placeholder="Enter the category name here" />
+            <div class="card-footer">
+                <button value="Save" class="btn btn-primary" onclick="doSubmitCate();">Save</button>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /.card -->

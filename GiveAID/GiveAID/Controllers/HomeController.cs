@@ -189,7 +189,7 @@ namespace GiveAID.Controllers
 
                 if (model.transaction_amout > model.balance || model.transaction_amout < 5000)
                 {
-                    throw new Exception("Số tiền không hợp lệ");
+                    throw new Exception("Invalid amout");
                 }
 
                 //Save order to db
@@ -298,7 +298,7 @@ namespace GiveAID.Controllers
                     string thumbExtension = Path.GetExtension(thumbnail.FileName).ToLower();
                     if (thumbExtension != ".jpg" && thumbExtension != ".png" && thumbExtension != ".gif")
                     {
-                        throw new Exception("Sai định dạng ảnh nền");
+                        throw new Exception("Wrong image format");
                     }
 
                     var thumbName = DateTime.Now.Ticks + "_" + thumbnail.FileName;
@@ -379,8 +379,6 @@ namespace GiveAID.Controllers
             });
             return Json(chartJS);
 
-
-
         }
 
         public class ModelChart
@@ -421,5 +419,6 @@ namespace GiveAID.Controllers
             ViewBag.categories = en.categories.ToList();
             return View();
         }
+
     }
 }
