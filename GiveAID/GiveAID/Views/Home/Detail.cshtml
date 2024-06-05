@@ -20,10 +20,7 @@
         banners = ViewBag.banner;
     }
 
-    int totalPages = ViewBag.TotalPages;
-
     var first = true;
-
 }
 
 <style>
@@ -270,42 +267,6 @@
 
             </div>
 
-
-
-
-            <div class="container PageVIP">
-                <!--Phan trang-->
-                <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
-                    <ul class="pagination">
-                        @if (ViewBag.CurrentPage > 1)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        }
-
-
-                        @for (int i = ViewBag.StartPage; i <= ViewBag.EndPage; i++)
-                        {
-                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "..")">
-                                <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = i, pageSize = ViewBag.PageSize })">@i</a>
-                            </li>
-                        }
-
-
-                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.RouteUrl("PagedPosts", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </nav>
-            </div>
         </div>
 
         <div class="carousel-inner">

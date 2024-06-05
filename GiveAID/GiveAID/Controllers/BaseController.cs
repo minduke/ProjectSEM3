@@ -1,18 +1,14 @@
 ﻿using GiveAID.Models.entities;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using GiveAID.Helpers;
-using System.EnterpriseServices;
-using System.Web.UI;
 
 namespace GiveAID.Controllers
 {

@@ -1,9 +1,6 @@
 ﻿using GiveAID.Models.entities;
-using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -242,7 +239,7 @@ namespace GiveAID.Controllers
                     if (post.time_end <= today)
                         throw new Exception("Please update time end");
 
-                    if (post.target >= amout)
+                    if (post.target <= amout)
                         throw new Exception("Please update target");
 
                     post.status = "Mở";
