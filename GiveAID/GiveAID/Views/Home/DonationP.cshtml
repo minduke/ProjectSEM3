@@ -155,7 +155,7 @@
         <div class="carousel-inner">
             @foreach (var item in banners)
             {
-                <div class="carousel-item active">
+                <div class="carousel-item @(first ? "active" : "")">
                     <img src="@Url.Content("~/Content/Images/banner/" + item.banner_image)" class="d-block w-100" alt="anh 1">
                 </div>
                 first = false;
@@ -461,3 +461,4 @@
         <!-- Main content -->
     </div>
     <!-- Content Wrapper. Contains page content -->
+</div>
