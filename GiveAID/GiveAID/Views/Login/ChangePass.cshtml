@@ -7,7 +7,7 @@
 <script>
     function changePass() {
         var json = getFormObj("formChangePass");
-
+        var form = document.getElementById("formChangePass");
         $.ajax({
             type: 'POST',
             url: '@Url.Action("ChangePassword", "Login")',
@@ -17,7 +17,7 @@
             success: function (response) {
                 if (response.result == true) {
                     showSuccessMessage("Change password success");
-                    json.reset();
+                    form.reset();
                 }
                 else {
                     showErrorMessage(response.error);
