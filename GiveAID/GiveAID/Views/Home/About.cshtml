@@ -4,7 +4,6 @@
 }
 
 <style>
-
     .carousel-caption {
         /* CSS cho thẻ <h5> */
 
@@ -27,8 +26,6 @@
             font-size: 20px;
             text-shadow: 5px 5px 10px #00FF00;
         }
-
-
     .w-100 {
         /* kích thước thẻ slide index home */
         width: 100vw;
@@ -36,7 +33,6 @@
         filter: blur(3px);
         background-color: rgba(0, 0, 0, 0.5); /* Màu nền làm mờ */
     }
-
     .logoBrandCard {
         /* kích thước logo card index home */
         width: 250px;
@@ -72,6 +68,12 @@
         text-transform: uppercase;
         text-shadow: 5px 5px 10px #A569BD;
     }
+
+    .imgHEHE{
+        width:220px;
+        height:200px;
+        border-radius:50%;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -97,34 +99,52 @@
         <div class="card">
             <div class="card-body row">
                 <div class="col-sm-5 text-center d-flex align-items-center justify-content-center">
-                    <div class="">
-                        <h2>GIVE<strong>-AID</strong></h2>
-                        <p class="lead mb-5">
-                            123 Testing Ave, Testtown, 9876 NA<br>
-                            Phone: +1 234 56789012
-                        </p>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <i class="fa-solid fa-location-dot fa-bounce fa-2xl" style="color: #f0283c;"></i>
+                            <p class="lead mt-2"> 123 Testing Ave, Testtown, 9876 NA</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <i class="fa-solid fa-phone-volume fa-shake fa-2xl" style="color: #02c58a;"></i>
+                            <p class="lead mt-2">1900 6886</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <i class="fa-solid fa-envelope fa-beat-fade fa-2xl" style="color: #B197FC;"></i>
+                            <p class="lead mt-2">giveaid.2024@gmail.com</p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-7">
-                    <h1>My Team</h1>
+                    <h1 style="text-align:center;">My Team</h1>
                     <div class="row">
-
-                        <div class="col-sm-5 mr-3" style="width: 15rem; ">
-                            <img class="card-img-top" style="border-radius:50%;" src="@Url.Content("~/Content/Images/Wu.png")" alt="Card image cap" width="100" height="170">
-                            <div class="card-body">
-                                <h5 class="card-title">Lại Nguyên Vũ</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
+                        <div class="col-sm-4 border-right">
+                            <div class="row">
+                                <div class="col-sm-12"><div class="float-sm-left"><h3>Lại Nguyên Vũ</h3></div></div>
+                                <div class="col-sm-12">
+                                    <img src="@Url.Content("~/Content/Images/Wu.png")" class="imgHEHE" alt="USER HEHE" />
+                                    <p class="mt-2">Vũ là một cậu bé hề hước với cái đầu luôn nghĩ ra những trò đùa vui nhộn</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-5 ml-3" style="width: 15rem;">
-                            <img class="card-img-top" style="border-radius:50%;"  src="@Url.Content("~/Content/Images/Duke2.png")" alt="Card image cap" width="100" height="170">
-                            <div class="card-body">
-                                <h5 class="card-title">Lê Minh Đức</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
+                        <div class="col-sm-4 border-right">
+                            <div class="row">
+                                <div class="col-sm-12"><div class="float-sm-left"><h3>Lê Minh Đức</h3></div></div>
+                                <div class="col-sm-12">
+                                    <img src="@Url.Content("~/Content/Images/Duke.png")" class="imgHEHE" alt="USER HEHE" />
+                                    <p class="mt-2">Đức, anh chàng này là một cậu bé đam mê ăn hột gà nướng.</p>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-sm-4 border-right">
+                            <div class="row">
+                                <div class="col-sm-12"><div class="float-sm-left"><h3>Xuân Ca</h3></div></div>
+                                <div class="col-sm-12">
+                                    <img src="@Url.Content("~/Content/Images/BinCute.jpg")" class="imgHEHE" alt="USER HEHE" />
+                                    <p class="mt-2">Xuân ca là một cô bé lon ton</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>

@@ -48,16 +48,16 @@ function DivremoveClass(className) {
 });
 
 //back to Top
-window.addEventListener("scroll", function () {
-    var backToTopBtn = document.getElementById("backToTopBtn");
-    if (window.pageYOffset > 200) {
-        backToTopBtn.style.display = "block";
+$(window).scroll(function () {
+    var backToTopBtn = $("#backToTopBtn");
+    if ($(window).scrollTop() > 200) {
+        backToTopBtn.css("display", "block");
     } else {
-        backToTopBtn.style.display = "none";
+        backToTopBtn.css("display", "none");
     }
 });
 
-document.getElementById("backToTopBtn").addEventListener("click", function () {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+$("#backToTopBtn").click(function () {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 });
 //back to Top
