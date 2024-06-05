@@ -24,6 +24,20 @@
         opacity: 0;
     }
 }
+@keyframes spinnerAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
 
 body.loading {
     overflow: hidden;
