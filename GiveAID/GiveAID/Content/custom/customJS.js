@@ -36,10 +36,6 @@ function VipremoveClass(className) {
     $("body").removeClass(className);
 }
 
-function DivremoveClass(className) {
-    //remove Class
-    $("div").removeClass(className);
-}
 
 
 
