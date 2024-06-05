@@ -74,7 +74,7 @@ namespace GiveAID.Controllers
             return View();
         }
 
-        public ActionResult Index(int page = 1, int pageSize = 3)
+        public ActionResult Index(int page = 1, int pageSize = 3, int? id = null)
         {
 
             int totalPosts = en.posts.Where(s => s.status == "Mở").Count();
@@ -113,6 +113,7 @@ namespace GiveAID.Controllers
             ViewBag.TotalPages = totalPages;
             ViewBag.StartPage = startPage;
             ViewBag.EndPage = endPage;
+            ViewBag.categories = en.categories.ToList();
 
 
             return View();
@@ -182,6 +183,10 @@ namespace GiveAID.Controllers
         {
             if (CheckLogin())
             {
+                var post = en.posts.FirstOrDefault(x => x.id == model.idPost);
+                if (post.status == "Đóng")
+                    throw new Exception("Cannot donate for this case");
+
                 //Get Config Info
                 string vnp_Returnurl = "https://localhost:44311/home/result"; //URL nhan ket qua tra ve 
                 string vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; //URL thanh toan cua VNPAY 
@@ -375,7 +380,7 @@ namespace GiveAID.Controllers
             {
                 name = s.name,
                 count = s.posts.Count,
-            }); 
+            });
             return Json(chartJS);
 
 
