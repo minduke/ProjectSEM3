@@ -4,7 +4,7 @@
 }
 
 <script>
-    $.widget.bridge('uibutton', $.ui.button)
+    $.widget.bridge('uibutton', $.ui.button);
 
     /**CHART bar and line*/
    $.ajax({
@@ -30,67 +30,6 @@
         for (var i = 0; i < transactionNos.length; i++) {
             sum += transactionNos[i];
         }
-
-        //// Tạo context và khởi tạo biểu đồ
-        //var ctx = document.getElementById("myChart");
-        //new Chart(ctx, {
-        //    type: 'bar', // Thay đổi giá trị của type thành 'bar'
-        //    data: {
-        //        labels: labels,
-        //        datasets: [{
-        //            label: 'Bài viết được Donate',
-        //            data: transactionNos,
-        //            backgroundColor: [
-        //                'rgb(255, 99, 132)',
-        //                'rgb(54, 162, 235)',
-        //                'rgb(255, 205, 86)',
-        //                'rgb(255 ,0,  255)',
-        //                'rgb(148,0,211)',
-        //                'rgb(247, 0, 255)',
-        //                'rgb(230, 142, 233)',
-        //                'rgb(92, 246, 132)',
-        //                'rgb(170, 249, 33)',
-        //                'rgb(6, 247, 188)',
-        //                'rgb(4, 68, 252)',
-        //                'rgb(250, 0, 171 )',
-        //                'rgb(223, 105, 0 )',
-        //                'rgb(1, 178, 255 )',
-        //                'rgb(17, 229, 0 )',
-        //                'rgb(181, 189, 87 )',
-        //                'rgb(4, 138, 100 )'
-        //            ],
-        //            borderColor: ['rgb(255, 99, 132)',
-        //                'rgb(54, 162, 235)',
-        //                'rgb(255, 205, 86)',
-        //                'rgb(255 ,0,  255)',
-        //                'rgb(148,0,211)',
-        //                'rgb(247, 0, 255)',
-        //                'rgb(230, 142, 233)',
-        //                'rgb(92, 246, 132)',
-        //                'rgb(170, 249, 33)',
-        //                'rgb(6, 247, 188)',
-        //                'rgb(4, 68, 252)',
-        //                'rgb(250, 0, 171 )',
-        //                'rgb(223, 105, 0 )',
-        //                'rgb(1, 178, 255 )',
-        //                'rgb(17, 229, 0 )',
-        //                'rgb(181, 189, 87 )',
-        //                'rgb(4, 138, 100 )'],
-        //            borderWidth: 1,
-        //            hoverOffset: 4
-        //        }]
-        //    },
-        //    options: {
-        //        responsive: true,
-        //        scales: {
-        //            y: {
-        //                beginAtZero: true,
-
-        //                max: 100000000
-        //            }
-        //        }
-        //    }
-        //});
 
         var ctx2 = document.getElementById("myChart2");
         new Chart(ctx2, {
@@ -119,14 +58,67 @@
 
     },
     error: function (error) {
-      
+
     }
 
    });
-    
+
+    function updateChart(year, month) {
+        $.ajax({
+            url: '@Url.Action("FilterChart", "Home")',
+            type: 'POST',
+            data: { year: year, month: month },
+            dataType: 'json',
+            success: function (response) {
+                var transactionNos = response.payments.map(function (item) {
+                    return item.transaction_amout;
+                });
+
+                var sum = transactionNos.reduce((a, b) => a + b, 0);
+                var ctx2 = document.getElementById("myChart2");
+
+                new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: ['Giá trị nhỏ nhất', 'SUM', 'Giá trị lớn nhất'],
+                        datasets: [{
+                            label: 'Tổng số tiền thu được',
+                            data: ['100000', sum, '100000000'],
+                            backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                            borderColor: 'rgba(0, 123, 255, 1)',
+                            borderWidth: 1,
+                            pointStyle: 'circle'
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                min: 0,
+                                max: 100000000
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            var date = new Date($('#bdaymonth').val());
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            updateChart(year, month);
+        });
+    });
+
         /**CHART DONUT*/
         $.ajax({
-            
+
             url: "@Url.Action("ChartData","Home")",
             type: "POST",
             dataType: "json",
@@ -188,14 +180,13 @@
                 console.log(error);
             },
         });
-    
 
-;
+
+
 
 </script>
 
 <style>
-   
 </style>
 
 <!-- Content Wrapper. Contains page content -->
@@ -210,7 +201,6 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                     
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -220,7 +210,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-      
+
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-3 col-6">
@@ -234,7 +224,7 @@
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        
+
                     </div>
                 </div>
                 <!-- ./col -->
@@ -249,7 +239,7 @@
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        
+
                     </div>
                 </div>
                 <!-- ./col -->
@@ -264,7 +254,7 @@
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        
+
                     </div>
                 </div>
                 <!-- ./col -->
@@ -279,7 +269,7 @@
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        
+
                     </div>
                 </div>
                 <!-- ./col -->
@@ -294,7 +284,7 @@
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-6">
@@ -306,12 +296,12 @@
                                 <input type="month" id="bdaymonth" name="bdaymonth">
                                 <button type="submit">SENDO</button>
                             </form>
-                          
+
                         </div>
                         <div class="icon">
                             <i class="fa-solid fa-calendar-days" style="font-size:47px;"></i>
                         </div>
-                        
+
                     </div>
                 </div>
                 <!-- ./col -->
@@ -378,7 +368,7 @@
 
                 </section>
                 <!-- right col -->
-               
+
             </div>
             <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
