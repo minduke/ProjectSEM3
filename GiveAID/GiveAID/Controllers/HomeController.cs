@@ -20,12 +20,10 @@ namespace GiveAID.Controllers
         private static string vnp_TmnCode = "URFUYJCU"; //Ma định danh merchant kết nối (Terminal Id)
         private static string vnp_HashSecret = "E9I897QUPGE8T9T41D62F5JQ3GVDILBP"; //Secret Key
 
-        public ActionResult DonationP(int page = 1, int pagesize = 6)
+        public ActionResult DonationP()
         {
-            var totalRunning = en.posts.Count(x => x.status == "Mở");
-            var totalComplete = en.posts.Count(x => x.status == "Đóng");
-            var running = en.posts
-                .Where(x => x.status == "Mở")
+
+            ViewBag.donation = en.posts
                 .Select(s => new ViewPost
                 {
                     id = s.id,
@@ -38,35 +36,46 @@ namespace GiveAID.Controllers
                     total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(x => x.id)
-                .Skip((page - 1) * pagesize)
-                .Take(pagesize)
                 .ToList();
 
-            var complete = en.posts
-                .Where(x => x.status == "Đóng")
-                .Select(s => new ViewPost
-                {
-                    id = s.id,
-                    title = s.title,
-                    image = s.image,
-                    target = s.target ?? 0,
-                    cate_name = s.category.name,
-                    partner_image = s.partner.partner_image,
-                    partner_name = s.partner.partner_name,
-                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
-                })
-                .OrderByDescending(x => x.id)
-                .Skip((page - 1) * pagesize)
-                .Take(pagesize)
-                .ToList();
-
-            ViewBag.running = running;
-            ViewBag.complete = complete;
-            ViewBag.CurrentPage = page;
-            ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)totalRunning / pagesize);
-            ViewBag.TotalPagesComplete = (int)Math.Ceiling((double)totalComplete / pagesize);
             ViewBag.banner = en.banners.ToList();
             return View();
+        }
+
+        public ActionResult FilterPost(string filter)
+        {
+            var query = en.posts
+                .Select(s => new ViewPost
+                {
+                    id = s.id,
+                    title = s.title,
+                    image = s.image,
+                    target = s.target ?? 0,
+                    cate_name = s.category.name,
+                    partner_image = s.partner.partner_image,
+                    partner_name = s.partner.partner_name,
+                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0,
+                    status = s.status
+                });
+
+            switch (filter)
+            {
+                case "1":
+                    query = query.Where(x=>x.status == "Đóng");
+                    break;
+                case "2":
+                    query = query.OrderByDescending(x => x.target);
+                    break;
+                case "3":
+                    query = query.OrderBy(x => x.target);
+                    break;
+                default:
+                    break;
+            }
+
+            var filterPosts = query.ToList();
+
+            return PartialView("_FilterView", filterPosts);
         }
 
         public ActionResult Index(int page = 1, int pageSize = 3)

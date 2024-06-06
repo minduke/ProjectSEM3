@@ -16,5 +16,6 @@ namespace GiveAID.Models.model_view
         public string partner_name { get; set; }
         public string partner_image { get; set; }
         public decimal total { get; set; } = 0;
+        public string status { get; set; }
     }
 }

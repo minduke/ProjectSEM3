@@ -1,0 +1,55 @@
+﻿@model IEnumerable<GiveAID.Models.model_view.ViewPost>
+
+@foreach (var item in Model)
+{
+    <div class="col-md-4">
+        <div class="card card-widget widget-user">
+            <div class="widget-user-header text-white "
+                 style="background: url('@Url.Content("~/Content/Images/post/" + @item.image)') center center;">
+                <h3 class="widget-user-username text-right">@item.cate_name</h3>
+                <h5 class="widget-user-desc text-right">@item.partner_name</h5>
+            </div>
+            <div class="widget-user-image">
+                <img class="img-circle logoBrandCard" src="@Url.Content("~/content/images/partner/" + @item.partner_image)" alt="User Avatar">
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="container">
+                        <a href="@Url.Action("CardDetails", "Home")/@item.id">
+                            <h4 class="text-ellipsis">
+                                @item.title
+                            </h4>
+                        </a>
+                    </div>
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header">@Convert.ToInt64(item.target).ToString("N0")đ</h5>
+                            <span class="description-text">Target</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated custom-progress-bar" role="progressbar"
+                                         aria-valuemin="0" aria-valuemax="100"
+                                         style="width:@Convert.ToInt64((item.total / item.target) * 100)%">
+                                        @Convert.ToInt64((item.total / item.target) * 100)%
+                                    </div>
+                                </div>
+                            </h5>
+                            <span class="description-text">Progress</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="description-block">
+                            <h5 class="description-header">@Convert.ToInt64(item.total).ToString("N0")đ</h5>
+                            <span class="description-text">Donation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

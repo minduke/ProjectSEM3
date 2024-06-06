@@ -3,16 +3,10 @@
     ViewBag.Title = "DonationP";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    List<GiveAID.Models.model_view.ViewPost> running = new List<GiveAID.Models.model_view.ViewPost>();
-    if (ViewBag.running != null)
+    List<GiveAID.Models.model_view.ViewPost> donation = new List<GiveAID.Models.model_view.ViewPost>();
+    if (ViewBag.donation != null)
     {
-        running = ViewBag.running;
-    }
-
-    List<GiveAID.Models.model_view.ViewPost> complete = new List<GiveAID.Models.model_view.ViewPost>();
-    if (ViewBag != null)
-    {
-        complete = ViewBag.complete;
+        donation = ViewBag.donation;
     }
 
     List<GiveAID.Models.entities.banner> banners = new List<GiveAID.Models.entities.banner>();
@@ -25,6 +19,23 @@
 }
 
 <script>
+
+    $(document).ready(function () {
+        $('#filterSelect').on('change', function () {
+            var selectedValue = $(this).val();
+            $.ajax({
+                url: '@Url.Action("FilterPost", "Home")',
+                type: 'GET',
+                data: { filter: selectedValue },
+                success: function (response) {
+                    $('#postContainer').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred while filtering posts: ", error);
+                }
+            });
+        });
+    });
 
 </script>
 
@@ -187,24 +198,13 @@
     </div>
 
     <div class="float-sm-right">
-        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-            <option selected>Filter by value</option>
-            <option value="1">Project was ended</option>
-            <option value="2">Project is running</option>
-            <option value="3">Project ...</option>
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="filterSelect">
+            <option value="" selected>Filter by value</option>
+            <option value="1">Projects was ended</option>
+            <option value="2">Projects with the highest target</option>
+            <option value="3">Projects with the lowest target</option>
         </select>
     </div>
-
-    <ul class="nav nav-tabs row" role="tablist">
-        <li class="nav-item content-baby col-lg-6 ">
-            <a class="nav-link active" data-toggle="tab" href="#running">Project is running</a>
-        </li>
-        <li class="nav-item content-baby col-lg-6">
-            <a class="nav-link" data-toggle="tab" href="#complete">Project was ended</a>
-        </li>
-    </ul>
-
-
 
     <!-- Main content -->
     <div class="content">
@@ -214,11 +214,11 @@
         <div class="tab-content" style="width:100%">
             <div id="running" class="container tab-pane active">
                 <br>
-                <div class="row mb-2">
+                <div class="row mb-2" id="postContainer">
 
                     <!--mot card-->
                     <!-- /.col -->
-                    @foreach (var item in running)
+                    @foreach (var item in donation)
                     {
                         <div class="col-md-4">
                             <!-- Widget: user widget style 1 -->
@@ -292,158 +292,7 @@
                         </div>
                     }
 
-                    <!-- /.col -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            @if (ViewBag.CurrentPage > 1)
-                            {
-                                <li class="page-item">
-                                    <a class="page-link" href="@Url.Action("DonationP", new { page = ViewBag.CurrentPage - 1, pagesize = 6 })" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-
-                            }
-
-                            @for (int i = 1; i <= ViewBag.TotalPagesRunning; i++)
-                            {
-                                <li class="page-item">
-                                    <a class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" href="@Url.Action("DonationP", new { page = i, pagesize = 6 })">@i</a>
-                                </li>
-                            }
-
-
-                            @if (ViewBag.CurrentPage < ViewBag.TotalPagesRunning)
-                            {
-
-
-                                <li class="page-item">
-                                    <a class="page-link" href="@Url.Action("DonationP", new { page = ViewBag.CurrentPage + 1, pagesize = 6 })" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </nav>
-
                 </div>
-            </div>
-            <div id="complete" class="container tab-pane fade">
-                <br>
-                <div class="row mb-2">
-
-                    <!--mot card-->
-                    <!-- /.col -->
-                    @foreach (var it in complete)
-                    {
-                        <div class="col-md-4">
-                            <!-- Widget: user widget style 1 -->
-                            <div class="card card-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <div class="widget-user-header text-white "
-                                     style="background: url('@Url.Content("~/Content/Images/post/" + @it.image)') center center;">
-
-                                    <h3 class="widget-user-username text-right">@it.cate_name</h3>
-                                    <h5 class="widget-user-desc text-right">@it.partner_name</h5>
-                                </div>
-                                <div class="widget-user-image">
-                                    <img class="img-circle logoBrandCard" src="@Url.Content("~/content/images/partner/" + @it.partner_image)" alt="User Avatar">
-                                </div>
-                                <div class="card-footer">
-                                    <div class="row">
-                                        <div class="container">
-                                            <a href="@Url.Action("CardDetails", "Home")/@it.id">
-                                                <h4 class="text-ellipsis">
-                                                    @it.title
-
-                                                </h4>
-                                            </a>
-
-                                        </div>
-                                        <!-- Mục tiêu -->
-                                        <div class="col-sm-4 border-right">
-                                            <div class="description-block">
-                                                <h5 class="description-header">@Convert.ToInt64(it.target).ToString("N0")đ</h5>
-                                                <span class="description-text">Target</span>
-                                            </div>
-                                            <!-- /.description-block -->
-                                        </div>
-
-                                        <!-- /.col -->
-                                        <div class="col-sm-4">
-                                            <div class="description-block">
-                                                <h5 class="description-header">
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-bar-striped progress-bar-animated
-                                                        custom-progress-bar" role="progressbar"
-                                                             aria-valuemin="0" aria-valuemax="100"
-                                                             style="width:@Convert.ToInt64((it.total / it.target)*100)%">
-                                                            @Convert.ToInt64((it.total / it.target) * 100)%
-                                                        </div>
-                                                    </div>
-                                                </h5>  <!-- Tiến độ -->
-                                                <span class="description-text">Progress</span>
-
-                                            </div>
-                                            <!-- /.description-block -->
-                                        </div>
-
-                                        <div class="col-sm-4 border-right">
-                                            <div class="description-block">
-                                                <!-- đã quyên góp -->
-                                                <h5 class="description-header">@Convert.ToInt64(it.total).ToString("N0")đ</h5>
-                                                <span class="description-text">Donation</span>
-                                            </div>
-                                            <!-- /.description-block -->
-                                        </div>
-                                        <!-- /.col -->
-                                        <!-- /.col -->
-                                    </div>
-                                    <!-- /.row -->
-                                </div>
-                            </div>
-                            <!-- /.widget-user -->
-                        </div>
-                    }
-                    <!-- /.col -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            @if (ViewBag.CurrentPage > 1)
-                            {
-                                <li class="page-item">
-                                    <a class="page-link" href="@Url.Action("DonationP", new { page = ViewBag.CurrentPage - 1, pagesize = 6 })" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-
-                            }
-
-                            @for (int i = 1; i <= ViewBag.TotalPagesComplete; i++)
-                            {
-                                <li class="page-item">
-                                    <a href="@Url.Action("DonationP", new { page = i, pagesize = 6 })" class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" onclick="changeTab(event)" data-tab="complete">@i</a>
-                                </li>
-                            }
-
-                            @if (ViewBag.CurrentPage < ViewBag.TotalTotalPagesComplete)
-                            {
-                                <li class="page-item">
-                                    <a class="page-link" href="@Url.Action("DonationP", new { page = ViewBag.CurrentPage + 1, pagesize = 6 })" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-
-                            }
-
-                        </ul>
-                    </nav>
-
-                </div>
-
             </div>
 
             <div class="carousel-inner">
