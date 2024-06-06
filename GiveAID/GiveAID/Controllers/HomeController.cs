@@ -61,7 +61,7 @@ namespace GiveAID.Controllers
             switch (filter)
             {
                 case "1":
-                    query = query.Where(x=>x.status == "Đóng");
+                    query = query.Where(x => x.status == "Đóng");
                     break;
                 case "2":
                     query = query.OrderByDescending(x => x.target);
@@ -362,17 +362,18 @@ namespace GiveAID.Controllers
         public ActionResult Contact()
         {
 
-
             return View();
         }
 
         [HttpPost]
         public JsonResult chartJS()
         {
-            var listU = en.payments.Select(s => new
-            {
-                s.transaction_amout
-            });
+            var listU = en.payments
+                .Where(x => x.pay_status == "Thành công")
+                .Select(s => new
+                {
+                    s.transaction_amout
+                });
 
             return Json(listU);
         }
@@ -394,6 +395,17 @@ namespace GiveAID.Controllers
         {
             public string name { get; set; }
             public int count { get; set; }
+        }
+
+        public JsonResult FilterChart(int year, int month)
+        {
+            var payments = en.payments
+                .Where(x => x.transaction_date.Value.Year == year && x.transaction_date.Value.Month == month && x.pay_status == "Thành công")
+                .Select(s => new
+                {
+                    s.transaction_amout
+                });
+            return Json(new { payments });
         }
 
         public ActionResult TestView()
