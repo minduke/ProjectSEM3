@@ -50,42 +50,8 @@
         margin: 2px;
     }
 
-    .titleH1 {
-        color: #34495E;
-        font-weight: bold;
-        text-align: center;
-        text-transform: uppercase;
-        text-shadow: 5px 5px 10px #00FF00;
-    }
-
-    .titleH3 {
-        color: #FBFCFC;
-        text-align: center;
-        text-transform: uppercase;
-        text-shadow: 5px 5px 10px #00FF00;
-    }
-
-    .titleh3 {
-        text-align: center;
-        text-transform: uppercase;
-        color: #34495E;
-        text-shadow: 5px 5px 10px #A569BD;
-    }
-
-    .titleF {
-        font-style: italic;
-        color: #229954;
-        background-color: #E5E7E9;
-    }
-
-    .cusWD {
-        color: #34495E;
-        text-transform: uppercase;
-        text-shadow: 5px 5px 10px #A569BD;
-    }
-
     .imgHEHE {
-        width: 220px;
+        width: 250px;
         height: 200px;
         border-radius: 50%;
     }
@@ -166,38 +132,6 @@
             </div>
         </div>
 
-
-
-        <div class="container">
-            <h3 class="titleh3 mt-3 mb-3">Our partner</h3>
-            <!-- SLIDE IMAGE -->
-            <div id="logo-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    @for (int i = 0; i < partners.Count(); i++)
-                    {
-                        <li data-target="#logo-carousel" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
-                    }
-                    <!-- Thêm các chỉ số cho từng logo -->
-                </ol>
-
-                <!-- Slides -->
-                <div class="carousel-inner mt-3 mb-3">
-                    @foreach (var item in partners)
-                    {
-                        <div class="carousel-item @(first ? "active" : "")" style="text-align:center;">
-                            <img src="~/Content/Images/partner/@item.partner_image" loading="lazy" alt="Logo 1" class="ml-3 mr-3">
-                        </div>
-                        first = false;
-                    }
-                    <!-- Thêm các slide cho từng logo -->
-                </div>
-
-                <!-- Controls -->
-
-            </div>
-
-        </div>
 
         <!--Cho nay tuyen ngon-->
         <div class="carousel-inner">
