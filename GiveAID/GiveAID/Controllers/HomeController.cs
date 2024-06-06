@@ -23,6 +23,7 @@ namespace GiveAID.Controllers
         public ActionResult DonationP()
         {
 
+        
             ViewBag.donation = en.posts
                 .Select(s => new ViewPost
                 {
@@ -426,6 +427,16 @@ namespace GiveAID.Controllers
 
             ViewBag.banner = en.banners.ToList();
             ViewBag.categories = en.categories.ToList();
+            return View();
+        }
+
+        public ActionResult Partner(int page = 1, int pagesize = 6) {
+            var totalPage = en.partners.Count();
+            ViewBag.partner = en.partners.OrderBy(x => x.id).Skip((page - 1) * pagesize)
+                .Take(pagesize).ToList();
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)totalPage / pagesize);
+            
             return View();
         }
 

@@ -4817,6 +4817,7 @@
     <Content Include="Views\Admin\ViewConfiguration.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Home\_FilterView.cshtml" />
+    <Content Include="Views\Home\Partner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
