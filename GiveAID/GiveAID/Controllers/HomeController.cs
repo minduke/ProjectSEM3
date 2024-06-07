@@ -23,7 +23,7 @@ namespace GiveAID.Controllers
         public ActionResult DonationP()
         {
 
-        
+
             ViewBag.donation = en.posts
                 .Select(s => new ViewPost
                 {
@@ -406,7 +406,29 @@ namespace GiveAID.Controllers
                 {
                     s.transaction_amout
                 });
-            return Json(new { payments });
+
+            var cate = en.categories.Select(s => new ModelChart
+            {
+                name = s.name,
+                count = s.posts.Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month)
+            });
+
+            var postCount = en.posts.Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month);
+            var runningCount = en.posts.Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month && x.status == "Mở");
+            var completeCount = en.posts.Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month && x.status == "Đóng");
+            var sumTarget = en.posts.Where(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month).Sum(x => x.target) ?? 0;
+            var sumAmout = en.payments.Where(x => x.pay_status == "Thành công" && x.transaction_date.Value.Year == year && x.transaction_date.Value.Month == month).Sum(x => x.transaction_amout) ?? 0;
+
+            return Json(new
+            {
+                payments,
+                postCount,
+                runningCount,
+                completeCount,
+                sumTarget,
+                sumAmout,
+                cate
+            });
         }
 
         public ActionResult TestView()
@@ -442,13 +464,14 @@ namespace GiveAID.Controllers
             return View();
         }
 
-        public ActionResult Partner(int page = 1, int pagesize = 6) {
+        public ActionResult Partner(int page = 1, int pagesize = 6)
+        {
             var totalPage = en.partners.Count();
             ViewBag.partner = en.partners.OrderBy(x => x.id).Skip((page - 1) * pagesize)
                 .Take(pagesize).ToList();
             ViewBag.CurrentPage = page;
             ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)totalPage / pagesize);
-            
+
             return View();
         }
 
