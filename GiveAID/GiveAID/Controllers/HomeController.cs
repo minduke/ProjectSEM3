@@ -134,7 +134,7 @@ namespace GiveAID.Controllers
             return View();
         }
 
-        public JsonResult InviteMail(string linkPost, string[] receiverEmail, string titlePost)
+        public JsonResult InviteMail(string linkPost, string receiverEmails, string titlePost)
         {
             try
             {
@@ -150,6 +150,15 @@ namespace GiveAID.Controllers
 
                     DateTime future = savedTime.AddMinutes(5);
                     TimeSpan timeSubtract = future - currentTime;
+
+                    string[] receiverEmail = receiverEmails.Split(',');
+                    foreach(var item in receiverEmail)
+                    {
+                        if (!IsValidEmail(item))
+                        {
+                            throw new Exception("Email is not valid");
+                        }
+                    }
 
                     if (Session["TimeSendMail"] == null || timeSubtract.TotalMinutes <= 0)
                     {

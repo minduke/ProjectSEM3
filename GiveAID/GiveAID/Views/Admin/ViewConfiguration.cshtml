@@ -11,6 +11,7 @@
 }
 
 <script>
+
     function previewImages(event) {
         var input = event.target;
         var imagesPreview = document.getElementById('imagesPreview');
@@ -91,6 +92,31 @@
         });
     }
 
+    function doEditMailConfig() {
+        var MailAddress = $('#MailAddress').val();
+        var MailPass = $('#MailPass').val();
+        var MailPort = $('#MailPort').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("EditMailConfig", "Admin")',
+            data: {
+                MailAddress: MailAddress,
+                MailPass: MailPass,
+                MailPort: MailPort
+            },
+            success: function (response) {
+                if (response.result == true) {
+                    location.reload();
+                }
+                else {
+                    showErrorMessage(response.error);
+                }
+            },
+            error: handleException
+        });
+    }
+
     var idBanner = document.getElementById('idBanner');
 
     function doDeleteBanner(idBanner) {
@@ -112,6 +138,7 @@
             })
         }
     }
+
     $(document).ready(function () {
         // label chosefile for fileBase
         $("#fileBase").change(function () {
@@ -128,12 +155,15 @@
             $(".filename-contain").text(filename);
         });
     });
+
 </script>
+
 <style>
+
     .custom-Button {
         position: relative;
-        left:125px;
-        bottom:135px;
+        left: 125px;
+        bottom: 135px;
         display: flex;
         background-color: transparent;
         border: none;
@@ -152,7 +182,7 @@
             .custom-Button i:hover {
                 color: hotpink; /* Màu sắc khi hover */
             }
-    
+
     hr.new4 {
         border: 1px solid hotpink;
     }
@@ -196,18 +226,20 @@
 
 
 
-    .nameEmail{
-        width:350px;
-        height:30px;
+    .nameEmail {
+        width: 350px;
+        height: 30px;
         /*border:none;*/
-       margin-left:5px;
+        margin-left: 5px;
     }
-    .passEmail{
-        width:170px;
-        margin-left:2px;
+
+    .passEmail {
+        width: 170px;
+        margin-left: 2px;
     }
+
     .portSMTP {
-        width:50px;
+        width: 50px;
     }
 
     @@media (max-width: 768px) {
@@ -234,6 +266,7 @@
         }
     }
 </style>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -252,7 +285,7 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-    
+
     <hr class="new4">
 
     <div class="content">
@@ -358,27 +391,27 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label>Email: </label>
-                                    <input type="email" name="name" value="" class="nameEmail" />
+                                    <input type="email" name="name" id="MailAddress" value="@ViewBag.SysMailAddress.value" class="nameEmail" />
                                     <div class="row">
                                         <div class="col-sm-7">
                                             <label>Password:</label>
-                                            <input type="text" name="name" value="" class="passEmail" />
+                                            <input type="text" name="name" id="MailPass" value="@ViewBag.SysMailPass" class="passEmail" />
                                         </div>
                                         <div class="col-sm-4">
                                             <label>Smtp port:</label>
-                                            <input type="number" name="name" value="587" class="portSMTP" />
+                                            <input type="number" name="name" id="MailPort" value="@ViewBag.SysMailPort.value" class="portSMTP" />
                                         </div>
                                     </div>
                                 </div>
-                              
-                              
+
+
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="modal-footer ">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save </button>
+                        <button type="button" class="btn btn-primary" onclick="doEditMailConfig();">Save </button>
                     </div>
                 </div>
             </div>

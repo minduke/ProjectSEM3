@@ -85,7 +85,7 @@
     }
 
     function SharePost() {
-
+        
         var receiverEmails = [];
 
         $('.receiver-email').each(function () {
@@ -106,7 +106,7 @@
             type: 'POST',
             data: {
                 linkPost: linkPost,
-                receiverEmail: receiverEmails,
+                receiverEmails: receiverEmails,
                 titlePost: titlePost
             },
             dataType: 'json',
@@ -520,18 +520,10 @@
                                                     <input type="hidden" id="titlePost" value="@posts.title" />
 
                                                 </div>
-                                                <div class="col-sm-12">
-                                                    <label>Add recipient: </label>
-                                                    <div id="input-container"></div>
-                                                </div>
 
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-info mb-3" id="addBtn"
-                                                    data-toggle="tooltip" data-placement="top" title="Click to add recipients">
-                                                <i class="fa-solid fa-user-plus" style="color: #0ff5b0;"></i> Add recipient
-                                            </button>
                                             <button class="btn btn-success mb-3" type="button" onclick="SharePost()"
                                                     data-toggle="tooltip" data-placement="bottom" title="Click to share">
                                                 <i class="fa-solid fa-bullhorn mr-1" style="color: #e0f000;"></i>Share posts
