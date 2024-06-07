@@ -19,7 +19,7 @@
         var postId = checkbox.attr("id").split("-")[1];
         var status = checkbox.is(":checked") ? "Mở" : "Đóng";
 
-        if (confirm("Bạn muốn đổi trạng thái à ?!")) {
+        if (confirm("Do you want to change the status?!")) {
 
             $.ajax({
                 url: '@Url.Content("~/Admin/ChangeStatusPartner")',
@@ -28,7 +28,7 @@
                 success: function (response) {
                     if (response.result == true) {
                         checkbox.siblings(".status-label").text(status);
-                        showSuccessMessage("Thay đổi trạng thái thành công");
+                        showSuccessMessage("Completed");
                     } else {
 
                     }

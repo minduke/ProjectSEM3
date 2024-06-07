@@ -75,7 +75,6 @@
             processData: false,
             success: function (response) {
                 if (response.result == true) {
-                    showSuccessMessage("Chỉnh sửa thành công");
                     location.reload();
                 }
                 else {
@@ -89,14 +88,14 @@
     var idPartner = document.getElementById('id');
 
     function doDeleteImagePartner(idPartner) {
-        if (confirm("Bạn có chắc chắn xoá ảnh ?!")) {
+        if (confirm("Are you sure wanna delete this photo?!")) {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("DeleteImagePartner", "Admin")',
                 data: { id: idPartner },
                 success: function (response) {
                     if (response.result == true) {
-                        showSuccessMessage("Xoá ảnh thành công");
+                        showSuccessMessage("Completed");
                         document.getElementById('imagePartner').remove();
                     }
                     else {

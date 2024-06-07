@@ -159,7 +159,7 @@ namespace GiveAID.Controllers
                     }
                     else
                     {
-                        throw new Exception("Vui lòng đợi " + (int)timeSubtract.TotalMinutes + " phút để gửi tiếp");
+                        throw new Exception("Please wait " + (int)timeSubtract.TotalMinutes + " minutes to continue sending");
                     }
                 }
                 else
