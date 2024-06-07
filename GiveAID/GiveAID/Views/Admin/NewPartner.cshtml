@@ -2,13 +2,16 @@
 @{
     ViewBag.Title = "NewPartner";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    int indexPartner = 1;
+    
 
     List<GiveAID.Models.entities.partner> partner = new List<GiveAID.Models.entities.partner>();
     if (ViewBag.partner != null)
     {
         partner = ViewBag.partner;
     }
+    int pageSize = 5; // Số lượng bài viết mỗi trang
+    int pageIndex = ViewBag.CurrentPage; // Trang hiện tại
+    int indexPartner = (pageIndex - 1) * pageSize + 1; // Index bắt đầu cho trang hiện tại
 }
 
 <script>
@@ -150,7 +153,40 @@
                             </table>
                             <!--Table 1-->
                         </div>
+                        <div>
+                            <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+                                <ul class="pagination">
+                                    @if (ViewBag.CurrentPage > 1)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" href="@Url.RouteUrl("PagePartner", new { page = ViewBag.CurrentPage - 1, pagesize = 5 })" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
 
+                                    }
+
+                                    @for (int i = 1; i <= ViewBag.TotalPagesRunning; i++)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" href="@Url.RouteUrl("PagePartner", new { page = i, pagesize = 5 })">@i</a>
+                                        </li>
+                                    }
+
+
+                                    @if (ViewBag.CurrentPage < ViewBag.TotalPagesRunning)
+                                    {
+
+
+                                        <li class="page-item">
+                                            <a class="page-link" href="@Url.RouteUrl("PagePartner", new { page = ViewBag.CurrentPage + 1, pagesize = 5 })" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
 
                 </div>
