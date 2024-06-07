@@ -218,7 +218,6 @@
                 processData: false,
                 success: function (response) {
                     if (response.result == true) {
-
                         location.reload();
                     }
                     else {
@@ -280,6 +279,7 @@
 
             $(".filename-contain").text(filename);
         });
+
 
 
     </script>
@@ -372,6 +372,26 @@
     hr.new4 {
         border: 1px solid hotpink;
     }
+
+    .filename-container,
+    .filename-contain {
+       
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        color: #333333;
+      
+    }
+
+        .filename-container:hover,
+        .filename-contain:hover {
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ff7f00;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
 </style>
 <div class="content-wrapper">
 
@@ -428,22 +448,24 @@
                 <h1><label for="Tiêu Đề">Title</label></h1>
                 <input type="text" class="form-control" id="title" name="title" placeholder="Title" required value="@post.title">
             </div>
+            <hr class="new4">
 
             <input type="hidden" name="id" id="id" value="@post.id" />
+
+
             <div class="form-group">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-5">
                         <h1><label for="fileBase">Background</label></h1>
 
                         <div class="image-container" id="imageId">
                             <img src="~/Content/Images/post/@post.image" alt="No Image" width="150" height="150" onerror="this.classList.add('error')" />
-                            <button class="custom-Button" type="button" onclick="deleteThumb(@post.id)" ><i class="fa-solid fa-delete-left"></i></button>
+                            <button class="custom-Button" type="button" onclick="deleteThumb(@post.id)"><i class="fa-solid fa-delete-left"></i></button>
                         </div>
                         <!-- choose file img-->
                         <label for="thumbnail" class="cusFILE"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
-
                         <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event);">
-                        <div class="filename-container"></div>
+                        
                     </div>
 
                     <div class="col-sm-7">
@@ -451,6 +473,7 @@
                         <div class="viewBefore">
                             <h1><label for="thumb">Preview</label></h1>
                             <div id="thumb"></div>
+                            <div class="filename-container"></div>
                         </div>
                     </div>
 
@@ -489,48 +512,74 @@
                 </div>
             </div>
 
-            <input type="hidden" id="time_start" name="time_start" value="" />
+
             <hr class="new4">
             @*<input type="hidden" name="TrangThai" value="Mở" />*@
-
-            <div class="form-group">
-                <h3><label for="target">Target amount</label></h3>
-                <input type="number" class="form-control" id="target" name="target" placeholder="" value="@Convert.ToInt64(post.target)" required>
-            </div>
+            <input type="hidden" id="time_start" name="time_start" value="" />
+            <input type="hidden" name="content" id="MoTa" value="@post.content" />
 
             <div class="form-group">
                 <h3><label for="content">Content</label></h3>
                 <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
             </div>
 
-            <div>
-                <input type="hidden" name="content" id="MoTa" value="@post.content" />
-            </div>
 
 
+            <!--Category and add New Category-->
             <div class="form-group">
-                <h3><label>Category</label></h3>
-                <select class="form-control" id="sel1" name="cate_id">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3><label>Category</label></h3>
+                        <select class="form-control" id="sel1" name="cate_id">
 
-                    @foreach (var item in categories)
-                    {
-                        <option value="@item.cate_id">@item.name</option>
-                    }
+                            @foreach (var item in categories)
+                            {
+                                <option value="@item.cate_id">@item.name</option>
+                            }
 
-                </select>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h3><label>Add Category</label></h3>
+                                <input type="text" class="form-control" id="cate_name" value="" placeholder="Enter the category name here" />
+
+                            </div>
+                            <div class="col-sm-4">
+                                <br />
+                                <button value="Save" class="button-74 mt-2 ml-2" role="button" onclick="doSubmitCate();">Add</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
             </div>
 
+            <!--Partner and Target Amount-->
             <div class="form-group">
-                <h3><label>Partner</label></h3>
-                <select class="form-control" id="sel1" name="partner_id">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3><label>Partner</label></h3>
+                        <select class="form-control" id="sel1" name="partner_id">
 
-                    @foreach (var item in partners)
-                    {
-                        <option value="@item.id" @(post.partner_id == item.id ? "selected" : "")>@item.partner_name</option>
-                    }
+                            @foreach (var item in partners)
+                            {
+                                <option value="@item.id" @(post.partner_id == item.id ? "selected" : "")>@item.partner_name</option>
+                            }
 
-                </select>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3><label for="target">Target amount</label></h3>
+                        <input type="number" class="form-control" id="target" name="target" placeholder="" value="@Convert.ToInt64(post.target)" required>
+                    </div>
+                </div>
             </div>
+
+
 
             <div class="form-group">
                 <h3><label for="time_end">Donation end date</label></h3>
@@ -541,20 +590,12 @@
         </div>
         <!-- /.card-body -->
 
-        <div class="card-footer">
-            <button type="submit" id="btnSubmit" class="btn btn-primary" value="Save">Save</button>
+        <div class="card-footer text-center">
+            <button type="submit" id="btnSubmit" class="button-35" value="Save">Save</button>
         </div>
     </form>
 
 
-    <div class="card-body">
-        <div class="form-group">
-            <h3><label>Add Category</label></h3>
-            <input type="text" class="form-control" id="cate_name" value="" placeholder="Enter the category name here" />
-            <div class="card-footer">
-                <button value="Save" class="btn btn-primary" onclick="doSubmitCate();">Save</button>
-            </div>
-        </div>
-    </div>
+   
 </div>
 <!-- /.card -->

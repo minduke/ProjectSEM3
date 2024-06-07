@@ -7,7 +7,7 @@
     $.widget.bridge('uibutton', $.ui.button);
 
     /**CHART bar and line*/
-   $.ajax({
+   @*$.ajax({
     url: '@Url.Action("chartJS","Home")',
     type: 'POST', // Phương thức HTTP
     dataType: 'json', // Kiểu dữ liệu trả về
@@ -16,14 +16,14 @@
         console.log(data);
 
         // Tạo mảng chứa các giá trị transaction_no
-        var transactionNos = data.map(function (item) {
-            return item.transaction_amout;
-        });
+        //var transactionNos = data.map(function (item) {
+        //    return item.transaction_amout;
+        //});
 
         // Tạo mảng chứa các nhãn cho biểu đồ
-        var labels = data.map(function (item, index) {
-            return 'Bài viết' + (index + 1);
-        });
+        //var labels = data.map(function (item, index) {
+        //    return 'Bài viết' + (index + 1);
+        //});
 
         // Tính tổng của dữ liệu
         var sum = 0;
@@ -61,7 +61,7 @@
 
     }
 
-   });
+   });*@
 
     function updateChart(year, month) {
         $.ajax({
@@ -172,7 +172,7 @@
     });
 
         /**CHART DONUT*/
-        $.ajax({
+        @*$.ajax({
 
             url: "@Url.Action("ChartData","Home")",
             type: "POST",
@@ -234,10 +234,20 @@
                 // Xử lý lỗi (nếu có)
                 console.log(error);
             },
-        });
+        });*@
 
 
 
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy ngày hiện tại
+        var currentDate = new Date();
+
+        // Định dạng ngày thành chuỗi "YYYY-MM"
+        var formattedDate = currentDate.toISOString().slice(0, 7);
+
+        // Đặt giá trị mặc định cho phần tử input
+        document.getElementById("bdaymonth").defaultValue = formattedDate;
+    });
 
 </script>
 

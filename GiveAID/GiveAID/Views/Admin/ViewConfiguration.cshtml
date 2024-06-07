@@ -112,6 +112,22 @@
             })
         }
     }
+    $(document).ready(function () {
+        // label chosefile for fileBase
+        $("#fileBase").change(function () {
+            var files = this.files;
+            var fileCount = files.length;
+            var filename;
+
+            if (fileCount > 1) {
+                filename = fileCount + " Selected image";
+            } else {
+                filename = files[0].name;
+            }
+
+            $(".filename-contain").text(filename);
+        });
+    });
 </script>
 <style>
     .custom-Button {
@@ -136,6 +152,87 @@
             .custom-Button i:hover {
                 color: hotpink; /* Màu sắc khi hover */
             }
+    
+    hr.new4 {
+        border: 1px solid hotpink;
+    }
+
+    input[type="file"] {
+        visibility: hidden;
+        /*an nut mac dinh di*/
+    }
+
+    .cusFILE {
+        /*custom nut chon file*/
+        padding: 10px 20px;
+        background-color: #f1f1f1;
+        color: #333;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .cusFILE:hover {
+            background-color: hotpink;
+        }
+
+    .filename-contain {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        color: #333333;
+    }
+
+        .filename-contain:hover {
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #ff7f00;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+    /* cho nay la cho nhap so dnt*/
+
+
+
+    .nameEmail{
+        width:350px;
+        height:30px;
+        /*border:none;*/
+       margin-left:5px;
+    }
+    .passEmail{
+        width:170px;
+        margin-left:2px;
+    }
+    .portSMTP {
+        width:50px;
+    }
+
+    @@media (max-width: 768px) {
+
+        .nameEmail {
+            /* Kiểu dáng cho thiết bị di động */
+            width: 100%;
+            height: auto;
+            /* Các kiểu dáng khác tùy ý */
+        }
+
+        .passEmail {
+            /* Kiểu dáng cho thiết bị di động */
+            width: 100%;
+            height: auto;
+            /* Các kiểu dáng khác tùy ý */
+        }
+
+        .portSMTP {
+            /* Kiểu dáng cho thiết bị di động */
+            width: 100%;
+            height: auto;
+            /* Các kiểu dáng khác tùy ý */
+        }
+    }
 </style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -156,60 +253,137 @@
     </div>
     <!-- /.content-header -->
     
-    <!--Load GIF-->
-    <div class="modalLoading"></div>
+    <hr class="new4">
 
     <div class="content">
-        <!-- form start -->
-        <form id="formEditBanner" action="javascript:doEditConfig();" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="fileBase">Banner</label>
-                <div class="" id="imagePartner">
-                    <div class="row">
-                        @foreach (var item in banners)
-                        {    
-                            <div class="col-sm-2">
-                                <input type="hidden" id="idBanner" value="@item.id">
-                                <img src="~/Content/Images/banner/@item.banner_image" style="width:150px; height:150px" alt="Image Banner" />
-                                <button class="custom-Button" type="button" onclick="doDeleteBanner(@item.id)"><i class="fa-solid fa-delete-left"></i></button>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <button class="button-74" type="button" data-toggle="collapse" data-target="#configConTact" aria-expanded="false" aria-controls="configConTact">Contact information</button>
+                <button type="button" class="button-74" data-toggle="modal" data-target="#configEmail">
+                    Email information
+                </button>
+            </div>
+        </div>
+
+        <!--Form config contact-->
+        <div class="collapse multi-collapse" id="configConTact">
+            <!-- form start -->
+            <form id="formEditBanner" action="javascript:doEditConfig();" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <h2 class="mt-2"><label for="fileBase">Banner Slider</label></h2>
+                    <div class="" id="imagePartner">
+                        <div class="row">
+                            @foreach (var item in banners)
+                            {<!-- file img-->
+                                <div class="col-sm-2">
+                                    <input type="hidden" id="idBanner" value="@item.id">
+                                    <img src="~/Content/Images/banner/@item.banner_image" style="width:150px; height:150px" alt="Image Banner" />
+                                    <button class="custom-Button" type="button" onclick="doDeleteBanner(@item.id)"><i class="fa-solid fa-delete-left"></i></button>
+                                </div>
+
+
+                            }
+                            <div class="col-sm-12">
+                                <!-- choose file img-->
+                                <label for="fileBase" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
+                                <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event)">
+                                <div class="filename-contain"></div>
                             </div>
-                            
 
-                        }
+                            <div class="col-sm-12">
+                                <!-- view file img-->
+                                <h2><label for="imagesPreview">Preview</label></h2>
+                                <div class="row">
+                                    <div class="col-sm-12"><div id="imagesPreview"></div></div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-                    
+
                 </div>
-                <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event)">
-                <div id="imagesPreview" style="margin-top: 10px;"></div>
+                <hr class="new4">
+
+                <!--Email and Phone-->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h2><label for="description">Email</label></h2> <!--Email-->
+                            <input type="email" class="form-control" id="email" name="email" value="@ViewBag.SysEmail.value" required>
+                        </div>
+                        <div class="col-sm-5">
+                            <h2><label for="description">Phone</label></h2> <!--Phone-->
+                            <input type="number" class="form-control" id="phone" name="phone" value="@ViewBag.SysPhone.value" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Introduce and Address-->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2><label for="description">Introduce</label></h2><!--Introduce-->
+                            <input type="text" class="form-control" id="introduce" name="introduce" value="@ViewBag.SysIntroduce.value" required>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <h2><label for="description">Address</label></h2><!--Address-->
+                            <input type="text" class="form-control" id="address" name="address" value="@ViewBag.SysAddress.value" required>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- /.card-body -->
+
+                <div class="card-footer text-center">
+                    <button type="submit" id="btnSubmit" class="button-35" value="Save">Save</button>
+                </div>
+            </form>
+        </div>
+        <!--end config contact-->
+        <!-- Modal config email -->
+        <div class="modal fade" id="configEmail" tabindex="-1" role="dialog" aria-labelledby="configEmail" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-info">
+                        <h5 class="modal-title" id="configEmaill">Configure sending mail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Email: </label>
+                                    <input type="email" name="name" value="" class="nameEmail" />
+                                    <div class="row">
+                                        <div class="col-sm-7">
+                                            <label>Password:</label>
+                                            <input type="text" name="name" value="" class="passEmail" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>Smtp port:</label>
+                                            <input type="number" name="name" value="587" class="portSMTP" />
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                              
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save </button>
+                    </div>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="description">Introduce</label>
-                <input type="text" class="form-control" id="introduce" name="introduce" value="@ViewBag.SysIntroduce.value" required>
-            </div>
-
-            <div class="form-group">
-
-                <label for="description">Address</label>
-                <input type="text" class="form-control" id="address" name="address" value="@ViewBag.SysAddress.value" required>
-            </div>
-
-            <div class="form-group">
-                <label for="description">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="@ViewBag.SysEmail.value" required>
-            </div>
-
-            <div class="form-group">
-                <label for="description">Phone</label>
-                <input type="number" class="form-control" id="phone" name="phone" value="@ViewBag.SysPhone.value" required>
-            </div>
-
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-                <button type="submit" id="btnSubmit" class="btn btn-primary" value="Save">Save</button>
-            </div>
-        </form>
+        </div>
+        <!-- end config email -->
     </div>
 
 

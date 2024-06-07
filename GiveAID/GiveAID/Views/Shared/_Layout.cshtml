@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/dist/css/adminlte.min.css")">
     <!--CSS custome cua em-->
     <link rel="stylesheet" href="@Url.Content("~/Content/custom/customeCSS.css")">
+    <!--CSS custome cua em-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/custom/button.css")">
     <!-- summernote -->
     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/summernote/summernote-bs4.min.css")">
     <!-- Toastr -->
@@ -102,22 +104,21 @@
                             <a href="@Url.RouteUrl("ViewHome")" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("DonationP","Home")" class="nav-link">Donate</a>
+                            <a href="@Url.Action("DonationP","Home")" class="nav-link">Our project</a>
                         </li>
 
                         <li class="nav-item ">
-                            <a href="@Url.Action("Partner","Home")" class="nav-link">Partner</a>
+                            <a href="@Url.Action("helpCenter","Home")" class="nav-link">Help Center</a>
+                        </li>
+
+                        <li class="nav-item ">
+                            <a href="@Url.Action("Partner","Home")" class="nav-link">Partners</a>
                         </li>
 
                         <li class="nav-item ">
                             <a href="@Url.Action("About","Home")" class="nav-link">About Us</a>
                         </li>
                     </ul>
-
-
-
-
-
 
                     <!-- Right navbar links -->
                     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
@@ -147,11 +148,10 @@
                                     <div class="dropdown-divider"></div>
                                     <a href="@Url.Action("ChangePass", "Login")" class="dropdown-item">
                                         <i class="fa-solid fa-key mr-2"></i> Change Password
-
                                     </a>
-                                    <div class="dropdown-divider"></div>
+                                    
                                     @if (user.permission == "admin")
-                                    {
+                                    {   <div class="dropdown-divider"></div>
                                         <a href="@Url.Action("Index", "Admin")" class="dropdown-item">
                                             <i class="fa-solid fa-users-gear mr-2"></i> Admin system
                                         </a>
