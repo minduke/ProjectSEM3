@@ -23,15 +23,7 @@
             url:'@Url.Action("EditUser", "Home")',
             success: function (response) {
                 if (response.result == true) {
-                    showSuccessMessage("Cập nhật thông tin thành công");
-
-                    $('#profileImage').attr('src', '@Url.Content("~/Content/Images/user/")' + response.data.image);
-                    $('#profileName').text(response.data.fullname);
-                    $('#profilePhone').text(response.data.phone);
-                    $('#profileEmail').text(response.data.email);
-                    $('#profileAddress').text(response.data.address);
-
-                    $('.collapse').css({ 'display': 'none' });
+                    location.reload();
                 }
                 else {
                     showErrorMessage(response.error);
@@ -169,21 +161,12 @@
                                 <span class="text">Edit information</span>
                             </button>
 
-                            <!--<button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#DONATE" aria-expanded="false" aria-controls="collapseExample">
-        Lịch sử Donate
-    </button>-->
-                            <!-- /.Sua thong tin -->
-                            <!--<button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="editBtn">
-        Sửa thông tin
-    </button>-->
-
                             <div class="collapse" id="collapseExample">
                                 <div class="card card-body">
                                     <form action="javascript:EditUser();" method="post" id="formEditUser">
                                         <h3 class="profile-username text-center"><input type="text" name="fullname" style="text-align:center" value="@infor.fullname" /></h3>
 
                                         <label for="thumbnail" class="cusFILE"><i class="fa-solid fa-upload mr-1"></i>Choose your avatar</label>
-                                        @*<div class="filename-container">Enter a filename...</div>*@
                                         <input type="file" class="form-control" id="thumbnail" name="thumbnail" onchange="previewThumbnail(event)">
                                         <div id="thumb"></div>
 

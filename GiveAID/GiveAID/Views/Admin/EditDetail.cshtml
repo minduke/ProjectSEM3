@@ -166,14 +166,14 @@
         var idPost = document.getElementById('id');
 
         function deleteThumb(idPost) {
-            if (confirm("Bạn có chắc muốn xoá ảnh này không ?!")) {
+            if (confirm("Are you sure wanna delete this photo?!")) {
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("DeleteThumb", "Admin")',
                     data: { id: idPost },
                     success: function (response) {
                         if (response.result == true) {
-                            showSuccessMessage("Xoá ảnh nền thành công");
+                            showSuccessMessage("Completed");
                             document.getElementById('imageId').remove();
                         } else {
                             showErrorMessage(response.error);
@@ -186,14 +186,14 @@
 
 
         function deleteImage(imageId) {
-            if (confirm("Bạn có chắc muốn xoá ảnh này không ?!")) {
+            if (confirm("Are you sure wanna delete this photo?!")) {
                 $.ajax({
                     url: '@Url.Action("DeleteImage", "Admin")',
                     type: 'POST',
                     data: { id: imageId },
                     success: function (response) {
                         if (response.result) {
-                            showSuccessMessage("Xoá ảnh thành công");
+                            showSuccessMessage("Completed");
                             document.querySelector(`button[onclick="deleteImage(${imageId})"]`).parentElement.remove();
                         } else {
                             showErrorMessage(response.error);

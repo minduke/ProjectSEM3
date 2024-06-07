@@ -46,7 +46,7 @@
                 container.append(input);
             }
             else {
-                alert("Bạn chỉ được gửi tối đa cho 5 người");
+                alert("You can only invite a maximum of 5 people");
             }
         });
     });
@@ -112,7 +112,7 @@
             success: function (response) {
                 if (response.result == true) {
                     $(".spinner-overlay").hide();
-                    showSuccessMessage("Chia sẻ thành công");
+                    showSuccessMessage("Sharing success");
                 } else {
                     open("@Url.Content("~/Login")", "_self");
                 }

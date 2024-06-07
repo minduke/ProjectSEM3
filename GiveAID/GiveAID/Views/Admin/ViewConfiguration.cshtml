@@ -94,14 +94,14 @@
     var idBanner = document.getElementById('idBanner');
 
     function doDeleteBanner(idBanner) {
-        if (confirm("Bạn có chắc chắn xoá ảnh ?!")) {
+        if (confirm("Are you sure wanna delete this photo?!")) {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("DeleteBanner", "Admin")',
                 data: { id: idBanner },
                 success: function (response) {
                     if (response.result == true) {
-                        showSuccessMessage("Xoá ảnh thành công");
+                        showSuccessMessage("Completed");
                         //document.getElementById('imagePartner').remove();
                     }
                     else {
