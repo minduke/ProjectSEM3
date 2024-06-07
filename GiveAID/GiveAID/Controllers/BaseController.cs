@@ -146,8 +146,8 @@ namespace GiveAID.Controllers
 
         public void SendMailInvite(string[] toAddress, string currentUrl, string titlePost)
         {
-            string fromAddress = "give.aid.vip@gmail.com";
-            string password = "ikfjwgjvwsupfilu";
+            string fromAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_ADDRESS").value.ToString();
+            string password = DecryptDES(en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PASS").value, SecretKey);
 
             string templatePath = Server.MapPath("~/Content/template_email/invite_email.html");
             string emailBody = System.IO.File.ReadAllText(templatePath);
@@ -168,7 +168,7 @@ namespace GiveAID.Controllers
                 mail.Body = emailBody;
                 mail.IsBodyHtml = true;
 
-                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", Convert.ToInt32(en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PORT").value.ToString()) ))
                 {
                     smtp.EnableSsl = true;
                     smtp.Credentials = new NetworkCredential(fromAddress, password);
@@ -182,6 +182,19 @@ namespace GiveAID.Controllers
 
                     }
                 }
+            }
+        }
+
+        public bool IsValidEmail(string email)
+        {
+            try
+            {
+                var mail = new MailAddress(email);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
             }
         }
     }

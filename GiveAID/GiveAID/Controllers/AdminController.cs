@@ -460,6 +460,9 @@ namespace GiveAID.Controllers
                 ViewBag.SysEmail = en.configurations.FirstOrDefault(x => x.keyword == "SYS_EMAIL");
                 ViewBag.SysPhone = en.configurations.FirstOrDefault(x => x.keyword == "SYS_PHONE");
                 ViewBag.SysIntroduce = en.configurations.FirstOrDefault(x => x.keyword == "SYS_INTRODUCE");
+                ViewBag.SysMailAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_ADDRESS");
+                ViewBag.SysMailPass = DecryptDES(en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PASS").value, SecretKey);
+                ViewBag.SysMailPort = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PORT");
                 ViewBag.banner = en.banners.ToList();
                 return View();
             }
@@ -585,6 +588,62 @@ namespace GiveAID.Controllers
                         en.banners.Add(imagePost);
                     }
                 }
+
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public class ModelMailCofig
+        {
+            public string MailAddress { get; set; }
+            public string MailPass { get; set; }
+            public string MailPort { get; set; }
+        }
+
+        public JsonResult EditMailConfig(ModelMailCofig model)
+        {
+            try
+            {
+                if (model.MailAddress == null || model.MailPass == null || model.MailPort == null)
+                    throw new Exception("Please fill in all fields");
+
+                var SysMailAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_ADDRESS");
+                if (SysMailAddress == null)
+                {
+                    SysMailAddress = new configuration()
+                    {
+                        keyword = "SYS_MAIL_ADDRESS"
+                    };
+                    en.configurations.Add(SysMailAddress);
+                }
+                SysMailAddress.value = model.MailAddress;
+
+                var SysMailPass = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PASS");
+                if (SysMailPass == null)
+                {
+                    SysMailPass = new configuration()
+                    {
+                        keyword = "SYS_MAIL_PASS"
+                    };
+                    en.configurations.Add(SysMailPass);
+                }
+                SysMailPass.value = EncryptDES(model.MailPass, SecretKey);
+
+                var SysMailPort = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PORT");
+                if (SysMailPort == null)
+                {
+                    SysMailPort = new configuration()
+                    {
+                        keyword = "SYS_MAIL_PORT"
+                    };
+                    en.configurations.Add(SysMailPort);
+                }
+                SysMailPort.value = model.MailPort;
 
                 en.SaveChanges();
                 return Json(new { result = true });
