@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -212,6 +213,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\custom\404.css" />
     <Content Include="Content\custom\button.css" />
     <Content Include="Content\custom\customeCSS.css" />
     <Content Include="Content\custom\customJS.js" />
@@ -286,6 +288,7 @@
     <Content Include="Content\Images\donation.png" />
     <Content Include="Content\Images\Duke.png" />
     <Content Include="Content\Images\Duke2.png" />
+    <Content Include="Content\Images\emoji.png" />
     <Content Include="Content\Images\facebook.png" />
     <Content Include="Content\Images\favicon\favicon.ico" />
     <Content Include="Content\Images\giveaidLOGO.png" />
@@ -4861,6 +4864,8 @@
     <Content Include="Views\Home\_FilterView.cshtml" />
     <Content Include="Views\Home\Partner.cshtml" />
     <Content Include="Views\Home\helpCenter.cshtml" />
+    <Content Include="Views\Error\Error503.cshtml" />
+    <Content Include="Views\Error\Error404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

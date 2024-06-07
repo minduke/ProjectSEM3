@@ -32,19 +32,41 @@ namespace GiveAID.Controllers
 
         }
 
-        public ActionResult CreateNews()
+        public ActionResult CreateNews(int page = 1, int pagesize = 10)
         {
             if (CheckLogin())
             {
+                var toTalPage = en.posts.Count();
                 var user = Session["USER"] as user;
                 if (user.permission == "admin")
                 {
-                    ViewBag.post = en.posts.OrderByDescending(x => x.id).ToList();
+                    ViewBag.post = en.posts.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
+                .Take(pagesize).ToList();
+                    ViewBag.CurrentPage = page;
+                    ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)toTalPage / pagesize);
                     return View();
                 }
             }
             return RedirectToAction("Index", "Login");
         }
+
+
+        public ActionResult NewPartner(int page = 1, int pagesize = 5)
+        {
+            if (!CheckLogin())
+                return RedirectToAction("Index", "Login");
+            var toTalPage = en.partners.Count();
+            var user = Session["USER"] as user;
+            if (user.permission != "admin")
+                return RedirectToAction("Index", "Login");
+
+            ViewBag.partner = en.partners.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
+                .Take(pagesize).ToList();
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)toTalPage / pagesize);
+            return View();
+        }
+
 
         public ActionResult EditDetail(int? id = null)
         {
@@ -373,18 +395,7 @@ namespace GiveAID.Controllers
             }
         }
 
-        public ActionResult NewPartner()
-        {
-            if (!CheckLogin())
-                return RedirectToAction("Index", "Login");
-
-            var user = Session["USER"] as user;
-            if (user.permission != "admin")
-                return RedirectToAction("Index", "Login");
-
-            ViewBag.partner = en.partners.ToList();
-            return View();
-        }
+   
 
         public JsonResult ChangeStatusPartner(int id)
         {
