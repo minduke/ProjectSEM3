@@ -99,7 +99,9 @@
         setTimeout(function () {
             $(".spinner-overlay").hide();
         }, 4000); // Đặt thời gian chạy là 3 giây (3000 milliseconds)
+
         $(".spinner-overlay").show();
+
         $.ajax({
             type: 'POST',
             data: {
@@ -118,7 +120,7 @@
                 }
             },
             error: handleException
-        })
+        });
     }
 
 
@@ -132,7 +134,7 @@
     $(document).ready(function () {
         $('#ReceiverEmail').inputTags();
     });
-    
+
 </script>
 
 <style>
@@ -441,6 +443,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            }
+                                            else if (posts.status == "Đóng")
+                                            {
+                                                <h5>Donation Ended</h5>
                                             }
                                             else
                                             {

@@ -57,7 +57,7 @@ namespace GiveAID.Controllers
                     ViewBag.EditPost = post == null ? new post() : post;
                     ViewBag.IsEditPost = post != null;
                     ViewBag.cate = en.categories.ToList();
-                    ViewBag.partner = en.partners.ToList();
+                    ViewBag.partner = en.partners.Where(x => x.partner_status == "Mở").ToList();
                     return View();
                 }
             }
@@ -479,7 +479,7 @@ namespace GiveAID.Controllers
 
                 en.banners.Remove(banner);
                 en.SaveChanges();
-                return Json(new {result = true });
+                return Json(new { result = true });
             }
             catch
             {
@@ -490,7 +490,7 @@ namespace GiveAID.Controllers
         public class ModelConfig
         {
             public string phone { get; set; }
-            public string address {  get; set; }
+            public string address { get; set; }
             public string email { get; set; }
             public string introduce { get; set; }
         }
@@ -518,7 +518,7 @@ namespace GiveAID.Controllers
                 SysPhone.value = model.phone;
 
                 var SysAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_ADDRESS");
-                if(SysAddress == null)
+                if (SysAddress == null)
                 {
                     SysAddress = new configuration()
                     {
