@@ -212,6 +212,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\custom\button.css" />
     <Content Include="Content\custom\customeCSS.css" />
     <Content Include="Content\custom\customJS.js" />
     <Content Include="Content\dist\css\adminlte.css" />
@@ -288,6 +289,12 @@
     <Content Include="Content\Images\facebook.png" />
     <Content Include="Content\Images\favicon\favicon.ico" />
     <Content Include="Content\Images\giveaidLOGO.png" />
+    <Content Include="Content\Images\help_Animal.png" />
+    <Content Include="Content\Images\help_Baby.png" />
+    <Content Include="Content\Images\help_Elderly.png" />
+    <Content Include="Content\Images\help_SOS.png" />
+    <Content Include="Content\Images\help_Student.png" />
+    <Content Include="Content\Images\help_Woman.png" />
     <Content Include="Content\Images\LogoGive.png" />
     <Content Include="Content\Images\LogoGive2.png" />
     <Content Include="Content\Images\partner\638518486494533479_2023-06-13.png" />
@@ -4834,7 +4841,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
@@ -4850,11 +4856,11 @@
     <Content Include="Views\Admin\EditPartner.cshtml" />
     <Content Include="Views\Admin\EditDetail.cshtml" />
     <Content Include="Views\Home\DonationP.cshtml" />
-    <Content Include="Views\Home\TestView.cshtml" />
     <Content Include="Views\Admin\ViewConfiguration.cshtml" />
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Home\_FilterView.cshtml" />
     <Content Include="Views\Home\Partner.cshtml" />
+    <Content Include="Views\Home\helpCenter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

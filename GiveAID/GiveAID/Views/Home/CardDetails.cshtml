@@ -266,15 +266,7 @@
     /*thong tin cua card table*/
 
 
-    .cover-Title {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        margin-top: 10px;
-        color: chartreuse;
-    }
-
+  
     /*end*/
 
     /* anh detail  */
@@ -300,6 +292,36 @@
         color: #d200f5 !important;
         text-align: center;
     }
+
+    /* button 74 */
+    .button-74 {
+        background-color: #fbeee0;
+        border: 2px solid #422800;
+        border-radius: 30px;
+        box-shadow: #422800 4px 4px 0 0;
+        color: #422800;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 600;
+        font-size: 18px;
+        padding: 0 18px;
+        line-height: 50px;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+        .button-74:hover {
+            background-color: #fff;
+        }
+
+        .button-74:active {
+            box-shadow: #422800 2px 2px 0 0;
+            transform: translate(2px, 2px);
+        }
+
 </style>
 
 
@@ -466,22 +488,7 @@
                                 </div>
                             </div>
 
-                            <div class="table-responsive-sm mt-3">
-                                <div class="card-body COVER-card">
-                                    <table class="table table-striped table-bordered table-success">
-                                        <tbody>
-                                            @foreach (var item in donater)
-                                            {
-                                                <tr>
-                                                    <td>@item.user.fullname</td>
-                                                    <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
-                                                    <td>@item.transaction_date</td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+
 
                             <hr class="mt-5">
                             <!-- Modal shareMail -->
@@ -490,10 +497,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLongTitle">Enter recipient email</h5>
-                                            <button class="btn btn-success ml-2" id="addBtn"
-                                                    data-toggle="tooltip" data-placement="top" title="Click to add recipients">
-                                                <i class="fa-solid fa-user-plus" style="color: #0ff5b0;"></i> Add recipient
-                                            </button>
+
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                                                     data-toggle="tooltip" data-placement="right" title="Close Share">
                                                 <span aria-hidden="true">&times;</span>
@@ -524,7 +528,10 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-
+                                            <button class="btn btn-info mb-3" id="addBtn"
+                                                    data-toggle="tooltip" data-placement="top" title="Click to add recipients">
+                                                <i class="fa-solid fa-user-plus" style="color: #0ff5b0;"></i> Add recipient
+                                            </button>
                                             <button class="btn btn-success mb-3" type="button" onclick="SharePost()"
                                                     data-toggle="tooltip" data-placement="bottom" title="Click to share">
                                                 <i class="fa-solid fa-bullhorn mr-1" style="color: #e0f000;"></i>Share posts
@@ -569,55 +576,55 @@
 
                         </div>
 
-                    </div>
-                    <div class="row mt-4">
-                        <nav class="w-100">
-                            <!--cho nay nut nhan-->
-                            <div class="nav nav-tabs" id="product-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Content</a>
-                                <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">Donation list</a>
-                            </div>
-                        </nav>
-                        <!--noi dung chi tiet-->
-                        <div class="tab-content p-3 " id="nav-tabContent">
-                            <div class="tab-pane fade show active" width="fit-content" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-                                <div class="row">
-                                    <!--Content CK build-->
-                                    <div class="col-sm-12 contentCK">@Html.Raw(posts.content)</div>
+                        <div class="col-sm-12 mt-4">
+                            <nav class="w-100">
+                                <!--cho nay nut nhan-->
+                                <div class="nav nav-tabs" id="product-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Content</a>
+                                    <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">Donation list</a>
                                 </div>
-                            </div>
-                            <!--noi dung danh sach nguoi ung ho-->
-                            <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
-                                <div class="table-responsive">
-                                    <h3 class="cover-Title">List of supporters</h3>
-                                    <div class="card-body COVER-card">
-                                        <table class="table table-striped table-bordered ">
-                                            <thead>
-                                                <tr>
-                                                    <th>Name of supporter</th>
-                                                    <th>Amount of money</th>
-                                                    <th>Date and time</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in donater)
-                                                {
-                                                    <tr>
-                                                        <td>@item.user.fullname</td>
-                                                        <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
-                                                        <td>@item.transaction_date</td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
+                            </nav>
+                            <!--noi dung chi tiet-->
+                            <div class="tab-content p-3 " id="nav-tabContent">
+                                <div class="tab-pane fade show active" width="fit-content" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+                                    <div class="row">
+                                        <!--Content CK build-->
+                                        <div class="col-sm-12 contentCK">@Html.Raw(posts.content)</div>
                                     </div>
                                 </div>
+                                <!--noi dung danh sach nguoi ung ho-->
+                                <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+                                    <div class="row">
+                                        <div class="col-sm-12 table-responsive">
+                                            <table class="table table-striped table-bordered table-success">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name of supporter</th>
+                                                        <th>Amount of money</th>
+                                                        <th>Date and time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in donater)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.user.fullname</td>
+                                                            <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
+                                                            <td>@item.transaction_date</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 
+                                </div>
 
                             </div>
-
                         </div>
                     </div>
+
+                   
                     <!-- /.card-body -->
                 </div>
 

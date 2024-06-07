@@ -1,0 +1,232 @@
+﻿
+@{
+    ViewBag.Title = "helpCenter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .text-ellipsis {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 200px; /* Định nghĩa kích thước cố định của nội dung */
+    }
+</style>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Help Center</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Home</a></li>
+                        <li class="breadcrumb-item active">Help Center</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!--Content-->
+    <div class="content">
+        <div class="card card-solid">
+            <div class="card-body pb-0">
+                <div class="row">
+                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                            <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                   Help Center
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="lead"><b>Children's help center</b></h2>
+                                            <p class="text-muted text-sm "><b>Description: The support center helps children with illnesses. If you need help with children, this is a center that can be of great help.</b></p>
+                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: 38 Tú Xương, Phường Võ Thị Sáu, Quận 3. </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone: 028 6679 0552 </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span>Email: phattrienquy.trekhuyettat@gmail.com </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-5 text-center">
+                                            <img src="@Url.Content("~/Content/Images/help_Baby.png")" style="width:173px; height:173px;" alt="user-avatar" class="img-circle img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="text-right">
+                                        <a href="https://trekhuyettat.com/" class="btn btn-sm btn-info">
+                                            <i class="fa-solid fa-eye mr-1"></i> See more
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                            <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                    Help Center
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="lead"><b>Women's help center</b></h2>
+                                            <p class="text-muted text-sm "><b>Description: Here they specialize in helping women and developing women.</b></p>
+                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: 20 Thụy Khuê, Tây Hồ, Hà Nội, Việt Nam. </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone: 02437280280 </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span>Email: cwd@cwd.vn </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-5 text-center">
+                                            <img src="@Url.Content("~/Content/Images/help_Woman.png")" style="width:173px; height:173px;" alt="user-avatar" class="img-circle img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="text-right">
+                                        <a href="https://cwd.vn/" class="btn btn-sm btn-info">
+                                            <i class="fa-solid fa-eye mr-1"></i> See more
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                            <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                    Help Center
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="lead"><b>Animal sponsorship</b></h2>
+                                            <p class="text-muted text-sm "><b>Description: Our goal is to return all wild animals to their home – the natural forest.</b></p>
+                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Cuc Phuong, Nho Quan, Ninh Binh. </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone: 0978 331 441 </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span>Email: info@svw.vn </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-5 text-center">
+                                            <img src="@Url.Content("~/Content/Images/help_Animal.png")" style="width:173px; height:173px;" alt="user-avatar" class="img-circle img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="text-right">
+                                        <a href="https://svw.vn/vi/" class="btn btn-sm btn-info">
+                                            <i class="fa-solid fa-eye mr-1"></i> See more
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                            <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                    Help Center
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="lead"><b>Center for Natural Disaster Prevention</b></h2>
+                                            <p class="text-muted text-sm "><b>Description: The center helps connect, support state management, support localities, businesses, communities and coordinate with partners to minimize damage to people and property.</b></p>
+                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: 54 ngõ 102 Trường Chinh – Đống Đa – Hà Nội. </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone: +84-436291511 </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span>Email: trungtamcsktpctt@gmail.com </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-5 text-center">
+                                            <img src="@Url.Content("~/Content/Images/help_SOS.png")" style="width:173px; height:173px;" alt="user-avatar" class="img-circle img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="text-right">
+                                        <a href="http://www.dmc.gov.vn/gioi-thieu-pt32.html?lang=vi-VN" class="btn btn-sm btn-info">
+                                            <i class="fa-solid fa-eye mr-1"></i> See more
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                            <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                    Help Center
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="lead"><b>Student support AND development center</b></h2>
+                                            <p class="text-muted text-sm "><b>Description: Carry out consulting, accompanying and supporting tasks for Vietnamese students in all aspects of learning, training and life.</b></p>
+                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: 64 Bà Triệu, Hoàn Kiếm, Hà Nội. </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone: 024 6263 1832 </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span>Email: vanphong@vsds.vn </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-5 text-center">
+                                            <img src="@Url.Content("~/Content/Images/help_Student.png")" style="width:173px; height:173px;" alt="user-avatar" class="img-circle img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="text-right">
+                                        <a href="https://vsds.vn/" class="btn btn-sm btn-info">
+                                            <i class="fa-solid fa-eye mr-1"></i> See more
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                            <div class="card bg-light d-flex flex-fill">
+                                <div class="card-header text-muted border-bottom-0">
+                                    Help Center
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h2 class="lead"><b>Help center for the elderly</b></h2>
+                                            <p class="text-muted text-sm "><b>Description: Our goal is to join hands in socializing the care of the elderly, helping to create a civilized, modern environment that supports the independence of the elderly.</b></p>
+                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Trịnh Văn Bô, Nam Từ Liêm, Hà Nội </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone: 0797 818 828 </li>
+                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span>Email: info@lotuscare.vnn </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-5 text-center">
+                                            <img src="@Url.Content("~/Content/Images/help_Elderly.png")" style="width:173px; height:173px;" alt="user-avatar" class="img-circle img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="text-right">
+                                        <a href="https://lotuscare.vn/" class="btn btn-sm btn-info">
+                                            <i class="fa-solid fa-eye mr-1"></i> See more
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
