@@ -70,6 +70,13 @@
             data: { year: year, month: month },
             dataType: 'json',
             success: function (response) {
+
+                $('#postCount').text(response.postCount);
+                $('#runningCount').text(response.runningCount);
+                $('#completeCount').text(response.completeCount);
+                $('#sumTarget').text(response.sumTarget.toLocaleString() + " VND");
+                $('#sumAmout').text(response.sumAmout.toLocaleString() + " VND");
+
                 var transactionNos = response.payments.map(function (item) {
                     return item.transaction_amout;
                 });
@@ -95,6 +102,54 @@
                             y: {
                                 min: 0,
                                 max: 100000000
+                            }
+                        }
+                    }
+                });
+
+                var labelss = response.cate.map(function (item) {
+                    return item.name;
+                });
+
+                var countss = response.cate.map(function (item) {
+                    return item.count;
+                });
+
+                var ctx3 = document.getElementById("myChart3");
+                var myChart = new Chart(ctx3, {
+                    type: "doughnut",
+                    data: {
+                        labels: labelss,
+                        datasets: [
+                            {
+                                label: "Tổng số bài",
+                                data: countss,
+                                backgroundColor: [
+                                    "rgb(255, 87, 87",
+                                    "rgb(255, 219, 15)",
+                                    "rgb(87, 250, 0)",
+                                    "rgb(0, 118, 250)",
+                                    "rgb(166, 1, 255)",
+                                    // Thêm các màu khác nếu cần
+                                ],
+                                borderColor: [
+                                    "rgb(255, 87, 87",
+                                    "rgb(255, 219, 15)",
+                                    "rgb(87, 250, 0)",
+                                    "rgb(0, 118, 250)",
+                                    "rgb(166, 1, 255)",
+                                    // Thêm các màu khác nếu cần
+                                ],
+                                borderWidth: 1,
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        cutout: "70%", // Điều chỉnh kích thước lỗ giữa để tạo hình dạng donut
+                        plugins: {
+                            legend: {
+                                position: "right"
                             }
                         }
                     }
@@ -219,7 +274,7 @@
                         <div class="inner">
                             <h4>Tổng số dự án</h4>
 
-                            <p>@ViewBag.postCount</p>
+                            <p id="postCount">@ViewBag.postCount</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
@@ -234,7 +289,7 @@
                         <div class="inner">
                             <h4>Số dự án đang thực hiện<sup style="font-size: 20px"></sup></h4>
 
-                            <p>@ViewBag.runningCount</p>
+                            <p id="runningCount">@ViewBag.runningCount</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
@@ -249,7 +304,7 @@
                         <div class="inner">
                             <h4>Số dự án đã hoàn thành</h4>
 
-                            <p>@ViewBag.completeCount</p>
+                            <p id="completeCount">@ViewBag.completeCount</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
@@ -264,7 +319,7 @@
                         <div class="inner">
                             <h4>Tổng tiền dự kiến</h4>
 
-                            <p>@Convert.ToInt64(ViewBag.sumTarget).ToString("N0") VND</p>
+                            <p id="sumTarget">@Convert.ToInt64(ViewBag.sumTarget).ToString("N0") VND</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
@@ -279,7 +334,7 @@
                         <div class="inner">
                             <h4>Tổng tiền đã thu</h4>
 
-                            <p>@Convert.ToInt64(ViewBag.sumAmout).ToString("N0") VND</p>
+                            <p id="sumAmout">@Convert.ToInt64(ViewBag.sumAmout).ToString("N0") VND</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
