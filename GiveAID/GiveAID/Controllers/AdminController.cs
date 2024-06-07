@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Web;
 using System.Web.Mvc;
 
@@ -32,7 +33,7 @@ namespace GiveAID.Controllers
 
         }
 
-        public ActionResult CreateNews(int page = 1, int pagesize = 10)
+        public ActionResult CreateNews(string search, string sortColumn, string sortOrder, int page = 1, int pagesize = 10)
         {
             if (CheckLogin())
             {
@@ -40,10 +41,40 @@ namespace GiveAID.Controllers
                 var user = Session["USER"] as user;
                 if (user.permission == "admin")
                 {
-                    ViewBag.post = en.posts.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
-                .Take(pagesize).ToList();
+                    var postQuery = en.posts.AsQueryable();
+
+                    if (!string.IsNullOrEmpty(search))
+                    {
+                        postQuery = postQuery.Where(x => x.title.Contains(search));
+                    }
+
+                    switch (sortColumn)
+                    {
+                        case "title":
+                            postQuery = sortOrder == "asc" ? postQuery.OrderBy(x => x.title) : postQuery.OrderByDescending(x => x.title);
+                            break;
+                        case "target":
+                            postQuery = sortOrder == "asc" ? postQuery.OrderBy(x => x.target) : postQuery.OrderByDescending(x => x.target);
+                            break;
+                        case "donated":
+                            postQuery = sortOrder == "asc" ?
+                                postQuery.OrderBy(x => x.payments.Where(p => p.pay_status == "Thành công").Sum(p => p.transaction_amout) ?? 0) :
+                                postQuery.OrderByDescending(x => x.payments.Where(p => p.pay_status == "Thành công").Sum(p => p.transaction_amout) ?? 0);
+                            break;
+                        default:
+                            postQuery = postQuery.OrderByDescending(x => x.id);
+                            break;
+                    }
+
+                    var post = postQuery.Skip((page - 1) * pagesize).Take(pagesize).ToList();
+
+                    ViewBag.post = post;
                     ViewBag.CurrentPage = page;
                     ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)toTalPage / pagesize);
+                    ViewBag.search = search;
+                    ViewBag.sortColumn = sortColumn;
+                    ViewBag.sortOrder = sortOrder;
+
                     return View();
                 }
             }
@@ -395,7 +426,7 @@ namespace GiveAID.Controllers
             }
         }
 
-   
+
 
         public JsonResult ChangeStatusPartner(int id)
         {

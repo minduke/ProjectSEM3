@@ -57,6 +57,9 @@ namespace GiveAID.Controllers
 
                 if (CheckExists == null)
                 {
+                    if (user.password.Length < 8)
+                        throw new Exception("Password at least 8 characters");
+
                     if (pass2 != user.password)
                         throw new Exception("Please check your password again");
                     string pass = EncryptDES(user.password, SecretKey);

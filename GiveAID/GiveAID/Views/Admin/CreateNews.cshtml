@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "CreateNews";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-   
+
 
     List<GiveAID.Models.entities.post> posts = new List<GiveAID.Models.entities.post>();
     if (ViewBag.post != null)
@@ -110,9 +110,15 @@
                         <h3>List of posts</h3>
                     </div>
 
-                    <div class="col-sm-12">
+                    <div class="col-sm-9">
                         <a class="btn btn-success" href="@Url.Content("~/Admin/EditDetail/")"><i class="fa-solid fa-plus mr-1"></i>Add</a>
 
+                    </div>
+                    <div class="col-sm-3">
+                        @using (Html.BeginForm("CreateNews", "Admin", FormMethod.Get))
+                        {
+                            <input type="text" name="search" value="@ViewBag.search" />
+                        }
                     </div>
                     <div class="col-sm-12">
                         <div class="table-responsive-sm">
@@ -123,8 +129,21 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Background</th>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Target</th>
-                                        <th scope="col">Donated</th>
+                                        <th scope="col">
+                                            Target
+                                            <a href="@Url.Action("CreateNews", new {search = ViewBag.search, sortColumn = "target", sortOrder = ViewBag.sortOrder == "asc" &&               ViewBag.sortColumn == "target" ? "desc" : "asc"})">
+                                                <i class="fa fa-sort @(ViewBag.sortColumn == "target" ? (ViewBag.sortOrder == "asc" ? "fa-sort-up" : "fa-sort-down") : "fa-sort")">
+                                                </i>
+                                            </a>
+                                        </th>
+                                        <th scope="col">
+                                            Donated
+                                            <a href="@Url.Action("CreateNews", new {search = ViewBag.search, sortColumn = "donated", sortOrder = ViewBag.sortOrder == "asc" &&
+                                                    ViewBag.sortColumn == "donated" ? "desc" : "asc"})">
+                                                <i class="fa fa-sort @(ViewBag.sortColumn == "donated" ? (ViewBag.sortOrder == "asc" ? "fa-sort-up" : "fa-sort-down") : "fa-sort")">
+                                                </i>
+                                            </a>
+                                        </th>
                                         <th scope="col">End date</th>
                                         <th scope="col">Edit</th>
                                         <th scope="col">Status<!--Nut check-box--></th>
@@ -155,9 +174,9 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        
-                                          
-                                        
+
+
+
                                     }
                                 </tbody>
                             </table>
