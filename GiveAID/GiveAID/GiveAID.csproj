@@ -3593,6 +3593,8 @@
     <Content Include="Content\plugins\ion-rangeslider\css\ion.rangeSlider.min.css" />
     <Content Include="Content\plugins\ion-rangeslider\js\ion.rangeSlider.js" />
     <Content Include="Content\plugins\ion-rangeslider\js\ion.rangeSlider.min.js" />
+    <Content Include="Content\plugins\jquery-inputTags\inputTags.jquery.min.js" />
+    <Content Include="Content\plugins\jquery-inputTags\inputTags.min.css" />
     <Content Include="Content\plugins\jquery-knob\jquery.knob.min.js" />
     <Content Include="Content\plugins\jquery-mapael\jquery.mapael.js" />
     <Content Include="Content\plugins\jquery-mapael\jquery.mapael.min.js" />
