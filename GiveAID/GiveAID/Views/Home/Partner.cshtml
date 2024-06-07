@@ -80,7 +80,7 @@
                             <div class="modal-dialog modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Detailed description</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -101,7 +101,7 @@
                             @if (ViewBag.CurrentPage > 1)
                             {
                                 <li class="page-item">
-                                    <a class="page-link" href="@Url.Action("Partner", new { page = ViewBag.CurrentPage - 1, pagesize = 6 })" aria-label="Previous">
+                                    <a class="page-link" href="@Url.RouteUrl("PagedPartner", new { page = ViewBag.CurrentPage - 1, pagesize = 6 })" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -111,7 +111,7 @@
                             @for (int i = 1; i <= ViewBag.TotalPagesRunning; i++)
                             {
                                 <li class="page-item">
-                                    <a class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" href="@Url.Action("Partner", new { page = i, pagesize = 6 })">@i</a>
+                                    <a class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" href="@Url.RouteUrl("PagedPartner", new { page = i, pagesize = 6 })">@i</a>
                                 </li>
                             }
 
@@ -121,7 +121,7 @@
 
 
                                 <li class="page-item">
-                                    <a class="page-link" href="@Url.Action("Partner", new { page = ViewBag.CurrentPage + 1, pagesize = 6 })" aria-label="Next">
+                                    <a class="page-link" href="@Url.RouteUrl("PagedPartner", new { page = ViewBag.CurrentPage + 1, pagesize = 6 })" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
