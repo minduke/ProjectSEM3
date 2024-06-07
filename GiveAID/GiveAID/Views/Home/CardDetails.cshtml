@@ -85,13 +85,13 @@
     }
 
     function SharePost() {
-      
+
         var receiverEmails = [];
 
         $('.receiver-email').each(function () {
             receiverEmails.push($(this).val());
         })
-        
+
         var linkPost = $('#currentUrl').val();
         //var receiverEmail = $('#ReceiverEmail').val();
         var titlePost = $('#titlePost').val();
@@ -128,6 +128,11 @@
             $("#transaction_amout").val(buttonValue);
         });
     });
+
+    $(document).ready(function () {
+        $('#ReceiverEmail').inputTags();
+    });
+    
 </script>
 
 <style>
@@ -149,13 +154,15 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    .spinner i {
-        font-size:100px;
-    }
+
+        .spinner i {
+            font-size: 100px;
+        }
 
     #input-container * {
         margin: 2px;
     }
+
     .logoDetail {
         display: flex;
         align-items: center;
@@ -219,16 +226,18 @@
         background-color: transparent;
         /* Thêm các kiểu dáng khác tùy ý */
     }
-   @@media (max-width: 768px) {
-   .moneyHoney {
-      /* Kiểu dáng cho thiết bị di động */
-      width: 100%;
-      height: auto;
-      /* Các kiểu dáng khác tùy ý */
-   }
-   }
+
+    @@media (max-width: 768px) {
+        .moneyHoney {
+            /* Kiểu dáng cho thiết bị di động */
+            width: 100%;
+            height: auto;
+            /* Các kiểu dáng khác tùy ý */
+        }
+    }
+
     #btnPAY {
-        border-radius:100px;
+        border-radius: 100px;
     }
     /*end*/
 
@@ -291,6 +300,8 @@
     }
 </style>
 
+
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -309,7 +320,7 @@
         </div><!-- /.container-fluid -->
     </div>
 
-  
+
 
     <!-- Main content -->
     <div class="content">
@@ -391,26 +402,26 @@
                                                             <div class="modal-body">
                                                                 <input type="number" class="moneyHoney" placeholder="Enter value" name="transaction_amout" id="transaction_amout" data-toggle="tooltip" data-placement="top" title="Enter the amount you want">
                                                                 <input type="hidden" name="id" id="idPost" value="@posts.id" />
-                                                    
-                                                                        <button class="number-button btn btn-success mx-auto" data-value="10000">
-                                                                            <i class="fa-regular fa-money-bill-1 mr-1"></i>10.000 VND
-                                                                        </button>
-                                                                  
-                                                                   
-                                                                        <button class="number-button btn btn-success mx-auto" data-value="50000">
-                                                                            <i class="fa-regular fa-money-bill-1 mr-1"></i>50.000 VND
-                                                                        </button>
-                                                                  
-                                                                    
-                                                                        <button class="number-button btn btn-success mx-auto" data-value="100000">
-                                                                            <i class="fa-regular fa-money-bill-1 mr-1"></i>100.000 VND
-                                                                        </button>
-                                                                   
-                                                                  
-                                                                        <button class="number-button btn btn-success mx-auto mt-2" data-value="1000000">
-                                                                            <i class="fa-regular fa-money-bill-1 mr-1"></i>1.000.000 VND
-                                                                        </button>
-                                            
+
+                                                                <button class="number-button btn btn-success mx-auto" data-value="10000">
+                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>10.000 VND
+                                                                </button>
+
+
+                                                                <button class="number-button btn btn-success mx-auto" data-value="50000">
+                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>50.000 VND
+                                                                </button>
+
+
+                                                                <button class="number-button btn btn-success mx-auto" data-value="100000">
+                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>100.000 VND
+                                                                </button>
+
+
+                                                                <button class="number-button btn btn-success mx-auto mt-2" data-value="1000000">
+                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>1.000.000 VND
+                                                                </button>
+
                                                             </div>
                                                             <div class="modal-footer">
 
