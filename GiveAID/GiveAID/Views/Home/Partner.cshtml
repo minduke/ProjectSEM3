@@ -67,11 +67,29 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="text-right">
-                                        @*<a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#Description">
-                                    <i class="fas fa-user"></i> Description
-                                </a>*@
+                                        <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#Description-@item.id">
+                                            <i class="fas fa-user"></i> Description
+                                        </a>
                                     </div>
 
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="Description-@item.id" tabindex="-1" aria-labelledby="Description-@item.id" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @item.description
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -112,6 +130,7 @@
                     </nav>
                 </div>
                 
+
             </div>
         </div>
     </div><!--Content-->

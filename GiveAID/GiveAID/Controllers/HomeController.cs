@@ -444,7 +444,7 @@ namespace GiveAID.Controllers
 
         public ActionResult Partner(int page = 1, int pagesize = 6) {
             var totalPage = en.partners.Count();
-            ViewBag.partner = en.partners.OrderBy(x => x.id).Skip((page - 1) * pagesize)
+            ViewBag.partner = en.partners.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
                 .Take(pagesize).ToList();
             ViewBag.CurrentPage = page;
             ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)totalPage / pagesize);
