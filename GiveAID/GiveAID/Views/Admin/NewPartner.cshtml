@@ -12,32 +12,34 @@
 }
 
 <script>
+
     $(document).ready(function () {
-    $(".checkbox-wrapper-55 input[type='checkbox']").on("change", function () {
+        $(".checkbox-wrapper-55 input[type='checkbox']").on("change", function () {
 
-        var checkbox = $(this);
-        var postId = checkbox.attr("id").split("-")[1];
-        var status = checkbox.is(":checked") ? "Mở" : "Đóng";
+            var checkbox = $(this);
+            var postId = checkbox.attr("id").split("-")[1];
+            var status = checkbox.is(":checked") ? "Mở" : "Đóng";
 
-        if (confirm("Do you want to change the status?!")) {
+            if (confirm("Do you want to change the status?!")) {
 
-            $.ajax({
-                url: '@Url.Content("~/Admin/ChangeStatusPartner")',
-                type: 'POST',
-                data: { id: postId },
-                success: function (response) {
-                    if (response.result == true) {
-                        checkbox.siblings(".status-label").text(status);
-                        showSuccessMessage("Completed");
-                    } else {
+                $.ajax({
+                    url: '@Url.Content("~/Admin/ChangeStatusPartner")',
+                    type: 'POST',
+                    data: { id: postId },
+                    success: function (response) {
+                        if (response.result == true) {
+                            checkbox.siblings(".status-label").text(status);
+                            showSuccessMessage("Completed");
+                        } else {
 
-                    }
-                },
-                error: handleException
-            });
-        }
+                        }
+                    },
+                    error: handleException
+                });
+            }
+        });
     });
-});
+
 </script>
 
 <style>
@@ -148,7 +150,7 @@
                             </table>
                             <!--Table 1-->
                         </div>
-                        
+
                     </div>
 
                 </div>
