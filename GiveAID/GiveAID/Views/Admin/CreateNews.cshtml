@@ -41,19 +41,14 @@
             }
         });
     });
-
-
-    
-  
-
 </script>
 
 <style>
-    .text-ellipsis {
+    .text-ellipsi {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        width: 200px; /* Định nghĩa kích thước cố định của nội dung */
+        width: 15px; /* Định nghĩa kích thước cố định của nội dung */
     }
 
     .content-vip {
@@ -72,48 +67,6 @@
         border-bottom: 2px solid #FF3399; /* Thay đổi màu và đường kẻ dưới khi tab được kích hoạt */
         background-color: whitesmoke;
     }
-
-    .search-box {
-        display: flex;
-        align-items: center;
-        width: fit-content;
-        border:none;
-      
-    }
-
-        .search-box input[type="text"] {
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 35px;
-            font-size: 16px;
-            width: 200px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease-in-out;
-            box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-        }
-
-
-    .search-btn {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 6px 9px;
-        margin-left: 1px;
-        border-radius: 35px;
-        cursor: pointer;
-    }
-
-        .search-btn i {
-            margin-right: 5px;
-        }
-
-        .search-btn:hover {
-            background-color: #45a049;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease-in-out;
-        }
-
-  
 </style>
 <div class="content-wrapper">
 
@@ -162,26 +115,17 @@
 
                     </div>
                     <div class="col-sm-3">
-                      
-                            @using (Html.BeginForm("CreateNews", "Admin", FormMethod.Get))
-                            {
-
-                                <div class="search-box ml-lg-3 mb-2">
-                                    <input type="text" name="search" value="@ViewBag.search" placeholder="Search..." />
-                                    <button class="search-btn">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-
-                            }
-                       
+                        @using (Html.BeginForm("CreateNews", "Admin", FormMethod.Get))
+                        {
+                            <input type="text" name="search" value="@ViewBag.search" />
+                        }
                     </div>
                     <div class="col-sm-12">
                         <div class="table-responsive-sm">
                             <!--Table 1-->
-                            <table class="table table-hover">
-                                <thead class="table-info">
-                                    <tr >
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Background</th>
                                         <th scope="col">Title</th>
@@ -205,13 +149,13 @@
                                         <th scope="col">Status<!--Nut check-box--></th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-light">
+                                <tbody>
                                     @foreach (var item in posts)
                                     {
                                         <tr>
                                             <th scope="row">@(indexPost++)</th>
                                             <td><img style="width:150px; height:150px" src="~/Content/Images/post/@item.image" alt="Alternate Text" /></td>
-                                            <td><p class="text-ellipsis">@item.title</p></td>
+                                            <td class="text-ellipsi">@item.title</td>
                                             <td>@Convert.ToInt64(item.target).ToString("N0") VND</td>
                                             <td>@Convert.ToInt64(item.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0)).ToString("N0") VND</td>
                                             <td>@(item.time_end.HasValue ? item.time_end.Value.ToShortDateString() : "")</td>
