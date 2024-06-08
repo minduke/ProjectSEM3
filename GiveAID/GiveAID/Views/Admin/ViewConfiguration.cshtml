@@ -263,6 +263,15 @@
             /* Các kiểu dáng khác tùy ý */
         }
     }
+
+    .btn-transparent {
+        background-color: transparent;
+        border: none;
+    }
+
+        .btn-transparent:hover {
+            background-color: transparent;
+        }
 </style>
 
 <div class="content-wrapper">
@@ -288,22 +297,33 @@
 
     <div class="content">
         <div class="row">
-            <div class="col-sm-12 text-center">
-                <button class="button-74" type="button" data-toggle="collapse" data-target="#configConTact" aria-expanded="false" aria-controls="configConTact">Contact information</button>
-                <button type="button" class="button-74" data-toggle="modal" data-target="#configEmail">
-                    Email information
-                </button>
+         
+            <div class="col-sm-2 text-center border-right">
                 <div class="row">
                     <div class="col-sm-12">
-
+                        <button data-toggle="tooltip" data-placement="top" title="Config Contact" class="btn btn-transparent">  <img src="@Url.Content("~/Content/Images/IconMUNE/process.png")" style="width:80px;height:80px;" data-toggle="collapse" data-target="#configConTact" aria-expanded="false" aria-controls="configConTact"></button>
                     </div>
-
+                    <div class="col-sm-12">
+                        <p><b>Config Contact</b></p>
+                    </div>
                 </div>
+                
             </div>
+                <div class="col-sm-2 text-center" >
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button data-toggle="tooltip" data-placement="top" title="Config Email" class="btn btn-transparent">  <img src="@Url.Content("~/Content/Images/IconMUNE/mail.png")" style="width:80px;height:80px;" data-toggle="modal" data-target="#configEmail"></button>
+                        </div>
+                        <div class="col-sm-12">
+                            <p><b>Config Mail</b></p>
+                        </div>
+                    </div>
+                    
+                </div>
         </div>
-
+        <hr class="">
         <!--Form config contact-->
-        <div class="collapse multi-collapse" id="configConTact">
+        <div class="collapse show fade" id="configConTact">
             <!-- form start -->
             <form id="formEditBanner" action="javascript:doEditConfig();" method="post" enctype="multipart/form-data">
                 <div class="form-group">
@@ -380,6 +400,9 @@
             </form>
         </div>
         <!--end config contact-->
+   
+
+
         <!-- Modal config email -->
         <div class="modal fade" id="configEmail" tabindex="-1" role="dialog" aria-labelledby="configEmail" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered " role="document">
@@ -396,7 +419,7 @@
                                 <div class="col-sm-8">
                                     <label>Email: </label>
                                     <input type="email" name="name" id="MailAddress" value="@ViewBag.SysMailAddress.value" class="nameEmail" />
-                            
+
                                 </div>
                                 <div class="col-sm-4">
                                     <label>Smtp port:</label>
@@ -412,7 +435,7 @@
 
                     </div>
                     <div class="modal-footer ">
-                        <button type="button" class="btn btn-light" onclick="doEditMailConfig();"> <i class="fa-solid fa-floppy-disk mr-1" style="color: #0065b3;"></i>Save </button>
+                        <button type="button" class="btn btn-outline-light" onclick="doEditMailConfig();"> <i class="fa-solid fa-floppy-disk mr-1" style="color: #0065b3;"></i>Save </button>
                     </div>
                 </div>
             </div>
