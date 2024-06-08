@@ -154,7 +154,7 @@ namespace GiveAID.Controllers
                 post.time_end != null)
             {
 
-                if (post.title.Length > 100)
+                if (post.title.Length() > 100)
                     throw new Exception("Max of title is 100 characters");
 
                 var PathUpload = Server.MapPath("/Content/Images/post");

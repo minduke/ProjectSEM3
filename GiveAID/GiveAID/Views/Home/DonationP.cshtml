@@ -176,7 +176,22 @@
             box-shadow: 0px 0px 6px rgba(76, 255, 204, 0.7);
         }
 
+    .custom-selectt {
+        background-color: dimgrey;
+        color: white;
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+        margin-right:183px;
+    }
 
+        .custom-selectt option {
+            background-color: dimgrey;
+            color: white;
+        }
 </style>
 
 
@@ -227,8 +242,8 @@
 
     <!-- Main content -->
     <div class="content">
-        <div class="container-fluid" style="display: flex; justify-content: center;">
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="filterSelect">
+        <div class="container-fluid"  style="display: flex; justify-content: right;">
+            <select class="form-select custom-selectt form-select-sm" aria-label=".form-select-sm example" id="filterSelect">
                 <option value="" selected>Filter by value</option>
                 <option value="1">Projects was ended</option>
                 <option value="2">Projects with the highest target</option>
