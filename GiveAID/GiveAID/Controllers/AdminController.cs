@@ -147,6 +147,9 @@ namespace GiveAID.Controllers
                 post.time_end != null)
             {
 
+                if (post.title.Length > 100)
+                    throw new Exception("Max of title is 100 characters");
+
                 var PathUpload = Server.MapPath("/Content/Images/post");
                 if (!Directory.Exists(PathUpload))
                 {
@@ -524,7 +527,7 @@ namespace GiveAID.Controllers
                 ViewBag.SysMailAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_ADDRESS");
                 ViewBag.SysMailPass = DecryptDES(en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PASS").value, SecretKey);
                 ViewBag.SysMailPort = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PORT");
-                ViewBag.smtp = en.configurations.FirstOrDefault(x=>x.keyword == "SYS_SMTP_SERVER");
+                ViewBag.smtp = en.configurations.FirstOrDefault(x => x.keyword == "SYS_SMTP_SERVER");
                 ViewBag.MailUsername = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_USERNAME");
                 ViewBag.DisplayName = en.configurations.FirstOrDefault(x => x.keyword == "SYS_DISPLAY_NAME");
                 ViewBag.ssl = en.configurations.FirstOrDefault(x => x.keyword == "SYS_SSL");
@@ -671,7 +674,7 @@ namespace GiveAID.Controllers
             public string MailUsername { get; set; }
             public string DisplayName { get; set; }
             public string SmtpServer { get; set; }
-            public string Ssl {  get; set; }
+            public string Ssl { get; set; }
         }
 
         public JsonResult EditMailConfig(ModelMailCofig model)
@@ -726,7 +729,7 @@ namespace GiveAID.Controllers
                 SysMailUserName.value = model.MailUsername;
 
                 var SysDisplayName = en.configurations.FirstOrDefault(x => x.keyword == "SYS_DISPLAY_NAME");
-                if(SysDisplayName == null)
+                if (SysDisplayName == null)
                 {
                     SysDisplayName = new configuration()
                     {

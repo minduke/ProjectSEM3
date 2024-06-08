@@ -287,34 +287,6 @@
 
 <style>
 
-    .custom-Button {
-        position: relative;
-        left: 123px;
-        bottom: 145px;
-        display: flex;
-        background-color: transparent;
-        border: none;
-        padding: 0;
-        width: 50px;
-        height: 50px;
-    }
-
-        .custom-Button i {
-            width: fit-content;
-            height: auto;
-            color: red;
-            font-size: 20px;
-        }
-
-            .custom-Button i:hover {
-                color: hotpink; /* Màu sắc khi hover */
-            }
-
-    .error {
-        content: url('@Url.Content("~/Content/dist/img/default-150x150.png")');/* Thay thế bằng hình ảnh khác */
-        border: 2px solid red;
-    }
-
     .custom-Button2 {
         position: relative;
         left: 123px;
@@ -460,7 +432,7 @@
 
                         <div class="image-container" id="imageId">
                             <img src="~/Content/Images/post/@post.image" alt="No Image" width="150" height="150" onerror="this.classList.add('error')" />
-                            <button class="custom-Button" type="button" onclick="deleteThumb(@post.id)"><i class="fa-solid fa-delete-left"></i></button>
+                           
                         </div>
                         <!-- choose file img-->
                         <label for="thumbnail" class="cusFILE"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>

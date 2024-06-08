@@ -160,32 +160,7 @@
         border: 1px solid hotpink;
     }
 
-    .custom-Button {
-        position: relative;
-        left: 123px;
-        bottom: 145px;
-        display: flex;
-        background-color: transparent;
-        border: none;
-        padding: 0;
-        width: 50px;
-        height: 50px;
-    }
 
-        .custom-Button i {
-            width: fit-content;
-            height: auto;
-            color: red;
-            font-size: 20px;
-        }
-
-            .custom-Button i:hover {
-                color: hotpink; /* Màu sắc khi hover */
-            }
-        .error {
-        content: url('@Url.Content("~/Content/dist/img/default-150x150.png")');/* Thay thế bằng hình ảnh khác khi anh dai dien k co anh de load */
-        border: 2px solid red;
-    }
 </style>
 
 <div class="content-wrapper">
@@ -266,7 +241,7 @@
                         <div class="" id="imagePartner">
                             <!--Logo partner-->
                             <img src="~/Content/Images/partner/@partner.partner_image" width="150" height="150" alt="No Image" onerror="this.classList.add('error')" />
-                            <button type="button" class="custom-Button" onclick="doDeleteImagePartner(@partner.id)"><i class="fa-solid fa-delete-left"></i></button>
+                           
                         </div>
                         <!-- choose file img-->
                         <label for="fileBase" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
