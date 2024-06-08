@@ -31,7 +31,7 @@ namespace GiveAID.Models.entities
         public Nullable<decimal> target { get; set; }
         public Nullable<int> cate_id { get; set; }
         public Nullable<int> partner_id { get; set; }
-        public string status { get; set; } = "Mở";
+        public string status { get; set; } = "Open";
     
         public virtual category category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

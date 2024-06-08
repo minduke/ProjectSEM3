@@ -34,7 +34,7 @@ namespace GiveAID.Controllers
                     cate_name = s.category.name,
                     partner_image = s.partner.partner_image,
                     partner_name = s.partner.partner_name,
-                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
+                    total = s.payments.Any(x => x.pay_status == "Success") ? s.payments.Where(x => x.pay_status == "Success").Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(x => x.id)
                 .ToList();
@@ -55,14 +55,14 @@ namespace GiveAID.Controllers
                     cate_name = s.category.name,
                     partner_image = s.partner.partner_image,
                     partner_name = s.partner.partner_name,
-                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0,
+                    total = s.payments.Any(x => x.pay_status == "Success") ? s.payments.Where(x => x.pay_status == "Success").Sum(x => x.transaction_amout ?? 0) : 0,
                     status = s.status
                 });
 
             switch (filter)
             {
                 case "1":
-                    query = query.Where(x => x.status == "Đóng");
+                    query = query.Where(x => x.status == "Closed");
                     break;
                 case "2":
                     query = query.OrderByDescending(x => x.target);
@@ -82,7 +82,7 @@ namespace GiveAID.Controllers
         public ActionResult Index(int page = 1, int pageSize = 3)
         {
 
-            int totalPosts = en.posts.Where(s => s.status == "Mở").Count();
+            int totalPosts = en.posts.Where(s => s.status == "Open").Count();
 
             int totalPages = (int)Math.Ceiling((double)totalPosts / pageSize);
 
@@ -92,7 +92,7 @@ namespace GiveAID.Controllers
             int endPage = Math.Min(startPage + maxDisplayPages - 1, totalPages);
 
             var posts = en.posts
-                .Where(s => s.status == "Mở")
+                .Where(s => s.status == "Open")
                 .Select(s => new ViewPost
                 {
                     id = s.id,
@@ -102,7 +102,7 @@ namespace GiveAID.Controllers
                     cate_name = s.category.name,
                     partner_image = s.partner.partner_image,
                     partner_name = s.partner.partner_name,
-                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
+                    total = s.payments.Any(x => x.pay_status == "Success") ? s.payments.Where(x => x.pay_status == "Success").Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(x => x.id)
                 .Skip((page - 1) * pageSize)
@@ -129,7 +129,7 @@ namespace GiveAID.Controllers
             ViewBag.cardDetails = detail;
             var donater = en.payments.Where(x => x.post_id == id).ToList();
             ViewBag.donater = donater;
-            var sum = en.payments.Where(x => x.post_id == id && x.pay_status == "Thành công").Sum(x => x.transaction_amout) ?? 0;
+            var sum = en.payments.Where(x => x.post_id == id && x.pay_status == "Success").Sum(x => x.transaction_amout) ?? 0;
             ViewBag.sum = sum;
             return View();
         }
@@ -195,10 +195,6 @@ namespace GiveAID.Controllers
         {
             if (CheckLogin())
             {
-                var post = en.posts.FirstOrDefault(x => x.id == model.idPost);
-                if (post.status == "Đóng")
-                    throw new Exception("Cannot donate for this case");
-
                 //Get Config Info
                 string vnp_Returnurl = "https://localhost:44311/home/result"; //URL nhan ket qua tra ve 
                 string vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; //URL thanh toan cua VNPAY 
@@ -272,7 +268,7 @@ namespace GiveAID.Controllers
 
                 var data = en.payments.FirstOrDefault(x => x.id == id);
                 data.transaction_no = transaction_no;
-                data.pay_status = "Thành công";
+                data.pay_status = "Success";
                 data.transaction_date = dateTime;
                 data.banktran_no = banktran_no;
                 en.SaveChanges();
@@ -375,7 +371,7 @@ namespace GiveAID.Controllers
         public JsonResult chartJS()
         {
             var listU = en.payments
-                .Where(x => x.pay_status == "Thành công" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
+                .Where(x => x.pay_status == "Success" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
                 .Select(s => new
                 {
                     s.transaction_amout
@@ -406,7 +402,7 @@ namespace GiveAID.Controllers
         public JsonResult FilterChart(int year, int month)
         {
             var payments = en.payments
-                .Where(x => x.transaction_date.Value.Year == year && x.transaction_date.Value.Month == month && x.pay_status == "Thành công")
+                .Where(x => x.transaction_date.Value.Year == year && x.transaction_date.Value.Month == month && x.pay_status == "Success")
                 .Select(s => new
                 {
                     s.transaction_amout
@@ -418,11 +414,22 @@ namespace GiveAID.Controllers
                 count = s.posts.Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month)
             });
 
-            var postCount = en.posts.Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month);
-            var runningCount = en.posts.Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month && x.status == "Mở");
-            var completeCount = en.posts.Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month && x.status == "Đóng");
-            var sumTarget = en.posts.Where(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month).Sum(x => x.target) ?? 0;
-            var sumAmout = en.payments.Where(x => x.pay_status == "Thành công" && x.transaction_date.Value.Year == year && x.transaction_date.Value.Month == month).Sum(x => x.transaction_amout) ?? 0;
+            var postCount = en.posts
+                .Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month);
+
+            var runningCount = en.posts
+                .Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month && x.status == "Open");
+
+            var completeCount = en.posts
+                .Count(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month && x.status == "Closed");
+
+            var sumTarget = en.posts
+                .Where(x => x.time_start.Value.Year == year && x.time_start.Value.Month == month)
+                .Sum(x => x.target) ?? 0;
+
+            var sumAmout = en.payments
+                .Where(x => x.pay_status == "Success" && x.transaction_date.Value.Year == year && x.transaction_date.Value.Month == month)
+                .Sum(x => x.transaction_amout) ?? 0;
 
             return Json(new
             {
@@ -441,7 +448,7 @@ namespace GiveAID.Controllers
         public ActionResult Detail(int id)
         {
             ViewBag.posts = en.posts
-                .Where(s => s.status == "Mở" && s.cate_id == id)
+                .Where(s => s.status == "Open" && s.cate_id == id)
                 .Select(s => new ViewPost
                 {
                     id = s.id,
@@ -451,7 +458,7 @@ namespace GiveAID.Controllers
                     cate_name = s.category.name,
                     partner_image = s.partner.partner_image,
                     partner_name = s.partner.partner_name,
-                    total = s.payments.Any(x => x.pay_status == "Thành công") ? s.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0) : 0
+                    total = s.payments.Any(x => x.pay_status == "Success") ? s.payments.Where(x => x.pay_status == "Success").Sum(x => x.transaction_amout ?? 0) : 0
                 })
                 .OrderByDescending(s => s.id)
                 .ToList();

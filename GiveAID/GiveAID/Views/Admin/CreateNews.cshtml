@@ -20,7 +20,7 @@
 
             var checkbox = $(this);
             var postId = checkbox.attr("id").split("-")[1];
-            var status = checkbox.is(":checked") ? "Mở" : "Đóng";
+            var status = checkbox.is(":checked") ? "Open" : "Closed";
 
             if (confirm("Do you want to change the status ?!")) {
 
@@ -200,7 +200,7 @@
                                             <td><img style="width:150px; height:150px" src="~/Content/Images/post/@item.image" alt="Alternate Text" /></td>
                                             <td><p class="text-ellipsis">@item.title</p></td>
                                             <td>@Convert.ToInt64(item.target).ToString("N0") VND</td>
-                                            <td>@Convert.ToInt64(item.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout ?? 0)).ToString("N0") VND</td>
+                                            <td>@Convert.ToInt64(item.payments.Where(x => x.pay_status == "Success").Sum(x => x.transaction_amout ?? 0)).ToString("N0") VND</td>
                                             <td>@(item.time_end.HasValue ? item.time_end.Value.ToShortDateString() : "")</td>
                                             <td>
                                                 <a class="btn btn-warning" href="@Url.Content("~/Admin/EditDetail/")@item.id"><i class="fa-solid fa-pen-to-square mr-1"></i>Edit</a>
@@ -210,8 +210,8 @@
                                                 <!--Nut check-box-->
                                                 <div class="checkbox-wrapper-55">
                                                     <label class="rocker rocker-small">
-                                                        <input type="checkbox" id="myCheckbox-@item.id" data-status="@item.status" @(item.status == "Mở" ? "checked" : "")>
-                                                        <span class="status-label @(item.status == "Mở" ? "switch-left" : "switch-right")">@item.status</span>
+                                                        <input type="checkbox" id="myCheckbox-@item.id" data-status="@item.status" @(item.status == "Open" ? "checked" : "")>
+                                                        <span class="status-label @(item.status == "Open" ? "switch-left" : "switch-right")">@item.status</span>
                                                         <span class="switch-right">Closed</span>
                                                     </label>
                                                 </div>

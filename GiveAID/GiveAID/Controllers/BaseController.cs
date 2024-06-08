@@ -81,10 +81,10 @@ namespace GiveAID.Controllers
             try
             {
                 var today = DateTime.Now.Date;
-                var posts = en.posts.Where(x => x.status == "Mở" && DbFunctions.TruncateTime(x.time_end) <= today).ToList();
+                var posts = en.posts.Where(x => x.status == "Open" && DbFunctions.TruncateTime(x.time_end) <= today).ToList();
                 foreach (var post in posts)
                 {
-                    post.status = "Đóng";
+                    post.status = "Closed";
                 }
                 en.SaveChanges();
             }
@@ -98,10 +98,10 @@ namespace GiveAID.Controllers
         {
             try
             {
-                var posts = en.posts.Where(x => x.payments.Where(s => s.pay_status == "Thành công").Sum(s => s.transaction_amout ?? 0) >= x.target).ToList();
+                var posts = en.posts.Where(x => x.payments.Where(s => s.pay_status == "Success").Sum(s => s.transaction_amout ?? 0) >= x.target).ToList();
                 foreach (var item in posts)
                 {
-                    item.status = "Đóng";
+                    item.status = "Closed";
                 }
                 en.SaveChanges();
             }
