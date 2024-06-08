@@ -33,8 +33,8 @@
 
                     let img = document.createElement('img');
                     img.src = e.target.result;
-                    img.style.maxWidth = '200px';
-                    img.style.maxHeight = '200px';
+                    img.style.maxWidth = '220px';
+                    img.style.maxHeight = '220px';
 
                     let removeButton = document.createElement('button');
                     removeButton.innerHTML = 'X';
@@ -70,7 +70,7 @@
     }
 
     function doEditConfig() {
-        debugger
+       
         var dt = document.getElementById('formEditBanner');
         var form = new FormData(dt);
 
@@ -82,6 +82,7 @@
             processData: false,
             success: function (response) {
                 if (response.result == true) {
+                    
                     location.reload();
                 }
                 else {
@@ -272,6 +273,28 @@
         .btn-transparent:hover {
             background-color: transparent;
         }
+
+    .formEditBanner {
+        background-color: #f2f2f2; /* Màu nền của form */
+        padding: 20px; /* Khoảng cách giữa các thành phần bên trong form */
+        width: 1000px; /* Đặt chiều rộng của form */
+        
+    }
+        .formEditBanner h2 {
+            color: cornflowerblue;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+           
+            font-style: italic;
+            text-transform: uppercase;
+        }
+
+    #configConTact {
+         display: flex; 
+         justify-content: center; 
+         align-items: center;
+    }
+    
 </style>
 
 <div class="content-wrapper">
@@ -301,7 +324,7 @@
             <div class="col-sm-2 text-center border-right">
                 <div class="row">
                     <div class="col-sm-12">
-                        <button data-toggle="tooltip" data-placement="top" title="Config Contact" class="btn btn-transparent">  <img src="@Url.Content("~/Content/Images/IconMUNE/process.png")" style="width:80px;height:80px;" data-toggle="collapse" data-target="#configConTact" aria-expanded="false" aria-controls="configConTact"></button>
+                        <button class="btn btn-transparent" data-toggle="collapse" data-target="#configConTact" aria-expanded="false" aria-controls="configConTact" >  <img src="@Url.Content("~/Content/Images/IconMUNE/process.png")" style="width:50px;height:50px;" data-toggle="tooltip" data-placement="top" title="Config Contact"></button>
                     </div>
                     <div class="col-sm-12">
                         <p><b>Config Contact</b></p>
@@ -312,7 +335,7 @@
                 <div class="col-sm-2 text-center" >
                     <div class="row">
                         <div class="col-sm-12">
-                            <button data-toggle="tooltip" data-placement="top" title="Config Email" class="btn btn-transparent">  <img src="@Url.Content("~/Content/Images/IconMUNE/mail.png")" style="width:80px;height:80px;" data-toggle="modal" data-target="#configEmail"></button>
+                            <button class="btn btn-transparent" data-toggle="modal" data-target="#configEmail">  <img src="@Url.Content("~/Content/Images/IconMUNE/mail.png")" style="width:50px;height:50px;"  data-toggle="tooltip" data-placement="top" title="Config Email"  ></button>
                         </div>
                         <div class="col-sm-12">
                             <p><b>Config Mail</b></p>
@@ -323,11 +346,46 @@
         </div>
         <hr class="">
         <!--Form config contact-->
-        <div class="collapse show fade" id="configConTact">
+        <div class="collapse show fade" id="configConTact" >
             <!-- form start -->
-            <form id="formEditBanner" action="javascript:doEditConfig();" method="post" enctype="multipart/form-data">
+            <form id="formEditBanner" class="formEditBanner" action="javascript:doEditConfig();" method="post" enctype="multipart/form-data">
+                <h2 class="text-center" >Form input contact</h2>
+                <hr class="new4">
                 <div class="form-group">
-                    <h2 class="mt-2"><label for="fileBase">Banner Slider</label></h2>
+                    <!--Email and Phone-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4><label for="description">Email</label></h4> <!--Email-->
+                            <input type="email" class="form-control mailContact" id="email" name="email" value="@ViewBag.SysEmail.value" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4><label for="description">Phone</label></h4> <!--Phone-->
+                            <input type="number" class="form-control phoneContact" id="phone" name="phone" value="@ViewBag.SysPhone.value" required>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <!--Introduce and Address-->
+                        <div class="col-sm-6">
+                            <h4><label for="description">Introduce</label></h4><!--Introduce-->
+                            <input type="text" class="form-control introduceContact" id="introduce" name="introduce" value="@ViewBag.SysIntroduce.value" required>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <h4><label for="description">Address</label></h4><!--Address-->
+                            <input type="text" class="form-control addressContact" id="address" name="address" value="@ViewBag.SysAddress.value" required>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- /.card-body -->
+
+                <hr class="new4">
+
+                <div class="form-group">
+                    <h4 class="mt-2"><label for="fileBase">Banner Slider</label></h4>
                     <div class="" id="imagePartner">
                         <div class="row">
                             @foreach (var item in banners)
@@ -347,52 +405,27 @@
                                 <div class="filename-contain"></div>
                             </div>
 
-                            <div class="col-sm-12">
-                                <!-- view file img-->
-                                <h2><label for="imagesPreview">Preview</label></h2>
-                                <div class="row">
-                                    <div class="col-sm-12"><div id="imagesPreview"></div></div>
-                                </div>
 
-                            </div>
                         </div>
                     </div>
 
                 </div>
                 <hr class="new4">
 
-                <!--Email and Phone-->
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-sm-5">
-                            <h2><label for="description">Email</label></h2> <!--Email-->
-                            <input type="email" class="form-control" id="email" name="email" value="@ViewBag.SysEmail.value" required>
-                        </div>
-                        <div class="col-sm-5">
-                            <h2><label for="description">Phone</label></h2> <!--Phone-->
-                            <input type="number" class="form-control" id="phone" name="phone" value="@ViewBag.SysPhone.value" required>
+                        <div class="col-sm-12">
+                            <!-- view file img-->
+                            <h4><label for="imagesPreview">Preview</label></h4>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="imagesPreview"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!--Introduce and Address-->
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h2><label for="description">Introduce</label></h2><!--Introduce-->
-                            <input type="text" class="form-control" id="introduce" name="introduce" value="@ViewBag.SysIntroduce.value" required>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <h2><label for="description">Address</label></h2><!--Address-->
-                            <input type="text" class="form-control" id="address" name="address" value="@ViewBag.SysAddress.value" required>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <!-- /.card-body -->
 
                 <div class="card-footer text-center">
                     <button type="submit" id="btnSubmit" class="button-35" value="Save">Save</button>
@@ -435,7 +468,7 @@
 
                     </div>
                     <div class="modal-footer ">
-                        <button type="button" class="btn btn-outline-light" onclick="doEditMailConfig();"> <i class="fa-solid fa-floppy-disk mr-1" style="color: #0065b3;"></i>Save </button>
+                        <button type="button" class="btn btn-outline-light" onclick="doEditMailConfig();"> <i class="fa-solid fa-floppy-disk mr-2" style="color: #0065b3;"></i>Save </button>
                     </div>
                 </div>
             </div>
