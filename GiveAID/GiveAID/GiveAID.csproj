@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="Helpers\ErrorLog.cs" />
     <Compile Include="Helpers\ExceptionHandlingAttributeMVC.cs" />
+    <Compile Include="Helpers\Extension.cs" />
     <Compile Include="Helpers\VnPayLibrary.cs" />
     <Compile Include="Models\entities\banner.cs">
       <DependentUpon>GiveAID.tt</DependentUpon>

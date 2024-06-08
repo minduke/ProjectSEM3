@@ -1,4 +1,5 @@
-﻿using GiveAID.Models.entities;
+﻿using GiveAID.Helpers;
+using GiveAID.Models.entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography.Xml;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace GiveAID.Controllers
 {
@@ -54,11 +56,6 @@ namespace GiveAID.Controllers
                 {
                     var postQuery = en.posts.AsQueryable();
 
-                    if (!string.IsNullOrEmpty(search))
-                    {
-                        postQuery = postQuery.Where(x => x.title.Contains(search));
-                    }
-
                     switch (sortColumn)
                     {
                         case "title":
@@ -79,7 +76,16 @@ namespace GiveAID.Controllers
 
                     var post = postQuery.Skip((page - 1) * pagesize).Take(pagesize).ToList();
 
-                    ViewBag.post = post;
+                    if (!string.IsNullOrEmpty(search))
+                    {
+                        ViewBag.post = post.Where(x => x.title.ToUnsign().Contains(search)).ToList();
+                    }
+                    else
+                    {
+                        ViewBag.post = post;
+
+                    }
+
                     ViewBag.CurrentPage = page;
                     ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)toTalPage / pagesize);
                     ViewBag.search = search;
@@ -103,14 +109,15 @@ namespace GiveAID.Controllers
             if (user.permission != "admin")
                 return RedirectToAction("Index", "Login");
 
-            var partner = en.partners.AsQueryable();
+            ViewBag.partner = en.partners.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
+                .Take(pagesize).ToList();
+
             if (!string.IsNullOrEmpty(search))
             {
-                partner = partner.Where(x => x.partner_name.Contains(search));
+                ViewBag.partner = en.partners.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
+                .Take(pagesize).ToList().Where(x=>x.partner_name.ToUnsign().Contains(search)).ToList();
             }
 
-            ViewBag.partner = partner.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
-                .Take(pagesize).ToList();
             ViewBag.CurrentPage = page;
             ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)toTalPage / pagesize);
             ViewBag.search = search;
@@ -500,8 +507,12 @@ namespace GiveAID.Controllers
             return Json(new { result = true });
         }
 
-        public JsonResult DeleteImage(int id)
+        public JsonResult DeleteImage(int id, int idPost)
         {
+            var data = en.image_post.Count(x => x.post_id == idPost);
+            if (data == 1)
+                throw new Exception("You need to leave at least 1 photo");
+
             var dt = en.image_post.Find(id);
             var filePath = Server.MapPath("~/Content/Images/post/" + dt.image);
             if (System.IO.File.Exists(filePath))
@@ -524,7 +535,7 @@ namespace GiveAID.Controllers
                 ViewBag.SysMailAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_ADDRESS");
                 ViewBag.SysMailPass = DecryptDES(en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PASS").value, SecretKey);
                 ViewBag.SysMailPort = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PORT");
-                ViewBag.smtp = en.configurations.FirstOrDefault(x=>x.keyword == "SYS_SMTP_SERVER");
+                ViewBag.smtp = en.configurations.FirstOrDefault(x => x.keyword == "SYS_SMTP_SERVER");
                 ViewBag.MailUsername = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_USERNAME");
                 ViewBag.DisplayName = en.configurations.FirstOrDefault(x => x.keyword == "SYS_DISPLAY_NAME");
                 ViewBag.ssl = en.configurations.FirstOrDefault(x => x.keyword == "SYS_SSL");
@@ -671,7 +682,7 @@ namespace GiveAID.Controllers
             public string MailUsername { get; set; }
             public string DisplayName { get; set; }
             public string SmtpServer { get; set; }
-            public string Ssl {  get; set; }
+            public string Ssl { get; set; }
         }
 
         public JsonResult EditMailConfig(ModelMailCofig model)
@@ -726,7 +737,7 @@ namespace GiveAID.Controllers
                 SysMailUserName.value = model.MailUsername;
 
                 var SysDisplayName = en.configurations.FirstOrDefault(x => x.keyword == "SYS_DISPLAY_NAME");
-                if(SysDisplayName == null)
+                if (SysDisplayName == null)
                 {
                     SysDisplayName = new configuration()
                     {
