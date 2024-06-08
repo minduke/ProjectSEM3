@@ -20,11 +20,22 @@ namespace GiveAID.Controllers
                 var user = Session["USER"] as user;
                 if (user.permission == "admin")
                 {
-                    ViewBag.postCount = en.posts.Count();
-                    ViewBag.runningCount = en.posts.Where(x => x.status == "Mở").Count();
-                    ViewBag.completeCount = en.posts.Where(x => x.status == "Đóng").Count();
-                    ViewBag.sumTarget = en.posts.Sum(x => x.target);
-                    ViewBag.sumAmout = en.payments.Where(x => x.pay_status == "Thành công").Sum(x => x.transaction_amout);
+                    ViewBag.postCount = en.posts
+                        .Count(x => x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
+
+                    ViewBag.runningCount = en.posts
+                        .Count(x => x.status == "Mở" && x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
+
+                    ViewBag.completeCount = en.posts
+                        .Count(x => x.status == "Đóng" && x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
+
+                    ViewBag.sumTarget = en.posts
+                        .Where(x => x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month)
+                        .Sum(x => x.target);
+
+                    ViewBag.sumAmout = en.payments
+                        .Where(x => x.pay_status == "Thành công" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
+                        .Sum(x => x.transaction_amout) ?? 0;
                     return View();
                 }
             }

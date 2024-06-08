@@ -7,7 +7,7 @@
     $.widget.bridge('uibutton', $.ui.button);
 
     /**CHART bar and line*/
-   @*$.ajax({
+   $.ajax({
     url: '@Url.Action("chartJS","Home")',
     type: 'POST', // Phương thức HTTP
     dataType: 'json', // Kiểu dữ liệu trả về
@@ -61,7 +61,7 @@
 
     }
 
-   });*@
+   });
 
     function updateChart(year, month) {
         $.ajax({
@@ -172,7 +172,7 @@
     });
 
         /**CHART DONUT*/
-        @*$.ajax({
+        $.ajax({
 
             url: "@Url.Action("ChartData","Home")",
             type: "POST",
@@ -234,7 +234,7 @@
                 // Xử lý lỗi (nếu có)
                 console.log(error);
             },
-        });*@
+        });
 
 
 

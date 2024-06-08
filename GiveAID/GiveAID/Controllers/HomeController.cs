@@ -152,7 +152,7 @@ namespace GiveAID.Controllers
                     TimeSpan timeSubtract = future - currentTime;
 
                     string[] receiverEmail = receiverEmails.Split(',');
-                    foreach(var item in receiverEmail)
+                    foreach (var item in receiverEmail)
                     {
                         if (!IsValidEmail(item))
                         {
@@ -375,7 +375,7 @@ namespace GiveAID.Controllers
         public JsonResult chartJS()
         {
             var listU = en.payments
-                .Where(x => x.pay_status == "Thành công")
+                .Where(x => x.pay_status == "Thành công" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
                 .Select(s => new
                 {
                     s.transaction_amout
@@ -391,7 +391,7 @@ namespace GiveAID.Controllers
             var chartJS = en.categories.Select(s => new ModelChart
             {
                 name = s.name,
-                count = s.posts.Count,
+                count = s.posts.Count(x => x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month),
             });
             return Json(chartJS);
 
@@ -436,7 +436,7 @@ namespace GiveAID.Controllers
             });
         }
 
-   
+
 
         public ActionResult Detail(int id)
         {
@@ -474,7 +474,7 @@ namespace GiveAID.Controllers
 
         public ActionResult helpCenter()
         {
-        return View(); 
+            return View();
         }
 
 
