@@ -524,6 +524,10 @@ namespace GiveAID.Controllers
                 ViewBag.SysMailAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_ADDRESS");
                 ViewBag.SysMailPass = DecryptDES(en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PASS").value, SecretKey);
                 ViewBag.SysMailPort = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PORT");
+                ViewBag.smtp = en.configurations.FirstOrDefault(x=>x.keyword == "SYS_SMTP_SERVER");
+                ViewBag.MailUsername = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_USERNAME");
+                ViewBag.DisplayName = en.configurations.FirstOrDefault(x => x.keyword == "SYS_DISPLAY_NAME");
+                ViewBag.ssl = en.configurations.FirstOrDefault(x => x.keyword == "SYS_SSL");
                 ViewBag.banner = en.banners.ToList();
                 return View();
             }
@@ -664,6 +668,10 @@ namespace GiveAID.Controllers
             public string MailAddress { get; set; }
             public string MailPass { get; set; }
             public string MailPort { get; set; }
+            public string MailUsername { get; set; }
+            public string DisplayName { get; set; }
+            public string SmtpServer { get; set; }
+            public string Ssl {  get; set; }
         }
 
         public JsonResult EditMailConfig(ModelMailCofig model)
@@ -705,6 +713,50 @@ namespace GiveAID.Controllers
                     en.configurations.Add(SysMailPort);
                 }
                 SysMailPort.value = model.MailPort;
+
+                var SysMailUserName = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_USERNAME");
+                if (SysMailUserName == null)
+                {
+                    SysMailUserName = new configuration()
+                    {
+                        keyword = "SYS_MAIL_USERNAME"
+                    };
+                    en.configurations.Add(SysMailUserName);
+                }
+                SysMailUserName.value = model.MailUsername;
+
+                var SysDisplayName = en.configurations.FirstOrDefault(x => x.keyword == "SYS_DISPLAY_NAME");
+                if(SysDisplayName == null)
+                {
+                    SysDisplayName = new configuration()
+                    {
+                        keyword = "SYS_DISPLAY_NAME"
+                    };
+                    en.configurations.Add(SysDisplayName);
+                }
+                SysDisplayName.value = model.DisplayName;
+
+                var SmtpServer = en.configurations.FirstOrDefault(x => x.keyword == "SYS_SMTP_SERVER");
+                if (SmtpServer == null)
+                {
+                    SmtpServer = new configuration()
+                    {
+                        keyword = "SYS_SMTP_SERVER"
+                    };
+                    en.configurations.Add(SmtpServer);
+                }
+                SysDisplayName.value = model.SmtpServer;
+
+                var Ssl = en.configurations.FirstOrDefault(x => x.keyword == "SYS_SSL");
+                if (Ssl == null)
+                {
+                    Ssl = new configuration()
+                    {
+                        keyword = "SYS_SSL"
+                    };
+                    en.configurations.Add(Ssl);
+                }
+                Ssl.value = model.Ssl;
 
                 en.SaveChanges();
                 return Json(new { result = true });
