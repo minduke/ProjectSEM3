@@ -89,22 +89,6 @@
     }
 
 
-    .widget-user .widget-user-username {
-        /*mau cho linh vuc*/
-        color: #FFB200;
-        font-weight: bold;
-        text-transform: uppercase;
-        text-shadow: 5px 5px 10px #4CFFCC;
-    }
-
-    .widget-user .widget-user-desc {
-        /*mau cho partner text*/
-        color: #3D3D3D;
-        font-weight: bold;
-        text-shadow: 5px 5px 10px #E87CD1;
-    }
-
-
     .PageVIP {
         position: relative;
         left: 500px;
@@ -150,6 +134,49 @@
     .description-block > .description-header {
         font-size: 12px;
     }
+
+
+    .cusC {
+        background-color: hotpink;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+        .cusC:hover {
+            background-color: #33C9A6;
+        }
+
+        .cusC:focus {
+            outline: none;
+            box-shadow: 0px 0px 6px rgba(76, 255, 204, 0.7);
+        }
+
+    .cusP {
+        background-color: orangered;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+        .cusP:hover {
+            background-color: #33C9A6;
+        }
+
+        .cusP:focus {
+            outline: none;
+            box-shadow: 0px 0px 6px rgba(76, 255, 204, 0.7);
+        }
+
+
 </style>
 
 
@@ -226,8 +253,8 @@
                                 <div class="widget-user-header text-white "
                                      style="background: url('@Url.Content("~/Content/Images/post/" + @item.image)') center center;">
 
-                                    <h3 class="widget-user-username text-right">@item.cate_name</h3>
-                                    <h5 class="widget-user-desc text-right">@item.partner_name</h5>
+                                    <h3 class="widget-user-username text-right"><button class="mb-2 cusC">@item.cate_name</button></h3>
+                                    <h5 class="widget-user-desc text-right"><button class="mb-2 cusP">@item.partner_name</button></h5>
                                 </div>
                                 <div class="widget-user-image">
                                     <img class="img-circle logoBrandCard" src="@Url.Content("~/content/images/partner/" + @item.partner_image)" alt="User Avatar">
