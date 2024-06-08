@@ -186,16 +186,19 @@
         }
 
 
-        function deleteImage(imageId) {
+        function deleteImage(imageId, idPost) {
             if (confirm("Are you sure wanna delete this photo?!")) {
                 $.ajax({
                     url: '@Url.Action("DeleteImage", "Admin")',
                     type: 'POST',
-                    data: { id: imageId },
+                    data: {
+                        id: imageId,
+                        idPost: idPost
+                    },
                     success: function (response) {
                         if (response.result) {
                             showSuccessMessage("Completed");
-                            document.querySelector(`button[onclick="deleteImage(${imageId})"]`).parentElement.remove();
+                            document.querySelector(`button[onclick="deleteImage(${imageId}, ${idPost})"]`).parentElement.remove();
                         } else {
                             showErrorMessage(response.error);
                         }
@@ -490,7 +493,7 @@
                             {
                                 <div class="col-sm-2">
                                     <img src="~/Content/Images/post/@item.image" alt="" width="150" height="150">
-                                    <button class="custom-Button2" type="button" onclick="deleteImage(@item.id)"><i class="fa-solid fa-delete-left"></i></button>
+                                    <button class="custom-Button2" type="button" onclick="deleteImage(@item.id, @item.post_id)"><i class="fa-solid fa-delete-left"></i></button>
                                 </div>
                             }
                         </div>
