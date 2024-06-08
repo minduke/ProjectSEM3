@@ -59,6 +59,7 @@
         var amout = $('#amout').val();
         var transaction_amout = $('#transaction_amout').val();
         var balance = $('#balance').val();
+        var anonymous = $('#anonymousCheckbox').is(':checked');
 
         $.ajax({
             type: 'POST',
@@ -68,7 +69,8 @@
                 target: target,
                 amout: amout,
                 transaction_amout: transaction_amout,
-                balance: balance
+                balance: balance,
+                anonymous: anonymous
             },
             dataType: 'json',
             url: '@Url.Action("Donate", "Home")',
@@ -451,7 +453,7 @@
                                                             <div class="modal-footer">
 
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" id="exampleCheckbox">
+                                                                    <input class="form-check-input" type="checkbox" id="anonymousCheckbox">
                                                                     <label class="form-check-label" for="exampleCheckbox">
                                                                         Donate anonymously
                                                                     </label>
@@ -601,7 +603,7 @@
                                                     @foreach (var item in donater)
                                                     {
                                                         <tr>
-                                                            <td>@item.user.fullname</td>
+                                                            <td>@(item.anonymous != "" ? item.anonymous : item.user.fullname)</td>
                                                             <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
                                                             <td>@item.transaction_date</td>
                                                         </tr>

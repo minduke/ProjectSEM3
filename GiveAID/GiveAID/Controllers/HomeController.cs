@@ -189,6 +189,7 @@ namespace GiveAID.Controllers
             public decimal amout { get; set; }
             public int transaction_amout { get; set; }
             public decimal balance { get; set; }
+            public bool anonymous { get; set; }
         }
 
         public JsonResult Donate(DonateModel model)
@@ -213,6 +214,10 @@ namespace GiveAID.Controllers
                 payment.user_id = user.id;
                 payment.transaction_date = DateTime.Now;
                 payment.post_id = model.idPost;
+                if (model.anonymous == true)
+                {
+                    payment.anonymous = "Anonymous User";
+                }
                 en.payments.Add(payment);
                 en.SaveChanges();
 
