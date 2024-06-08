@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "CreateAcc";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
 <script>
@@ -32,16 +32,19 @@
     }
 </script>
 
-<div class="content-wrapper">
+<div class="login-box">
     <div class="register-box mx-auto">
         <div class="register-logo">
             <a href="@Url.Action("Index","Home")"><b>Give</b>-AID</a>
         </div>
 
         <div class="card mt-sm-5 mb-5" >
-            <div class="card-body register-card-body">
-                <p class="login-box-msg">Create Account</p>
-
+            <div class="card-body register-card-body dark-mode">
+                <div class="row">
+                    <div class="col-sm-2"><a href="@Url.Action("Index","Login")" style="color:#343a40;" data-toggle="tooltip" title="Back To Login">
+                        <i class="fa-solid fa-arrow-right-to-bracket fa-rotate-180" style="color: #ffffff;"></i></a></div>
+                    <div class="col-sm-9"><p class="login-box-msg mr-5" style="color:aliceblue;">Create Account</p></div>
+                </div>
                 <form action="javascript:doRegister();" method="post" id="formRegister">
                     @* nhập tên người dùng  *@
                     <div class="input-group mb-3">
@@ -89,7 +92,7 @@
                         </div>
                     </div>
                     <div class="row">
-                     
+
                         <!-- /.col -->
                         <div class="col-11 ml-3">
                             <button type="submit" class="btn btn-primary btn-block">Create Account</button>

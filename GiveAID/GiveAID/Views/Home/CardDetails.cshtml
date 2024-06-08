@@ -168,58 +168,12 @@
         margin: 2px;
     }
 
-    .logoDetail {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        margin-bottom: 5px;
-    }
+ 
 
-        .logoDetail img {
-            margin-right: 10px;
-            width: 30px;
-            height: 30px;
-            margin-bottom: 10px;
-        }
 
-    .project-target {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        margin-bottom: 5px;
-    }
 
-        .project-target h5 {
-            margin-left: 120px;
-            margin-bottom: 5px;
-        }
 
-    .donation-amount {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        margin-top: 5px;
-    }
-
-        .donation-amount h5 {
-            margin-left: 120px;
-            margin-top: 5px;
-        }
-
-    .cusDONATE {
-        display: flex;
-        align-items: center;
-    }
-
-        .cusDONATE input {
-            margin-right: 30px;
-        }
-
-    .cusDONATE {
-        position: relative;
-        left: 50px;
-        top: 10px;
-    }
+   
 
 
     /* cho nay la cho nhap so dnt*/
@@ -375,30 +329,57 @@
 
                             <hr>
                             <div class="containercus">
-
-                                <div class="logoDetail">
-                                    <img src="@Url.Content("~/Content/Images/partner/" + posts.partner.partner_image)" alt="Logo" class="mr-2">
-                                    <h3 class="text-partner"> -  @posts.partner.partner_name</h3>
+                                <div class="row">
+                                    <div class="col-sm-12 ">
+                                        <h3 class="text-partner">
+                                            <img src="@Url.Content("~/Content/Images/partner/" + posts.partner.partner_image)" width="50" height="50" alt="Logo" class="mr-2"> -  @posts.partner.partner_name
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <!--cho nay hien tien muc tieu cua bai post-->
+                                                <span>Target:</span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h5>@Convert.ToInt64(posts.target).ToString("N0") VND</h5>
+                                                <input type="hidden" id="target" value="@posts.target" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <!--cho nay hien tien donate duoc hien tai-->
+                                                <span>Achieved:</span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h5>@Convert.ToInt64(ViewBag.sum).ToString("N0") VND</h5>
+                                                <input type="hidden" id="amout" value="@ViewBag.sum" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <!--cho nay hien tien con co the donate-->
+                                                <span>Can donate:</span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h5>@Convert.ToInt64(posts.target - ViewBag.sum).ToString("N0") VND</h5>
+                                                <input type="hidden" id="balance" value="@(posts.target - ViewBag.sum)" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="project-target">
-                                    <!--cho nay hien tien muc tieu cua bai post-->
-                                    <span>Target:</span>
-                                    <h5>@Convert.ToInt64(posts.target).ToString("N0") VND</h5>
-                                    <input type="hidden" id="target" value="@posts.target" />
-                                </div>
-                                <div class="donation-amount">
-                                    <!--cho nay hien tien donate duoc hien tai-->
-                                    <span>Achieved:</span>
-                                    <h5>@Convert.ToInt64(ViewBag.sum).ToString("N0") VND</h5>
-                                    <input type="hidden" id="amout" value="@ViewBag.sum" />
-                                </div>
-                                <div class="donation-amount">
-                                    <!--cho nay hien tien con co the donate-->
-                                    <span>Can donate:</span>
-                                    <h5>@Convert.ToInt64(posts.target - ViewBag.sum).ToString("N0") VND</h5>
-                                    <input type="hidden" id="balance" value="@(posts.target - ViewBag.sum)" />
-                                </div>
+                           
 
                                 <div class="progress">
                                     <!--cho nay hien thanh tien do-->
@@ -406,12 +387,26 @@
                                 </div>
                                 <div class="mt-2 cusDONATE">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             @if (Session["USER"] != null)
                                             {
-                                                <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#Donation" aria-controls="Donation">
-                                                    <span class="text">Donate Now</span>
-                                                </button>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6 text-center">
+                                                        <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#Donation" aria-controls="Donation">
+                                                            <span class="text">Donate Now</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="col-sm-6 text-center">
+                                                        <!-- Button trigger modal -->
+                                                        <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#shareEMAIL">
+                                                            <i class="fa-solid fa-share-nodes mr-1"></i>
+                                                            <span class="text">Share</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
 
 
                                                 <!-- Modal Donate -->
@@ -471,22 +466,16 @@
                                             }
                                             else if (posts.status == "Closed")
                                             {
-                                                <h5>Donation Ended</h5>
+                                                <h5 class="text-center">Donation Ended</h5>
                                             }
                                             else
                                             {
 
-                                                <h5>To donate. Please<a href="@Url.Content("~/Login")"> log in</a></h5>
+                                                <h5 class="text-center">To donate. Please<a href="@Url.Content("~/Login")"> log in</a></h5>
                                             }
 
                                         </div>
-                                        <div class="col-sm-6">
-                                            <!-- Button trigger modal -->
-                                            <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#shareEMAIL">
-                                                <i class="fa-solid fa-share-nodes mr-1"></i>
-                                                <span class="text">Share</span>
-                                            </button>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
