@@ -94,9 +94,13 @@
     }
 
     function doEditMailConfig() {
-        var MailAddress = $('#MailAddress').val();
-        var MailPass = $('#MailPass').val();
-        var MailPort = $('#MailPort').val();
+        var MailAddress = $('#mailAddress').val();
+        var MailPass = $('#mailPass').val();
+        var MailPort = $('#mailPort').val();
+        var SmtpServer = $('#smtpServer').val();
+        var DisplayName = $('#displayName').val();
+        var MailUsername = $('#mailUsername').val();
+        var Ssl = $('#ssl').is(':checked');
 
         $.ajax({
             type: 'POST',
@@ -104,7 +108,11 @@
             data: {
                 MailAddress: MailAddress,
                 MailPass: MailPass,
-                MailPort: MailPort
+                MailPort: MailPort,
+                SmtpServer: SmtpServer,
+                DisplayName: DisplayName,
+                MailUsername: MailUsername,
+                Ssl: Ssl
             },
             success: function (response) {
                 if (response.result == true) {
@@ -457,11 +465,11 @@
                                     <div class="row">
                                         <div class="col-sm-8 text-left">
                                             <label>Smtp server:</label>
-                                            <input type="text" name="name" id="smtpServer" value="smtp.gmail.com" class="smtpServer" />
+                                            <input type="text" name="name" id="smtpServer" value="@ViewBag.smtp.value" class="smtpServer" />
                                         </div>
                                         <div class="col-sm-4">
                                             <label>Smtp port:</label>
-                                            <input type="number" name="name" id="MailPort" value="@ViewBag.SysMailPort.value" class="portSMTP" />
+                                            <input type="number" name="name" id="mailPort" value="@ViewBag.SysMailPort.value" class="portSMTP" />
                                         </div>
                                     </div>
                                 </div>
@@ -469,25 +477,25 @@
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <label>Username: </label>
-                                            <input type="text" name="name" id="userName" value="Ahihi123123" class="userName" />
+                                            <input type="text" name="name" id="mailUsername" value="@ViewBag.MailUsername.value" class="userName" />
                                         </div>
                                         <div class="col-sm-4">
                                             <label>Password:</label>
-                                            <input type="text" name="name" id="MailPass" value="@ViewBag.SysMailPass" class="passEmail" />
+                                            <input type="text" name="name" id="mailPass" value="@ViewBag.SysMailPass" class="passEmail" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <label>Email: </label>
-                                    <input type="email" name="name" id="MailAddress" value="@ViewBag.SysMailAddress.value" class="nameEmail" />
+                                    <input type="email" name="name" id="mailAddress" value="@ViewBag.SysMailAddress.value" class="nameEmail" />
                                 </div>
 
                                 <div class="col-sm-12">
                                     <label>Name View:</label>
-                                    <input type="text" name="name" id="nameView" value="ten hien thi" class="nameView" />
+                                    <input type="text" name="name" id="displayName" value="@ViewBag.DisplayName.value" class="nameView" />
                                 </div>
                                 <div col-sm-4>
-                                    <input type="checkbox" name="name" value="" class="ssL" />
+                                    <input type="checkbox" name="name" id="ssl" value="" @(ViewBag.ssl.value == "true" ? "checked" : "") class="ssL" />
                                     <label>SSl</label>
                                 </div>
 

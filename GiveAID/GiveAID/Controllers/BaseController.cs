@@ -159,7 +159,7 @@ namespace GiveAID.Controllers
 
             using (MailMessage mail = new MailMessage())
             {
-                mail.From = new MailAddress(fromAddress);
+                mail.From = new MailAddress(fromAddress, en.configurations.FirstOrDefault(x => x.keyword == "SYS_DISPLAY_NAME").value);
                 foreach (var item in toAddress)
                 {
                     mail.To.Add(new MailAddress(item));
@@ -168,9 +168,18 @@ namespace GiveAID.Controllers
                 mail.Body = emailBody;
                 mail.IsBodyHtml = true;
 
-                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", Convert.ToInt32(en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PORT").value.ToString()) ))
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", Convert.ToInt32(en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_PORT").value.ToString())))
                 {
-                    smtp.EnableSsl = true;
+                    var ssl = en.configurations.FirstOrDefault(x => x.keyword == "SYS_SSL");
+                    if (ssl.value == "true")
+                    {
+                        smtp.EnableSsl = true;
+                    }
+                    else
+                    {
+                        smtp.EnableSsl = false;
+                    }
+
                     smtp.Credentials = new NetworkCredential(fromAddress, password);
 
                     try
