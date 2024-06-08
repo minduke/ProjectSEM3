@@ -59,6 +59,7 @@
           <Property Name="transaction_date" Type="datetime" />
           <Property Name="banktran_no" Type="varchar" MaxLength="50" />
           <Property Name="pay_status" Type="nvarchar" MaxLength="50" />
+          <Property Name="anonymous" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="post">
           <Key>
@@ -274,6 +275,7 @@
           <NavigationProperty Name="user" Relationship="Self.FK_user_id" FromRole="payment" ToRole="user" />
           <Property Name="banktran_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="pay_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="anonymous" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="post">
           <Key>
@@ -524,6 +526,7 @@
           <EntitySetMapping Name="payments">
             <EntityTypeMapping TypeName="GiveAIDModel.payment">
               <MappingFragment StoreEntitySet="payment">
+                <ScalarProperty Name="anonymous" ColumnName="anonymous" />
                 <ScalarProperty Name="pay_status" ColumnName="pay_status" />
                 <ScalarProperty Name="banktran_no" ColumnName="banktran_no" />
                 <ScalarProperty Name="id" ColumnName="id" />
