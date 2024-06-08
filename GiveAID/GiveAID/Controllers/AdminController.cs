@@ -24,17 +24,17 @@ namespace GiveAID.Controllers
                         .Count(x => x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
 
                     ViewBag.runningCount = en.posts
-                        .Count(x => x.status == "Mở" && x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
+                        .Count(x => x.status == "Open" && x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
 
                     ViewBag.completeCount = en.posts
-                        .Count(x => x.status == "Đóng" && x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
+                        .Count(x => x.status == "Closed" && x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
 
                     ViewBag.sumTarget = en.posts
                         .Where(x => x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month)
                         .Sum(x => x.target);
 
                     ViewBag.sumAmout = en.payments
-                        .Where(x => x.pay_status == "Thành công" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
+                        .Where(x => x.pay_status == "Success" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
                         .Sum(x => x.transaction_amout) ?? 0;
                     return View();
                 }
@@ -69,8 +69,8 @@ namespace GiveAID.Controllers
                             break;
                         case "donated":
                             postQuery = sortOrder == "asc" ?
-                                postQuery.OrderBy(x => x.payments.Where(p => p.pay_status == "Thành công").Sum(p => p.transaction_amout) ?? 0) :
-                                postQuery.OrderByDescending(x => x.payments.Where(p => p.pay_status == "Thành công").Sum(p => p.transaction_amout) ?? 0);
+                                postQuery.OrderBy(x => x.payments.Where(p => p.pay_status == "Success").Sum(p => p.transaction_amout) ?? 0) :
+                                postQuery.OrderByDescending(x => x.payments.Where(p => p.pay_status == "Success").Sum(p => p.transaction_amout) ?? 0);
                             break;
                         default:
                             postQuery = postQuery.OrderByDescending(x => x.id);
@@ -93,19 +93,27 @@ namespace GiveAID.Controllers
         }
 
 
-        public ActionResult NewPartner(int page = 1, int pagesize = 5)
+        public ActionResult NewPartner(string search, int page = 1, int pagesize = 5)
         {
             if (!CheckLogin())
                 return RedirectToAction("Index", "Login");
+
             var toTalPage = en.partners.Count();
             var user = Session["USER"] as user;
             if (user.permission != "admin")
                 return RedirectToAction("Index", "Login");
 
-            ViewBag.partner = en.partners.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
+            var partner = en.partners.AsQueryable();
+            if (!string.IsNullOrEmpty(search))
+            {
+                partner = partner.Where(x => x.partner_name.Contains(search));
+            }
+
+            ViewBag.partner = partner.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
                 .Take(pagesize).ToList();
             ViewBag.CurrentPage = page;
             ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)toTalPage / pagesize);
+            ViewBag.search = search;
             return View();
         }
 
@@ -121,7 +129,7 @@ namespace GiveAID.Controllers
                     ViewBag.EditPost = post == null ? new post() : post;
                     ViewBag.IsEditPost = post != null;
                     ViewBag.cate = en.categories.ToList();
-                    ViewBag.partner = en.partners.Where(x => x.partner_status == "Mở").ToList();
+                    ViewBag.partner = en.partners.Where(x => x.partner_status == "Open").ToList();
                     return View();
                 }
             }
@@ -291,9 +299,9 @@ namespace GiveAID.Controllers
             {
                 var post = en.posts.FirstOrDefault(x => x.id == id);
 
-                if (post.status == "Mở")
+                if (post.status == "Open")
                 {
-                    post.status = "Đóng";
+                    post.status = "Closed";
                 }
                 else
                 {
@@ -306,7 +314,7 @@ namespace GiveAID.Controllers
                     if (post.target <= amout)
                         throw new Exception("Please update target");
 
-                    post.status = "Mở";
+                    post.status = "Open";
                 }
                 en.SaveChanges();
                 return Json(new { result = true });
@@ -444,10 +452,10 @@ namespace GiveAID.Controllers
             try
             {
                 var partner = en.partners.FirstOrDefault(x => x.id == id);
-                if (partner.partner_status == "Mở")
-                    partner.partner_status = "Đóng";
+                if (partner.partner_status == "Open")
+                    partner.partner_status = "Closed";
                 else
-                    partner.partner_status = "Mở";
+                    partner.partner_status = "Open";
 
                 en.SaveChanges();
                 return Json(new { result = true });

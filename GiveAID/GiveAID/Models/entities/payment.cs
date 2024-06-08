@@ -21,7 +21,7 @@ namespace GiveAID.Models.entities
         public string transaction_no { get; set; } = "";
         public Nullable<System.DateTime> transaction_date { get; set; }
         public string banktran_no { get; set; } = "";
-        public string pay_status { get; set; } = "Chưa thanh toán";
+        public string pay_status { get; set; } = "Failure";
     
         public virtual post post { get; set; }
         public virtual user user { get; set; }

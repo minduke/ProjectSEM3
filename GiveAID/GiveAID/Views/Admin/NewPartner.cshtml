@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "NewPartner";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    
+
 
     List<GiveAID.Models.entities.partner> partner = new List<GiveAID.Models.entities.partner>();
     if (ViewBag.partner != null)
@@ -62,6 +62,7 @@
         border-bottom: 2px solid #FF3399; /* Thay đổi màu và đường kẻ dưới khi tab được kích hoạt */
         background-color: whitesmoke;
     }
+
     .search-box {
         display: flex;
         align-items: center;
@@ -144,14 +145,15 @@
 
                     </div>
                     <div class="col-sm-3">
-                      
+                        @using (Html.BeginForm("NewPartner", "Admin", FormMethod.Get))
+                        {
                             <div class="search-box ml-lg-3 mb-2">
-                                <input type="text" name="search" value="search" placeholder="Search..." />
+                                <input type="text" name="search" value="@ViewBag.search" placeholder="Search..." />
                                 <button class="search-btn">
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div>
-                        
+                        }
                     </div>
                     <div class="col-sm-12 ">
                         <div class="table-responsive-sm">
@@ -186,8 +188,8 @@
                                                 <div class="checkbox-wrapper-55">
                                                     <label class="rocker rocker-small">
                                                         <input type="checkbox" id="myCheckbox-@item.id" data-status="@item.partner_status"
-                                                               @(item.partner_status == "Mở" ? "checked" : "")>
-                                                        <span class="status-label @(item.partner_status == "Mở" ? "switch-left" : "switch-right")">
+                                                               @(item.partner_status == "Open" ? "checked" : "")>
+                                                        <span class="status-label @(item.partner_status == "Open" ? "switch-left" : "switch-right")">
                                                             @item.partner_status
                                                         </span>
                                                         <span class="switch-right">Closed</span>
