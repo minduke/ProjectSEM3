@@ -298,6 +298,8 @@
     <Content Include="Content\Images\help_SOS.png" />
     <Content Include="Content\Images\help_Student.png" />
     <Content Include="Content\Images\help_Woman.png" />
+    <Content Include="Content\Images\IconMUNE\mail.png" />
+    <Content Include="Content\Images\IconMUNE\process.png" />
     <Content Include="Content\Images\LogoGive.png" />
     <Content Include="Content\Images\LogoGive2.png" />
     <Content Include="Content\Images\partner\638518486494533479_2023-06-13.png" />

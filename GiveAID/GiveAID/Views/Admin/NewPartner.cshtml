@@ -62,6 +62,43 @@
         border-bottom: 2px solid #FF3399; /* Thay đổi màu và đường kẻ dưới khi tab được kích hoạt */
         background-color: whitesmoke;
     }
+    .search-box {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        border: none;
+    }
+
+        .search-box input[type="text"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 35px;
+            font-size: 16px;
+            width: 200px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease-in-out;
+            box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+        }
+
+    .search-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 6px 9px;
+        margin-left: 1px;
+        border-radius: 35px;
+        cursor: pointer;
+    }
+
+        .search-btn i {
+            margin-right: 5px;
+        }
+
+        .search-btn:hover {
+            background-color: #45a049;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease-in-out;
+        }
 </style>
 
 <div class="content-wrapper">
@@ -102,9 +139,19 @@
                     <div class="col-sm-12">
                         <h3>List of partners</h3>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-9">
                         <a class="btn btn-success" href="@Url.Content("~/Admin/EditPartner/")"><i class="fa-solid fa-plus mr-1"></i>Add</a>
 
+                    </div>
+                    <div class="col-sm-3">
+                      
+                            <div class="search-box ml-lg-3 mb-2">
+                                <input type="text" name="search" value="search" placeholder="Search..." />
+                                <button class="search-btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        
                     </div>
                     <div class="col-sm-12 ">
                         <div class="table-responsive-sm">
@@ -143,7 +190,7 @@
                                                         <span class="status-label @(item.partner_status == "Mở" ? "switch-left" : "switch-right")">
                                                             @item.partner_status
                                                         </span>
-                                                        <span class="switch-right">Đóng</span>
+                                                        <span class="switch-right">Closed</span>
                                                     </label>
                                                 </div>
                                             </td>
