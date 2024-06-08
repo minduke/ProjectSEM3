@@ -225,44 +225,48 @@
         }
     /* cho nay la cho nhap so dnt*/
 
+    .smtpServer{
+        width:350px;
+        margin-left:50px;
+    }
 
+    .userName {
+        width: 350px;
+        margin-left: 65px;
+    }
 
     .nameEmail {
-        width: 190px;
-        margin-left: 35px;
+        width: 555px;
+        margin-left: 97px;
+    }
+
+    .nameView {
+        width: 570px;
+        margin-left: 58px;
     }
 
     .passEmail {
-        width: 190px;
-        margin-left: 7px;
+        width: 120px;
+        margin-left: 35px;
     }
 
     .portSMTP {
-        width: 50px;
+        width: 120px;
+        margin-left: 32px;
+    }
+    .ssL{
+        margin-left:10px;
     }
 
-    @@media (max-width: 768px) {
-
-        .nameEmail {
+    @@media (max-width: 500px) {
+        .smtpServer, .userName, .nameEmail, .nameView, .passEmail, .portSMTP, .ssL {
             /* Kiểu dáng cho thiết bị di động */
             width: 100%;
             height: auto;
+            margin: 0px;
             /* Các kiểu dáng khác tùy ý */
         }
-
-        .passEmail {
-            /* Kiểu dáng cho thiết bị di động */
-            width: 100%;
-            height: auto;
-            /* Các kiểu dáng khác tùy ý */
-        }
-
-        .portSMTP {
-            /* Kiểu dáng cho thiết bị di động */
-            width: 100%;
-            height: auto;
-            /* Các kiểu dáng khác tùy ý */
-        }
+        
     }
 
     .btn-transparent {
@@ -438,7 +442,7 @@
 
         <!-- Modal config email -->
         <div class="modal fade" id="configEmail" tabindex="-1" role="dialog" aria-labelledby="configEmail" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-info">
                         <h5 class="modal-title" id="configEmaill">Configure sending mail</h5>
@@ -449,18 +453,42 @@
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-sm-8">
-                                    <label>Email: </label>
-                                    <input type="email" name="name" id="MailAddress" value="@ViewBag.SysMailAddress.value" class="nameEmail" />
-
-                                </div>
-                                <div class="col-sm-4">
-                                    <label>Smtp port:</label>
-                                    <input type="number" name="name" id="MailPort" value="@ViewBag.SysMailPort.value" class="portSMTP" />
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-8 text-left">
+                                            <label>Smtp server:</label>
+                                            <input type="text" name="name" id="smtpServer" value="smtp.gmail.com" class="smtpServer" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>Smtp port:</label>
+                                            <input type="number" name="name" id="MailPort" value="@ViewBag.SysMailPort.value" class="portSMTP" />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <label>Password:</label>
-                                    <input type="text" name="name" id="MailPass" value="@ViewBag.SysMailPass" class="passEmail" />
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <label>Username: </label>
+                                            <input type="text" name="name" id="userName" value="Ahihi123123" class="userName" />
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label>Password:</label>
+                                            <input type="text" name="name" id="MailPass" value="@ViewBag.SysMailPass" class="passEmail" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label>Email: </label>
+                                    <input type="email" name="name" id="MailAddress" value="@ViewBag.SysMailAddress.value" class="nameEmail" />
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <label>Name View:</label>
+                                    <input type="text" name="name" id="nameView" value="ten hien thi" class="nameView" />
+                                </div>
+                                <div col-sm-4>
+                                    <input type="checkbox" name="name" value="" class="ssL" />
+                                    <label>SSl</label>
                                 </div>
 
                             </div>
