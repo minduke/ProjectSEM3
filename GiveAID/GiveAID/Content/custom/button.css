@@ -61,7 +61,7 @@
     will change the size of the switch.
     See .rocker-small below as example.
     */
-    font-size: 2em;
+    font-size: 1em;
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
@@ -73,7 +73,7 @@
 }
 
 .checkbox-wrapper-55 .rocker-small {
-    font-size: 0.75em;
+    font-size: 0.55em;
 }
 
 .checkbox-wrapper-55 .rocker::before {
