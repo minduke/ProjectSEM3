@@ -777,12 +777,15 @@ namespace GiveAID.Controllers
             }
         }
 
-        public ActionResult UserL(string search)
+        public ActionResult UserL(string search, int page = 1, int pagesize = 6)
         {
             if (CheckLoginAdmin())
             {
-                ViewBag.userL = en.users.Where(x => x.permission != "admin").ToList();
+                var totalPage = en.users.Where(x => x.permission != "admin").Count();
 
+                ViewBag.userL = en.users.Where(x => x.permission != "admin").OrderBy(x => x.id).Skip((page - 1) * pagesize)
+                .Take(pagesize).ToList();
+                
                 if (!string.IsNullOrEmpty(search))
                     ViewBag.userL = en.users
                         .Where(x => x.permission != "admin")
@@ -790,6 +793,8 @@ namespace GiveAID.Controllers
                         .Where(x => x.username.ToUnsign().Contains(search) || x.fullname.ToUnsign().Contains(search))
                         .ToList();
 
+                ViewBag.CurrentPage = page;
+                ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)totalPage / pagesize);
                 ViewBag.search = search;
                 return View();
             }
