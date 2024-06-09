@@ -150,7 +150,7 @@
                                         <i class="fa-solid fa-key mr-2"></i> Change Password
                                     </a>
                                     
-                                    @if (user.permission == "admin")
+                                    @if (user.permission == "admin" || user.permission == "mod")
                                     {   <div class="dropdown-divider"></div>
                                         <a href="@Url.Action("Index", "Admin")" class="dropdown-item">
                                             <i class="fa-solid fa-users-gear mr-2"></i> Admin system

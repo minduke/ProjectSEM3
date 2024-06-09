@@ -17,29 +17,27 @@ namespace GiveAID.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            if (CheckLogin())
+            if (CheckLoginAdmin())
             {
-                var user = Session["USER"] as user;
-                if (user.permission == "admin")
-                {
-                    ViewBag.postCount = en.posts
-                        .Count(x => x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
 
-                    ViewBag.runningCount = en.posts
-                        .Count(x => x.status == "Open" && x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
+                ViewBag.postCount = en.posts
+                    .Count(x => x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
 
-                    ViewBag.completeCount = en.posts
-                        .Count(x => x.status == "Closed" && x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
+                ViewBag.runningCount = en.posts
+                    .Count(x => x.status == "Open" && x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
 
-                    ViewBag.sumTarget = en.posts
-                        .Where(x => x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month)
-                        .Sum(x => x.target);
+                ViewBag.completeCount = en.posts
+                    .Count(x => x.status == "Closed" && x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month);
 
-                    ViewBag.sumAmout = en.payments
-                        .Where(x => x.pay_status == "Success" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
-                        .Sum(x => x.transaction_amout) ?? 0;
-                    return View();
-                }
+                ViewBag.sumTarget = en.posts
+                    .Where(x => x.time_start.Value.Year == DateTime.Now.Year && x.time_start.Value.Month == DateTime.Now.Month)
+                    .Sum(x => x.target);
+
+                ViewBag.sumAmout = en.payments
+                    .Where(x => x.pay_status == "Success" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
+                    .Sum(x => x.transaction_amout) ?? 0;
+                return View();
+
             }
 
             return RedirectToAction("Index", "Login");
@@ -48,52 +46,49 @@ namespace GiveAID.Controllers
 
         public ActionResult CreateNews(string search, string sortColumn, string sortOrder, int page = 1, int pagesize = 10)
         {
-            if (CheckLogin())
+            if (CheckLoginAdmin())
             {
                 var toTalPage = en.posts.Count();
-                var user = Session["USER"] as user;
-                if (user.permission == "admin")
+                var postQuery = en.posts.AsQueryable();
+
+                switch (sortColumn)
                 {
-                    var postQuery = en.posts.AsQueryable();
-
-                    switch (sortColumn)
-                    {
-                        case "title":
-                            postQuery = sortOrder == "asc" ? postQuery.OrderBy(x => x.title) : postQuery.OrderByDescending(x => x.title);
-                            break;
-                        case "target":
-                            postQuery = sortOrder == "asc" ? postQuery.OrderBy(x => x.target) : postQuery.OrderByDescending(x => x.target);
-                            break;
-                        case "donated":
-                            postQuery = sortOrder == "asc" ?
-                                postQuery.OrderBy(x => x.payments.Where(p => p.pay_status == "Success").Sum(p => p.transaction_amout) ?? 0) :
-                                postQuery.OrderByDescending(x => x.payments.Where(p => p.pay_status == "Success").Sum(p => p.transaction_amout) ?? 0);
-                            break;
-                        default:
-                            postQuery = postQuery.OrderByDescending(x => x.id);
-                            break;
-                    }
-
-                    var post = postQuery.Skip((page - 1) * pagesize).Take(pagesize).ToList();
-
-                    if (!string.IsNullOrEmpty(search))
-                    {
-                        ViewBag.post = post.Where(x => x.title.ToUnsign().Contains(search)).ToList();
-                    }
-                    else
-                    {
-                        ViewBag.post = post;
-
-                    }
-
-                    ViewBag.CurrentPage = page;
-                    ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)toTalPage / pagesize);
-                    ViewBag.search = search;
-                    ViewBag.sortColumn = sortColumn;
-                    ViewBag.sortOrder = sortOrder;
-
-                    return View();
+                    case "title":
+                        postQuery = sortOrder == "asc" ? postQuery.OrderBy(x => x.title) : postQuery.OrderByDescending(x => x.title);
+                        break;
+                    case "target":
+                        postQuery = sortOrder == "asc" ? postQuery.OrderBy(x => x.target) : postQuery.OrderByDescending(x => x.target);
+                        break;
+                    case "donated":
+                        postQuery = sortOrder == "asc" ?
+                            postQuery.OrderBy(x => x.payments.Where(p => p.pay_status == "Success").Sum(p => p.transaction_amout) ?? 0) :
+                            postQuery.OrderByDescending(x => x.payments.Where(p => p.pay_status == "Success").Sum(p => p.transaction_amout) ?? 0);
+                        break;
+                    default:
+                        postQuery = postQuery.OrderByDescending(x => x.id);
+                        break;
                 }
+
+                var post = postQuery.Skip((page - 1) * pagesize).Take(pagesize).ToList();
+
+                if (!string.IsNullOrEmpty(search))
+                {
+                    ViewBag.post = post.Where(x => x.title.ToUnsign().Contains(search)).ToList();
+                }
+                else
+                {
+                    ViewBag.post = post;
+
+                }
+
+                ViewBag.CurrentPage = page;
+                ViewBag.TotalPagesRunning = (int)Math.Ceiling((double)toTalPage / pagesize);
+                ViewBag.search = search;
+                ViewBag.sortColumn = sortColumn;
+                ViewBag.sortOrder = sortOrder;
+
+                return View();
+
             }
             return RedirectToAction("Index", "Login");
         }
@@ -101,13 +96,10 @@ namespace GiveAID.Controllers
 
         public ActionResult NewPartner(string search, int page = 1, int pagesize = 5)
         {
-            if (!CheckLogin())
+            if (!CheckLoginAdmin())
                 return RedirectToAction("Index", "Login");
 
             var toTalPage = en.partners.Count();
-            var user = Session["USER"] as user;
-            if (user.permission != "admin")
-                return RedirectToAction("Index", "Login");
 
             ViewBag.partner = en.partners.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
                 .Take(pagesize).ToList();
@@ -115,7 +107,7 @@ namespace GiveAID.Controllers
             if (!string.IsNullOrEmpty(search))
             {
                 ViewBag.partner = en.partners.OrderByDescending(x => x.id).Skip((page - 1) * pagesize)
-                .Take(pagesize).ToList().Where(x=>x.partner_name.ToUnsign().Contains(search)).ToList();
+                .Take(pagesize).ToList().Where(x => x.partner_name.ToUnsign().Contains(search)).ToList();
             }
 
             ViewBag.CurrentPage = page;
@@ -127,18 +119,14 @@ namespace GiveAID.Controllers
 
         public ActionResult EditDetail(int? id = null)
         {
-            if (CheckLogin())
+            if (CheckLoginAdmin())
             {
-                var user = Session["USER"] as user;
-                if (user.permission == "admin")
-                {
-                    var post = en.posts.FirstOrDefault(x => x.id == id);
-                    ViewBag.EditPost = post == null ? new post() : post;
-                    ViewBag.IsEditPost = post != null;
-                    ViewBag.cate = en.categories.ToList();
-                    ViewBag.partner = en.partners.Where(x => x.partner_status == "Open").ToList();
-                    return View();
-                }
+                var post = en.posts.FirstOrDefault(x => x.id == id);
+                ViewBag.EditPost = post == null ? new post() : post;
+                ViewBag.IsEditPost = post != null;
+                ViewBag.cate = en.categories.ToList();
+                ViewBag.partner = en.partners.Where(x => x.partner_status == "Open").ToList();
+                return View();
             }
             return RedirectToAction("Index", "Login");
         }
@@ -222,17 +210,8 @@ namespace GiveAID.Controllers
             {
                 var data = en.posts.FirstOrDefault(x => x.id == post.id);
 
-                var dt = en.image_post.Where(x => x.post_id == post.id).Count();
-
-                if (data.image == "" && thumbnail == null)
-                {
-                    throw new Exception("THUMBNAILS cannot be left blank");
-                }
-
-                if (dt == 0 && fileBase[0] == null)
-                {
-                    throw new Exception("IMAGES cannot be left blank");
-                }
+                if (post.title.Length > 100)
+                    throw new Exception("Max of title is 100 characters");
 
                 if (fileBase.Length > 0 && fileBase[0] != null)
                 {
@@ -337,13 +316,9 @@ namespace GiveAID.Controllers
 
         public ActionResult chartJS()
         {
-            if (CheckLogin())
+            if (CheckLoginAdmin())
             {
-                var user = Session["USER"] as user;
-                if (user.permission == "admin")
-                {
-                    return View();
-                }
+                return View();
             }
             return RedirectToAction("Index", "Login");
         }
@@ -353,13 +328,8 @@ namespace GiveAID.Controllers
 
         public ActionResult EditPartner(int? id = null)
         {
-            if (!CheckLogin())
+            if (!CheckLoginAdmin())
                 return RedirectToAction("Index", "Login");
-
-            var user = Session["USER"] as user;
-            if (user.permission != "admin")
-                return RedirectToAction("Index", "Login");
-
 
             var dt = en.partners.FirstOrDefault(x => x.id == id);
 
@@ -529,7 +499,7 @@ namespace GiveAID.Controllers
 
         public ActionResult ViewConfiguration()
         {
-            if (CheckLogin())
+            if (CheckLoginAdmin())
             {
                 ViewBag.SysAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_ADDRESS");
                 ViewBag.SysEmail = en.configurations.FirstOrDefault(x => x.keyword == "SYS_EMAIL");
@@ -552,6 +522,10 @@ namespace GiveAID.Controllers
         {
             try
             {
+                var count = en.banners.Count();
+                if (count == 1)
+                    throw new Exception("You need to leave at least 1 photo");
+
                 var banner = en.banners.FirstOrDefault(x => x.id == id);
                 var filePath = Server.MapPath("~/Content/Images/banner/" + banner.banner_image);
                 if (System.IO.File.Exists(filePath))
@@ -803,12 +777,53 @@ namespace GiveAID.Controllers
             }
         }
 
-        public ActionResult UserL()
+        public ActionResult UserL(string search)
         {
-            
-            //ViewBag.userL = en.users.ToList();
-            
-            return View();  
+            if (CheckLoginAdmin())
+            {
+                ViewBag.userL = en.users.Where(x => x.permission != "admin").ToList();
+
+                if (!string.IsNullOrEmpty(search))
+                    ViewBag.userL = en.users
+                        .Where(x => x.permission != "admin")
+                        .ToList()
+                        .Where(x => x.username.ToUnsign().Contains(search) || x.fullname.ToUnsign().Contains(search))
+                        .ToList();
+
+                ViewBag.search = search;
+                return View();
+            }
+            return RedirectToAction("Index", "Login");
+        }
+
+        public JsonResult ChangeUserPermission(int idUser, string UserPermission)
+        {
+            try
+            {
+                var user = en.users.Find(idUser) ?? throw new Exception("User not found");
+                user.permission = UserPermission;
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public JsonResult ChangeUserStatus(int idUser, string status)
+        {
+            try
+            {
+                var user = en.users.Find(idUser) ?? throw new Exception("User not found");
+                user.status = status;
+                en.SaveChanges();
+                return Json(new { result = true });
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 

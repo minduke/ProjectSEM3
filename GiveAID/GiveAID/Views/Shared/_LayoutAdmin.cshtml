@@ -1,236 +1,242 @@
 ﻿
 @{
     ViewBag.Title = "_LayoutAdmin";
+
+    var user = Session["USER"] as GiveAID.Models.entities.user;
 }
 
 <!DOCTYPE html>
- <html lang="en">
- <head>
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>Give-AID | N.G.O</title>
-     <!-- Favicon -->
-     <link rel="icon" href="@Url.Content("~/Content/Images/favicon/favicon.ico")" />
-     <!-- Font Awesome 6.5.2 -->
-     <link href="@Url.Content("~/Content/plugins/fontawesome-free-6.5.2-web/css/all.min.css")" rel="stylesheet" />
-     <!-- Google Font: Source Sans Pro -->
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-     <!-- Font Awesome -->
-     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/fontawesome-free/css/all.min.css")">
-     <!-- Ionicons -->
-     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-     <!-- Tempusdominus Bootstrap 4 -->
-     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")">
-     <!-- iCheck -->
-     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/icheck-bootstrap/icheck-bootstrap.min.css")">
-     <!-- JQVMap -->
-     <link rel="stylesheet" href=" @Url.Content("~/Content/plugins/jqvmap/jqvmap.min.css")">
-     <!-- Theme style -->
-     <link rel="stylesheet" href="@Url.Content("~/Content/dist/css/adminlte.min.css")">
-     <!-- overlayScrollbars -->
-     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")">
-     <!-- Daterange picker -->
-     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/daterangepicker/daterangepicker.css")">
-     <!--CSS Custome-->
-     <link rel="stylesheet" href="@Url.Content("~/Content/custom/button.css")">
-     <!--CSS Custome-->
-     <link rel="stylesheet" href="@Url.Content("~/Content/custom/customeCSS.css")">
-     <!-- fullCalendar -->
-     <link rel="stylesheet" href="@Url.Content("~/Content/plugins//fullcalendar/main.css") ">
-     <!-- Toastr -->
-     <link rel="stylesheet" href="@Url.Content("~/Content/plugins/toastr/toastr.min.css") ">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Give-AID | N.G.O</title>
+    <!-- Favicon -->
+    <link rel="icon" href="@Url.Content("~/Content/Images/favicon/favicon.ico")" />
+    <!-- Font Awesome 6.5.2 -->
+    <link href="@Url.Content("~/Content/plugins/fontawesome-free-6.5.2-web/css/all.min.css")" rel="stylesheet" />
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/fontawesome-free/css/all.min.css")">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/icheck-bootstrap/icheck-bootstrap.min.css")">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href=" @Url.Content("~/Content/plugins/jqvmap/jqvmap.min.css")">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/dist/css/adminlte.min.css")">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/daterangepicker/daterangepicker.css")">
+    <!--CSS Custome-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/custom/button.css")">
+    <!--CSS Custome-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/custom/customeCSS.css")">
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins//fullcalendar/main.css") ">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/toastr/toastr.min.css") ">
 
-     <!-- REQUIRED SCRIPTS -->
-     <!-- fullCalendar 2.2.5 -->
-     <script src="@Url.Content("~/Content/plugins/moment/moment.min.js") "></script>
-     <script src="@Url.Content("~/Content/plugins/fullcalendar/main.min.js")"></script>
-     <!-- ChartJS -->
-     <script src="@Url.Content("~/Content/plugins/chart.js/Chart.min.js")"></script>
-     <!-- jQuery -->
-     <script src="@Url.Content("~/Content/plugins/jquery/jquery.min.js")"></script>
-     <!-- jQuery UI 1.11.4 -->
-     <script src="@Url.Content("~/Content/plugins/jquery-ui/jquery-ui.min.js")"></script>
-     <!-- Bootstrap -->
-     <script src="@Url.Content("~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js")"></script>
-     <!-- overlayScrollbars -->
-     <script src="@Url.Content("~/content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")"></script>
-     <!-- AdminLTE App -->
-     <script src="@Url.Content("~/content/dist/js/adminlte.js")"></script>
+    <!-- REQUIRED SCRIPTS -->
+    <!-- fullCalendar 2.2.5 -->
+    <script src="@Url.Content("~/Content/plugins/moment/moment.min.js") "></script>
+    <script src="@Url.Content("~/Content/plugins/fullcalendar/main.min.js")"></script>
+    <!-- ChartJS -->
+    <script src="@Url.Content("~/Content/plugins/chart.js/Chart.min.js")"></script>
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Content/plugins/jquery/jquery.min.js")"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="@Url.Content("~/Content/plugins/jquery-ui/jquery-ui.min.js")"></script>
+    <!-- Bootstrap -->
+    <script src="@Url.Content("~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js")"></script>
+    <!-- overlayScrollbars -->
+    <script src="@Url.Content("~/content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/content/dist/js/adminlte.js")"></script>
 
-     <!-- Sparkline -->
-     <script src="@Url.Content("~/Content/plugins/sparklines/sparkline.js")"></script>
-     <!-- JQVMap -->
-     <script src="@Url.Content("~/Content/plugins/jqvmap/jquery.vmap.min.js")"></script>
-     <script src="@Url.Content("~/Content/plugins/jqvmap/maps/jquery.vmap.usa.js")"></script>
-     <!-- jQuery Knob Chart -->
-     <script src="@Url.Content("~/Content/plugins/jquery-knob/jquery.knob.min.js")"></script>
-     <!-- daterangepicker -->
-     <script src="@Url.Content("~/Content/plugins/daterangepicker/daterangepicker.js")"></script>
-     <!-- Tempusdominus Bootstrap 4 -->
-     <script src="@Url.Content("~/Content/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js")"></script>
-
-
-
-     <!-- AdminLTE for demo purposes -->
-     @*<script src="@Url.Content("~/Content/dist/js/demo.js")"></script>*@
-     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-     <script src="@Url.Content("~/Content/dist/js/pages/dashboard.js")"></script>
-
-
-     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-     <!-- Toastr -->
-     <script src="@Url.Content("~/Content/plugins/toastr/toastr.min.js")"></script>
-     <!-- ChartJS -->
-     <script src="@Url.Content("~/Content/plugins/chart.js/Chart.min.js") "></script>
-     <!--customJS-->
-     <script src="@Url.Content("~/Content/custom/customJS.js")"></script>
+    <!-- Sparkline -->
+    <script src="@Url.Content("~/Content/plugins/sparklines/sparkline.js")"></script>
+    <!-- JQVMap -->
+    <script src="@Url.Content("~/Content/plugins/jqvmap/jquery.vmap.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/jqvmap/maps/jquery.vmap.usa.js")"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="@Url.Content("~/Content/plugins/jquery-knob/jquery.knob.min.js")"></script>
+    <!-- daterangepicker -->
+    <script src="@Url.Content("~/Content/plugins/daterangepicker/daterangepicker.js")"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="@Url.Content("~/Content/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js")"></script>
 
 
 
+    <!-- AdminLTE for demo purposes -->
+    @*<script src="@Url.Content("~/Content/dist/js/demo.js")"></script>*@
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="@Url.Content("~/Content/dist/js/pages/dashboard.js")"></script>
 
- </head>
 
- <body class="hold-transition sidebar-mini sidebar-collapse">
-     <!-- Site wrapper -->
-     <div class="wrapper">
-         <!-- Navbar -->
-         <nav class="main-header navbar navbar-expand navbar-dark">
-             <!-- Left navbar links -->
-             <ul class="navbar-nav">
-                 <li class="nav-item">
-                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                 </li>
-                 <!--home icon-->
-                 <li class="nav-item d-none d-sm-inline-block">
-                     <a href="@Url.Action("Index","Admin")" class="nav-link" data-toggle="tooltip" title="Home ADMIN">
-                         <i class="fas fa-home"></i>
-                     </a>
-                 </li>
-                 <!--icon user edit-->
-
-             </ul>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!-- Toastr -->
+    <script src="@Url.Content("~/Content/plugins/toastr/toastr.min.js")"></script>
+    <!-- ChartJS -->
+    <script src="@Url.Content("~/Content/plugins/chart.js/Chart.min.js") "></script>
+    <!--customJS-->
+    <script src="@Url.Content("~/Content/custom/customJS.js")"></script>
 
 
 
-             <!-- end search -->
-             <!-- Right navbar links -->
-             <ul class="navbar-nav ml-auto">
-                 <!-- Notifications Dropdown Menu -->
-                 <!--fullscreen-->
-                 <li class="nav-item">
-                     <a href="@Url.Action("Index", "Home")" class="nav-link" data-toggle="tooltip" title="Home User">
-                         <i class="fa-solid fa-house-user"></i>
-                     </a>
-                 </li>
-                 <!--icon logout-->
-                 <li class="nav-item">
 
-                     <a href="@Url.Action("LogOut", "Login")" class="nav-link" data-toggle="tooltip" title="Log Out">
-                         <i class="fa-solid fa-door-open"></i>
-                     </a>
+</head>
 
-                 </li>
-             </ul>
-         </nav>
-         <!-- /.navbar -->
-         <!-- Main Sidebar Container -->
-         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-             <!-- Brand Logo -->
-             <!--Logo CTY-->
-             <a href="@Url.Action("Index","Admin")" class="brand-link">
-                 <img src="@Url.Content("~/content/Images/donation.png")" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                      style="opacity: .8">
-                 <span class="brand-text font-weight-light">ADMIN</span>
-             </a>
+<body class="hold-transition sidebar-mini sidebar-collapse">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <!--home icon-->
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="@Url.Action("Index", "Admin")" class="nav-link" data-toggle="tooltip" title="Home ADMIN">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+                <!--icon user edit-->
 
-             <!-- Sidebar -->
-             <div class="sidebar">
-                 <!-- Sidebar user panel (optional) -->
-                 <!--User IMAGE-->
-                 <!--Ảnh đại diện USER-->
-                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                     <div class="image">
-                         <img src="@Url.Content("~/content/dist/img/user2-160x160.jpg")" class="img-circle elevation-2" alt="User Image">
-                     </div>
-                     <div class="info">
-                         <a href="@Url.Action("Index","Admin")" class="d-block">Tèo Cute</a>
-                     </div>
-                 </div>
-                 <nav class="mt-2">
-                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                         <!-- Add icons to the links using the .nav-icon class
-                    with font-awesome or any other icon font library -->
-                         <li class="nav-item menu-open">
-                             <a href="#" class="nav-link active">
-                                 <i class="fas fa-users-cog mr-2"></i>
-                                 <p>
-                                     System
-                                     <i class="right fas fa-angle-left"></i>
-                                 </p>
-                             </a>
-                             <ul class="nav nav-treeview">
-
-                                 <li class="nav-item">
-                                     <a href="@Url.RouteUrl("ListParter")" class="nav-link">
-                                         <i class="fa-solid fa-handshake mr-1"></i>
-                                         <p>Partners</p>
-                                     </a>
-                                 </li>
-
-                                 <li class="nav-item">
-                                     <a href="@Url.RouteUrl("ListPosts")" class="nav-link">
-                                         <i class="fa-solid fa-newspaper mr-1"></i>
-                                         <p>Posts</p>
-                                     </a>
-                                 </li>
-
-                                 <li class="nav-item">
-                                     <a href="@Url.Action("UserL","Admin")" class="nav-link">
-                                         <i class="fa-solid fa-users-gear mr-1"></i>
-                                         <p>User</p>
-                                     </a>
-                                 </li>
-
-                                 <li class="nav-item">
-                                     <a href="@Url.Action("ChangePass","Login")" class="nav-link">
-                                         <i class="fas fa-unlock-alt mr-1"></i>
-                                         <p>Change Password</p>
-                                     </a>
-                                 </li>
-
-                                 <li class="nav-item">
-                                     <a href="@Url.Action("ViewConfiguration","Admin")" class="nav-link">
-                                         <i class="fa-solid fa-wrench mr-1"></i>
-                                         <p>Config</p>
-                                     </a>
-                                 </li>
-                             </ul>
-                         </li>
-                     </ul>
-                 </nav>
-             </div>
-             <!-- /.sidebar -->
-
-         </aside>
-
-         @RenderBody()
-
-         @RenderSection("scripts", required: false)
-
-         <div><a href="#" id="backToTopBtn"><i class="fa-solid fa-turn-up"></i></a></div>
-         <!-- Main Footer -->
-         <footer class="main-footer">
-             <strong>Copyright &copy; 2024 <a href="https://tinyurl.com/WuDuke">WuDuke</a>.</strong>
-             A startup company.
-             <div class="float-right d-none d-sm-inline-block">
-                 <b>Version</b> 0.0.1
-             </div>
-         </footer>
+            </ul>
 
 
-     </div>
-     <!-- ./wrapper -->
-    
 
- </body>
+            <!-- end search -->
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Notifications Dropdown Menu -->
+                <!--fullscreen-->
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "Home")" class="nav-link" data-toggle="tooltip" title="Home User">
+                        <i class="fa-solid fa-house-user"></i>
+                    </a>
+                </li>
+                <!--icon logout-->
+                <li class="nav-item">
+
+                    <a href="@Url.Action("LogOut", "Login")" class="nav-link" data-toggle="tooltip" title="Log Out">
+                        <i class="fa-solid fa-door-open"></i>
+                    </a>
+
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <!--Logo CTY-->
+            <a href="@Url.Action("Index", "Admin")" class="brand-link">
+                <img src="@Url.Content("~/content/Images/donation.png")" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                     style="opacity: .8">
+                <span class="brand-text font-weight-light">ADMIN</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <!--User IMAGE-->
+                <!--Ảnh đại diện USER-->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="@Url.Content("~/content/images/user/")@user.image" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="@Url.Action("Index", "Admin")" class="d-block">@user.fullname - @user.permission</a>
+                    </div>
+                </div>
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link active">
+                                <i class="fas fa-users-cog mr-2"></i>
+                                <p>
+                                    System
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @if (user.permission == "admin" || user.permission == "mod")
+                                {
+                                    <li class="nav-item">
+                                        <a href="@Url.RouteUrl("ListParter")" class="nav-link">
+                                            <i class="fa-solid fa-handshake mr-1"></i>
+                                            <p>Partners</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="@Url.RouteUrl("ListPosts")" class="nav-link">
+                                            <i class="fa-solid fa-newspaper mr-1"></i>
+                                            <p>Posts</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ChangePass", "Login")" class="nav-link">
+                                            <i class="fas fa-unlock-alt mr-1"></i>
+                                            <p>Change Password</p>
+                                        </a>
+                                    </li>
+                                }
+                                @if (user.permission == "admin")
+                                {
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("UserL", "Admin")" class="nav-link">
+                                            <i class="fa-solid fa-users-gear mr-1"></i>
+                                            <p>User</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ViewConfiguration", "Admin")" class="nav-link">
+                                            <i class="fa-solid fa-wrench mr-1"></i>
+                                            <p>Config</p>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- /.sidebar -->
+
+        </aside>
+
+        @RenderBody()
+
+        @RenderSection("scripts", required: false)
+
+        <div><a href="#" id="backToTopBtn"><i class="fa-solid fa-turn-up"></i></a></div>
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2024 <a href="https://tinyurl.com/WuDuke">WuDuke</a>.</strong>
+            A startup company.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 0.0.1
+            </div>
+        </footer>
+
+
+    </div>
+    <!-- ./wrapper -->
+
+
+</body>
 </html>

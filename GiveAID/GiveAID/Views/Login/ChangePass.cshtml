@@ -16,8 +16,7 @@
 
             success: function (response) {
                 if (response.result == true) {
-                    showSuccessMessage("Change password success");
-                    form.reset();
+                    location.reload();
                 }
                 else {
                     showErrorMessage(response.error);

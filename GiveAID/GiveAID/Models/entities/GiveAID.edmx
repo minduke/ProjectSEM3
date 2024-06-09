@@ -101,6 +101,7 @@
           <Property Name="permission" Type="nvarchar" MaxLength="50" />
           <Property Name="gender" Type="nvarchar" MaxLength="10" />
           <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_cate_id">
           <End Role="category" Type="Self.category" Multiplicity="0..1" />
@@ -322,6 +323,7 @@
           <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="payments" Relationship="Self.FK_user_id" FromRole="user" ToRole="payment" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_cate_id">
           <End Role="category" Type="Self.category" Multiplicity="0..1" />
@@ -569,6 +571,7 @@
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="GiveAIDModel.user">
               <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
