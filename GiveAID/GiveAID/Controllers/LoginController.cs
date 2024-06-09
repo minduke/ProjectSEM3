@@ -107,6 +107,7 @@ namespace GiveAID.Controllers
 
                 data.password = EncryptDES(model.newPass, SecretKey);
                 en.SaveChanges();
+                Session.Remove("USER");
                 return Json(new { result = true });
             }
             catch

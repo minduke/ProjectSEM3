@@ -342,6 +342,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center">
+                                                <!--cho nay hien tien con co the donate-->
+                                                <span>End date of the project:</span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h5>@posts.time_end.Value.ToShortDateString()</h5>
+                                                <input type="hidden" id="balance" value="@(posts.target - ViewBag.sum)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 

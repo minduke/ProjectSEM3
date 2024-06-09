@@ -116,7 +116,7 @@ namespace GiveAID.Controllers
             ViewBag.TotalPages = totalPages;
             ViewBag.StartPage = startPage;
             ViewBag.EndPage = endPage;
-            ViewBag.categories = en.categories.ToList();
+            ViewBag.categories = en.categories.Where(x => x.posts.Count(s => s.status == "Open") > 0).ToList();
             ViewBag.banner = en.banners.ToList();
 
             return View();
@@ -471,7 +471,7 @@ namespace GiveAID.Controllers
                 .ToList();
 
             ViewBag.banner = en.banners.ToList();
-            ViewBag.categories = en.categories.ToList();
+            ViewBag.categories = en.categories.Where(x => x.posts.Count(s => s.status == "Open") > 0).ToList();
             return View();
         }
 

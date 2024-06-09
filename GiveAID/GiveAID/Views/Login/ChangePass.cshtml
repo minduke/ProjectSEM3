@@ -16,10 +16,7 @@
 
             success: function (response) {
                 if (response.result == true) {
-                    /*location.reload();*/
-                    showSuccessMessage("Chào cậu!!!");
-                    var url = '@Url.Action("Index", "Login")';
-                     open(url, "_self");
+                    open('@Url.Action("Index", "Login")', "_self");
                 }
                 else {
                     showErrorMessage(response.error);
