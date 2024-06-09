@@ -12,49 +12,13 @@
 }
 
 <style>
-    .carousel-caption {
-        /* CSS cho thẻ <h5> */
-
-        bottom: 90px;
-    }
-
-        .carousel-caption.d-none.d-md-block h5 {
-            /* CSS cho thẻ <h5> */
-            color: ghostwhite;
-            font-weight: bold;
-            font-size: 22px;
-            text-transform: uppercase;
-            text-shadow: 5px 5px 10px #00FF00;
-        }
-
-        .carousel-caption.d-none.d-md-block p {
-            /* CSS cho thẻ <p> */
-            color: ghostwhite;
-            font-weight: bold;
-            font-size: 20px;
-            text-shadow: 5px 5px 10px #00FF00;
-        }
-
-    .w-100 {
-        /* kích thước thẻ slide index home */
-        width: 100vw;
-        height: 40vh;
-        filter: blur(3px);
-        background-color: rgba(0, 0, 0, 0.5); /* Màu nền làm mờ */
-    }
-
-    .logoBrandCard {
-        /* kích thước logo card index home */
-        width: 250px;
-        height: 200px;
-        margin: 2px;
-    }
 
     .imgHEHE {
         width: 250px;
         height: 200px;
         border-radius: 50%;
     }
+
 </style>
 
 <div class="content-wrapper">
@@ -63,7 +27,7 @@
         <div class="container">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"> About Us <small></small></h1>
+                    <h1 class="m-0 HOME"> About Us <small></small></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -77,7 +41,7 @@
     <!-- Main content -->
     <div class="content">
         <!-- Default box -->
-        <div class="card">
+        <div class="card bg-gradient-gray">
             <div class="card-body row">
                 <div class="col-sm-5 text-center d-flex align-items-center justify-content-center">
                     <div class="row">
@@ -100,19 +64,19 @@
                     <div class="row">
                         <div class="col-sm-4 border-right">
                             <div class="row">
-                                <div class="col-sm-12"><div class="float-sm-left"><h3>Lại Nguyên Vũ</h3></div></div>
+                                <div class="col-sm-12"><div class="float-sm-left"><h3>Lai Nguyen Vu</h3></div></div>
                                 <div class="col-sm-12">
-                                    <img src="@Url.Content("~/Content/Images/Wu.png")" class="imgHEHE" alt="USER HEHE" />
-                                    <p class="mt-2">Vũ là một cậu bé hề hước với cái đầu luôn nghĩ ra những trò đùa vui nhộn</p>
+                                    <img src="@Url.Content("~/Content/Images/aboutUS/wuSEM3.jpg")" class="imgHEHE" alt="USER HEHE" />
+                                    <p class="mt-2">Content destroyer</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4 border-right">
                             <div class="row">
-                                <div class="col-sm-12"><div class="float-sm-left"><h3>Lê Minh Đức</h3></div></div>
+                                <div class="col-sm-12"><div class="float-sm-left"><h3>Le Minh Duc</h3></div></div>
                                 <div class="col-sm-12">
-                                    <img src="@Url.Content("~/Content/Images/Duke.png")" class="imgHEHE" alt="USER HEHE" />
-                                    <p class="mt-2">Đức, anh chàng này là một cậu bé đam mê ăn hột gà nướng.</p>
+                                    <img src="@Url.Content("~/Content/Images/aboutUS/dukeSEM3.jpg")" class="imgHEHE" alt="USER HEHE" />
+                                    <p class="mt-2">Mind destroyer</p>
                                 </div>
                             </div>
                         </div>
@@ -129,9 +93,22 @@
                     </div>
 
                 </div>
+                <hr class="new5">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12 text-center"><h5 style="font-size:30px;" class="m-0 HOME">Preliminary introduction</h5></div>
+                        <div class="col-sm-12 text-left mt-3 ">
+                            <p style=" font-family: Arial, sans-serif; font-size: 20px; line-height: 1.5; color: #333;">
+                                <strong style="font-weight: bold; color: #FF3A00; ">Give-AID</strong> aims to create a charity fund for people facing difficulties and connect compassionate individuals with those in need.
+                                It shines a light on those born in darkness, but carrying the light of angels within them.
+                                Let us proudly call ourselves <strong style="font-weight: bold; color: #FF3A00;">Give-AID</strong>, a lovely organization.
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
-
 
         <!--Cho nay tuyen ngon-->
         <div class="carousel-inner">
