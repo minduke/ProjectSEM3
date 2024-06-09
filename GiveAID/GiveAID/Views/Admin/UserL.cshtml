@@ -2,14 +2,77 @@
 @{
     ViewBag.Title = "UserL";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    //List<GiveAID.Models.entities.user> users = new List<GiveAID.Models.entities.user>();
-    //if (ViewBag.urserL != null)
-    //{
-    //    users = ViewBag.userL;
-    //}
+
+    List<GiveAID.Models.entities.user> users = new List<GiveAID.Models.entities.user>();
+    if (ViewBag.userL != null)
+    {
+        users = ViewBag.userL;
+    }
+
     var indexPost = 1;
 }
+
+<script>
+
+    $(document).ready(function () {
+        $("select").on('change', function () {
+            var idUser = $(this).closest("tr").find("input[type='checkbox']").attr("id").split("-")[1];
+            var UserPermission = $(this).val();
+
+            if (confirm("You wanna change the permission?")) {
+                $.ajax({
+                    url: '@Url.Action("ChangeUserPermission", "Admin")',
+                    type: 'POST',
+                    data: {
+                        idUser: idUser,
+                        UserPermission: UserPermission
+                    },
+                    success: function (response) {
+                        if (response.result == true) {
+                            showSuccessMessage("Permission updated");
+                        }
+                        else {
+                            showErrorMessage(response.error);
+                        }
+                    },
+                    error: handleException
+                });
+            }
+        });
+
+        $(".checkbox-wrapper-55 input[type='checkbox']").on('change', function () {
+            var checkbox = $(this);
+            var idUser = checkbox.attr("id").split("-")[1];
+            var status = checkbox.is(":checked") ? "active" : "banned";
+
+            if (confirm("You wanna change the status?")) {
+                $.ajax({
+                    url: '@Url.Action("ChangeUserStatus", "Admin")',
+                    type: 'POST',
+                    data: {
+                        idUser: idUser,
+                        status: status
+                    },
+                    success: function (response) {
+                        if (response.result == true) {
+                            checkbox.siblings(".status-label").text(status);
+                            showSuccessMessage("Status updated");
+                        } else {
+                            showErrorMessage(response.error);
+                        }
+                    },
+                    error: handleException
+                });
+            }
+        });
+
+
+    })
+
+</script>
+
 <style>
+
     .text-ellipsis {
         overflow: hidden;
         white-space: nowrap;
@@ -82,17 +145,19 @@
         color: #333;
         width: 100px;
         text-align: center;
-
     }
+
         .cover-seclect option {
             text-align: center;
         }
+
         .cover-seclect:focus {
             outline: none;
             border-color: #5b9dd9;
             box-shadow: 0 0 5px #5b9dd9;
         }
 </style>
+
 <div class="content-wrapper">
 
     <!-- Content Header (Page header) -->
@@ -138,12 +203,15 @@
                     <div class="col-sm-9"></div>
 
                     <div class="col-sm-3">
+                        @using (Html.BeginForm("UserL", "Admin", FormMethod.Get))
+                        {
                             <div class="search-box ml-lg-3 mb-2">
-                                <input type="text" name="search" value="..." placeholder="Search..." />
+                                <input type="text" name="search" value="@ViewBag.search" placeholder="username or fullname here" />
                                 <button class="search-btn">
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div>
+                        }
                     </div>
 
                     <div class="col-sm-12">
@@ -164,97 +232,78 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-light">
-                                    <tr>
-                                        <th scope="row">@(indexPost++)</th>
-                                        <td><p>nguyenvu</p></td>
-                                        <td><p>Lại Nguyên Vũ</p></td>
-                                        <td><img style="width:80px; height:80px" src="~/Content/Images/user/638524010892238083_FB_IMG_1706696901321.jpg" alt="Alternate Text" /></td>
-                                        <td><p>+84342309300</p></td>
-                                        <td><p>vuvunguyen8420@gmail.com</p></td>
-                                        <td><p>Bốn bể là nhà </p></td>
-                                        <td>
+                                    @foreach (var item in users)
+                                    {
+                                        <tr>
+                                            <th scope="row">@(indexPost++)</th>
+                                            <td><p>@item.username</p></td>
+                                            <td><p>@item.fullname</p></td>
+                                            <td><img style="width:80px; height:80px" src="~/Content/Images/user/@item.image" alt="Alternate Text" /></td>
+                                            <td><p>@item.phone</p></td>
+                                            <td><p>@item.email</p></td>
+                                            <td><p>@item.address</p></td>
+                                            <td>
 
-                                            <select class="cover-seclect">
-                                                <option value="Mod">Mod</option>
-                                                <option value="User">User</option>
-                                            </select>
+                                                <select>
+                                                    <option value="mod" @(item.permission == "mod" ? "selected" : "")>Mod</option>
+                                                    <option value="user" @(item.permission == "user" ? "selected" : "")>User</option>
+                                                </select>
 
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-wrapper-55">
-                                                <label class="rocker rocker-small">
-                                                    <input type="checkbox">
-                                                    <span class="switch-left">Yes</span>
-                                                    <span class="switch-right">No</span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">@(indexPost++)</th>
-                                        <td><p>minhduc</p></td>
-                                        <td><p>Lê Minh Đức</p></td>
-                                        <td><img style="width:80px; height:80px" src="~/Content/Images/post/638515951107087241_BinCute.jpg" alt="Alternate Text" /></td>
-                                        <td><p>+84123456789</p></td>
-                                        <td><p>got2018@gmail.com</p></td>
-                                        <td><p>Bốn bể là nhà </p></td>
-                                        <td>
-
-                                            <select>
-                                                <option value="Mod">Mod</option>
-                                                <option value="User">User</option>
-                                            </select>
-
-                                        </td>
-                                        <td>
-                                            <div class="checkbox-wrapper-55">
-                                                <label class="rocker rocker-small">
-                                                    <input type="checkbox">
-                                                    <span class="switch-left">Yes</span>
-                                                    <span class="switch-right">No</span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox-wrapper-55">
+                                                    <label class="rocker rocker-small">
+                                                        <input type="checkbox" id="myCheckbox-@item.id" data-status="@item.status" @(item.status == "active" ? "checked" : "")>
+                                                        <span class="status-label @(item.status == "active" ? "switch-left" : "switch-right")">
+                                                            @item.status
+                                                        </span>
+                                                        <span class="switch-right">
+                                                            Banned
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                             <!--Table 1-->
                         </div>
 
                         @*<div>
-                <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
-                    <ul class="pagination">
-                        @if (ViewBag.CurrentPage > 1)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.RouteUrl("PagePosts", new { page = ViewBag.CurrentPage - 1, pagesize = 10 })" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
+                                <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+                                    <ul class="pagination">
+                                        @if (ViewBag.CurrentPage > 1)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="@Url.RouteUrl("PagePosts", new { page = ViewBag.CurrentPage - 1, pagesize = 10 })" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
 
-                        }
+                                        }
 
-                        @for (int i = 1; i <= ViewBag.TotalPagesRunning; i++)
-                        {
-                            <li class="page-item">
-                                <a class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" href="@Url.RouteUrl("PagePosts", new { page = i, pagesize = 10 })">@i</a>
-                            </li>
-                        }
-
-
-                        @if (ViewBag.CurrentPage < ViewBag.TotalPagesRunning)
-                        {
+                                        @for (int i = 1; i <= ViewBag.TotalPagesRunning; i++)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" href="@Url.RouteUrl("PagePosts", new { page = i, pagesize = 10 })">@i</a>
+                                            </li>
+                                        }
 
 
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.RouteUrl("PagePosts", new { page = ViewBag.CurrentPage + 1, pagesize = 10 })" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </nav>
-            </div>*@
+                                        @if (ViewBag.CurrentPage < ViewBag.TotalPagesRunning)
+                                        {
+
+
+                                            <li class="page-item">
+                                                <a class="page-link" href="@Url.RouteUrl("PagePosts", new { page = ViewBag.CurrentPage + 1, pagesize = 10 })" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </nav>
+                            </div>*@
                     </div>
 
                 </div>

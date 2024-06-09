@@ -38,6 +38,29 @@ namespace GiveAID.Controllers
             }
         }
 
+        public bool CheckLoginAdmin()
+        {
+            try
+            {
+                if (Session["USER"] != null)
+                {
+                    var user = Session["USER"] as user;
+                    if (user.permission == "admin" || user.permission == "mod")
+                    {
+                        return true;
+                    }
+                    else
+                    { return false; }
+                }
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public string EncryptDES(string originalString, string key)
         {
             if (String.IsNullOrEmpty(originalString))

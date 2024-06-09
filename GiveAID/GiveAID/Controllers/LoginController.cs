@@ -29,15 +29,15 @@ namespace GiveAID.Controllers
                 string username = model.username;
                 string password = model.password;
 
-                var user = en.users.FirstOrDefault(x => x.username == username || x.phone == username || x.email == username);
-
-                if (user == null)
-                    throw new Exception("Username does not exists");
+                var user = en.users.FirstOrDefault(x => x.username == username || x.phone == username || x.email == username) ?? throw new Exception("Username does not exists");
 
                 string a = DecryptDES(user.password, SecretKey);
 
                 if (password != a)
                     throw new Exception("Wrong password");
+
+                if (user.status == "banned")
+                    throw new Exception("You have been banned");
 
                 Session["USER"] = user;
                 return Json(new { result = true });
