@@ -783,12 +783,19 @@ namespace GiveAID.Controllers
             {
                 var totalPage = en.users.Where(x => x.permission != "admin").Count();
 
-                ViewBag.userL = en.users.Where(x => x.permission != "admin").OrderBy(x => x.id).Skip((page - 1) * pagesize)
-                .Take(pagesize).ToList();
+                ViewBag.userL = en.users
+                                .Where(x => x.permission != "admin")
+                                .OrderBy(x => x.id)
+                                .Skip((page - 1) * pagesize)
+                                .Take(pagesize)
+                                .ToList();
                 
                 if (!string.IsNullOrEmpty(search))
                     ViewBag.userL = en.users
                         .Where(x => x.permission != "admin")
+                        .OrderBy(x => x.id)
+                        .Skip((page - 1) * pagesize)
+                        .Take(pagesize)
                         .ToList()
                         .Where(x => x.username.ToUnsign().Contains(search) || x.fullname.ToUnsign().Contains(search))
                         .ToList();
