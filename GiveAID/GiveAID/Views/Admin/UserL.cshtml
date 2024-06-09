@@ -71,6 +71,27 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             transition: box-shadow 0.3s ease-in-out;
         }
+
+    .cover-seclect {
+        appearance: none;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        color: #333;
+        width: 100px;
+        text-align: center;
+
+    }
+        .cover-seclect option {
+            text-align: center;
+        }
+        .cover-seclect:focus {
+            outline: none;
+            border-color: #5b9dd9;
+            box-shadow: 0 0 5px #5b9dd9;
+        }
 </style>
 <div class="content-wrapper">
 
@@ -114,7 +135,16 @@
                         <h3>List of User</h3>
                     </div>
 
+                    <div class="col-sm-9"></div>
 
+                    <div class="col-sm-3">
+                            <div class="search-box ml-lg-3 mb-2">
+                                <input type="text" name="search" value="..." placeholder="Search..." />
+                                <button class="search-btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                    </div>
 
                     <div class="col-sm-12">
                         <div class="table-responsive-sm">
@@ -143,12 +173,12 @@
                                         <td><p>vuvunguyen8420@gmail.com</p></td>
                                         <td><p>Bốn bể là nhà </p></td>
                                         <td>
-                                          
-                                                <select>
-                                                    <option value="Mod">Mod</option>
-                                                    <option value="User">User</option>
-                                                </select>
-                                            
+
+                                            <select class="cover-seclect">
+                                                <option value="Mod">Mod</option>
+                                                <option value="User">User</option>
+                                            </select>
+
                                         </td>
                                         <td>
                                             <div class="checkbox-wrapper-55">
@@ -169,12 +199,12 @@
                                         <td><p>got2018@gmail.com</p></td>
                                         <td><p>Bốn bể là nhà </p></td>
                                         <td>
-                                            
+
                                             <select>
-                                               <option value="Mod">Mod</option>
-                                               <option value="User">User</option>
-                                             </select>
-                                          
+                                                <option value="Mod">Mod</option>
+                                                <option value="User">User</option>
+                                            </select>
+
                                         </td>
                                         <td>
                                             <div class="checkbox-wrapper-55">
@@ -192,39 +222,39 @@
                         </div>
 
                         @*<div>
-                            <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
-                                <ul class="pagination">
-                                    @if (ViewBag.CurrentPage > 1)
-                                    {
-                                        <li class="page-item">
-                                            <a class="page-link" href="@Url.RouteUrl("PagePosts", new { page = ViewBag.CurrentPage - 1, pagesize = 10 })" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
+                <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+                    <ul class="pagination">
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.RouteUrl("PagePosts", new { page = ViewBag.CurrentPage - 1, pagesize = 10 })" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
 
-                                    }
+                        }
 
-                                    @for (int i = 1; i <= ViewBag.TotalPagesRunning; i++)
-                                    {
-                                        <li class="page-item">
-                                            <a class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" href="@Url.RouteUrl("PagePosts", new { page = i, pagesize = 10 })">@i</a>
-                                        </li>
-                                    }
-
-
-                                    @if (ViewBag.CurrentPage < ViewBag.TotalPagesRunning)
-                                    {
+                        @for (int i = 1; i <= ViewBag.TotalPagesRunning; i++)
+                        {
+                            <li class="page-item">
+                                <a class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" href="@Url.RouteUrl("PagePosts", new { page = i, pagesize = 10 })">@i</a>
+                            </li>
+                        }
 
 
-                                        <li class="page-item">
-                                            <a class="page-link" href="@Url.RouteUrl("PagePosts", new { page = ViewBag.CurrentPage + 1, pagesize = 10 })" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    }
-                                </ul>
-                            </nav>
-                        </div>*@
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPagesRunning)
+                        {
+
+
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.RouteUrl("PagePosts", new { page = ViewBag.CurrentPage + 1, pagesize = 10 })" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>*@
                     </div>
 
                 </div>
