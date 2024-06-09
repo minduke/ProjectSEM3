@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "CardDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
     GiveAID.Models.entities.post posts = new GiveAID.Models.entities.post();
     if (ViewBag.cardDetails != null)
     {
@@ -20,6 +21,8 @@
     {
         percent = (int)((ViewBag.sum / posts.target) * 100);
     }
+
+
 }
 
 <script>
@@ -88,7 +91,7 @@
     }
 
     function SharePost() {
-        
+
         var receiverEmails = [];
 
         $('.receiver-email').each(function () {
@@ -215,7 +218,7 @@
     /*thong tin cua card table*/
 
 
-  
+
     /*end*/
 
     /* anh detail  */
@@ -241,7 +244,6 @@
         color: #d200f5 !important;
         text-align: center;
     }
-
 </style>
 
 
@@ -281,7 +283,7 @@
                             <div class="col-12 product-image-thumbs">
                                 @foreach (var item in posts.image_post)
                                 {
-                                    <div class="product-image-thumb active"><img src="@Url.Content("~/content/images/post/" + item.image)" alt="Product Image"></div>
+                                    <div class="product-image-thumb active"><img src="@Url.Content("~/content/images/post/" + item.image)" alt="Logo"></div>
                                 }
                             </div>
                         </div>
@@ -345,239 +347,242 @@
 
                                 <div class="progress">
                                     <!--cho nay hien thanh tien do-->
-                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: @percent%" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100">@percent%</div>
+                                    <div class="progress-bar progress-bar-striped bg-success"
+                                         role="progressbar" style="width: @percent%" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100">@percent%</div>
+                                    </div>
+
                                 </div>
 
-                            </div>
+                          
 
-                            <div class="mt-2 cusDONATE">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        @if (Session["USER"] != null)
-                                        {
+                                <div class="mt-2 cusDONATE">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            @if (Session["USER"] != null)
+                                            {
 
-                                            <div class="row">
-                                                <div class="col-sm-6 text-center">
-                                                    <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#Donation" aria-controls="Donation">
-                                                        <span class="text">Donate Now</span>
-                                                    </button>
+                                                <div class="row">
+                                                    <div class="col-sm-6 text-center">
+                                                        <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#Donation" aria-controls="Donation">
+                                                            <span class="text">Donate Now</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="col-sm-6 text-center">
+                                                        <!-- Button trigger modal -->
+                                                        <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#shareEMAIL">
+                                                            <i class="fa-solid fa-share-nodes mr-1"></i>
+                                                            <span class="text">Share</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
 
-                                                <div class="col-sm-6 text-center">
-                                                    <!-- Button trigger modal -->
-                                                    <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#shareEMAIL">
-                                                        <i class="fa-solid fa-share-nodes mr-1"></i>
-                                                        <span class="text">Share</span>
-                                                    </button>
-                                                </div>
-                                            </div>
 
 
+                                                <!-- Modal Donate -->
+                                                <div class="modal fade" id="Donation" tabindex="-1" role="dialog" aria-labelledby="Donation" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
 
-                                            <!-- Modal Donate -->
-                                            <div class="modal fade" id="Donation" tabindex="-1" role="dialog" aria-labelledby="Donation" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Enter the amount you want</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                                                    data-toggle="tooltip" data-placement="right" title="Close Donate">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <input type="number" class="moneyHoney" placeholder="Enter value" name="transaction_amout" id="transaction_amout" data-toggle="tooltip" data-placement="top" title="Enter the amount you want">
-                                                            <input type="hidden" name="id" id="idPost" value="@posts.id" />
-
-                                                            <button class="number-button btn btn-success mx-auto" data-value="10000">
-                                                                <i class="fa-regular fa-money-bill-1 mr-1"></i>10.000 VND
-                                                            </button>
-
-
-                                                            <button class="number-button btn btn-success mx-auto" data-value="50000">
-                                                                <i class="fa-regular fa-money-bill-1 mr-1"></i>50.000 VND
-                                                            </button>
-
-
-                                                            <button class="number-button btn btn-success mx-auto" data-value="100000">
-                                                                <i class="fa-regular fa-money-bill-1 mr-1"></i>100.000 VND
-                                                            </button>
-
-
-                                                            <button class="number-button btn btn-success mx-auto mt-2" data-value="1000000">
-                                                                <i class="fa-regular fa-money-bill-1 mr-1"></i>1.000.000 VND
-                                                            </button>
-
-                                                        </div>
-                                                        <div class="modal-footer">
-
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" id="anonymousCheckbox">
-                                                                <label class="form-check-label" for="exampleCheckbox">
-                                                                    Donate anonymously
-                                                                </label>
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Enter the amount you want</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                                                        data-toggle="tooltip" data-placement="right" title="Close Donate">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
                                                             </div>
+                                                            <div class="modal-body">
+                                                                <input type="number" class="moneyHoney" placeholder="Enter value" name="transaction_amout" id="transaction_amout" data-toggle="tooltip" data-placement="top" title="Enter the amount you want">
+                                                                <input type="hidden" name="id" id="idPost" value="@posts.id" />
 
-                                                            <button type="button" class="btn btn-outline-success btn-lg btn-flat" id="btnPAY" onclick="doDonate()"
-                                                                    data-toggle="tooltip" data-placement="bottom" title="Click here to pay! ">
-                                                                <i class="fa-solid fa-money-bill mr-2" style="color: #4c075f;"></i>
-                                                                Payment
-                                                            </button>
+                                                                <button class="number-button btn btn-success mx-auto" data-value="10000">
+                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>10.000 VND
+                                                                </button>
+
+
+                                                                <button class="number-button btn btn-success mx-auto" data-value="50000">
+                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>50.000 VND
+                                                                </button>
+
+
+                                                                <button class="number-button btn btn-success mx-auto" data-value="100000">
+                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>100.000 VND
+                                                                </button>
+
+
+                                                                <button class="number-button btn btn-success mx-auto mt-2" data-value="1000000">
+                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>1.000.000 VND
+                                                                </button>
+
+                                                            </div>
+                                                            <div class="modal-footer">
+
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" id="anonymousCheckbox">
+                                                                    <label class="form-check-label" for="exampleCheckbox">
+                                                                        Donate anonymously
+                                                                    </label>
+                                                                </div>
+
+                                                                <button type="button" class="btn btn-outline-success btn-lg btn-flat" id="btnPAY" onclick="doDonate()"
+                                                                        data-toggle="tooltip" data-placement="bottom" title="Click here to pay! ">
+                                                                    <i class="fa-solid fa-money-bill mr-2" style="color: #4c075f;"></i>
+                                                                    Payment
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        }
-                                        else if (posts.status == "Closed")
-                                        {
-                                            <h5 class="text-center">Donation Ended</h5>
-                                        }
-                                        else
-                                        {
+                                            }
+                                            else if (posts.status == "Closed")
+                                            {
+                                                <h5 class="text-center">Donation Ended</h5>
+                                            }
+                                            else
+                                            {
 
-                                            <h5 class="text-center">To donate. Please<a href="@Url.Content("~/Login")"> log in</a></h5>
-                                        }
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <hr class="mt-5">
-                            <!-- Modal shareMail -->
-                            <div class="modal fade" id="shareEMAIL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered " role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Enter recipient email</h5>
-
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                                    data-toggle="tooltip" data-placement="right" title="Close Share">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                                                <h5 class="text-center">To donate. Please<a href="@Url.Content("~/Login")"> log in</a></h5>
+                                            }
 
                                         </div>
-                                        <div class="modal-body">
 
-                                            <div class="spinner-overlay">
-                                                <div class="spinner">
-                                                    <i class="fa-solid fa-yin-yang fa-spin fa-2xl"></i>
-                                                </div>
+                                    </div>
+                                </div>
+
+                                <hr class="mt-5">
+                                <!-- Modal shareMail -->
+                                <div class="modal fade" id="shareEMAIL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered " role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Enter recipient email</h5>
+
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                                        data-toggle="tooltip" data-placement="right" title="Close Share">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+
                                             </div>
+                                            <div class="modal-body">
 
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <label>Recipient email: </label>
-                                                    <input type="email" name="ReceiverEmail" id="ReceiverEmail" value="" class="receiver-email" />
-                                                    <input type="hidden" name="currentUrl" id="currentUrl" />
-                                                    <input type="hidden" id="titlePost" value="@posts.title" />
-
+                                                <div class="spinner-overlay">
+                                                    <div class="spinner">
+                                                        <i class="fa-solid fa-yin-yang fa-spin fa-2xl"></i>
+                                                    </div>
                                                 </div>
 
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <label>Recipient email: </label>
+                                                        <input type="email" name="ReceiverEmail" id="ReceiverEmail" value="" class="receiver-email" />
+                                                        <input type="hidden" name="currentUrl" id="currentUrl" />
+                                                        <input type="hidden" id="titlePost" value="@posts.title" />
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-success mb-3" type="button" onclick="SharePost()"
+                                                        data-toggle="tooltip" data-placement="bottom" title="Click to share">
+                                                    <i class="fa-solid fa-bullhorn mr-1" style="color: #e0f000;"></i>Share posts
+                                                </button>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-success mb-3" type="button" onclick="SharePost()"
-                                                    data-toggle="tooltip" data-placement="bottom" title="Click to share">
-                                                <i class="fa-solid fa-bullhorn mr-1" style="color: #e0f000;"></i>Share posts
-                                            </button>
+                                    </div>
+                                </div>
+
+
+                                <div class="infoALL ml-4">
+                                    <h3 class="text-primary"><img src="@Url.Content("~/Content/Images/partner/" + posts.partner.partner_image)" alt="Logo" class="img-size-64 mr-2 mt-2"> - @posts.partner.partner_name</h3>
+                                    <p class="text-muted text-center">
+                                        @posts.partner.description
+                                    </p>
+
+                                    <h5 class="mt-3 text-center ml-2" style="color:darkorange">Contact Info</h5>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <p><i class="fas fa-home me-3 mr-2"></i>@posts.partner.address</p>
+                                        </li>
+                                        <li>
+                                            <p><i class="fas fa-envelope me-3 mr-2"></i>@posts.partner.email</p>
+                                        </li>
+                                        <li>
+                                            <p><i class="fas fa-phone me-3 mr-2"></i>@posts.partner.phone</p>
+                                        </li>
+
+                                    </ul>
+                                    <!--partner context-->
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="col-sm-12 mt-4">
+                                <nav class="">
+                                    <!--cho nay nut nhan-->
+                                    <div class="nav nav-tabs" id="product-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Content</a>
+                                        <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">Donation list</a>
+                                    </div>
+                                </nav>
+                                <!--noi dung chi tiet-->
+                                <div class="tab-content p-3 " id="nav-tabContent">
+                                    <div class="tab-pane fade show active" width="fit-content" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+                                        <div class="row">
+                                            <!--Content CK build-->
+                                            <div class="col-sm-12 contentCK">@Html.Raw(posts.content)</div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-
-                            <div class="infoALL ml-4">
-                                <h3 class="text-primary"><img src="@Url.Content("~/Content/Images/partner/" + posts.partner.partner_image)" alt="Logo" class="img-size-64 mr-2 mt-2"> - @posts.partner.partner_name</h3>
-                                <p class="text-muted text-center">
-                                    @posts.partner.description
-                                </p>
-
-                                <h5 class="mt-3 text-center ml-2" style="color:darkorange">Contact Info</h5>
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <p><i class="fas fa-home me-3 mr-2"></i>@posts.partner.address</p>
-                                    </li>
-                                    <li>
-                                        <p><i class="fas fa-envelope me-3 mr-2"></i>@posts.partner.email</p>
-                                    </li>
-                                    <li>
-                                        <p><i class="fas fa-phone me-3 mr-2"></i>@posts.partner.phone</p>
-                                    </li>
-
-                                </ul>
-                                <!--partner context-->
-                            </div>
-
-
-
-                        </div>
-
-                        <div class="col-sm-12 mt-4">
-                            <nav class="">
-                                <!--cho nay nut nhan-->
-                                <div class="nav nav-tabs" id="product-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Content</a>
-                                    <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">Donation list</a>
-                                </div>
-                            </nav>
-                            <!--noi dung chi tiet-->
-                            <div class="tab-content p-3 " id="nav-tabContent">
-                                <div class="tab-pane fade show active" width="fit-content" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-                                    <div class="row">
-                                        <!--Content CK build-->
-                                        <div class="col-sm-12 contentCK">@Html.Raw(posts.content)</div>
-                                    </div>
-                                </div>
-                                <!--noi dung danh sach nguoi ung ho-->
-                                <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
-                                    <div class="row">
-                                        <div class="col-sm-12 table-responsive">
-                                            <table class="table table-striped table-bordered table-success table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Name of supporter</th>
-                                                        <th>Amount of money</th>
-                                                        <th>Date and time</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach (var item in donater)
-                                                    {
+                                    <!--noi dung danh sach nguoi ung ho-->
+                                    <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+                                        <div class="row">
+                                            <div class="col-sm-12 table-responsive">
+                                                <table class="table table-striped table-bordered table-success table-hover">
+                                                    <thead>
                                                         <tr>
-                                                            <td>@(item.anonymous != "" ? item.anonymous : item.user.fullname)</td>
-                                                            <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
-                                                            <td>@item.transaction_date</td>
+                                                            <th>Name of supporter</th>
+                                                            <th>Amount of money</th>
+                                                            <th>Date and time</th>
                                                         </tr>
-                                                    }
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in donater)
+                                                        {
+                                                            <tr>
+                                                                <td>@(item.anonymous != "" ? item.anonymous : item.user.fullname)</td>
+                                                                <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
+                                                                <td>@item.transaction_date</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
+
                                     </div>
 
                                 </div>
-
                             </div>
                         </div>
+
+
+                        <!-- /.card-body -->
                     </div>
 
-                   
-                    <!-- /.card-body -->
                 </div>
-
+                <!-- /.card -->
             </div>
-            <!-- /.card -->
+
         </div>
-
+        <!-- /.content -->
     </div>
-    <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+    <!-- /.content-wrapper -->
 
-<script>
+    <script>
 
-    var currentUrl = window.location.href;
-    document.getElementById('currentUrl').value = currentUrl;
+        var currentUrl = window.location.href;
+        document.getElementById('currentUrl').value = currentUrl;
 
-</script>
+    </script>

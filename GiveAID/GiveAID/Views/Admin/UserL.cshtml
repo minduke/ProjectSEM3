@@ -8,8 +8,9 @@
     {
         users = ViewBag.userL;
     }
-
-    var indexPost = 1;
+    int pageSize = 6; // Số lượng bài viết mỗi trang
+    int pageIndex = ViewBag.CurrentPage; // Trang hiện tại
+    int indexPost =  (pageIndex - 1) * pageSize + 1; ;
 }
 
 <script>
@@ -270,13 +271,13 @@
                             <!--Table 1-->
                         </div>
 
-                        @*<div>
+                        <div>
                                 <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
                                     <ul class="pagination">
                                         @if (ViewBag.CurrentPage > 1)
                                         {
                                             <li class="page-item">
-                                                <a class="page-link" href="@Url.RouteUrl("PagePosts", new { page = ViewBag.CurrentPage - 1, pagesize = 10 })" aria-label="Previous">
+                                                <a class="page-link" href="@Url.RouteUrl("UserS", new { page = ViewBag.CurrentPage - 1, pagesize = 6 })" aria-label="Previous">
                                                     <span aria-hidden="true">&laquo;</span>
                                                 </a>
                                             </li>
@@ -286,7 +287,7 @@
                                         @for (int i = 1; i <= ViewBag.TotalPagesRunning; i++)
                                         {
                                             <li class="page-item">
-                                                <a class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" href="@Url.RouteUrl("PagePosts", new { page = i, pagesize = 10 })">@i</a>
+                                                <a class="page-link @(i == ViewBag.CurrentPage ? "active" : "")" href="@Url.RouteUrl("UserS", new { page = i, pagesize = 6 })">@i</a>
                                             </li>
                                         }
 
@@ -296,14 +297,14 @@
 
 
                                             <li class="page-item">
-                                                <a class="page-link" href="@Url.RouteUrl("PagePosts", new { page = ViewBag.CurrentPage + 1, pagesize = 10 })" aria-label="Next">
+                                                <a class="page-link" href="@Url.RouteUrl("UserS", new { page = ViewBag.CurrentPage + 1, pagesize = 6 })" aria-label="Next">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>
                                             </li>
                                         }
                                     </ul>
                                 </nav>
-                            </div>*@
+                            </div>
                     </div>
 
                 </div>

@@ -140,10 +140,15 @@
         color: #333333;
     }
 
-
-
-
-
+    .infoDO{
+        color:darkblue;
+        text-transform:uppercase;
+    }
+    .infoDO:hover{
+       color:hotpink;
+      
+    }
+                                             
 </style>
 
 <!-- Content Wrapper. Contains page content -->
@@ -244,7 +249,7 @@
                     <div class="modal-header bg-olive">
                         <h5 class="modal-title">Edit infomation</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <i class="fa-regular fa-rectangle-xmark"></i>
+                            <i class="fa-regular fa-rectangle-xmark"></i> 
                         </button>
                     </div>
                     <form action="javascript:EditUser();" method="post" id="formEditUser">
@@ -300,7 +305,7 @@
 
         <!--modal history donate-->
         <div class="modal fade" id="historyDonate" tabindex="-1" role="dialog" aria-labelledby="historyDonate" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-olive">
                         <h5 class="modal-title">Donation History</h5>
@@ -308,42 +313,47 @@
                             <i class="fa-regular fa-rectangle-xmark"></i>
                         </button>
                     </div>
-                        <div class="modal-body">
-                            <div class="table-responsive-sm">
-                                <table class="table table-striped table-bordered ">
-                                    <thead>
+                    <div class="modal-body">
+                        <div class="table-responsive-lg">
+                            <table class="table table-bordered table-hover">
+                                <thead class="bg-gradient-navy">
+                                    <tr class="text-center">
+                                        <th>Posts</th>
+                                        <th>Donations</th>
+                                        <th>Date and time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in donate)
+                                    {
+
                                         <tr>
-                                            <th>Amount of money</th>
-                                            <th>Posts</th>
-                                            <th>Date and time</th>
+                                            <td class="text-left">
+                                                <a class="infoDO" href="@Url.Action("CardDetails", "Home")/@item.post_id">
+                                                    <p class="">@item.post.title</p>
+                                                </a>
+                                            </td>
+                                            <td class="text-center"><p>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</p></td>
+                                            <td class="text-center"><p>@item.transaction_date</p></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in donate)
-                                        {
-                                            <tr>
-                                                <td>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</td>
-                                                <td><a href="@Url.Action("CardDetails", "Home")/@item.post_id">@item.post.title</a></td>
-                                                <td>@item.transaction_date</td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="modal-footer bg-olive">
-                            
-                        </div>
+                    </div>
+                    <div class="modal-footer bg-olive">
+
+                    </div>
                 </div>
             </div>
         </div>
 
+       
 
 
 
 
 
-   
 
     </div>
 </div>

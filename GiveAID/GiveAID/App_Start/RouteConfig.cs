@@ -16,6 +16,12 @@ namespace GiveAID
             // Route cho phân trang với URL thân thiện
 
             routes.MapRoute(
+              name: "User",
+              url: "User-View",
+              defaults: new { controller = "Admin", action = "UserL" }
+             );
+
+            routes.MapRoute(
              name: "ListPosts",
               url: "List-Posts",
              defaults: new { controller = "Admin", action = "CreateNews" }
@@ -38,6 +44,12 @@ namespace GiveAID
              url: "Home",
              defaults: new { controller = "Home", action = "Index"}
              );
+
+            routes.MapRoute(
+            name: "UserS",
+             url: "User-{pagesize}/L-{page}",
+             defaults: new { controller = "Admin", action = "UserL", page = UrlParameter.Optional, pagesize = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
              name: "PagePartner",

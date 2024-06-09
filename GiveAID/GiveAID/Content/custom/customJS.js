@@ -57,3 +57,12 @@ $("#backToTopBtn").click(function () {
     $("html, body").animate({ scrollTop: 0 }, "slow");
 });
 //back to Top
+
+function fbShare(url, image, winWidth, winHeight) {
+    var winTop = (screen.height / 2) - (winHeight / 2);
+    var winLeft = (screen.width / 2) - (winWidth / 2);
+    var url = $(location).attr('host');
+
+    window.open('https://www.facebook.com/sharer.php?u=' + window.location.href, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+}
+
