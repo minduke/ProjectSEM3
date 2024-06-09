@@ -168,14 +168,6 @@
         margin: 2px;
     }
 
- 
-
-
-
-
-   
-
-
     /* cho nay la cho nhap so dnt*/
 
     .moneyHoney {
@@ -250,35 +242,6 @@
         text-align: center;
     }
 
-    /* button 74 */
-    .button-74 {
-        background-color: #fbeee0;
-        border: 2px solid #422800;
-        border-radius: 30px;
-        box-shadow: #422800 4px 4px 0 0;
-        color: #422800;
-        cursor: pointer;
-        display: inline-block;
-        font-weight: 600;
-        font-size: 18px;
-        padding: 0 18px;
-        line-height: 50px;
-        text-align: center;
-        text-decoration: none;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-    }
-
-        .button-74:hover {
-            background-color: #fff;
-        }
-
-        .button-74:active {
-            box-shadow: #422800 2px 2px 0 0;
-            transform: translate(2px, 2px);
-        }
-
 </style>
 
 
@@ -289,7 +252,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Card Details</h1>
+                    <h1 class="m-0 HOME">Card Details</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -326,9 +289,8 @@
                             <h3 class="my-3">
                                 @posts.title
                             </h3>
-
                             <hr>
-                            <div class="containercus">
+                            <div class="containercus bg-gradient-navy">
                                 <div class="row">
                                     <div class="col-sm-12 ">
                                         <h3 class="text-partner">
@@ -379,108 +341,108 @@
                                     </div>
                                 </div>
 
-                           
+
 
                                 <div class="progress">
                                     <!--cho nay hien thanh tien do-->
                                     <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: @percent%" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100">@percent%</div>
                                 </div>
-                                <div class="mt-2 cusDONATE">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            @if (Session["USER"] != null)
-                                            {
 
-                                                <div class="row">
-                                                    <div class="col-sm-6 text-center">
-                                                        <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#Donation" aria-controls="Donation">
-                                                            <span class="text">Donate Now</span>
-                                                        </button>
-                                                    </div>
+                            </div>
 
-                                                    <div class="col-sm-6 text-center">
-                                                        <!-- Button trigger modal -->
-                                                        <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#shareEMAIL">
-                                                            <i class="fa-solid fa-share-nodes mr-1"></i>
-                                                            <span class="text">Share</span>
-                                                        </button>
-                                                    </div>
+                            <div class="mt-2 cusDONATE">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        @if (Session["USER"] != null)
+                                        {
+
+                                            <div class="row">
+                                                <div class="col-sm-6 text-center">
+                                                    <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#Donation" aria-controls="Donation">
+                                                        <span class="text">Donate Now</span>
+                                                    </button>
                                                 </div>
 
+                                                <div class="col-sm-6 text-center">
+                                                    <!-- Button trigger modal -->
+                                                    <button class="button-44 mr-1 mb-1" role="button" data-toggle="modal" data-target="#shareEMAIL">
+                                                        <i class="fa-solid fa-share-nodes mr-1"></i>
+                                                        <span class="text">Share</span>
+                                                    </button>
+                                                </div>
+                                            </div>
 
 
-                                                <!-- Modal Donate -->
-                                                <div class="modal fade" id="Donation" tabindex="-1" role="dialog" aria-labelledby="Donation" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
 
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Enter the amount you want</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                                                        data-toggle="tooltip" data-placement="right" title="Close Donate">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
+                                            <!-- Modal Donate -->
+                                            <div class="modal fade" id="Donation" tabindex="-1" role="dialog" aria-labelledby="Donation" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Enter the amount you want</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                                                    data-toggle="tooltip" data-placement="right" title="Close Donate">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <input type="number" class="moneyHoney" placeholder="Enter value" name="transaction_amout" id="transaction_amout" data-toggle="tooltip" data-placement="top" title="Enter the amount you want">
+                                                            <input type="hidden" name="id" id="idPost" value="@posts.id" />
+
+                                                            <button class="number-button btn btn-success mx-auto" data-value="10000">
+                                                                <i class="fa-regular fa-money-bill-1 mr-1"></i>10.000 VND
+                                                            </button>
+
+
+                                                            <button class="number-button btn btn-success mx-auto" data-value="50000">
+                                                                <i class="fa-regular fa-money-bill-1 mr-1"></i>50.000 VND
+                                                            </button>
+
+
+                                                            <button class="number-button btn btn-success mx-auto" data-value="100000">
+                                                                <i class="fa-regular fa-money-bill-1 mr-1"></i>100.000 VND
+                                                            </button>
+
+
+                                                            <button class="number-button btn btn-success mx-auto mt-2" data-value="1000000">
+                                                                <i class="fa-regular fa-money-bill-1 mr-1"></i>1.000.000 VND
+                                                            </button>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="anonymousCheckbox">
+                                                                <label class="form-check-label" for="exampleCheckbox">
+                                                                    Donate anonymously
+                                                                </label>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <input type="number" class="moneyHoney" placeholder="Enter value" name="transaction_amout" id="transaction_amout" data-toggle="tooltip" data-placement="top" title="Enter the amount you want">
-                                                                <input type="hidden" name="id" id="idPost" value="@posts.id" />
 
-                                                                <button class="number-button btn btn-success mx-auto" data-value="10000">
-                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>10.000 VND
-                                                                </button>
-
-
-                                                                <button class="number-button btn btn-success mx-auto" data-value="50000">
-                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>50.000 VND
-                                                                </button>
-
-
-                                                                <button class="number-button btn btn-success mx-auto" data-value="100000">
-                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>100.000 VND
-                                                                </button>
-
-
-                                                                <button class="number-button btn btn-success mx-auto mt-2" data-value="1000000">
-                                                                    <i class="fa-regular fa-money-bill-1 mr-1"></i>1.000.000 VND
-                                                                </button>
-
-                                                            </div>
-                                                            <div class="modal-footer">
-
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" id="anonymousCheckbox">
-                                                                    <label class="form-check-label" for="exampleCheckbox">
-                                                                        Donate anonymously
-                                                                    </label>
-                                                                </div>
-
-                                                                <button type="button" class="btn btn-outline-success btn-lg btn-flat" id="btnPAY" onclick="doDonate()"
-                                                                        data-toggle="tooltip" data-placement="bottom" title="Click here to pay! ">
-                                                                    <i class="fa-solid fa-money-bill mr-2" style="color: #4c075f;"></i>
-                                                                    Payment
-                                                                </button>
-                                                            </div>
+                                                            <button type="button" class="btn btn-outline-success btn-lg btn-flat" id="btnPAY" onclick="doDonate()"
+                                                                    data-toggle="tooltip" data-placement="bottom" title="Click here to pay! ">
+                                                                <i class="fa-solid fa-money-bill mr-2" style="color: #4c075f;"></i>
+                                                                Payment
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            }
-                                            else if (posts.status == "Closed")
-                                            {
-                                                <h5 class="text-center">Donation Ended</h5>
-                                            }
-                                            else
-                                            {
+                                            </div>
+                                        }
+                                        else if (posts.status == "Closed")
+                                        {
+                                            <h5 class="text-center">Donation Ended</h5>
+                                        }
+                                        else
+                                        {
 
-                                                <h5 class="text-center">To donate. Please<a href="@Url.Content("~/Login")"> log in</a></h5>
-                                            }
-
-                                        </div>
+                                            <h5 class="text-center">To donate. Please<a href="@Url.Content("~/Login")"> log in</a></h5>
+                                        }
 
                                     </div>
+
                                 </div>
                             </div>
-
-
 
                             <hr class="mt-5">
                             <!-- Modal shareMail -->
@@ -526,30 +488,22 @@
                             </div>
 
 
-                            <div class="infoALL">
+                            <div class="infoALL ml-4">
                                 <h3 class="text-primary"><img src="@Url.Content("~/Content/Images/partner/" + posts.partner.partner_image)" alt="Logo" class="img-size-64 mr-2 mt-2"> - @posts.partner.partner_name</h3>
-                                <p class="text-muted">
+                                <p class="text-muted text-center">
                                     @posts.partner.description
                                 </p>
 
-                                <h5 class="mt-3 text-muted">Contact Info</h5>
+                                <h5 class="mt-3 text-center ml-2" style="color:darkorange">Contact Info</h5>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="" class="btn-link text-secondary">
-                                            <i class="fas fa-home me-3 mr-2"></i>
-                                            @posts.partner.address
-                                        </a>
+                                        <p><i class="fas fa-home me-3 mr-2"></i>@posts.partner.address</p>
                                     </li>
                                     <li>
-                                        <a href="" class="btn-link text-secondary">
-                                            <i class="fas fa-envelope me-3 mr-2"></i>
-                                            @posts.partner.email
-                                        </a>
+                                        <p><i class="fas fa-envelope me-3 mr-2"></i>@posts.partner.email</p>
                                     </li>
                                     <li>
-                                        <a href="" class="btn-link text-secondary">
-                                            <i class="fas fa-phone me-3 mr-2"></i>@posts.partner.phone
-                                        </a>
+                                        <p><i class="fas fa-phone me-3 mr-2"></i>@posts.partner.phone</p>
                                     </li>
 
                                 </ul>
@@ -561,7 +515,7 @@
                         </div>
 
                         <div class="col-sm-12 mt-4">
-                            <nav class="w-100">
+                            <nav class="">
                                 <!--cho nay nut nhan-->
                                 <div class="nav nav-tabs" id="product-tab" role="tablist">
                                     <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Content</a>

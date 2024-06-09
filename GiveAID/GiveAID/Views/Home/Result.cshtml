@@ -33,24 +33,23 @@
 
         <div class="card mb-2 mt-2">
             <img class="card-img-top" src="@Url.Content("~/Content/Images/LogoGive2.png")" alt="Card image cap">
-            <h3 class="card-title CusTitle">Thư Cảm Ơn</h3>
+            <h3 class="card-title CusTitle">Thank You</h3>
             <div class="card-body cusBodycard">
                 <p class="card-text">
-                    Cám ơn <b>@data.user.fullname</b> đã ủng hộ <b>@Convert.ToInt64(data.transaction_amout).ToString("N0") VND</b>
+                    Thank you <b>@data.user.fullname</b> for your support <b>@Convert.ToInt64(data.transaction_amout).ToString("N0") VND</b>
                 </p>
                 @if (data.anonymous != "")
                 {
-                    <p class="card-text">với tư cách người dùng ẩn danh</p>
+                    <p class="card-text">as an anonymous user</p>
                 }
                 <p class="card-text">
-                    Cho bài viết <b>@data.post.title</b> của chúng tôi.
+                    For articles <b>@data.post.title</b> ours.
 
                 </p>
                 <p class="card-text">
-
-                    Đây là mã tra cứu thông tin giao dịch của bạn <b>@data.banktran_no</b>.
+                    This is the code to look up your transaction information: <b>@data.banktran_no</b>.
                 </p>
-                <p class="card-text"><small class="text-muted"><button type="button" class="btn btn-outline-dark"><a href="@Url.RouteUrl("ViewHome")">Trở vè nhà nào</a></button></small></p>
+                <p class="card-text"><small class="text-muted"><button type="button" class="btn btn-outline-dark"><a href="@Url.RouteUrl("ViewHome")">Let's go back home</a></button></small></p>
             </div>
         </div>
 

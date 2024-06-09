@@ -271,7 +271,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">ADMIN HOME</h1>
+                    <h1 class="m-0 HOME">ADMIN HOME</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -293,14 +293,13 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-info">
+                    <div class="small-box bg-gradient-cyan">
                         <div class="inner">
-                            <h4>Total number of projects</h4>
-
+                            <h5>Total number of projects</h5>
                             <p id="postCount">@ViewBag.postCount</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+                            <i class="fa-solid fa-people-line mt-2" style="font-size: 47px; color: #7ae4ff;"></i>
                         </div>
 
                     </div>
@@ -308,14 +307,13 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-gradient-maroon">
                         <div class="inner">
-                            <h4>Number of ongoing projects<sup style="font-size: 20px"></sup></h4>
-
+                            <h5>Number of ongoing projects</h5>
                             <p id="runningCount">@ViewBag.runningCount</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="fa-solid fa-chart-simple mt-2" style="font-size: 47px; color: #ffa3d0;"></i>
                         </div>
 
                     </div>
@@ -323,14 +321,13 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-warning">
+                    <div class="small-box bg-gradient-purple">
                         <div class="inner">
-                            <h4>Number of completed projects</h4>
-
+                            <h5>Number of completed projects</h5>
                             <p id="completeCount">@ViewBag.completeCount</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person-add"></i>
+                            <i class="fa-solid fa-person-circle-plus mt-2" style="font-size: 47px; color: #b6f5b2; "></i>
                         </div>
 
                     </div>
@@ -338,46 +335,41 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-danger">
+                    <div class="small-box bg-gradient-orange">
                         <div class="inner">
-                            <h4>Estimated total amount</h4>
-
+                            <h5>Estimated total amount</h5>
                             <p id="sumTarget">@Convert.ToInt64(ViewBag.sumTarget).ToString("N0") VND</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="fa-solid fa-money-bill-trend-up mt-2" style="font-size: 47px; color: #ffe1ad;"></i>
                         </div>
-
                     </div>
                 </div>
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-gradient-green">
                         <div class="inner">
-                            <h4>Total amount collected</h4>
-
+                            <h5>Total amount collected</h5>
                             <p id="sumAmout">@Convert.ToInt64(ViewBag.sumAmout).ToString("N0") VND</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                           <i class="fa-solid fa-hand-holding-dollar mt-2" style="font-size:47px; color: #ebfff9;"></i>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-fuchsia">
+                    <div class="small-box bg-gradient-gray-dark">
                         <div class="inner">
                             <h4>Choose a timeline</h4>
                             <form action="">
                                 <input type="month" id="bdaymonth" name="bdaymonth">
                                 <button type="submit">SENDO</button>
                             </form>
-
                         </div>
                         <div class="icon">
-                            <i class="fa-solid fa-calendar-days" style="font-size:47px;"></i>
+                            <i class="fa-solid fa-calendar-days mt-2" style="font-size:47px; color:antiquewhite;"></i>
                         </div>
 
                     </div>
