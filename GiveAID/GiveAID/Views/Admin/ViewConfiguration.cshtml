@@ -137,7 +137,7 @@
                 success: function (response) {
                     if (response.result == true) {
                         showSuccessMessage("Completed");
-                        //document.getElementById('imagePartner').remove();
+                        document.getElementById('imageBanner').remove();
                     }
                     else {
                         showErrorMessage(response.error);
@@ -405,7 +405,7 @@
                         <div class="row">
                             @foreach (var item in banners)
                             {<!-- file img-->
-                                <div class="col-sm-2">
+                                <div class="col-sm-2" id="imageBanner">
                                     <input type="hidden" id="idBanner" value="@item.id">
                                     <img src="~/Content/Images/banner/@item.banner_image" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')"  />
                                     <button class="custom-Button" type="button" onclick="doDeleteBanner(@item.id)"><i class="fa-solid fa-delete-left"></i></button>

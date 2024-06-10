@@ -374,7 +374,8 @@
                                     <div class="row">
                                         <div class="col-sm-12">
 
-                                            @if (Session["USER"] != null)
+                                            @if (Session["USER"] != null && posts.status == "Open")
+
                                             {
 
                                                 <div class="row">
@@ -450,7 +451,7 @@
                                                     </div>
                                                 </div>
                                             }
-                                            else if (posts.status == "Closed")
+                                            else if ((posts.status == "Closed" && Session["USER"] != null) || (posts.status == "Closed" && Session["USER"] == null))
                                             {
                                                 <h5 class="text-center">Donation Ended</h5>
                                             }
