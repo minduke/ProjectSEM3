@@ -539,7 +539,7 @@ namespace GiveAID.Controllers
             }
             catch
             {
-                throw new Exception("Something went wrong. Please try again");
+                throw;
             }
         }
 
@@ -759,7 +759,7 @@ namespace GiveAID.Controllers
         {
             try
             {
-                if (name == null)
+                if (string.IsNullOrWhiteSpace(name))
                     throw new Exception("Please fill in the name of category");
 
                 var check = en.categories.FirstOrDefault(x => x.name == name);
