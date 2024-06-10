@@ -120,6 +120,7 @@
             success: function (response) {
                 if (response.result == true) {
                     $(".spinner-overlay").hide();
+                    $('#shareEMAIL').modal('hide');
                     showSuccessMessage("Sharing success");
                 } else {
                     open("@Url.Content("~/Login")", "_self");
