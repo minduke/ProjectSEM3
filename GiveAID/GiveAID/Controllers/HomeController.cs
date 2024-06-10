@@ -118,6 +118,7 @@ namespace GiveAID.Controllers
             ViewBag.EndPage = endPage;
             ViewBag.categories = en.categories.Where(x => x.posts.Count(s => s.status == "Open") > 0).ToList();
             ViewBag.banner = en.banners.ToList();
+            ViewBag.imageFooter = en.configurations.FirstOrDefault(x => x.keyword == "SYS_IMAGE_FOOTER");
 
             return View();
 

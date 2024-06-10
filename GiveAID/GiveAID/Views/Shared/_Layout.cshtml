@@ -7,6 +7,8 @@
     var email = en.configurations.FirstOrDefault(x => x.keyword == "SYS_EMAIL");
     var phone = en.configurations.FirstOrDefault(x => x.keyword == "SYS_PHONE");
     var introduce = en.configurations.FirstOrDefault(x => x.keyword == "SYS_INTRODUCE");
+    var introduceFooter = en.configurations.FirstOrDefault(x => x.keyword == "SYS_INTRODUCE_FOOTER");
+    var logo = en.configurations.FirstOrDefault(x => x.keyword == "SYS_LOGO");
 
 }
 
@@ -92,7 +94,7 @@
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-dark">
             <div class="container">
                 <a href="@Url.RouteUrl("ViewHome")" class="navbar-brand">
-                    <img src=" @Url.Content("~/content/Images/LogoGive.png")" alt="Give Logo"
+                    <img src="@Url.Content("~/content/Images/logo/")@logo.value" alt="Give Logo"
                          class="cusLogo img-circle ">
 
                 </a>
@@ -198,8 +200,8 @@
                 <div class="me-5 d-none d-lg-block">
 
                     <h5 class="text-color-1">
-                        <img src=" @Url.Content("~/Content/Images/LogoGive.png")" alt="AdminLTE Logo" class="cusLogoF img-circle mr-3">
-                        Give-AID <span>Always want to bring joy and happiness to everyone</span>
+                        <img src="@Url.Content("~/Content/Images/logo/")@logo.value" alt="AdminLTE Logo" class="cusLogoF img-circle mr-3">
+                        <span>@introduceFooter.value</span>
                     </h5>
                 </div>
                 <!-- Left -->
