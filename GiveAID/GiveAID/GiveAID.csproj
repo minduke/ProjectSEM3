@@ -252,9 +252,6 @@
     <Content Include="Content\dist\js\adminlte.js" />
     <Content Include="Content\dist\js\adminlte.min.js" />
     <Content Include="Content\dist\js\demo.js" />
-    <Content Include="Content\dist\js\pages\dashboard.js" />
-    <Content Include="Content\dist\js\pages\dashboard2.js" />
-    <Content Include="Content\dist\js\pages\dashboard3.js" />
     <Content Include="Content\Images\6385131139139573381eac98d0dd3a1964402b.jpg" />
     <Content Include="Content\Images\6385131200077353548f24a92cecc6289871d7.jpg" />
     <Content Include="Content\Images\638513139298748453Screenshot 2024-05-14 180910.png" />
@@ -284,7 +281,6 @@
     <Content Include="Content\Images\IconMUNE\mail.png" />
     <Content Include="Content\Images\IconMUNE\process.png" />
     <Content Include="Content\Images\IconMUNE\time.png" />
-    <Content Include="Content\Images\LogoGive.png" />
     <Content Include="Content\Images\LogoGive2.png" />
     <Content Include="Content\Images\partner\638518486494533479_2023-06-13.png" />
     <Content Include="Content\Images\partner\638519631316565977_FB_IMG_1706696901321.jpg" />
@@ -437,7 +433,6 @@
     <Content Include="Content\Images\post\638535853126151387_1eac98d0dd3a1964402b.jpg" />
     <Content Include="Content\Images\post\638535853126162324_8f24a92cecc6289871d7.jpg" />
     <Content Include="Content\Images\rabbit.jpg" />
-    <Content Include="Content\Images\sloganVIP.jpg" />
     <Content Include="Content\Images\tiktok.png" />
     <Content Include="Content\Images\user-profile.png" />
     <Content Include="Content\Images\user\638524010892238083_FB_IMG_1706696901321.jpg" />
@@ -4874,6 +4869,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\dist\js\pages\" />
     <Folder Include="Models\repositories\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

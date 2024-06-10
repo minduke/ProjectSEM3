@@ -315,12 +315,11 @@
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive-lg">
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-hover" style="width:100%;">
                                 <thead class="bg-gradient-navy">
                                     <tr class="text-center">
-                                        <th>Posts</th>
+                                        <th style="width:60%;">Posts</th>
                                         <th>Donations</th>
-                                        <th>Date and time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -333,8 +332,8 @@
                                                     <p class="">@item.post.title</p>
                                                 </a>
                                             </td>
-                                            <td class="text-center"><p>@Convert.ToInt64(item.transaction_amout).ToString("N0") VND</p></td>
-                                            <td class="text-center"><p>@item.transaction_date</p></td>
+                                            <td class="text-center">@Convert.ToInt64(item.transaction_amout).ToString("N0")VND <sup class="text-muted">@item.transaction_date</sup></td>
+                                           
                                         </tr>
                                     }
                                 </tbody>
