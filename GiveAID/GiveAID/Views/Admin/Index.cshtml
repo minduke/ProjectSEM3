@@ -16,14 +16,14 @@
         console.log(data);
 
         // Tạo mảng chứa các giá trị transaction_no
-        //var transactionNos = data.map(function (item) {
-        //    return item.transaction_amout;
-        //});
+        var transactionNos = data.map(function (item) {
+            return item.transaction_amout;
+        });
 
         // Tạo mảng chứa các nhãn cho biểu đồ
-        //var labels = data.map(function (item, index) {
-        //    return 'Bài viết' + (index + 1);
-        //});
+        var labels = data.map(function (item, index) {
+            return 'Bài viết' + (index + 1);
+        });
 
         // Tính tổng của dữ liệu
         var sum = 0;
