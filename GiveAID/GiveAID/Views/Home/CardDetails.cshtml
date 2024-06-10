@@ -367,11 +367,13 @@
 
                                 </div>
 
-                          
+
+
 
                                 <div class="mt-2 cusDONATE">
                                     <div class="row">
                                         <div class="col-sm-12">
+
                                             @if (Session["USER"] != null)
                                             {
 
@@ -464,6 +466,11 @@
                                 </div>
 
                                 <hr class="mt-5">
+                                <div class="col-sm-12">
+                                    <button type="button" style="width:40px" class="btn btn-facebook" onclick="javascript:fbShare('', '', 520, 350)">
+                                        <i class="fa-brands fa-facebook" style="font-size:45px;"></i>
+                                    </button>
+                                </div>
                                 <!-- Modal shareMail -->
                                 <div class="modal fade" id="shareEMAIL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered " role="document">
