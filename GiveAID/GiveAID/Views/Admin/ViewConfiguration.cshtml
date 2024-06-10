@@ -12,7 +12,6 @@
 <script>
 
     function previewImages(event) {
-        debugger
         var input = event.target;
         var imagesPreview = document.getElementById('imagesPreview');
         imagesPreview.innerHTML = ''; // Clear any previous images
@@ -33,8 +32,8 @@
 
                     let img = document.createElement('img');
                     img.src = e.target.result;
-                    img.style.maxWidth = '220px';
-                    img.style.maxHeight = '220px';
+                    img.style.maxWidth = '200px';
+                    img.style.maxHeight = '200px';
 
                     let removeButton = document.createElement('button');
                     removeButton.innerHTML = 'X';
@@ -90,8 +89,8 @@
 
                     let img = document.createElement('img');
                     img.src = e.target.result;
-                    img.style.maxWidth = '220px';
-                    img.style.maxHeight = '220px';
+                    img.style.maxWidth = '200px';
+                    img.style.maxHeight = '200px';
 
                     let removeButton = document.createElement('button');
                     removeButton.innerHTML = 'X';
@@ -147,8 +146,8 @@
 
                     let img = document.createElement('img');
                     img.src = e.target.result;
-                    img.style.maxWidth = '220px';
-                    img.style.maxHeight = '220px';
+                    img.style.maxWidth = '200px';
+                    img.style.maxHeight = '200px';
 
                     let removeButton = document.createElement('button');
                     removeButton.innerHTML = 'X';
@@ -279,6 +278,22 @@
         });
     });
 
+    $(document).ready(function () {
+        // label chosefile for thumbnail
+        $("#logo").change(function () {
+            filename = this.files[0].name;
+            $(".filename-logo").text(filename);
+        });
+    });
+
+    $(document).ready(function () {
+        // label chosefile for thumbnail
+        $("#imageFooter").change(function () {
+            filename = this.files[0].name;
+            $(".filename-footer").text(filename);
+        });
+    });
+    
 </script>
 
 <style>
@@ -330,21 +345,15 @@
             background-color: hotpink;
         }
 
-    .filename-contain {
-        font-size: 16px;
-        font-weight: bold;
+    .filename-contain, .filename-footer, .filename-logo {
+        font-size: 15px;
         text-align: center;
         color: #333333;
+        font-style:italic;
+        
     }
 
-        .filename-contain:hover {
-            padding: 10px;
-            border-radius: 4px;
-            background-color: #ff7f00;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
+
     /* cho nay la cho nhap so dnt*/
 
     .smtpServer{
@@ -479,10 +488,12 @@
             <!-- form start -->
             <form id="formEditBanner" class="formEditBanner" action="javascript:doEditConfig();" method="post" enctype="multipart/form-data">
                 <h2 class="text-center">Form input contact</h2>
+                <p class="text-muted" style="font-size:13px; font-style:italic">*These input boxes update the information at the bottom of the page and in the about menu.</p>
                 <hr class="new4">
                 <div class="form-group">
                     <!--Email and Phone-->
                     <div class="row">
+
                         <div class="col-sm-6">
                             <h4><label for="description">Email</label></h4> <!--Email-->
                             <input type="email" class="form-control mailContact" id="email" name="email" value="@ViewBag.SysEmail.value" required>
@@ -513,8 +524,78 @@
 
                 <hr class="new4">
 
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6 text-center new6">
+                            <h4 class="mt-2"><label for="fileBase">Logo</label></h4>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img src="~/Content/Images/logo/@ViewBag.SysLogo.value" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')" />
+                                </div>
+                                <div class="col-sm-12">
+                                    <label for="logo" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
+                                    <input type="file" class="form-control" id="logo" name="logo" onchange="previewLogo(event);" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center">
+                            <!-- view file img-->
+                            <h4><label for="logoPreview">Preview Logo</label></h4>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="logoPreview"></div>
+                                    <div class="filename-logo"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <h4><label for="introduceFooter">Introduce in footer</label></h4> <p class="text-muted" style="font-size:13px; font-style:italic">*This logo updates the representative logo in the menu at the top and footer, and the accompanying text input box for the logo in the footer.</p>
+                            <input type="text" class="form-control mailContact" id="introduceFooter" name="introduceFooter" value="@ViewBag.SysIntroduceFooter.value" required>
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr class="new4" />
+
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6 text-center new6">
+                            <h4 class="mt-2"><label for="fileBase">Image Footer</label></h4>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img src="~/Content/Images/logo/@ViewBag.SysImageFooter.value" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')" />
+                                </div>
+                                <div class="col-sm-12">
+                                    <label for="imageFooter" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
+                                    <input type="file" class="form-control" id="imageFooter" name="imageFooter" onchange="previewImageFooter(event);" />
+                                    <p class="text-muted" style="font-size:13px; font-style:italic">*The photo will appear in the footer, on the home page of our products page, and on the about us page.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center">
+                            <!-- view file img-->
+                            <h4><label for="previewFooter">Preview Image Footer</label></h4>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="previewFooter"></div>
+                                    <div class="filename-footer"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <hr class="new4">
+
                 <div class="form-group">
                     <h4 class="mt-2"><label for="fileBase">Banner Slider</label></h4>
+                    <p class="text-muted" style="font-size:13px; font-style:italic">*Update images for slides on the home page and our project page.</p>
                     <div class="" id="imagePartner">
                         <div class="row">
                             @foreach (var item in banners)
@@ -531,104 +612,31 @@
                                 <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event);">
                                 <div class="filename-contain"></div>
                             </div>
-
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <!-- view file img-->
-                            <h4><label for="imagesPreview">Preview Slider</label></h4>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div id="imagesPreview"></div>
+                            <div class="col-sm-12">
+                                <!-- view file img-->
+                                <h4><label for="imagesPreview">Preview Slider</label></h4>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="imagesPreview"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <hr class="new4">
 
-                <div class="form-group">
-                    <h4 class="mt-2"><label for="fileBase">Logo</label></h4>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <img src="~/Content/Images/logo/@ViewBag.SysLogo.value" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')" />
-                        </div>
-                        <div class="col-sm-12">
-                            <label for="logo" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
-                            <input type="file" class="form-control" id="logo" name="logo" onchange="previewLogo(event);" />
-                            <div class="filename-contain"></div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <!-- view file img-->
-                            <h4><label for="logoPreview">Preview Logo</label></h4>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div id="logoPreview"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="new4">
-
-                <div class="form-group">
-                    <h4 class="mt-2"><label for="fileBase">Image Footer</label></h4>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <img src="~/Content/Images/logo/@ViewBag.SysImageFooter.value" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')" />
-                        </div>
-                        <div class="col-sm-12">
-                            <label for="imageFooter" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
-                            <input type="file" class="form-control" id="imageFooter" name="imageFooter" onchange="previewImageFooter(event);" />
-                            <div class="filename-contain"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <!-- view file img-->
-                            <h4><label for="previewFooter">Preview Image Footer</label></h4>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div id="previewFooter"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="new4">
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h4><label for="introduceFooter">Introduce in footer</label></h4> <!--Email-->
-                            <input type="text" class="form-control mailContact" id="introduceFooter" name="introduceFooter" value="@ViewBag.SysIntroduceFooter.value" required>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="card-footer text-center">
-                    <button type="submit" id="btnSubmit" class="button-35" value="Save">Save</button>
+                    <button type="submit" id="btnSubmit" class="button-35" value="Save"><i class="fa-solid fa-floppy-disk mr-2"></i>Save</button>
                 </div>
             </form>
         </div>
         <!--end config contact-->
+
         <!-- Modal config email -->
         <div class="modal fade" id="configEmail" tabindex="-1" role="dialog" aria-labelledby="configEmail" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
