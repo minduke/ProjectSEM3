@@ -499,7 +499,8 @@ namespace GiveAID.Controllers
 
         public ActionResult ViewConfiguration()
         {
-            if (CheckLoginAdmin())
+            var user = Session["USER"] as user;
+            if (CheckLoginAdmin() && user.permission == "admin")
             {
                 ViewBag.SysAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_ADDRESS");
                 ViewBag.SysEmail = en.configurations.FirstOrDefault(x => x.keyword == "SYS_EMAIL");
@@ -779,7 +780,9 @@ namespace GiveAID.Controllers
 
         public ActionResult UserL(string search, int page = 1, int pagesize = 6)
         {
-            if (CheckLoginAdmin())
+            var user = Session["USER"] as user;
+
+            if (CheckLoginAdmin() && user.permission == "admin")
             {
                 var totalPage = en.users.Where(x => x.permission != "admin").Count();
 
