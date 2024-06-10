@@ -132,13 +132,8 @@ namespace GiveAID.Controllers
             var sum = en.payments.Where(x => x.post_id == id && x.pay_status == "Success").Sum(x => x.transaction_amout) ?? 0;
             ViewBag.sum = sum;
 
-            var shareFb = en.posts.Select(x => new
-            {
-                title = x.title,
-                image = x.image,
-                id = x.id
-            });
-            ViewBag.shareFb = shareFb;
+            ViewBag.titleFb = detail.title;
+            ViewBag.imageFb = detail.image;
 
             return View();
         }
