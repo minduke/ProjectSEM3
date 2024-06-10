@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ViewConfiguration";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
@@ -13,6 +12,7 @@
 <script>
 
     function previewImages(event) {
+        debugger
         var input = event.target;
         var imagesPreview = document.getElementById('imagesPreview');
         imagesPreview.innerHTML = ''; // Clear any previous images
@@ -65,12 +65,126 @@
                 }
 
                 reader.readAsDataURL(file);
-            }
-        }
+            };
+        };
+    }
+
+    function previewLogo(event) {
+        var input = event.target;
+        var imagesPreview = document.getElementById('logoPreview');
+        imagesPreview.innerHTML = ''; // Clear any previous images
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+
+            for (let i = 0; i < filesAmount; i++) {
+                let file = input.files[i];
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    let imgContainer = document.createElement('div');
+                    imgContainer.style.position = 'relative';
+                    imgContainer.style.display = 'inline-block';
+                    imgContainer.style.marginRight = '10px';
+                    imgContainer.style.marginBottom = '10px';
+
+                    let img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '220px';
+                    img.style.maxHeight = '220px';
+
+                    let removeButton = document.createElement('button');
+                    removeButton.innerHTML = 'X';
+                    removeButton.style.position = 'absolute';
+                    removeButton.style.top = '5px';
+                    removeButton.style.right = '5px';
+                    removeButton.style.backgroundColor = 'red';
+                    removeButton.style.color = 'white';
+                    removeButton.style.border = 'none';
+                    removeButton.style.borderRadius = '50%';
+                    removeButton.style.cursor = 'pointer';
+
+                    removeButton.onclick = function () {
+                        imgContainer.remove();
+                        // Remove the file from the input element
+                        var dt = new DataTransfer();
+                        for (var j = 0; j < input.files.length; j++) {
+                            if (input.files[j] !== file) {
+                                dt.items.add(input.files[j]);
+                            }
+                        }
+                        input.files = dt.files;
+                    };
+
+                    imgContainer.appendChild(img);
+                    imgContainer.appendChild(removeButton);
+                    imagesPreview.appendChild(imgContainer);
+                }
+
+                reader.readAsDataURL(file);
+            };
+        };
+    }
+
+    function previewImageFooter(event) {
+        var input = event.target;
+        var imagesPreview = document.getElementById('previewFooter');
+        imagesPreview.innerHTML = ''; // Clear any previous images
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+
+            for (let i = 0; i < filesAmount; i++) {
+                let file = input.files[i];
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    let imgContainer = document.createElement('div');
+                    imgContainer.style.position = 'relative';
+                    imgContainer.style.display = 'inline-block';
+                    imgContainer.style.marginRight = '10px';
+                    imgContainer.style.marginBottom = '10px';
+
+                    let img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '220px';
+                    img.style.maxHeight = '220px';
+
+                    let removeButton = document.createElement('button');
+                    removeButton.innerHTML = 'X';
+                    removeButton.style.position = 'absolute';
+                    removeButton.style.top = '5px';
+                    removeButton.style.right = '5px';
+                    removeButton.style.backgroundColor = 'red';
+                    removeButton.style.color = 'white';
+                    removeButton.style.border = 'none';
+                    removeButton.style.borderRadius = '50%';
+                    removeButton.style.cursor = 'pointer';
+
+                    removeButton.onclick = function () {
+                        imgContainer.remove();
+                        // Remove the file from the input element
+                        var dt = new DataTransfer();
+                        for (var j = 0; j < input.files.length; j++) {
+                            if (input.files[j] !== file) {
+                                dt.items.add(input.files[j]);
+                            }
+                        }
+                        input.files = dt.files;
+                    };
+
+                    imgContainer.appendChild(img);
+                    imgContainer.appendChild(removeButton);
+                    imagesPreview.appendChild(imgContainer);
+                }
+
+                reader.readAsDataURL(file);
+            };
+        };
     }
 
     function doEditConfig() {
-       
+
         var dt = document.getElementById('formEditBanner');
         var form = new FormData(dt);
 
@@ -82,7 +196,7 @@
             processData: false,
             success: function (response) {
                 if (response.result == true) {
-                    
+
                     location.reload();
                 }
                 else {
@@ -335,36 +449,36 @@
 
     <div class="content">
         <div class="row">
-         
+
             <div class="col-sm-2 text-center border-right">
                 <div class="row">
                     <div class="col-sm-12">
-                        <button class="btn btn-transparent" data-toggle="collapse" data-target="#configConTact" aria-expanded="true" aria-controls="configConTact" >  <img src="@Url.Content("~/Content/Images/IconMUNE/process.png")" style="width:50px;height:50px;" data-toggle="tooltip" data-placement="top" title="Config Contact"></button>
+                        <button class="btn btn-transparent" data-toggle="collapse" data-target="#configConTact" aria-expanded="true" aria-controls="configConTact">  <img src="@Url.Content("~/Content/Images/IconMUNE/process.png")" style="width:50px;height:50px;" data-toggle="tooltip" data-placement="top" title="Config Contact"></button>
                     </div>
                     <div class="col-sm-12">
                         <p><b>Config Contact</b></p>
                     </div>
                 </div>
-                
+
             </div>
-                <div class="col-sm-2 text-center" >
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <button class="btn btn-transparent" data-toggle="modal" data-target="#configEmail">  <img src="@Url.Content("~/Content/Images/IconMUNE/mail.png")" style="width:50px;height:50px;"  data-toggle="tooltip" data-placement="top" title="Config Email"  ></button>
-                        </div>
-                        <div class="col-sm-12">
-                            <p><b>Config Mail</b></p>
-                        </div>
+            <div class="col-sm-2 text-center">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-transparent" data-toggle="modal" data-target="#configEmail">  <img src="@Url.Content("~/Content/Images/IconMUNE/mail.png")" style="width:50px;height:50px;" data-toggle="tooltip" data-placement="top" title="Config Email"></button>
                     </div>
-                    
+                    <div class="col-sm-12">
+                        <p><b>Config Mail</b></p>
+                    </div>
                 </div>
+
+            </div>
         </div>
         <hr class="">
         <!--Form config contact-->
-        <div class="collapse show fade" id="configConTact" >
+        <div class="collapse show fade" id="configConTact">
             <!-- form start -->
             <form id="formEditBanner" class="formEditBanner" action="javascript:doEditConfig();" method="post" enctype="multipart/form-data">
-                <h2 class="text-center" >Form input contact</h2>
+                <h2 class="text-center">Form input contact</h2>
                 <hr class="new4">
                 <div class="form-group">
                     <!--Email and Phone-->
@@ -407,16 +521,14 @@
                             {<!-- file img-->
                                 <div class="col-sm-2" id="imageBanner">
                                     <input type="hidden" id="idBanner" value="@item.id">
-                                    <img src="~/Content/Images/banner/@item.banner_image" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')"  />
+                                    <img src="~/Content/Images/banner/@item.banner_image" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')" />
                                     <button class="custom-Button" type="button" onclick="doDeleteBanner(@item.id)"><i class="fa-solid fa-delete-left"></i></button>
                                 </div>
-
-
                             }
                             <div class="col-sm-12">
                                 <!-- choose file img-->
                                 <label for="fileBase" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
-                                <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event)">
+                                <input type="file" class="form-control" id="fileBase" name="fileBase" multiple onchange="previewImages(event);">
                                 <div class="filename-contain"></div>
                             </div>
 
@@ -425,13 +537,12 @@
                     </div>
 
                 </div>
-                <hr class="new4">
 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-12">
                             <!-- view file img-->
-                            <h4><label for="imagesPreview">Preview</label></h4>
+                            <h4><label for="imagesPreview">Preview Slider</label></h4>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div id="imagesPreview"></div>
@@ -441,6 +552,76 @@
                     </div>
                 </div>
 
+                <hr class="new4">
+
+                <div class="form-group">
+                    <h4 class="mt-2"><label for="fileBase">Logo</label></h4>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <img src="~/Content/Images/logo/@ViewBag.SysLogo.value" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label for="logo" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
+                            <input type="file" class="form-control" id="logo" name="logo" onchange="previewLogo(event);" />
+                            <div class="filename-contain"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- view file img-->
+                            <h4><label for="logoPreview">Preview Logo</label></h4>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="logoPreview"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="new4">
+
+                <div class="form-group">
+                    <h4 class="mt-2"><label for="fileBase">Image Footer</label></h4>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <img src="~/Content/Images/logo/@ViewBag.SysImageFooter.value" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label for="imageFooter" class="cusFILE mt-2"><i class="fa-solid fa-upload mr-1"></i>Choose File</label>
+                            <input type="file" class="form-control" id="imageFooter" name="imageFooter" onchange="previewImageFooter(event);" />
+                            <div class="filename-contain"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- view file img-->
+                            <h4><label for="previewFooter">Preview Image Footer</label></h4>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="previewFooter"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="new4">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4><label for="introduceFooter">Introduce in footer</label></h4> <!--Email-->
+                            <input type="text" class="form-control mailContact" id="introduceFooter" name="introduceFooter" value="@ViewBag.SysIntroduceFooter.value" required>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="card-footer text-center">
                     <button type="submit" id="btnSubmit" class="button-35" value="Save">Save</button>
@@ -448,9 +629,6 @@
             </form>
         </div>
         <!--end config contact-->
-   
-
-
         <!-- Modal config email -->
         <div class="modal fade" id="configEmail" tabindex="-1" role="dialog" aria-labelledby="configEmail" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg " role="document">

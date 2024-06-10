@@ -513,6 +513,9 @@ namespace GiveAID.Controllers
                 ViewBag.MailUsername = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_USERNAME");
                 ViewBag.DisplayName = en.configurations.FirstOrDefault(x => x.keyword == "SYS_DISPLAY_NAME");
                 ViewBag.ssl = en.configurations.FirstOrDefault(x => x.keyword == "SYS_SSL");
+                ViewBag.SysLogo = en.configurations.FirstOrDefault(x => x.keyword == "SYS_LOGO");
+                ViewBag.SysImageFooter = en.configurations.FirstOrDefault(x => x.keyword == "SYS_IMAGE_FOOTER");
+                ViewBag.SysIntroduceFooter = en.configurations.FirstOrDefault(x => x.keyword == "SYS_INTRODUCE_FOOTER");
                 ViewBag.banner = en.banners.ToList();
                 return View();
             }
@@ -550,13 +553,18 @@ namespace GiveAID.Controllers
             public string address { get; set; }
             public string email { get; set; }
             public string introduce { get; set; }
+            public string introduceFooter { get; set; }
         }
 
-        public JsonResult EditConfig(ModelConfig model, HttpPostedFileBase[] fileBase)
+        public JsonResult EditConfig(ModelConfig model, HttpPostedFileBase[] fileBase, HttpPostedFileBase logo, HttpPostedFileBase imageFooter)
         {
             try
             {
-                if (model.introduce == null || model.phone == null || model.email == null || model.address == null)
+                if (string.IsNullOrWhiteSpace(model.introduce) ||
+                    string.IsNullOrWhiteSpace(model.phone) ||
+                    string.IsNullOrWhiteSpace(model.email) ||
+                    string.IsNullOrWhiteSpace(model.address) ||
+                    string.IsNullOrWhiteSpace(model.introduceFooter))
                     throw new Exception("Please fill in all fields");
 
                 var image = en.banners.Count();
@@ -606,6 +614,81 @@ namespace GiveAID.Controllers
                     en.configurations.Add(SysIntroduce);
                 }
                 SysIntroduce.value = model.introduce;
+
+                var SysIntroduceFooter = en.configurations.FirstOrDefault(x => x.keyword == "SYS_INTRODUCE_FOOTER");
+                if(SysIntroduceFooter == null)
+                {
+                    SysIntroduceFooter = new configuration()
+                    {
+                        keyword = "SYS_INTRODUCE_FOOTER"
+                    };
+                    en.configurations.Add(SysIntroduceFooter);
+                }
+                SysIntroduceFooter.value = model.introduceFooter;
+
+                if (logo != null)
+                {
+                    var PathUpload = Server.MapPath("/Content/Images/logo");
+                    if (!Directory.Exists(PathUpload))
+                    {
+                        Directory.CreateDirectory(PathUpload);
+                    }
+
+                    string fileExtension = Path.GetExtension(logo.FileName).ToLower();
+                    if (fileExtension == ".jpg" || fileExtension == ".png")
+                    {
+                        var fileName = DateTime.Now.Ticks + "_" + logo.FileName;
+                        var filePath = Path.Combine(PathUpload, fileName);
+                        logo.SaveAs(filePath);
+
+                        var SysLogo = en.configurations.FirstOrDefault(x => x.keyword == "SYS_LOGO");
+                        if (SysLogo == null)
+                        {
+                            SysLogo = new configuration()
+                            {
+                                keyword = "SYS_LOGO"
+                            };
+                            en.configurations.Add(SysLogo);
+                        }
+                        SysLogo.value = fileName;
+                    }
+                    else
+                    {
+                        throw new Exception("Wrong image format");
+                    }
+                }
+
+                if (imageFooter != null)
+                {
+                    var PathUpload = Server.MapPath("/Content/Images/logo");
+                    if (!Directory.Exists(PathUpload))
+                    {
+                        Directory.CreateDirectory(PathUpload);
+                    }
+
+                    string fileExtension = Path.GetExtension(imageFooter.FileName).ToLower();
+                    if (fileExtension == ".jpg" || fileExtension == ".png")
+                    {
+                        var fileName = DateTime.Now.Ticks + "_" + imageFooter.FileName;
+                        var filePath = Path.Combine(PathUpload, fileName);
+                        imageFooter.SaveAs(filePath);
+
+                        var SysImageFooter = en.configurations.FirstOrDefault(x => x.keyword == "SYS_IMAGE_FOOTER");
+                        if (SysImageFooter == null)
+                        {
+                            SysImageFooter = new configuration()
+                            {
+                                keyword = "SYS_LOGO"
+                            };
+                            en.configurations.Add(SysImageFooter);
+                        }
+                        SysImageFooter.value = fileName;
+                    }
+                    else
+                    {
+                        throw new Exception("Wrong image format");
+                    }
+                }
 
                 if (fileBase != null && fileBase[0] != null)
                 {
@@ -792,7 +875,7 @@ namespace GiveAID.Controllers
                                 .Skip((page - 1) * pagesize)
                                 .Take(pagesize)
                                 .ToList();
-                
+
                 if (!string.IsNullOrEmpty(search))
                     ViewBag.userL = en.users
                         .Where(x => x.permission != "admin")
