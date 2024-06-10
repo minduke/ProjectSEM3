@@ -300,7 +300,6 @@
     <Content Include="Content\Images\partner\638533478738094597_IMG_20220601_220652.jpg" />
     <Content Include="Content\Images\partner\638533480826322846_FB_IMG_1710487076474.jpg" />
     <Content Include="Content\Images\partner\638534015882979273_help_Baby.png" />
-    <Content Include="Content\Images\partner\638534837072916381_BinCute.jpg" />
     <Content Include="Content\Images\post\638515399858893943_c4404ffae354f10b7b6f1f2f33662be0.jpg" />
     <Content Include="Content\Images\post\638515399858893943_fa2025f5c3e481015480c3be0f2e94cf.jpg" />
     <Content Include="Content\Images\post\638515408577619351_dumb-face12.jpg" />
@@ -430,6 +429,13 @@
     <Content Include="Content\Images\post\638535434089358896_118074593_993811111066112_2287586333415942536_n.jpg" />
     <Content Include="Content\Images\post\638535434089366604_54dc97aad240161e4f51.jpg" />
     <Content Include="Content\Images\post\638535438895545652_118074593_993811111066112_2287586333415942536_n.jpg" />
+    <Content Include="Content\Images\post\638535852082687422_FB_IMG_1706696901321.jpg" />
+    <Content Include="Content\Images\post\638535852266805655_54dc97aad240161e4f51.jpg" />
+    <Content Include="Content\Images\post\638535852412566239_272113883_349430113848784_7010845744487062741_n.jpg" />
+    <Content Include="Content\Images\post\638535852663938743_118074593_993811111066112_2287586333415942536_n.jpg" />
+    <Content Include="Content\Images\post\638535853126141355_1c1c2a1d6ff7aba9f2e6.jpg" />
+    <Content Include="Content\Images\post\638535853126151387_1eac98d0dd3a1964402b.jpg" />
+    <Content Include="Content\Images\post\638535853126162324_8f24a92cecc6289871d7.jpg" />
     <Content Include="Content\Images\rabbit.jpg" />
     <Content Include="Content\Images\sloganVIP.jpg" />
     <Content Include="Content\Images\tiktok.png" />
@@ -437,7 +443,6 @@
     <Content Include="Content\Images\user\638524010892238083_FB_IMG_1706696901321.jpg" />
     <Content Include="Content\Images\user\638525696865444586_FB_IMG_1706696901321.jpg" />
     <Content Include="Content\Images\user\638525713149998507_118074593_993811111066112_2287586333415942536_n.jpg" />
-    <Content Include="Content\Images\user\638535415138204377_LogoGive.png" />
     <Content Include="Content\Images\user\user-profile.png" />
     <Content Include="Content\Images\youtube.png" />
     <Content Include="Content\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
