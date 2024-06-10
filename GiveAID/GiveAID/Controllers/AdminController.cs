@@ -734,7 +734,7 @@ namespace GiveAID.Controllers
                     };
                     en.configurations.Add(SmtpServer);
                 }
-                SysDisplayName.value = model.SmtpServer;
+                SmtpServer.value = model.SmtpServer;
 
                 var Ssl = en.configurations.FirstOrDefault(x => x.keyword == "SYS_SSL");
                 if (Ssl == null)
