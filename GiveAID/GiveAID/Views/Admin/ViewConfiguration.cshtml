@@ -250,7 +250,8 @@
                 success: function (response) {
                     if (response.result == true) {
                         showSuccessMessage("Completed");
-                        document.getElementById('imageBanner').remove();
+                        //document.getElementById('imageBanner').remove();
+                        $('.imageBanner[data-id="' + idBanner + '"]').remove();
                     }
                     else {
                         showErrorMessage(response.error);
@@ -506,12 +507,12 @@
                     </div>
                     <div class="row">
                         <!--Introduce and Address-->
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <h4><label for="description">Introduce</label></h4><!--Introduce-->
                             <input type="text" class="form-control introduceContact" id="introduce" name="introduce" value="@ViewBag.SysIntroduce.value" required>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <h4><label for="description">Address</label></h4><!--Address-->
                             <input type="text" class="form-control addressContact" id="address" name="address" value="@ViewBag.SysAddress.value" required>
                         </div>
@@ -600,7 +601,7 @@
                         <div class="row">
                             @foreach (var item in banners)
                             {<!-- file img-->
-                                <div class="col-sm-2" id="imageBanner">
+                                <div class="col-sm-2 imageBanner" data-id="@item.id">
                                     <input type="hidden" id="idBanner" value="@item.id">
                                     <img src="~/Content/Images/banner/@item.banner_image" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')" />
                                     <button class="custom-Button" type="button" onclick="doDeleteBanner(@item.id)"><i class="fa-solid fa-delete-left"></i></button>

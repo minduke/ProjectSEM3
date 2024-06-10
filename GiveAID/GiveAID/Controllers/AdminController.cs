@@ -142,8 +142,8 @@ namespace GiveAID.Controllers
                 post.time_end != null)
             {
 
-                if (post.title.Length > 100)
-                    throw new Exception("Max of title is 100 characters");
+                if (post.title.Length > 150)
+                    throw new Exception("Max of title is 150 characters");
 
                 var PathUpload = Server.MapPath("/Content/Images/post");
                 if (!Directory.Exists(PathUpload))
@@ -210,8 +210,8 @@ namespace GiveAID.Controllers
             {
                 var data = en.posts.FirstOrDefault(x => x.id == post.id);
 
-                if (post.title.Length > 100)
-                    throw new Exception("Max of title is 100 characters");
+                if (post.title.Length > 150)
+                    throw new Exception("Max of title is 150 characters");
 
                 if (fileBase.Length > 0 && fileBase[0] != null)
                 {
