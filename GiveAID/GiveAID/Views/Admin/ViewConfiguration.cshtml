@@ -274,7 +274,7 @@
             margin: 0px;
             /* Các kiểu dáng khác tùy ý */
         }
-        
+
     }
 
     .btn-transparent {
@@ -290,23 +290,26 @@
         background-color: #f2f2f2; /* Màu nền của form */
         padding: 20px; /* Khoảng cách giữa các thành phần bên trong form */
         width: 1000px; /* Đặt chiều rộng của form */
-        
+
     }
         .formEditBanner h2 {
             color: cornflowerblue;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             padding: 10px;
-           
+
             font-style: italic;
             text-transform: uppercase;
         }
 
     #configConTact {
-         display: flex; 
-         justify-content: center; 
+         display: flex;
+         justify-content: center;
          align-items: center;
     }
-    
+   .error {
+    content: url('@Url.Content("~/Content/dist/img/default-150x150.png")');/* Thay thế bằng hình ảnh khác */
+    border: 2px solid red;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -336,7 +339,7 @@
             <div class="col-sm-2 text-center border-right">
                 <div class="row">
                     <div class="col-sm-12">
-                        <button class="btn btn-transparent" data-toggle="collapse" data-target="#configConTact" aria-expanded="false" aria-controls="configConTact" >  <img src="@Url.Content("~/Content/Images/IconMUNE/process.png")" style="width:50px;height:50px;" data-toggle="tooltip" data-placement="top" title="Config Contact"></button>
+                        <button class="btn btn-transparent" data-toggle="collapse" data-target="#configConTact" aria-expanded="true" aria-controls="configConTact" >  <img src="@Url.Content("~/Content/Images/IconMUNE/process.png")" style="width:50px;height:50px;" data-toggle="tooltip" data-placement="top" title="Config Contact"></button>
                     </div>
                     <div class="col-sm-12">
                         <p><b>Config Contact</b></p>
@@ -404,7 +407,7 @@
                             {<!-- file img-->
                                 <div class="col-sm-2" id="imageBanner">
                                     <input type="hidden" id="idBanner" value="@item.id">
-                                    <img src="~/Content/Images/banner/@item.banner_image" style="width:150px; height:150px" alt="Image Banner" />
+                                    <img src="~/Content/Images/banner/@item.banner_image" style="width:150px; height:150px" alt="Image Banner" onerror="this.classList.add('error')"  />
                                     <button class="custom-Button" type="button" onclick="doDeleteBanner(@item.id)"><i class="fa-solid fa-delete-left"></i></button>
                                 </div>
 
