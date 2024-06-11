@@ -311,6 +311,9 @@ namespace GiveAID.Controllers
         {
             if (CheckLogin())
             {
+                if (user.email.IsNullOrWhiteSpace() || user.phone.IsNullOrWhiteSpace() || user.fullname.IsNullOrWhiteSpace())
+                    throw new Exception("Please fill in all fields");
+
                 var PathUpload = Server.MapPath("/Content/Images/user");
                 if (!Directory.Exists(PathUpload))
                 {
@@ -421,7 +424,7 @@ namespace GiveAID.Controllers
         public JsonResult FilterChart(int year, int month)
         {
             var bars = en.payments
-               .Where(x => x.pay_status == "Success" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
+               .Where(x => x.pay_status == "Success" && x.transaction_date.Value.Year == year && x.transaction_date.Value.Month == month)
                .GroupBy(p => p.post.category.name)
                .Select(g => new ModelLineChart
                {
