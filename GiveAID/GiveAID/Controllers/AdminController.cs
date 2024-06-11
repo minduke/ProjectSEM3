@@ -1,5 +1,6 @@
 ﻿using GiveAID.Helpers;
 using GiveAID.Models.entities;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -208,6 +209,13 @@ namespace GiveAID.Controllers
         {
             try
             {
+                if (post.title.IsNullOrWhiteSpace() ||
+                    post.content.IsNullOrWhiteSpace())
+                    throw new Exception("Please fill in all fields");
+
+                if (post.target == 0)
+                    throw new Exception("Target is not valid");
+
                 var data = en.posts.FirstOrDefault(x => x.id == post.id);
 
                 if (post.title.Length > 150)
@@ -379,7 +387,11 @@ namespace GiveAID.Controllers
         {
             try
             {
-                if (partner.partner_name == null || partner.phone == null || partner.address == null || partner.description == null || partner.email == null)
+                if (partner.partner_name.IsNullOrWhiteSpace() || 
+                    partner.phone.IsNullOrWhiteSpace() || 
+                    partner.address.IsNullOrWhiteSpace() || 
+                    partner.description.IsNullOrWhiteSpace() || 
+                    partner.email.IsNullOrWhiteSpace())
                     throw new Exception("Please fill in all fields");
 
                 var dt = en.partners.FirstOrDefault(x => x.id == partner.id);
@@ -750,7 +762,13 @@ namespace GiveAID.Controllers
         {
             try
             {
-                if (model.MailAddress == null || model.MailPass == null || model.MailPort == null)
+                if (model.MailAddress.IsNullOrWhiteSpace() || 
+                    model.MailPass.IsNullOrWhiteSpace() || 
+                    model.MailPort.IsNullOrWhiteSpace() ||
+                    model.MailUsername.IsNullOrWhiteSpace() ||
+                    model.DisplayName.IsNullOrWhiteSpace() ||
+                    model.SmtpServer.IsNullOrWhiteSpace() ||
+                    model.Ssl.IsNullOrWhiteSpace())
                     throw new Exception("Please fill in all fields");
 
                 var SysMailAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_MAIL_ADDRESS");
