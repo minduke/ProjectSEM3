@@ -200,6 +200,7 @@
   <ItemGroup>
     <Content Include="Content\custom\404.css" />
     <Content Include="Content\custom\button.css" />
+    <Content Include="Content\custom\cusColor.js" />
     <Content Include="Content\custom\customeCSS.css" />
     <Content Include="Content\custom\customJS.js" />
     <Content Include="Content\dist\css\adminlte.css" />

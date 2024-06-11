@@ -296,16 +296,16 @@
                             <hr>
                             <div class="containercus bg-gradient-navy">
                                 <div class="row">
-                                    <div class="col-sm-12 ">
+                                    <div class="col-sm-12 ml-3">
                                         <h5 class="text-partner">
                                             <img src="@Url.Content("~/Content/Images/partner/" + posts.partner.partner_image)" width="50" height="50" alt="Logo" class="mr-2 mt-2"> -  @posts.partner.partner_name
                                         </h5>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 ">
+                                    <div class="col-sm-12 ml-3">
                                         <div class="row ">
-                                            <div class="col-sm-6 col-6 text-center">
+                                            <div class="col-sm-6 col-6 ">
                                                 <!--cho nay hien tien muc tieu cua bai post-->
                                                 <span>Target:</span>
                                             </div>
@@ -317,9 +317,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12 ml-3">
                                         <div class="row ">
-                                            <div class="col-sm-6 col-6 text-center">
+                                            <div class="col-sm-6 col-6 ">
                                                 <!--cho nay hien tien donate duoc hien tai-->
                                                 <span>Achieved:</span>
                                             </div>
@@ -331,9 +331,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12 ml-3">
                                         <div class="row ">
-                                            <div class="col-sm-6 col-6 text-center">
+                                            <div class="col-sm-6 col-6 ">
                                                 <!--cho nay hien tien con co the donate-->
                                                 <span>Can donate:</span>
                                             </div>
@@ -345,14 +345,14 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12 ml-3">
                                         <div class="row ">
-                                            <div class="col-sm-6 col-6 text-center">
+                                            <div class="col-sm-6 col-6">
                                                 <!--cho nay hien tien con co the donate-->
                                                 <span>End date of the project:</span>
                                             </div>
                                             <div class="col-sm-6 col-6 ">
-                                                <h5>@posts.time_end.Value.ToShortDateString()</h5>
+                                                <p>@posts.time_end.Value.ToShortDateString()</p>
                                                 <input type="hidden" id="balance" value="@(posts.target - ViewBag.sum)" />
                                             </div>
                                         </div>
@@ -464,16 +464,16 @@
                                             }
 
                                         </div>
-
+                                        <div class="col-sm-12 mt-5 text-left">
+                                            <button type="button" class="btn bg-blue" onclick="javascript:fbShare('', '', 550, 350)">
+                                                <i class="fa-brands fa-facebook" style="font-size:30px;"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <hr class="mt-5">
-                                <div class="col-sm-12">
-                                    <button type="button" style="width:40px" class="btn btn-facebook" onclick="javascript:fbShare('', '', 520, 350)">
-                                        <i class="fa-brands fa-facebook" style="font-size:45px;"></i>
-                                    </button>
-                                </div>
+                              
                                 <!-- Modal shareMail -->
                                 <div class="modal fade" id="shareEMAIL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered " role="document">
