@@ -66,3 +66,57 @@ function fbShare(url, image, winWidth, winHeight) {
     window.open('https://www.facebook.com/sharer.php?u=' + window.location.href, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
 }
 
+
+
+$(document).ready(function () {
+    var maxChars = parseInt($('#title').attr('maxlength'));
+
+    $('#title').on('input', function () {
+        var inputText = $(this).val();
+        var charCount = inputText.length;
+
+        if (charCount > maxChars) {
+            $(this).val(inputText.substr(0, maxChars));
+            charCount = maxChars;
+        }
+
+        $('#charCount').text(charCount + '/' + maxChars);
+    });
+
+    $('#title').trigger('input'); // Kích hoạt sự kiện input ban đầu
+});
+
+//$(document).ready(function () {
+//    var maxChars = parseInt($('#introduceFooter').attr('maxlength'));
+
+//    $('#introduceFooter').on('input', function () {
+//        var inputText = $(this).val();
+//        var charCount = inputText.length;
+
+//        if (charCount > maxChars) {
+//            $(this).val(inputText.substr(0, maxChars));
+//            charCount = maxChars;
+//        }
+
+//        $('#charCount2').text(charCount + '/' + maxChars);
+//    });
+//});
+
+
+$(document).ready(function () {
+    var maxChars = parseInt($('#introduceFooter').attr('maxlength'));
+
+    $('#introduceFooter').on('input', function () {
+        var inputText = $(this).val();
+        var charCount = inputText.length;
+
+        if (charCount > maxChars) {
+            $(this).val(inputText.substr(0, maxChars));
+            charCount = maxChars;
+        }
+
+        $('#charCount2').text(charCount + '/' + maxChars);
+    });
+
+    $('#introduceFooter').trigger('input'); // Kích hoạt sự kiện input ban đầu
+});
