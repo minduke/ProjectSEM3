@@ -16,41 +16,41 @@
         console.log(data);
 
         // Tạo mảng chứa các giá trị transaction_no
-        var transactionNos = data.map(function (item) {
-            return item.transaction_amout;
+        var labelName = data.map(function (item) {
+            return item.name;
         });
 
         // Tạo mảng chứa các nhãn cho biểu đồ
-        var labels = data.map(function (item, index) {
-            return 'Bài viết' + (index + 1);
+        var dataS = data.map(function (item) {
+            return item.sum;
         });
 
-        // Tính tổng của dữ liệu
-        var sum = 0;
-        for (var i = 0; i < transactionNos.length; i++) {
-            sum += transactionNos[i];
-        }
+
+
 
         var ctx2 = document.getElementById("myChart2");
         new Chart(ctx2, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: ['Giá trị nhỏ nhất', 'SUM', 'Giá trị lớn nhất'],
+                labels: labelName,
                 datasets: [{
-                    label: 'Tổng số tiền thu được',
-                    data: ['100000', sum, '100000000'],
-                    backgroundColor: 'rgba(0, 123, 255, 0.5)',
-                    borderColor: 'rgba(0, 123, 255, 1)',
+                    label: 'Amount by catcategory',
+                    data: dataS,
+                    backgroundColor: colors,
+                    borderColor: borderColors,
                     borderWidth: 1,
-                    pointStyle: 'circle'
+
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
-                    y: {
-                        min: 0,
-                        max: 100000000
-                    }
+                    yAxes: [{
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
                 }
             }
         });
@@ -62,6 +62,63 @@
     }
 
    });
+
+
+
+       /**CHART DONUT*/
+    $.ajax({
+
+        url: "@Url.Action("ChartData","Home")",
+        type: "POST",
+        dataType: "json",
+        success: function (dataChart) {
+            console.log(dataChart);
+            var labelss = dataChart.map(function (item) {
+                return item.name;
+            });
+
+            var countss = dataChart.map(function (item) {
+                return item.count;
+            });
+            console.log(labelss);
+            console.log(countss);
+            // Cấu hình biểu đồ
+            var ctx3 = document.getElementById("myChart3");
+            var myChart = new Chart(ctx3, {
+                type: "doughnut",
+                data: {
+                    labels: labelss,
+                    datasets: [
+                        {
+                            label: "Tổng số bài",
+                            data: countss,
+                            backgroundColor: colors,
+                            borderColor: borderColors,
+                            borderWidth: 1,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: "70%", // Điều chỉnh kích thước lỗ giữa để tạo hình dạng donut
+                    plugins: {
+                        legend: {
+                            position: "right"
+                        }
+                    }
+                }
+            });
+
+        },
+        error: function (error) {
+            // Xử lý lỗi (nếu có)
+            console.log(error);
+        },
+    });
+
+
+
 
     function updateChart(year, month) {
         $.ajax({
@@ -77,32 +134,40 @@
                 $('#sumTarget').text(response.sumTarget.toLocaleString() + " VND");
                 $('#sumAmout').text(response.sumAmout.toLocaleString() + " VND");
 
-                var transactionNos = response.payments.map(function (item) {
-                    return item.transaction_amout;
+
+
+                // Tạo mảng chứa các giá trị name cate
+                var labelName = response.bars.map(function (item) {
+                    return item.name;
                 });
 
-                var sum = transactionNos.reduce((a, b) => a + b, 0);
+                // Tạo mảng chứa dư liệu cho chartjs
+                var dataS = response.bars.map(function (item) {
+                    return item.sum;
+                });
                 var ctx2 = document.getElementById("myChart2");
-
                 new Chart(ctx2, {
-                    type: 'line',
+                    type: 'bar',
                     data: {
-                        labels: ['Giá trị nhỏ nhất', 'SUM', 'Giá trị lớn nhất'],
+                        labels: labelName,
                         datasets: [{
-                            label: 'Tổng số tiền thu được',
-                            data: ['100000', sum, '100000000'],
-                            backgroundColor: 'rgba(0, 123, 255, 0.5)',
-                            borderColor: 'rgba(0, 123, 255, 1)',
+                            label: 'Amount by catcategory',
+                            data: dataS,
+                            backgroundColor: colors,
+                            borderColor: borderColors,
                             borderWidth: 1,
-                            pointStyle: 'circle'
+
                         }]
                     },
                     options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
                         scales: {
-                            y: {
-                                min: 0,
-                                max: 100000000
-                            }
+                            yAxes: [{
+                                ticks: {
+                                    suggestedMin: 0
+                                }
+                            }]
                         }
                     }
                 });
@@ -124,28 +189,15 @@
                             {
                                 label: "Tổng số bài",
                                 data: countss,
-                                backgroundColor: [
-                                    "rgb(255, 87, 87",
-                                    "rgb(255, 219, 15)",
-                                    "rgb(87, 250, 0)",
-                                    "rgb(0, 118, 250)",
-                                    "rgb(166, 1, 255)",
-                                    // Thêm các màu khác nếu cần
-                                ],
-                                borderColor: [
-                                    "rgb(255, 87, 87",
-                                    "rgb(255, 219, 15)",
-                                    "rgb(87, 250, 0)",
-                                    "rgb(0, 118, 250)",
-                                    "rgb(166, 1, 255)",
-                                    // Thêm các màu khác nếu cần
-                                ],
+                                backgroundColor: colors,
+                                borderColor: borderColors,
                                 borderWidth: 1,
                             }
                         ]
                     },
                     options: {
                         responsive: true,
+                        maintainAspectRatio: false,
                         cutout: "70%", // Điều chỉnh kích thước lỗ giữa để tạo hình dạng donut
                         plugins: {
                             legend: {
@@ -171,70 +223,6 @@
         });
     });
 
-        /**CHART DONUT*/
-        $.ajax({
-
-            url: "@Url.Action("ChartData","Home")",
-            type: "POST",
-            dataType: "json",
-            success: function (dataChart) {
-                console.log(dataChart);
-                var labelss = dataChart.map(function (item) {
-                    return item.name;
-                });
-
-                var countss = dataChart.map(function (item) {
-                    return item.count;
-                });
-                console.log(labelss);
-                console.log(countss);
-                // Cấu hình biểu đồ
-                var ctx3 = document.getElementById("myChart3");
-                var myChart = new Chart(ctx3, {
-                    type: "doughnut",
-                    data: {
-                        labels: labelss,
-                        datasets: [
-                            {
-                                label: "Tổng số bài",
-                                data: countss,
-                                backgroundColor: [
-                                    "rgb(255, 87, 87",
-                                    "rgb(255, 219, 15)",
-                                    "rgb(87, 250, 0)",
-                                    "rgb(0, 118, 250)",
-                                    "rgb(166, 1, 255)",
-                                    // Thêm các màu khác nếu cần
-                                ],
-                                borderColor: [
-                                    "rgb(255, 87, 87",
-                                    "rgb(255, 219, 15)",
-                                    "rgb(87, 250, 0)",
-                                    "rgb(0, 118, 250)",
-                                    "rgb(166, 1, 255)",
-                                    // Thêm các màu khác nếu cần
-                                ],
-                                borderWidth: 1,
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        cutout: "70%", // Điều chỉnh kích thước lỗ giữa để tạo hình dạng donut
-                        plugins: {
-                            legend: {
-                                position: "right"
-                            }
-                        }
-                    }
-                });
-
-            },
-            error: function (error) {
-                // Xử lý lỗi (nếu có)
-                console.log(error);
-            },
-        });
 
 
 
@@ -299,7 +287,7 @@
                             <p id="postCount">@ViewBag.postCount</p>
                         </div>
                         <div class="icon">
-                            <i class="fa-solid fa-people-line mt-2" style="font-size: 47px; color: #7ae4ff;"></i>
+                            <i class="fa-solid fa-people-line mt-2" style="font-size: 35px; color: #7ae4ff;"></i>
                         </div>
 
                     </div>
@@ -313,7 +301,7 @@
                             <p id="runningCount">@ViewBag.runningCount</p>
                         </div>
                         <div class="icon">
-                            <i class="fa-solid fa-chart-simple mt-2" style="font-size: 47px; color: #ffa3d0;"></i>
+                            <i class="fa-solid fa-chart-simple mt-2" style="font-size: 35px; color: #ffa3d0;"></i>
                         </div>
 
                     </div>
@@ -327,7 +315,7 @@
                             <p id="completeCount">@ViewBag.completeCount</p>
                         </div>
                         <div class="icon">
-                            <i class="fa-solid fa-person-circle-plus mt-2" style="font-size: 47px; color: #b6f5b2; "></i>
+                            <i class="fa-solid fa-person-circle-plus mt-2" style="font-size: 35px; color: #b6f5b2; "></i>
                         </div>
 
                     </div>
@@ -341,7 +329,7 @@
                             <p id="sumTarget">@Convert.ToInt64(ViewBag.sumTarget).ToString("N0") VND</p>
                         </div>
                         <div class="icon">
-                            <i class="fa-solid fa-money-bill-trend-up mt-2" style="font-size: 47px; color: #ffe1ad;"></i>
+                            <i class="fa-solid fa-money-bill-trend-up mt-2" style="font-size: 35px; color: #ffe1ad;"></i>
                         </div>
                     </div>
                 </div>
@@ -354,7 +342,7 @@
                             <p id="sumAmout">@Convert.ToInt64(ViewBag.sumAmout).ToString("N0") VND</p>
                         </div>
                         <div class="icon">
-                           <i class="fa-solid fa-hand-holding-dollar mt-2" style="font-size:47px; color: #ebfff9;"></i>
+                           <i class="fa-solid fa-hand-holding-dollar mt-2" style="font-size:35px; color: #ebfff9;"></i>
                         </div>
                     </div>
                 </div>
@@ -365,11 +353,11 @@
                             <h4>Choose a timeline</h4>
                             <form action="">
                                 <input type="month" id="bdaymonth" name="bdaymonth">
-                                <button type="submit">SENDO</button>
+                                <button type="submit">Submit</button>
                             </form>
                         </div>
                         <div class="icon">
-                            <i class="fa-solid fa-calendar-days mt-2" style="font-size:47px; color:antiquewhite;"></i>
+                            <i class="fa-solid fa-calendar-days mt-2" style="font-size:35px; color:antiquewhite;"></i>
                         </div>
 
                     </div>
@@ -380,7 +368,7 @@
             <!-- Main row -->
             <div class="row">
                 <!-- Left col -->
-                <section class="col-lg-7 connectedSortable">
+                <div class="col-sm-6 col-6">
                     <!-- Custom tabs (Charts with tabs)-->
                     <div class="card card-primary">
                         <div class="card-header">
@@ -397,21 +385,18 @@
                         </div>
                         <div class="card-body">
                             <div class="chart">
-                                <canvas id="myChart3" style="min-height: 250px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                                <canvas id="myChart3"  style="min-height: 250px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
 
                             </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-
-
-
-
-                </section>
+                </div>
                 <!-- /.Left col -->
+
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                <section class="col-lg-5 connectedSortable">
+                <div class="col-sm-6 col-6">
                     <!-- LINE CHART -->
                     <div class="card card-info">
                         <div class="card-header">
@@ -428,7 +413,7 @@
                         </div>
                         <div class="card-body">
                             <div class="chart">
-                                <canvas id="myChart2" style="min-height: 250px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                                <canvas id="myChart2"  style="min-height: 250px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
                                 
                             </div>
                         </div>
@@ -437,7 +422,7 @@
                     <!-- /.card -->
                     <!-- /.card -->
 
-                </section>
+                </div>
                 <!-- right col -->
 
             </div>

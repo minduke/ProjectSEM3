@@ -420,12 +420,14 @@ namespace GiveAID.Controllers
 
         public JsonResult FilterChart(int year, int month)
         {
-            var payments = en.payments
-                .Where(x => x.transaction_date.Value.Year == year && x.transaction_date.Value.Month == month && x.pay_status == "Success")
-                .Select(s => new
-                {
-                    s.transaction_amout
-                });
+            var bars = en.payments
+               .Where(x => x.pay_status == "Success" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
+               .GroupBy(p => p.post.category.name)
+               .Select(g => new ModelLineChart
+               {
+                   name = g.Key,
+                   sum = g.Sum(x => x.transaction_amout) ?? 0
+               });
 
             var cate = en.categories.Select(s => new ModelChart
             {
@@ -452,7 +454,7 @@ namespace GiveAID.Controllers
 
             return Json(new
             {
-                payments,
+                bars,
                 postCount,
                 runningCount,
                 completeCount,
