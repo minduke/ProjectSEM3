@@ -105,6 +105,9 @@ namespace GiveAID.Controllers
                 if (model.newPass != model.repeatPass)
                     throw new Exception("Please check your new password again");
 
+                if (model.newPass.Length < 8)
+                    throw new Exception("Password at least 8 characters");
+
                 data.password = EncryptDES(model.newPass, SecretKey);
                 en.SaveChanges();
                 Session.Remove("USER");

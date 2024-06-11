@@ -377,17 +377,24 @@ namespace GiveAID.Controllers
             return View();
         }
 
-
+        public class ModelLineChart
+        {
+            public string name;
+            public decimal sum;
+        }
 
         [HttpPost]
         public JsonResult chartJS()
         {
             var listU = en.payments
                 .Where(x => x.pay_status == "Success" && x.transaction_date.Value.Year == DateTime.Now.Year && x.transaction_date.Value.Month == DateTime.Now.Month)
-                .Select(s => new
+                .GroupBy(p => p.post.category.name)
+                .Select(g => new ModelLineChart
                 {
-                    s.transaction_amout
-                });
+                    name = g.Key,
+                    sum = g.Sum(x => x.transaction_amout) ?? 0
+                })
+                .ToList();
 
             return Json(listU);
         }
