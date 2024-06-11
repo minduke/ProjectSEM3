@@ -113,8 +113,7 @@ html, body {
 
 .w-100 {
     /* kích thước thẻ slide index home */
-    width: 100vw;
-    height: 40vh;
+    height: 45vh;
     filter: blur(1px);
     background-color: rgba(0, 0, 0, 0.5); /* Màu nền làm mờ */
 }

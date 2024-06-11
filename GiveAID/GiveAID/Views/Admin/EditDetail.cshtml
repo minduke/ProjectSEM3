@@ -283,7 +283,7 @@
             $(".filename-contain").text(filename);
         });
 
-
+    
 
     </script>
 }
@@ -404,7 +404,8 @@
         <div class="card-body mx-auto">
             <div class="form-group">
                 <h1><label for="Tiêu Đề">Title</label></h1>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Title" required value="@post.title">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Title" required value="@post.title" maxlength="150"/>  
+                <p class="text-muted text-right" id="charCount"></p>
             </div>
             <hr class="new4">
 
