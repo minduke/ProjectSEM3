@@ -352,7 +352,7 @@
                                                 <span>End date of the project:</span>
                                             </div>
                                             <div class="col-sm-6 col-6 ">
-                                                <p>@posts.time_end.Value.ToShortDateString()</p>
+                                                <p>@posts.time_end.Value.ToString("dd/MM/yyyy")</p>
                                                 <input type="hidden" id="balance" value="@(posts.target - ViewBag.sum)" />
                                             </div>
                                         </div>

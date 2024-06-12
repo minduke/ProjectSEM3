@@ -25,6 +25,8 @@
             return item.sum;
         });
 
+        
+        console.log(dataS);
 
 
 
@@ -34,7 +36,7 @@
             data: {
                 labels: labelName,
                 datasets: [{
-                    label: 'Amount by catcategory',
+                    label: 'Total Donations',
                     data: dataS,
                     backgroundColor: colors,
                     borderColor: borderColors,
@@ -151,7 +153,7 @@
                     data: {
                         labels: labelName,
                         datasets: [{
-                            label: 'Amount by catcategory',
+                            label: 'Total Donations',
                             data: dataS,
                             backgroundColor: colors,
                             borderColor: borderColors,
@@ -372,7 +374,7 @@
                     <!-- Custom tabs (Charts with tabs)-->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Donut Chart</h3>
+                            <h3 class="card-title">Article statistics by categories</h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -400,7 +402,7 @@
                     <!-- LINE CHART -->
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Line Chart</h3>
+                            <h3 class="card-title">Donations summary by categories</h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
