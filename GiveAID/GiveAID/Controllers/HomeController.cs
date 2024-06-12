@@ -38,7 +38,7 @@ namespace GiveAID.Controllers
                 })
                 .OrderByDescending(x => x.id)
                 .ToList();
-
+            ViewBag.imageFooter = en.configurations.FirstOrDefault(x => x.keyword == "SYS_IMAGE_FOOTER");
             ViewBag.banner = en.banners.ToList();
             return View();
         }
@@ -376,7 +376,7 @@ namespace GiveAID.Controllers
             ViewBag.SysPhone = en.configurations.FirstOrDefault(x => x.keyword == "SYS_PHONE");
             ViewBag.SysAddress = en.configurations.FirstOrDefault(x => x.keyword == "SYS_ADDRESS");
             ViewBag.partner = en.partners.ToList();
-
+            ViewBag.imageFooter = en.configurations.FirstOrDefault(x => x.keyword == "SYS_IMAGE_FOOTER");
             return View();
         }
 
